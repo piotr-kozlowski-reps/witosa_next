@@ -34,5 +34,8 @@
     "@commitlint/config-conventional": "^17.6.5",
     "husky": "^8.0.3",
     "prettier": "^2.8.8"
+  },
+  "resolutions": {
+    "webpack": "^5"
   }
 }
