@@ -22,6 +22,7 @@ export default function RootLayout({
 }) {
   ////logic
   const currentMode = useLayoutState().getLayoutMode();
+  const currentFontSize = useLayoutState().getFontSize();
 
   ////tsx
   return (
@@ -29,7 +30,12 @@ export default function RootLayout({
       <body
         className={clsx(
           'bg-skin-fill',
-          currentMode === 'NORMAL' ? null : 'theme-contrast'
+          currentMode === 'NORMAL' ? null : 'theme-contrast',
+          currentFontSize === 'NORMAL'
+            ? null
+            : currentFontSize === 'BIGGER'
+            ? 'theme-font-size-bigger'
+            : 'theme-font-size-biggest'
         )}
       >
         <Navbar />

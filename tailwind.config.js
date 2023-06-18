@@ -20,6 +20,9 @@ module.exports = {
           'button-accent-hover': 'var(--color-button-accent-hover)',
         },
       },
+      fontSize: {
+        base: ['var(--font-size-base)', 'var(--font-line-height-base)'],
+      },
     },
   },
   plugins: [],
