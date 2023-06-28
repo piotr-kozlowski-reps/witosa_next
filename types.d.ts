@@ -4,3 +4,21 @@ export type TLayoutState = {
   mode: TMode;
   fontSize: TFontSize;
 };
+
+//register form
+export type TRegisterFormValues = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+export type TRegisterFormValuesSent = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type TLoginFormValues = {
+  email: string;
+  password: string;
+};

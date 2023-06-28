@@ -24,8 +24,8 @@ enum EventsType {
 model User{
   id String @id @default(uuid())
   name String
-  password String
   email String @unique
+  hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   events Event[]

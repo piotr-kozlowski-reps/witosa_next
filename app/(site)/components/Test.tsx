@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutState } from '@/globalState/layoutState';
+import { useLayoutState } from '@/context/layoutState';
 import { Fragment } from 'react';
 
 export default function Test() {
