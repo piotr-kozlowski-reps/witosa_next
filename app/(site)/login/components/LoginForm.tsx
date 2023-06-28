@@ -18,7 +18,7 @@ const LoginForm = () => {
 
   async function submitFormHandler(
     values: TLoginFormValues,
-    formikHelpers: FormikHelpers<TLoginFormValues>
+    _formikHelpers: FormikHelpers<TLoginFormValues>
   ) {
     console.log('form values: ', values);
 

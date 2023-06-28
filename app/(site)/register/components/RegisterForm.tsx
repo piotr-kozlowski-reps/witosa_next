@@ -30,7 +30,7 @@ export default function RegisterForm() {
 
   async function submitFormHandler(
     values: TRegisterFormValues,
-    formikHelpers: FormikHelpers<TRegisterFormValues>
+    _formikHelpers: FormikHelpers<TRegisterFormValues>
   ) {
     console.log('form values: ', values);
 
