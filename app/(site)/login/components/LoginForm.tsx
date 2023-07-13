@@ -20,7 +20,7 @@ const LoginForm = () => {
     values: TLoginFormValues,
     _formikHelpers: FormikHelpers<TLoginFormValues>
   ) {
-    console.log('form values: ', values);
+    // console.log('form values: ', values);
 
     const valuesToBeSent: TLoginFormValues = {
       email: values.email,
@@ -50,7 +50,7 @@ const LoginForm = () => {
         validationSchema={toFormikValidationSchema(validationSchema)}
       >
         {(formik) => {
-          console.log(formik);
+          // console.log(formik);
 
           return (
             <Form>

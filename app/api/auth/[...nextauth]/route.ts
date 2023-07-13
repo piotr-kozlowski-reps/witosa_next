@@ -1,8 +1,12 @@
+import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { UserRole } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+type TSessionWithUserType = DefaultSession & { user: { role: UserRole } };
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -28,6 +32,14 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
+        logger.info(`Pierwszy log zapisany`);
+
+        try {
+          throw new Error('Wywalony błąd');
+        } catch (error) {
+          logger.error(error.stack);
+        }
+
         //TODO: rewrite later with loging and errors via middleware
         if (!credentials?.email || !credentials.password) {
           throw new Error('Please enter email and password. ');
@@ -57,6 +69,24 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        token.id = user.id;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.role = token.role;
+        session.user.id = token.id;
+      }
+
+      return session;
+    },
+  },
   secret: process.env.SECRET,
   session: { strategy: 'jwt' },
   debug: process.env.NODE_ENV === 'development',

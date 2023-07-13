@@ -4,7 +4,7 @@ import TestServerSession from './(site)/components/TestServerSession';
 
 export default function Home() {
   return (
-    <main className="bg-skin-fill text-skin-base">
+    <main className="bg-skin-main-bg text-skin-base">
       <h1 className="text-base text-skin-base">hello!!!</h1>
       <Test />
       <TestServerSession />

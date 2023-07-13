@@ -21,6 +21,11 @@ enum EventsType {
   OTHERS
 }
 
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
 model User{
   id String @id @default(uuid())
   name String
@@ -28,6 +33,7 @@ model User{
   hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  role UserRole @default(EDITOR)
   events Event[]
 }
 

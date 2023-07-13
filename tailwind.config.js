@@ -9,15 +9,16 @@ module.exports = {
       textColor: {
         skin: {
           base: 'var(--color-text-base)',
-          inverted: 'var(--color-text-inverted)',
+          // inverted: 'var(--color-text-inverted)',
         },
       },
       backgroundColor: {
         skin: {
-          fill: 'var(--color-fill)',
-          'fill-inverted': 'var(--color-fill-inverted)',
-          'button-accent': 'var(--color-button-accent)',
-          'button-accent-hover': 'var(--color-button-accent-hover)',
+          'main-bg': 'var(--color-bg-base)',
+          // fill: 'var(--color-fill)',
+          // 'fill-inverted': 'var(--color-fill-inverted)',
+          // 'button-accent': 'var(--color-button-accent)',
+          // 'button-accent-hover': 'var(--color-button-accent-hover)',
         },
       },
       fontSize: {

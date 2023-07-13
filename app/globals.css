@@ -4,29 +4,33 @@
 
 @layer base {
   :root {
-    --color-text-base: #333333;
+    --color-bg-base: #f5f5f5;
+    --color-text-base: #222221;
+    /* --color-text-base: #333333;
     --color-text-inverted: #dddddd;
     --color-fill: #afc0d8;
     --color-fill-inverted: #0c1e36;
     --color-button-accent: #350edf;
     --color-button-accent-hover: #1a0e50;
     --font-size-base: 12px;
-    --font-line-height-base: 20px;
+    --font-line-height-base: 20px; */
   }
   .theme-contrast {
-    --color-text-base: #eeeeee;
-    --color-text-inverted: #000000;
+    /* --color-bg-base: #f5f5f5;
+    --color-text-base: #222221; */
+    /* --color-text-base: #eeeeee; */
+    /* --color-text-inverted: #000000;
     --color-fill: #000000;
     --color-fill-inverted: #ffffff;
     --color-button-accent: #eeeeee;
-    --color-button-accent-hover: #aaaaaa;
+    --color-button-accent-hover: #aaaaaa; */
   }
   .theme-font-size-bigger {
-    --font-size-base: 14px;
-    --font-line-height-base: 25px;
+    /* --font-size-base: 14px;
+    --font-line-height-base: 25px; */
   }
   .theme-font-size-biggest {
-    --font-size-base: 16px;
-    --font-line-height-base: 30px;
+    /* --font-size-base: 16px;
+    --font-line-height-base: 30px; */
   }
 }
