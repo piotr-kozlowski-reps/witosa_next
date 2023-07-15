@@ -37,7 +37,8 @@ export const authOptions: NextAuthOptions = {
         try {
           throw new Error('Wywalony błąd');
         } catch (error) {
-          logger.error(error.stack);
+          const err = error as any; //TODO: better solution
+          logger.error(err.stack);
         }
 
         //TODO: rewrite later with loging and errors via middleware

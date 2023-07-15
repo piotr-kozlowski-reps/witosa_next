@@ -1,7 +1,7 @@
 import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
-const getLogger = (fileName = 'application') => {
+const getLogger = (fileName = 'witosa') => {
   const fileLogTransport = new transports.DailyRotateFile({
     filename: `logs/${fileName}-%DATE%.log`,
     datePattern: 'YYYY-MM-DD',
