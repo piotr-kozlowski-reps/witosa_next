@@ -1,14 +1,9 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
+import { checkIfUserIsAnAdminAndIfNot_RedirectToPath } from '@/lib/sessionHelpers';
 import { Fragment } from 'react';
 import RegisterForm from './components/RegisterForm';
 
 export default async function Register() {
-  const session = await getServerSession(authOptions);
-
-  if (session?.user?.role !== 'ADMIN') {
-    throw new Error('You need to be an admin');
-  }
+  await checkIfUserIsAnAdminAndIfNot_RedirectToPath('/login');
 
   return (
     <Fragment>

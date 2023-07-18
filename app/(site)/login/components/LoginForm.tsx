@@ -1,27 +1,26 @@
 'use client';
+import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
+import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TLoginFormValues } from '@/types';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { signIn } from 'next-auth/react';
 import { Fragment } from 'react';
-import { toast } from 'react-hot-toast';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 const LoginForm = () => {
   ////formik
-  const validationSchema: z.ZodType<TLoginFormValues> = z.object({
-    email: z.string().email(),
-    password: z.string().min(5).max(20),
-  });
+  type loginFormInputs = z.TypeOf<typeof loginValidationSchema>;
 
-  type loginFormInputs = z.TypeOf<typeof validationSchema>;
+  const loginValidationSchema: z.ZodType<TLoginFormValues> = z.object({
+    email: loginEmailSchema,
+    password: loginPasswordSchema,
+  });
 
   async function submitFormHandler(
     values: TLoginFormValues,
     _formikHelpers: FormikHelpers<TLoginFormValues>
   ) {
-    // console.log('form values: ', values);
-
     const valuesToBeSent: TLoginFormValues = {
       email: values.email,
       password: values.password,
@@ -30,10 +29,10 @@ const LoginForm = () => {
     signIn('credentials', { ...valuesToBeSent, redirect: false }).then(
       (callback) => {
         if (callback?.error) {
-          toast.error(callback.error);
+          userNotificationHandler('ERROR', 'Nie udało się zalogować');
         }
         if (callback?.ok && !callback?.error) {
-          toast.success('Logged in successfully!');
+          userNotificationHandler('SUCCESS', 'Jesteś zalogowany');
         }
       }
     );
@@ -47,11 +46,9 @@ const LoginForm = () => {
           password: '',
         }}
         onSubmit={submitFormHandler}
-        validationSchema={toFormikValidationSchema(validationSchema)}
+        validationSchema={toFormikValidationSchema(loginValidationSchema)}
       >
         {(formik) => {
-          // console.log(formik);
-
           return (
             <Form>
               <div>LoginForm - po zalogowaniu przejście do części admin</div>

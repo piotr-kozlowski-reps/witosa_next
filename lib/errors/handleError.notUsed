@@ -1,0 +1,6 @@
+// import logger from '../logger';
+
+// export function handleApiError(errorCode: number, message: string) {
+//   logger.warn(message);
+//   throw new Error(message);
+// }

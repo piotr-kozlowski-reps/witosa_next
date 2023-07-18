@@ -22,3 +22,12 @@ export type TLoginFormValues = {
   email: string;
   password: string;
 };
+
+export type NOTIFICATION_TYPES = 'ERROR' | 'SUCCESS';
+
+export type FileList = {
+  logFilesList: string;
+};
+export type LogFile = {
+  fogFileContent: string;
+};

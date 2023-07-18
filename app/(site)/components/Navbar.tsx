@@ -1,10 +1,8 @@
-import { signOut } from 'next-auth/react';
-
 export default function Navbar() {
-  const signOutHandler = () => {
-    console.log('signOut');
-    signOut();
-  };
+  // const signOutHandler = () => {
+  //   console.log('signOut');
+  //   signOut();
+  // };
 
   return (
     <nav className="flex items-center justify-between h-32 px-8 bg-skin-fill">

@@ -1,12 +1,13 @@
+import { getExceptionStack } from '@/lib/errors/ErrorUtils';
+import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { UserRole } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-type TSessionWithUserType = DefaultSession & { user: { role: UserRole } };
+// type TSessionWithUserType = DefaultSession & { user: { role: UserRole } };
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -24,48 +25,72 @@ export const authOptions: NextAuthOptions = {
           label: 'Hasło',
           type: 'text',
         },
-        name: {
-          label: 'Nazwa',
-          type: 'text',
-          placeholder: 'wprowadź swoje imię',
-        },
       },
 
       async authorize(credentials) {
-        logger.info(`Pierwszy log zapisany`);
+        ////vars
+        const badLoginCredentialsMessage =
+          'Podano złe dane logowania. Prosimy o wpisanie poprawnych danych.';
+
+        ////logic
+        /* email and password validation **/
+        if (!credentials?.email) {
+          logger.warn(badLoginCredentialsMessage);
+          throw new Error(badLoginCredentialsMessage);
+        }
+
+        if (!credentials?.password) {
+          logger.warn(badLoginCredentialsMessage);
+          throw new Error(badLoginCredentialsMessage);
+        }
 
         try {
-          throw new Error('Wywalony błąd');
+          loginEmailSchema.parse(credentials.email);
+          loginPasswordSchema.parse(credentials.password);
         } catch (error) {
-          const err = error as any; //TODO: better solution
-          logger.error(err.stack);
+          logger.warn(badLoginCredentialsMessage);
+          throw new Error(badLoginCredentialsMessage);
         }
 
-        //TODO: rewrite later with loging and errors via middleware
-        if (!credentials?.email || !credentials.password) {
-          throw new Error('Please enter email and password. ');
-        } //TODO: podziel to i daj w osobnych ifach, żeby zalogować czego brakowąło
-
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
+        /* user validation **/
+        let user = null;
+        try {
+          user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
+        } catch (error) {
+          const exceptionStack = getExceptionStack(error);
+          logger.error(exceptionStack);
+        }
 
         if (!user || !user?.hashedPassword) {
-          console.log('no user - throwing error');
-          throw new Error('no user found');
+          logger.warn(
+            `Nie znaleziono użytkownika, email: ${credentials.email}`
+          );
+          throw new Error(`No user found.`);
         }
 
-        const passwordMatch = await bcrypt.compare(
-          credentials.password,
-          user.hashedPassword
-        );
+        let passwordMatch;
+        try {
+          passwordMatch = await bcrypt.compare(
+            credentials.password,
+            user.hashedPassword
+          );
+        } catch (error) {
+          const exceptionStack = getExceptionStack(error);
+          logger.error(exceptionStack);
+        }
 
         if (!passwordMatch) {
-          throw new Error('Incorrect password');
+          logger.warn(
+            `Podano złe hasło użytkownika, email: ${credentials.email}`
+          );
+          throw new Error('Incorrect password.');
         }
 
+        logger.info(`Użytkownik, email: ${credentials.email} zalogowany.`);
         return user;
       },
     }),

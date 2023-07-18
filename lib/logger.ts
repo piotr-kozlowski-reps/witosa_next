@@ -38,6 +38,7 @@ const getLogger = (fileName = 'witosa') => {
   // }
 
   logger.add(fileLogTransport);
+  logger.add(consoleTransport);
 
   return logger;
 };
