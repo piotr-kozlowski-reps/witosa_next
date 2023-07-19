@@ -22,6 +22,10 @@ module.exports = {
         },
       },
       fontSize: {
+        linkBase: [
+          'var(--font-size-link-base)',
+          'var(--font-line-height-base)',
+        ],
         base: ['var(--font-size-base)', 'var(--font-line-height-base)'],
       },
     },

@@ -12,6 +12,9 @@ export const errorMessages = {
     'Tylko zalogowani użytkownicy mają dostęp do tych zasobów.',
 };
 
-export function createErrorMessageWithSPecifiedPath(path: string) {
-  return `${errorMessages.onlyAuthenticatedUsers} Ścieżka: ${path}`;
+export function createErrorMessageWithSpecifiedPath(
+  errorMessage: string,
+  path: string
+) {
+  return `${errorMessage} Ścieżka: ${path}`;
 }

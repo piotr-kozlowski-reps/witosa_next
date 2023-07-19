@@ -4,19 +4,17 @@ import { useIsUserAuthenticated } from '@/hooks/useIsUserAuthenticated';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import NotAuthenticaterError from '../components/NotAuthenticatedError';
+import NotAuthenticatedError from '../components/NotAuthenticatedError';
 
 export default function Dashboard() {
+  ////vars
   const isAuthenticated = useIsUserAuthenticated();
-  // useThrowAnErrorWhenUserIsUnauthenticated(
-  //   createErrorMessageWithSpecifiedPath('/dashboard')
-  // );
-
   const session = useSession();
 
+  ////tsx
   return (
     <Fragment>
-      {!isAuthenticated ? <NotAuthenticaterError /> : null}
+      {!isAuthenticated ? <NotAuthenticatedError /> : null}
       {isAuthenticated ? (
         <div>
           <h1>Dashboard</h1>

@@ -4,9 +4,11 @@ import AuthProvider from '@/context/AuthContext';
 import ToasterContext from '@/context/ToasterContext';
 import { useLayoutState } from '@/context/layoutState';
 import { clsx } from 'clsx';
+import { Rubik } from 'next/font/google';
 import Footer from './(site)/components/Footer';
 import Navbar from './(site)/components/Navbar';
 import './globals.css';
+const rubik = Rubik({ subsets: ['latin-ext'] });
 
 export default function RootLayout({
   children,
@@ -21,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
+        style={rubik.style}
         className={clsx(
           'bg-skin-fill',
           currentMode === 'NORMAL' ? null : 'theme-contrast',

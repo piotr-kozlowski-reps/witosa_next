@@ -7,8 +7,6 @@ import bcrypt from 'bcrypt';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-// type TSessionWithUserType = DefaultSession & { user: { role: UserRole } };
-
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [

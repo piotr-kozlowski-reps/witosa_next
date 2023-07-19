@@ -29,5 +29,14 @@ export type FileList = {
   logFilesList: string;
 };
 export type LogFile = {
-  fogFileContent: string;
+  name: string;
 };
+
+//navigation
+export type TLinkName =
+  | 'news'
+  | 'events'
+  | 'activities'
+  | 'groups'
+  | 'bistro'
+  | 'contact';

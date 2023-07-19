@@ -1,32 +1,40 @@
-import { logAndRespondWithApiError } from '@/lib/errors/ApiErrorUtils';
-import { responseMessages } from '@/lib/errors/messagesUtils';
-import { HttpStatusCode } from 'axios';
-import { getServerSession } from 'next-auth';
-import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
+import fs from 'fs/promises';
+import { getSession } from 'next-auth/react';
 
-export async function GET(_req: NextRequest) {
-  const session = await getServerSession(authOptions);
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(req: NextRequest) {
+  const session = await getSession(); //TODO: znaleźć sposób aby uzyskać dostęp do sesji (przesłać pewnei cookies w zapytaniu)
   const isLoggedIn = session?.user;
   const isAdmin = session?.user?.role === 'ADMIN';
 
-  if (!isLoggedIn) {
-    return logAndRespondWithApiError(
-      responseMessages.responseMessageNotLoggedIn,
-      HttpStatusCode.Forbidden
-    );
-  }
+  console.log({ session });
+  console.log({ isLoggedIn });
+  console.log({ isAdmin });
 
-  if (!isAdmin) {
-    return logAndRespondWithApiError(
-      responseMessages.responseMessageNotAdminUser,
-      HttpStatusCode.Forbidden
-    );
-  }
+  // if (!isLoggedIn) {
+  //   return logAndRespondWithApiError(
+  //     createErrorMessageWithSpecifiedPath(
+  //       responseMessages.responseMessageNotAdminUser,
+  //       '/api/logs'
+  //     ),
+  //     HttpStatusCode.Forbidden
+  //   );
+  // }
+
+  // if (!isAdmin) {
+  //   return logAndRespondWithApiError(
+  //     createErrorMessageWithSpecifiedPath(
+  //       responseMessages.responseMessageNotAdminUser,
+  //       '/api/logs'
+  //     ),
+  //     HttpStatusCode.Forbidden
+  //   );
+  // }
 
   // const filesList = await readFilesList('/logs');
 
-  return NextResponse.json({ logFilesList: 'list' });
+  return NextResponse.json({ temporaryError: 'error' });
 
   // return res.json({ message: 'getting logs' });
   //overall error handling
@@ -62,8 +70,8 @@ export async function GET(_req: NextRequest) {
   // return NextResponse.json(user);
 }
 
-// async function readFilesList(folderName: string) {
-//   const filesInDesiredFolder = await fs.readdir(folderName);
-//   console.log(filesInDesiredFolder);
-//   return filesInDesiredFolder;
-// }
+async function readFilesList(folderName: string) {
+  const filesInDesiredFolder = await fs.readdir(`%root/logs/`);
+  console.log(filesInDesiredFolder);
+  return filesInDesiredFolder;
+}

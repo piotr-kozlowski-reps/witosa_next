@@ -1,13 +1,14 @@
 import Link from 'next/link';
 
-export default function NotAuthenticaterError() {
-  //TODO: add showing what site it is
+export default function NotAnAdminError() {
+  //TODO: add showing what site it was
   //TODO: button to login
   //TODO: button to main
+
   return (
     <div>
-      NotAuthenticaterErrorComponent - with later path showing where error
-      occured
+      NotAnAdminErrorComponent - with later path showing where error occured Add
+      -
       <div>
         <Link href={'/login'}>Login</Link>
       </div>

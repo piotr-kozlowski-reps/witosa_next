@@ -1,12 +1,16 @@
-import { FileList } from '@/types';
-import { responseMessages } from '../errors/responseMessages';
+import { LogFile } from '@/types';
+import { responseMessages } from '../errors/messagesUtils';
 
-export default async function getLogFilesList(): Promise<FileList> {
-  const res = await fetch(`${process.env.BASE_URL}/logs`);
+export default async function getLogFilesList(): Promise<LogFile[]> {
+  const res = await fetch(`${process.env.BASE_URL}/api/logs`, {
+    cache: 'no-cache',
+  });
 
   if (!res.ok) {
     throw new Error(responseMessages.cannotAccessLogFiles);
   }
-  const logFiles: FileList = await res.json();
+
+  const logFiles: LogFile[] = await res.json();
+
   return logFiles;
 }
