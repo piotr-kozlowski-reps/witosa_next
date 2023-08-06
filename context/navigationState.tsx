@@ -1,16 +1,8 @@
 // import { TLayoutState } from '@/types';
-import { TLinkName } from '@/types';
+import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
+import { TLink, TLinkName } from '@/types';
 import { hookstate, useHookstate } from '@hookstate/core';
 import { devtools } from '@hookstate/devtools';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-
-type TLink = {
-  name: TLinkName;
-  nameToBeDisplayed: string;
-  path: string;
-  isCurrentlyUsed: boolean;
-};
 
 type TNavigationState = {
   links: TLink[];
@@ -64,65 +56,19 @@ const navigationState = hookstate(
 
 export function useNavigationState() {
   const state = useHookstate(navigationState);
-  const currentpathName = usePathname();
 
-  useEffect(() => {
-    const currentLinks: TLink[] = state.links
-      .get({ noproxy: true })
-      .map((link) => {
-        return link;
-      });
-    const resetToFalse_IsCurrentlyUsedProperty_InLinks = currentLinks.map(
-      (link) => ({ ...link, isCurrentlyUsed: false })
-    );
-
-    resetToFalse_IsCurrentlyUsedProperty_InLinks.map((link) => {
-      if (link.path === currentpathName) {
-        return { ...link, isCurrentlyUsed: true };
-      }
-    });
-
-    // //set appropriate link isCurrentlyUsed
-  }, [currentpathName]);
+  /** handler to change isCurrentlyUsed:boolean state property according to current site path */
+  const currentLinksState = state.links.get({ noproxy: true });
+  const pointerToMethodSettingLinksValue = state.links.set;
+  useChangeCurrentLinkActive(
+    currentLinksState,
+    pointerToMethodSettingLinksValue
+  );
 
   return {
     /** link getter */
     getLinkData(linkName: TLinkName) {
       return state.links.get().find((link) => link.name === linkName);
     },
-
-    /** mode toggler: NORMAL <-> HIGH_CONTRAST */
-    // toggleLayoutState() {
-    //   if (state.mode.get() === 'NORMAL') {
-    //     state.mode.set('HIGH_CONTRAST');
-    //   } else {
-    //     state.mode.set('NORMAL');
-    //   }
-    // },
-
-    /** fontSize getter */
-    // getFontSize() {
-    //   return state.fontSize.get();
-    // },
-
-    /** font-size toggler: 'NORMAL' -> 'BIGGER' -> 'BIGGEST' -> back */
-    // toggleFontSize() {
-    //   switch (state.fontSize.get()) {
-    //     case 'NORMAL':
-    //       state.fontSize.set('BIGGER');
-    //       break;
-
-    //     case 'BIGGER':
-    //       state.fontSize.set('BIGGEST');
-    //       break;
-
-    //     case 'BIGGEST':
-    //       state.fontSize.set('NORMAL');
-    //       break;
-
-    //     default:
-    //       state.fontSize.set('NORMAL');
-    //   }
-    // },
   };
 }

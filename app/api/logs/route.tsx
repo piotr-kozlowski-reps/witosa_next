@@ -1,9 +1,8 @@
-import fs from 'fs/promises';
 import { getSession } from 'next-auth/react';
 
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   const session = await getSession(); //TODO: znaleźć sposób aby uzyskać dostęp do sesji (przesłać pewnei cookies w zapytaniu)
   const isLoggedIn = session?.user;
   const isAdmin = session?.user?.role === 'ADMIN';
@@ -70,8 +69,8 @@ export async function GET(req: NextRequest) {
   // return NextResponse.json(user);
 }
 
-async function readFilesList(folderName: string) {
-  const filesInDesiredFolder = await fs.readdir(`%root/logs/`);
-  console.log(filesInDesiredFolder);
-  return filesInDesiredFolder;
-}
+// async function readFilesList(folderName: string) {
+//   const filesInDesiredFolder = await fs.readdir(`%root/logs/`);
+//   console.log(filesInDesiredFolder);
+//   return filesInDesiredFolder;
+// }

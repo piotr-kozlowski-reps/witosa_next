@@ -15,6 +15,7 @@ module.exports = {
       backgroundColor: {
         skin: {
           'main-bg': 'var(--color-bg-base)',
+          primary: 'var(--color-text-base)',
           // fill: 'var(--color-fill)',
           // 'fill-inverted': 'var(--color-fill-inverted)',
           // 'button-accent': 'var(--color-button-accent)',
@@ -27,6 +28,9 @@ module.exports = {
           'var(--font-line-height-base)',
         ],
         base: ['var(--font-size-base)', 'var(--font-line-height-base)'],
+      },
+      borderRadius: {
+        base: '20px',
       },
     },
   },

@@ -40,3 +40,19 @@ export type TLinkName =
   | 'groups'
   | 'bistro'
   | 'contact';
+export type TLink = {
+  name: TLinkName;
+  nameToBeDisplayed: string;
+  path: string;
+  isCurrentlyUsed: boolean;
+};
+
+//slider
+
+export type TEventType = 'concert' | 'workshop';
+export type TMainSliderData = {
+  eventType: TEventType[];
+  title: string;
+  date: Date;
+  urlToEvent: string;
+};

@@ -1,5 +1,5 @@
 import { LogFile } from '@/types';
-import { responseMessages } from '../errors/responseMessages';
+import { responseMessages } from '../errors/messagesUtils';
 
 export default async function getLogFileContent(
   logFileName: string

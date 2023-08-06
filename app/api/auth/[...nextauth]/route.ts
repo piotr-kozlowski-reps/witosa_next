@@ -3,7 +3,7 @@ import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 

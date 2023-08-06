@@ -1,14 +1,28 @@
+import MainSlider from './(site)/components/MainSlider';
 import Test from './(site)/components/Test';
 import TestClientSession from './(site)/components/TestClientSession';
 import TestServerSession from './(site)/components/TestServerSession';
 
 export default function Home() {
   return (
-    <main className="bg-skin-main-bg text-skin-base">
-      <h1 className="text-base text-skin-base">hello!!!</h1>
-      <Test />
-      <TestServerSession />
-      <TestClientSession />
+    <main>
+      <MainSlider />
+      <div className="bg-red-200">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Test />
+        <TestServerSession />
+        <TestClientSession />
+      </div>
     </main>
   );
 }

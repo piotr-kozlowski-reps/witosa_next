@@ -15,7 +15,7 @@ export default function NavigationLink(props: Props) {
   return (
     <div>
       {isCurrentlyUsed ? (
-        <div className="pt-1 link-active">{nameToBeDisplayed}</div>
+        <div className="pt-[3px] link-active">{nameToBeDisplayed}</div>
       ) : (
         <Link
           href={isCurrentlyUsed ? '' : url}

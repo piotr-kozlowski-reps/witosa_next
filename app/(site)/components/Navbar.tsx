@@ -16,51 +16,53 @@ export default function Navbar() {
 
   ////tsx
   return (
-    <nav className="flex items-center justify-between bg-skin-fill">
+    <nav className="relative flex items-start justify-between h-32 bg-skin-fill desktop-container">
       <div className="mt-10">
         <Link href={'/'}>
           <Image src="artck_logo.svg" width={77} height={24} alt="artck_logo" />
         </Link>
       </div>
-      <div className="flex gap-6">
-        <NavigationLink
-          url={getLinkData('news')?.path!}
-          isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('news')?.nameToBeDisplayed!}
-        />
-        <NavigationLink
-          url={getLinkData('events')?.path!}
-          isCurrentlyUsed={getLinkData('events')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('events')?.nameToBeDisplayed!}
-        />
-        <NavigationLink
-          url={getLinkData('activities')?.path!}
-          isCurrentlyUsed={getLinkData('activities')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('activities')?.nameToBeDisplayed!}
-        />
-        <NavigationLink
-          url={getLinkData('groups')?.path!}
-          isCurrentlyUsed={getLinkData('groups')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('groups')?.nameToBeDisplayed!}
-        />
-        <div>
-          <button
-            className="link-default"
-            onClick={() => alert('not implemented')}
-          >
-            o nas
-          </button>
+      <div className="absolute right-0 bottom-[55px]">
+        <div className="flex gap-6">
+          <NavigationLink
+            url={getLinkData('news')?.path!}
+            isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('news')?.nameToBeDisplayed!}
+          />
+          <NavigationLink
+            url={getLinkData('events')?.path!}
+            isCurrentlyUsed={getLinkData('events')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('events')?.nameToBeDisplayed!}
+          />
+          <NavigationLink
+            url={getLinkData('activities')?.path!}
+            isCurrentlyUsed={getLinkData('activities')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('activities')?.nameToBeDisplayed!}
+          />
+          <NavigationLink
+            url={getLinkData('groups')?.path!}
+            isCurrentlyUsed={getLinkData('groups')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('groups')?.nameToBeDisplayed!}
+          />
+          <div>
+            <button
+              className="link-default"
+              onClick={() => alert('not implemented')}
+            >
+              o nas
+            </button>
+          </div>
+          <NavigationLink
+            url={getLinkData('bistro')?.path!}
+            isCurrentlyUsed={getLinkData('bistro')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('bistro')?.nameToBeDisplayed!}
+          />
+          <NavigationLink
+            url={getLinkData('contact')?.path!}
+            isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
+          />
         </div>
-        <NavigationLink
-          url={getLinkData('bistro')?.path!}
-          isCurrentlyUsed={getLinkData('bistro')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('bistro')?.nameToBeDisplayed!}
-        />
-        <NavigationLink
-          url={getLinkData('contact')?.path!}
-          isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-          nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
-        />
       </div>
     </nav>
   );
