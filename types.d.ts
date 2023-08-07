@@ -37,7 +37,16 @@ export type TLinkName =
   | 'news'
   | 'events'
   | 'activities'
-  | 'groups'
+  | 'about_about'
+  | 'about_rent'
+  | 'about_regulations'
+  | 'about_availability_declarations'
+  | 'about_rodo'
+  | 'groups_marzenie'
+  | 'groups_marzenie_mini_mini'
+  | 'groups_zajecia_utaneczniajace'
+  | 'groups_hipnoteria'
+  | 'groups_hipnoteria_bis'
   | 'bistro'
   | 'contact';
 export type TLink = {
@@ -46,9 +55,9 @@ export type TLink = {
   path: string;
   isCurrentlyUsed: boolean;
 };
+export type TSubMenu = 'about' | 'groups';
 
 //slider
-
 export type TEventType = 'concert' | 'workshop';
 export type TMainSliderData = {
   eventType: TEventType[];

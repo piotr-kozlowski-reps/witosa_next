@@ -33,7 +33,6 @@ COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/public ./public
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/next.config.js ./
-# COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app ./
 
 USER nextjs
 

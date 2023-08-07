@@ -6,7 +6,7 @@ import { useLayoutState } from '@/context/layoutState';
 import { clsx } from 'clsx';
 import { Rubik } from 'next/font/google';
 import Footer from './(site)/components/Footer';
-import Navbar from './(site)/components/Navbar';
+import Navigation from './(site)/components/navigation/Navigation';
 import './globals.css';
 const rubik = Rubik({ subsets: ['latin-ext'] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         style={rubik.style}
         className={clsx(
-          'bg-skin-fill',
+          'bg-skin-main-bg',
           currentMode === 'NORMAL' ? null : 'theme-contrast',
           currentFontSize === 'NORMAL'
             ? null
@@ -34,7 +34,10 @@ export default function RootLayout({
             : 'theme-font-size-biggest'
         )}
       >
-        <Navbar />
+        <a href="#main_content" className="skip-link">
+          Przejdź do treści
+        </a>
+        <Navigation />
         <AuthProvider>
           <ToasterContext />
           {children}

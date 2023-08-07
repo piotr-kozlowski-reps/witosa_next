@@ -9,6 +9,7 @@ module.exports = {
       textColor: {
         skin: {
           base: 'var(--color-text-base)',
+          inverted: 'var(--color-bg-base)',
           // inverted: 'var(--color-text-inverted)',
         },
       },
@@ -16,6 +17,7 @@ module.exports = {
         skin: {
           'main-bg': 'var(--color-bg-base)',
           primary: 'var(--color-text-base)',
+          fill: 'var(--color-bg-base)',
           // fill: 'var(--color-fill)',
           // 'fill-inverted': 'var(--color-fill-inverted)',
           // 'button-accent': 'var(--color-button-accent)',
@@ -31,6 +33,12 @@ module.exports = {
       },
       borderRadius: {
         base: '20px',
+      },
+      dropShadow: {
+        big: '-4px 4px 18px rgba(18, 41, 36, 0.15)',
+      },
+      colors: {
+        'primary-color': 'var(--color-text-base)',
       },
     },
   },
