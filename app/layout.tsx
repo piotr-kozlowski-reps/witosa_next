@@ -26,7 +26,15 @@ export default function RootLayout({
         style={rubik.style}
         className={clsx(
           'bg-skin-main-bg',
-          currentMode === 'NORMAL' ? null : 'theme-contrast',
+
+          // layout modes
+          currentMode === 'LIGHT'
+            ? null
+            : currentMode === 'DARK'
+            ? 'theme-dark'
+            : 'theme-contrast',
+
+          // font sizes
           currentFontSize === 'NORMAL'
             ? null
             : currentFontSize === 'BIGGER'

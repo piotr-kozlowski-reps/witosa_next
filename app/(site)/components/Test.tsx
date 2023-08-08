@@ -12,8 +12,7 @@ export default function Test() {
     layoutState.toggleLayoutState();
   }
   function fontSizeButtonHandler() {
-    layoutState.toggleFontSize();
-
+    // layoutState.toggleFontSize();
     // layoutState.toggleLayoutState();
   }
 

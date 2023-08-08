@@ -18,8 +18,8 @@
     --color-bg-base: #f5f5f5;
     --color-text-base: #222221;
     /* fonts */
-    --font-size-link-base: 13px;
-    --font-line-height-base: 19px;
+    --font-size-13: 13px;
+    --font-size-13-line-height: 18px;
 
     /* --color-text-base: #333333;
     --color-text-inverted: #dddddd;
@@ -27,29 +27,34 @@
     --color-fill-inverted: #0c1e36;
     --color-button-accent: #350edf;
     --color-button-accent-hover: #1a0e50;
-    --font-line-height-base: 20px; */
+    --font-size-13-line-height: 20px; */
+  }
+
+  /* colors / contrasts */
+  .theme-dark {
   }
   .theme-contrast {
-    /* --color-bg-base: #f5f5f5;
-    --color-text-base: #222221; */
-    /* --color-text-base: #eeeeee; */
-    /* --color-text-inverted: #000000;
-    --color-fill: #000000;
-    --color-fill-inverted: #ffffff;
-    --color-button-accent: #eeeeee;
-    --color-button-accent-hover: #aaaaaa; */
   }
+
+  /* font sizes */
   .theme-font-size-bigger {
-    /* --font-size-base: 14px;
-    --font-line-height-base: 25px; */
+    --font-size-13: 14px;
+    --font-size-13-line-height: 19px;
   }
   .theme-font-size-biggest {
-    /* --font-size-base: 16px;
-    --font-line-height-base: 30px; */
+    --font-size-13: 15px;
+    --font-size-13-line-height: 21px;
   }
 }
 
 @layer components {
+  /*   fonts   */
+  .font-base-regular {
+    @apply font-normal text-skin-base;
+  }
+  .font-base-bold {
+    @apply font-bold text-skin-base;
+  }
   /*   focus   */
   .primary-focus {
     @apply outline-dashed outline-2 outline-primary-color;
@@ -99,5 +104,9 @@
 
   .skip-link {
     @apply absolute z-10 w-1 h-1 p-8 overflow-hidden font-normal top-6 left-[-10000px] bg-skin-main-bg drop-shadow-big rounded-base primary-focus focus:left-6 focus:w-auto focus:h-auto;
+  }
+
+  .sr-only {
+    @apply absolute left-[-10000px] top-auto w-[1px] h-[1px] overflow-hidden;
   }
 }

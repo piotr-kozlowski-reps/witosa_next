@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 type Props = {
   url: string;
@@ -14,11 +15,15 @@ export default function NavigationLink(props: Props) {
 
   ////tsx
   return (
-    <div>
+    <Fragment>
       {isCurrentlyUsed ? (
-        <div className="pt-[3px] link-active whitespace-nowrap">
+        <a
+          className="pt-[3px] link-active whitespace-nowrap"
+          aria-current="page"
+          aria-disabled="true"
+        >
           {nameToBeDisplayed}
-        </div>
+        </a>
       ) : (
         <Link
           href={isCurrentlyUsed ? '' : url}
@@ -28,6 +33,6 @@ export default function NavigationLink(props: Props) {
           <span className="whitespace-nowrap">{nameToBeDisplayed}</span>
         </Link>
       )}
-    </div>
+    </Fragment>
   );
 }
