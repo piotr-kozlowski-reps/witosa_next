@@ -9,7 +9,7 @@ export default function Test() {
 
   ////logic
   function highContrastButtonHandler() {
-    layoutState.toggleLayoutState();
+    // layoutState.toggleLayoutState();
   }
   function fontSizeButtonHandler() {
     // layoutState.toggleFontSize();
