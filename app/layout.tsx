@@ -45,6 +45,9 @@ export default function RootLayout({
         <a href="#main_content" className="skip-link">
           Przejdź do treści
         </a>
+        <a href="#accessibility_navigation" className="skip-link">
+          Przejdź do narzędzi ułatwiających dostępność treści
+        </a>
         <Navigation />
         <AuthProvider>
           <ToasterContext />

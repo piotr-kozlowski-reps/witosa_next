@@ -8,6 +8,7 @@ type TNavigationState = {
   links: TLink[];
   isAboutSubmenuVisible: boolean;
   isGroupsSubmenuVisible: boolean;
+  isAccessibilityNavigationVisible: boolean;
 };
 
 const navigationStateData: TNavigationState = {
@@ -106,6 +107,7 @@ const navigationStateData: TNavigationState = {
   ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,
+  isAccessibilityNavigationVisible: true,
 };
 
 const navigationState = hookstate(
@@ -176,6 +178,17 @@ export function useNavigationState() {
     },
     toggleIsGroupsSubmenuVisible() {
       setProvidedSubmenuVisibilityToTrue_OtherToFalse('groups');
+    },
+
+    /** accessibility navigation getter */
+    getIsAccessibilityNavigationVisible() {
+      return state.isAccessibilityNavigationVisible.get();
+    },
+    setIsAccessibilityNavigationVisible_ToTrue() {
+      state.isAccessibilityNavigationVisible.set(true);
+    },
+    setIsAccessibilityNavigationVisible_ToFalse() {
+      state.isAccessibilityNavigationVisible.set(false);
     },
 
     /** hide all submenus */

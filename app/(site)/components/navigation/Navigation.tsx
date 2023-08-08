@@ -19,9 +19,14 @@ export default function Navigation() {
     toggleIsAboutSubmenuVisible,
     toggleIsGroupsSubmenuVisible,
     hideAllSubmenus,
+    getIsAccessibilityNavigationVisible,
+    setIsAccessibilityNavigationVisible_ToTrue,
+    setIsAccessibilityNavigationVisible_ToFalse,
   } = useNavigationState();
 
   const layoutState = useLayoutState();
+
+  console.log('access_nav: ', getIsAccessibilityNavigationVisible());
 
   // const signOutHandler = () => {
   //   console.log('signOut');
@@ -90,6 +95,7 @@ export default function Navigation() {
                 <NavigationButton
                   buttonName="grupy artystyczne"
                   idForAriaControls="options_groups"
+                  layoutState={layoutState.getLayoutMode()}
                   getIsSubmenuVisible={getIsGroupsSubmenuVisible}
                   toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
                 />
@@ -178,6 +184,7 @@ export default function Navigation() {
                 <NavigationButton
                   buttonName="o nas"
                   idForAriaControls="options_about"
+                  layoutState={layoutState.getLayoutMode()}
                   getIsSubmenuVisible={getIsAboutSubmenuVisible}
                   toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
                 />
@@ -279,7 +286,15 @@ export default function Navigation() {
         </div>
       </nav>
 
-      <div className="absolute w-full">
+      <div
+        className={clsx(
+          'absolute transition-all',
+          getIsAccessibilityNavigationVisible()
+            ? 'w-full top-[128px]'
+            : '-right-[1076px] top-[128px]'
+        )}
+        id="accessibility_navigation"
+      >
         <nav
           className="bg-skin-main-bg desktop-container drop-shadow-big rounded-base"
           aria-labelledby="accessibility_navigation_heading"
@@ -296,27 +311,33 @@ export default function Navigation() {
               </span>
             </div>
             {/* dla niedowidzących - zmiana wielkosci fonta */}
-            <li className="flex flex-col">
-              <div className="font-base-regular">Dla niedowidzących</div>
-              <ul className="flex gap-4">
+            <li className="flex flex-col ml-32">
+              <h4 className="font-base-regular">Dla niedowidzących</h4>
+              <ul className="flex gap-4 mt-4">
                 <li>
                   <IconButton
+                    isCurrentlyActive={layoutState.getFontSize() === 'NORMAL'}
                     iconDefaultUrl="font-small-sm_default.svg"
                     iconHoverUrl="font-small-sm_hover.svg"
+                    alt="Wielkość czcionki - normalna."
                     actionFn={layoutState.setFontSizeToNormal}
                   />
                 </li>
                 <li>
                   <IconButton
+                    isCurrentlyActive={layoutState.getFontSize() === 'BIGGER'}
                     iconDefaultUrl="font-bigger-sm_default.svg"
                     iconHoverUrl="font-bigger-sm_hover.svg"
+                    alt="Wielkość czcionki - powiększona."
                     actionFn={layoutState.setFontSizeToBigger}
                   />
                 </li>
                 <li>
                   <IconButton
+                    isCurrentlyActive={layoutState.getFontSize() === 'BIGGEST'}
                     iconDefaultUrl="font-biggest-sm_default.svg"
                     iconHoverUrl="font-biggest-sm_hover.svg"
+                    alt="Wielkość czcionki - największa."
                     actionFn={layoutState.setFontSizeToBiggest}
                   />
                 </li>
@@ -324,33 +345,58 @@ export default function Navigation() {
             </li>
 
             {/*  zmiana kolorów / kontrastu */}
-            <li className="flex flex-col">
-              {/* <div className="font-base-regular">Dla niedowidzących</div> */}
-              <ul className="flex gap-4">
+            <li className="flex flex-col ml-16">
+              <h4 className="font-base-regular">Kontrast</h4>
+              <ul className="flex gap-4 mt-4">
                 <li>
                   <IconButton
+                    isCurrentlyActive={layoutState.getLayoutMode() === 'LIGHT'}
                     iconDefaultUrl="layout-light-sm_default.svg"
                     iconHoverUrl="layout-light-sm_hover.svg"
-                    actionFn={layoutState.setFontSizeToNormal}
+                    alt="Ustawienia kolorów - tryb jasny."
+                    actionFn={layoutState.setLayoutModeToLight}
                   />
                 </li>
                 <li>
                   <IconButton
-                    iconDefaultUrl="font-bigger-sm_default.svg"
-                    iconHoverUrl="font-bigger-sm_hover.svg"
-                    actionFn={layoutState.setFontSizeToBigger}
+                    isCurrentlyActive={layoutState.getLayoutMode() === 'DARK'}
+                    iconDefaultUrl="layout-dark-sm_default.svg"
+                    iconHoverUrl="layout-dark-sm_hover.svg"
+                    alt="Ustawienia kolorów - tryb ciemny."
+                    actionFn={layoutState.setLayoutModeToDark}
                   />
                 </li>
                 <li>
                   <IconButton
-                    iconDefaultUrl="font-biggest-sm_default.svg"
-                    iconHoverUrl="font-biggest-sm_hover.svg"
-                    actionFn={layoutState.setFontSizeToBiggest}
+                    isCurrentlyActive={
+                      layoutState.getLayoutMode() === 'CONTRAST'
+                    }
+                    iconDefaultUrl="layout-contrast-sm_default.svg"
+                    iconHoverUrl="layout-contrast-sm_hover.svg"
+                    alt="Ustawienia kolorów - tryb kontrastowy."
+                    actionFn={layoutState.setLayoutModeToContrast}
                   />
                 </li>
               </ul>
             </li>
           </ul>
+          <div className="absolute top-4 left-4" aria-hidden="true">
+            <IconButton
+              isCurrentlyActive={getIsAccessibilityNavigationVisible()}
+              iconDefaultUrl="handicap-sm_default.svg"
+              iconHoverUrl="handicap-sm_hover.svg"
+              alt="Otwórz menu z narzędziami do ustawienia ułatwień dostępności treści."
+              actionFn={setIsAccessibilityNavigationVisible_ToTrue}
+            />
+          </div>
+          <div className="absolute top-4 right-4">
+            <IconButton
+              iconDefaultUrl="close-sm_default.svg"
+              iconHoverUrl="close-sm_hover.svg"
+              alt="Zamknij menu z narzędziami do ustawienia ułatwień dostępności treści."
+              actionFn={setIsAccessibilityNavigationVisible_ToFalse}
+            />
+          </div>
         </nav>
       </div>
       <div id="main_content"></div>

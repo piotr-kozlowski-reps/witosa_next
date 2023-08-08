@@ -9,19 +9,19 @@
 }
 
 /* *:focus {
-  outline: var(--color-text-base) dashed;
+  outline: var(--color-foreground-base) dashed;
 } */
 
 @layer base {
   :root {
     /* colors */
-    --color-bg-base: #f5f5f5;
-    --color-text-base: #222221;
+    --color-background-base: #f5f5f5;
+    --color-foreground-base: #222221;
     /* fonts */
     --font-size-13: 13px;
     --font-size-13-line-height: 18px;
 
-    /* --color-text-base: #333333;
+    /* --color-foreground-base: #333333;
     --color-text-inverted: #dddddd;
     --color-fill: #afc0d8;
     --color-fill-inverted: #0c1e36;
@@ -32,8 +32,12 @@
 
   /* colors / contrasts */
   .theme-dark {
+    --color-background-base: #222221;
+    --color-foreground-base: #f5f5f5;
   }
   .theme-contrast {
+    --color-background-base: #222221;
+    --color-foreground-base: #fffe54;
   }
 
   /* font sizes */
@@ -67,7 +71,7 @@
   }
   .link-default::after {
     content: '';
-    background-color: var(--color-text-base);
+    background-color: var(--color-foreground-base);
     display: block;
     width: 100%;
     height: 1px;
@@ -87,11 +91,42 @@
   }
   .link-active::after {
     content: '';
-    background-color: var(--color-text-base);
+    background-color: var(--color-foreground-base);
     display: block;
     width: 100%;
     height: 1px;
     margin-top: 3px;
+  }
+
+  /* icons after line */
+  .icon-active {
+    @apply font-normal;
+  }
+  .icon-active::after {
+    content: '';
+    background-color: var(--color-foreground-base);
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
+    opacity: 0;
+    scale: 0;
+    transition: all ease-out 100ms;
+  }
+  .icon-active:hover::after {
+    opacity: 1;
+    scale: 1;
+  }
+  .icon-inactive {
+    @apply font-normal;
+  }
+  .icon-inactive::after {
+    content: '';
+    background-color: var(--color-foreground-base);
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
   }
 
   .desktop-container {
