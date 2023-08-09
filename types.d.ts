@@ -65,3 +65,5 @@ export type TMainSliderData = {
   date: Date;
   urlToEvent: string;
 };
+
+export type TIconSize = 'NORMAL' | 'SMALL';

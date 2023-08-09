@@ -25,14 +25,15 @@ module.exports = {
         },
       },
       fontSize: {
-        linkBase: ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
+        'base-13': ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
         base: ['var(--font-size-base)', 'var(--font-size-13-line-height)'],
       },
       borderRadius: {
         base: '20px',
       },
       dropShadow: {
-        big: '-4px 4px 18px rgba(18, 41, 36, 0.15)',
+        big: '-4px 4px 18px var(--color-shadow)',
+        small: '-4px 4px 18px var(--color-shadow)',
       },
       colors: {
         'primary-color': 'var(--color-foreground-base)',

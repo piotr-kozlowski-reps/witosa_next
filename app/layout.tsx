@@ -3,6 +3,7 @@
 import AuthProvider from '@/context/AuthContext';
 import ToasterContext from '@/context/ToasterContext';
 import { useLayoutState } from '@/context/layoutState';
+import { useNavigationState } from '@/context/navigationState';
 import { clsx } from 'clsx';
 import { Rubik } from 'next/font/google';
 import Footer from './(site)/components/Footer';
@@ -18,6 +19,7 @@ export default function RootLayout({
   ////logic
   const currentMode = useLayoutState().getLayoutMode();
   const currentFontSize = useLayoutState().getFontSize();
+  const { setIsAccessibilityNavigationVisible_ToTrue } = useNavigationState();
 
   ////tsx
   return (
@@ -25,7 +27,7 @@ export default function RootLayout({
       <body
         style={rubik.style}
         className={clsx(
-          'bg-skin-main-bg',
+          'bg-skin-main-bg overflow-x-hidden',
 
           // layout modes
           currentMode === 'LIGHT'
@@ -45,7 +47,11 @@ export default function RootLayout({
         <a href="#main_content" className="skip-link">
           Przejdź do treści
         </a>
-        <a href="#accessibility_navigation" className="skip-link">
+        <a
+          href="#accessibility_navigation"
+          className="skip-link"
+          onClick={setIsAccessibilityNavigationVisible_ToTrue}
+        >
           Przejdź do narzędzi ułatwiających dostępność treści
         </a>
         <Navigation />

@@ -26,8 +26,6 @@ export default function Navigation() {
 
   const layoutState = useLayoutState();
 
-  console.log('access_nav: ', getIsAccessibilityNavigationVisible());
-
   // const signOutHandler = () => {
   //   console.log('signOut');
   //   signOut();
@@ -91,7 +89,7 @@ export default function Navigation() {
 
             {/* groups */}
             <li>
-              <div className="relative">
+              <div className="relative z-20">
                 <NavigationButton
                   buttonName="grupy artystyczne"
                   idForAriaControls="options_groups"
@@ -180,7 +178,7 @@ export default function Navigation() {
 
             {/* about */}
             <li>
-              <div className="relative">
+              <div className="relative z-20">
                 <NavigationButton
                   buttonName="o nas"
                   idForAriaControls="options_about"
@@ -282,15 +280,62 @@ export default function Navigation() {
                 nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
               />
             </li>
+            <div className="separator-vertical"></div>
+            <li className="-mt-1 ">
+              <IconButton
+                isCurrentlyActive={false}
+                iconDefaultUrl="facebook-xsm_default.svg"
+                iconHoverUrl="facebook-xsm_hover.svg"
+                alt="Facebook"
+                size="SMALL"
+                actionFn={() => alert('go to facebook - not implemented')}
+              />
+            </li>
+            <li className="-mt-1 -ml-1">
+              <IconButton
+                isCurrentlyActive={false}
+                iconDefaultUrl="instagram-xsm_default.svg"
+                iconHoverUrl="instagram-xsm_hover.svg"
+                alt="Instagram"
+                size="SMALL"
+                actionFn={() => alert('go to instagram - not implemented')}
+              />
+            </li>
+            <li className="-mt-1 -ml-1">
+              <IconButton
+                isCurrentlyActive={false}
+                iconDefaultUrl="youtube-xsm_default.svg"
+                iconHoverUrl="youtube-xsm_hover.svg"
+                alt="Youtube"
+                size="SMALL"
+                actionFn={() => alert('go to youtube - not implemented')}
+              />
+            </li>
           </ul>
         </div>
       </nav>
+      {/* overlay to groups button */}
+      <div
+        className={clsx(
+          'absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen overlay-minimal',
+          getIsGroupsSubmenuVisible() ? 'visible' : 'hidden'
+        )}
+        onClick={toggleIsGroupsSubmenuVisible}
+      ></div>
+      {/* overlay to about button */}
+      <div
+        className={clsx(
+          'absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen overlay-minimal',
+          getIsAboutSubmenuVisible() ? 'visible' : 'hidden'
+        )}
+        onClick={toggleIsAboutSubmenuVisible}
+      ></div>
 
       <div
         className={clsx(
-          'absolute transition-all',
+          'absolute transition-accessibility-menu z-40',
           getIsAccessibilityNavigationVisible()
-            ? 'w-full top-[128px]'
+            ? 'w-full top-[128px] right-0'
             : '-right-[1076px] top-[128px]'
         )}
         id="accessibility_navigation"
@@ -346,7 +391,7 @@ export default function Navigation() {
 
             {/*  zmiana kolorów / kontrastu */}
             <li className="flex flex-col ml-16">
-              <h4 className="font-base-regular">Kontrast</h4>
+              <h4 className="font-base-regular">Kolorystyka / kontrast</h4>
               <ul className="flex gap-4 mt-4">
                 <li>
                   <IconButton
@@ -399,6 +444,14 @@ export default function Navigation() {
           </div>
         </nav>
       </div>
+      {/* overlay to accessibility nav */}
+      <div
+        className={clsx(
+          'absolute top-0 bottom-0 left-0 right-0 z-30 w-screen h-screen overlay transition-accessibility-menu',
+          getIsAccessibilityNavigationVisible() ? 'visible' : 'hidden'
+        )}
+        onClick={setIsAccessibilityNavigationVisible_ToFalse}
+      ></div>
       <div id="main_content"></div>
     </Fragment>
   );

@@ -107,7 +107,7 @@ const navigationStateData: TNavigationState = {
   ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,
-  isAccessibilityNavigationVisible: true,
+  isAccessibilityNavigationVisible: false,
 };
 
 const navigationState = hookstate(

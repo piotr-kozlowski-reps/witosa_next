@@ -17,7 +17,7 @@ export default function SliderView(props: Props) {
       <div className="h-[352px] bg-skin-primary rounded-base"></div>
       {/* description */}
       <div className="mt-8">
-        <div className="text-linkBase">
+        <div className="text-base-13">
           {slidersData[0].eventType.map((type, index) => (
             <div key={index} className="inline">
               <span>{index !== 0 ? '|' : ''}</span>
