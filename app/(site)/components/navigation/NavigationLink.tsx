@@ -7,18 +7,33 @@ type Props = {
   isCurrentlyUsed: boolean;
   nameToBeDisplayed: string;
   hideAllSubmenus: () => void;
+  isMobileLink?: boolean;
 };
 
 export default function NavigationLink(props: Props) {
   ////vars
-  const { url, isCurrentlyUsed, nameToBeDisplayed, hideAllSubmenus } = props;
+  const {
+    url,
+    isCurrentlyUsed,
+    nameToBeDisplayed,
+    hideAllSubmenus,
+    isMobileLink = false,
+  } = props;
+
+  const standardLinkDefaultClasses = 'link-default';
+  const standardLinkActiveClasses = 'link-active';
+  const mobileLinkDefaultClasses = 'link-mobile-default';
+  const mobileLinkActiveClasses = 'link-mobile-active';
 
   ////tsx
   return (
     <Fragment>
       {isCurrentlyUsed ? (
         <a
-          className="pt-[3px] link-active whitespace-nowrap"
+          className={
+            (clsx('pt-[3px] whitespace-nowrap'),
+            isMobileLink ? mobileLinkActiveClasses : standardLinkActiveClasses)
+          }
           aria-current="page"
           aria-disabled="true"
         >
@@ -26,9 +41,11 @@ export default function NavigationLink(props: Props) {
         </a>
       ) : (
         <Link
-          href={isCurrentlyUsed ? '' : url}
+          href={url}
           onClick={() => hideAllSubmenus()}
-          className={clsx(isCurrentlyUsed ? 'link-active' : 'link-default')}
+          className={
+            isMobileLink ? mobileLinkDefaultClasses : standardLinkDefaultClasses
+          }
         >
           <span className="whitespace-nowrap">{nameToBeDisplayed}</span>
         </Link>

@@ -18,6 +18,7 @@ module.exports = {
           'main-bg': 'var(--color-background-base)',
           primary: 'var(--color-foreground-base)',
           fill: 'var(--color-background-base)',
+          gray: 'var(--color-gray)',
           // fill: 'var(--color-fill)',
           // 'fill-inverted': 'var(--color-fill-inverted)',
           // 'button-accent': 'var(--color-button-accent)',
@@ -26,6 +27,7 @@ module.exports = {
       },
       fontSize: {
         'base-13': ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
+        'base-22': ['var(--font-size-22)', 'var(--font-size-22-line-height)'],
         base: ['var(--font-size-base)', 'var(--font-size-13-line-height)'],
       },
       borderRadius: {

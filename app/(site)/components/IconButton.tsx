@@ -27,6 +27,11 @@ export default function IconButton({
       width = 24;
       height = 24;
       break;
+
+    case 'BIG':
+      width = 44;
+      height = 44;
+      break;
   }
 
   let content = (
@@ -37,7 +42,14 @@ export default function IconButton({
   if (!isCurrentlyActive) {
     content = (
       <button
-        className={clsx('relative', size === 'SMALL' ? 'w-6 h-6' : 'w-8 h-8')}
+        className={clsx(
+          'relative',
+          size === 'NORMAL'
+            ? 'w-8 h-8'
+            : size === 'SMALL'
+            ? 'w-6 h-6'
+            : 'w-10 h-10'
+        )}
         onClick={() => actionFn()}
       >
         <span className="sr-only">{alt}</span>

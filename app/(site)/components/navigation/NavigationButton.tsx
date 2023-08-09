@@ -8,6 +8,7 @@ type Props = {
   layoutState: TMode;
   getIsSubmenuVisible: () => boolean;
   toggleIsSubmenuVisible: () => void;
+  isMobileButton?: boolean;
 };
 
 export default function NavigationButton(props: Props) {
@@ -18,17 +19,41 @@ export default function NavigationButton(props: Props) {
     layoutState,
     buttonName,
     idForAriaControls,
+    isMobileButton = false,
   } = props;
 
-  console.log(layoutState);
+  let cssButtonClasses = '';
+  if (getIsSubmenuVisible() && isMobileButton) {
+    cssButtonClasses = 'link-mobile-active';
+  }
+  if (!getIsSubmenuVisible() && !isMobileButton) {
+    cssButtonClasses = 'link-default';
+  }
+  if (getIsSubmenuVisible() && !isMobileButton) {
+    cssButtonClasses = 'link-active';
+  }
+  if (!getIsSubmenuVisible() && isMobileButton) {
+    cssButtonClasses = 'link-mobile-default';
+  }
+
+  let cssIconClasses = '';
+  if (getIsSubmenuVisible() && isMobileButton) {
+    cssIconClasses = 'rotate-90';
+  }
+  if (!getIsSubmenuVisible() && isMobileButton) {
+    cssIconClasses = '-rotate-90';
+  }
+  if (getIsSubmenuVisible() && !isMobileButton) {
+    cssIconClasses = 'rotate-180';
+  }
+  if (!getIsSubmenuVisible() && !isMobileButton) {
+    cssIconClasses = '';
+  }
 
   ////tsx
   return (
     <button
-      className={clsx(
-        'transition-all',
-        getIsSubmenuVisible() ? 'link-active' : 'link-default'
-      )}
+      className={clsx('transition-all', cssButtonClasses)}
       onClick={() => toggleIsSubmenuVisible()}
       aria-controls={idForAriaControls}
       aria-expanded={getIsSubmenuVisible() ? true : false}
@@ -47,10 +72,7 @@ export default function NavigationButton(props: Props) {
               width={6}
               height={5}
               alt="Arrow down"
-              className={clsx(
-                'transition-all',
-                getIsSubmenuVisible() ? 'rotate-180' : ''
-              )}
+              className={clsx('transition-all', cssIconClasses)}
             />
           </div>
           <div
@@ -64,10 +86,7 @@ export default function NavigationButton(props: Props) {
               width={6}
               height={5}
               alt="Arrow down"
-              className={clsx(
-                'transition-all',
-                getIsSubmenuVisible() ? 'rotate-180' : ''
-              )}
+              className={clsx('transition-all', cssIconClasses)}
             />
           </div>
           <div
@@ -81,10 +100,7 @@ export default function NavigationButton(props: Props) {
               width={6}
               height={5}
               alt="Arrow down"
-              className={clsx(
-                'transition-all',
-                getIsSubmenuVisible() ? 'rotate-180' : ''
-              )}
+              className={clsx('transition-all', cssIconClasses)}
             />
           </div>
         </span>

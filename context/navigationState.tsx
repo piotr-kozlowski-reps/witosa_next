@@ -1,6 +1,6 @@
 // import { TLayoutState } from '@/types';
 import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
-import { TLink, TLinkName, TSubMenu } from '@/types';
+import { TCurrentDevice, TLink, TLinkName, TSubMenu } from '@/types';
 import { hookstate, useHookstate } from '@hookstate/core';
 import { devtools } from '@hookstate/devtools';
 
@@ -9,6 +9,7 @@ type TNavigationState = {
   isAboutSubmenuVisible: boolean;
   isGroupsSubmenuVisible: boolean;
   isAccessibilityNavigationVisible: boolean;
+  currentDevice: TCurrentDevice;
 };
 
 const navigationStateData: TNavigationState = {
@@ -108,6 +109,7 @@ const navigationStateData: TNavigationState = {
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,
   isAccessibilityNavigationVisible: false,
+  currentDevice: 'MOBILE',
 };
 
 const navigationState = hookstate(
@@ -195,6 +197,14 @@ export function useNavigationState() {
     hideAllSubmenus() {
       state.isAboutSubmenuVisible.set(false);
       state.isGroupsSubmenuVisible.set(false);
+    },
+
+    /** current device */
+    getCurrentDevice() {
+      return state.currentDevice.get();
+    },
+    setCurrentDevice(currentDevice: TCurrentDevice) {
+      return state.currentDevice.set(currentDevice);
     },
   };
 }

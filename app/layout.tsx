@@ -6,7 +6,6 @@ import { useLayoutState } from '@/context/layoutState';
 import { useNavigationState } from '@/context/navigationState';
 import { clsx } from 'clsx';
 import { Rubik } from 'next/font/google';
-import Footer from './(site)/components/Footer';
 import Navigation from './(site)/components/navigation/Navigation';
 import './globals.css';
 const rubik = Rubik({ subsets: ['latin-ext'] });
@@ -59,7 +58,7 @@ export default function RootLayout({
           <ToasterContext />
           {children}
         </AuthProvider>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

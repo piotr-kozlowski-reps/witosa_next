@@ -66,4 +66,6 @@ export type TMainSliderData = {
   urlToEvent: string;
 };
 
-export type TIconSize = 'NORMAL' | 'SMALL';
+export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL';
+
+export type TCurrentDevice = 'MOBILE' | 'TABLET' | 'DESKTOP';
