@@ -314,10 +314,10 @@ export default function NavigationMobileAndTablet(props: Props) {
                 />
               </li>
 
-              <div className="separator-horizontal"></div>
+              {/* <div className="separator-horizontal"></div> */}
 
               {/* internal socials ul  */}
-              <ul className="flex items-center justify-end gap-4">
+              <ul className="flex items-center justify-end gap-4 mt-4">
                 <li>
                   <IconButton
                     isCurrentlyActive={false}
