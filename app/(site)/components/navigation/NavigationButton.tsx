@@ -69,7 +69,7 @@ export default function NavigationButton(props: Props) {
             )}
           >
             <Image
-              src="arrow-down_black.svg"
+              src={`${process.env.NEXT_PUBLIC_BASE_URL}arrow-down_black.svg`}
               width={6}
               height={5}
               alt="Arrow down"
@@ -83,7 +83,7 @@ export default function NavigationButton(props: Props) {
             )}
           >
             <Image
-              src="arrow-down_white.svg"
+              src={`${process.env.NEXT_PUBLIC_BASE_URL}arrow-down_white.svg`}
               width={6}
               height={5}
               alt="Arrow down"
@@ -97,7 +97,7 @@ export default function NavigationButton(props: Props) {
             )}
           >
             <Image
-              src="arrow-down_yellow.svg"
+              src={`${process.env.NEXT_PUBLIC_BASE_URL}arrow-down_yellow.svg`}
               width={6}
               height={5}
               alt="Arrow down"

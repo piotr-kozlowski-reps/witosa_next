@@ -36,7 +36,12 @@ export default function IconButton({
 
   let content = (
     <div className="icon-inactive" aria-current="location">
-      <Image src={iconHoverUrl} width={width} height={height} alt={alt} />
+      <Image
+        src={`${process.env.NEXT_PUBLIC_BASE_URL}${iconHoverUrl}`}
+        width={width}
+        height={height}
+        alt={alt}
+      />
     </div>
   );
   if (!isCurrentlyActive) {
@@ -58,7 +63,7 @@ export default function IconButton({
           aria-hidden="true"
         >
           <Image
-            src={iconDefaultUrl}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}${iconDefaultUrl}`}
             width={width}
             height={height}
             alt={alt}
@@ -70,7 +75,7 @@ export default function IconButton({
           aria-hidden="true"
         >
           <Image
-            src={iconHoverUrl}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}${iconHoverUrl}`}
             width={width}
             height={height}
             alt={alt}

@@ -18,6 +18,7 @@ export default function NavigationMobileAndTablet(props: Props) {
     getLinkData,
     getIsAboutSubmenuVisible,
     getIsGroupsSubmenuVisible,
+    getIsMobileAccessibilitySubMenuVisible,
     toggleIsAboutSubmenuVisible,
     toggleIsGroupsSubmenuVisible,
     hideAllSubmenus,
@@ -26,6 +27,8 @@ export default function NavigationMobileAndTablet(props: Props) {
     getIsAnyOfSecondLevelSubmenusVisible,
     getIsMobileGroupsSubMenuVisible,
     setIsMobileMenuFirstLevelVisible_ToBeVisible,
+    setIsAccessibilitySubmenuVisible_ToTrue,
+    setIsAccessibilitySubmenuVisible_ToFalse,
   } = useNavigationState();
   const {
     getFontSize,
@@ -45,6 +48,7 @@ export default function NavigationMobileAndTablet(props: Props) {
 
   const idGroupsSubmenuMenu = 'mobile_groups_submenu';
   const idAboutSubmenuMenu = 'mobile_about_submenu';
+  const idAccessibilitySubmenuMenu = 'accessibility_navigation';
 
   ////tsx
   return (
@@ -63,7 +67,7 @@ export default function NavigationMobileAndTablet(props: Props) {
           <button onClick={() => {}} className="mt-10">
             <span aria-hidden="true">
               <Image
-                src="artck_logo.svg"
+                src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
                 width={77}
                 height={24}
                 alt="ART CK logo"
@@ -219,9 +223,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                     iconHoverUrl="handicap-sm_hover.svg"
                     alt="Youtube"
                     size="BIG"
-                    actionFn={() =>
-                      alert('show accessibility menu - not implemented')
-                    } //TODO: show accessibility menu
+                    actionFn={setIsAccessibilitySubmenuVisible_ToTrue}
                   />
                 </li>
 
@@ -461,6 +463,112 @@ export default function NavigationMobileAndTablet(props: Props) {
           </div>
         </div>
         {/* about submenu - end */}
+
+        {/* accessibility submenu - start */}
+        <div
+          className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
+          id={idAccessibilitySubmenuMenu}
+          style={{
+            left: getIsMobileAccessibilitySubMenuVisible() ? '0%' : '100%',
+            visibility: getIsMobileAccessibilitySubMenuVisible()
+              ? 'visible'
+              : 'hidden',
+          }}
+        >
+          <div
+            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
+            style={{ width: '20%' }}
+          ></div>
+          <div
+            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
+            style={{ width: '80%', left: '20%' }}
+          >
+            <ul
+              id="options_accessibility"
+              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+            >
+              {/* dla niedowidzących - zmiana wielkosci fonta */}
+              <li className="flex flex-col items-end">
+                <h4 className="font-base-regular">Dla niedowidzących</h4>
+                <ul className="flex justify-end gap-4 mt-4">
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getFontSize() === 'NORMAL'}
+                      iconDefaultUrl="font-small-sm_default.svg"
+                      iconHoverUrl="font-small-sm_hover.svg"
+                      alt="Wielkość czcionki - normalna."
+                      actionFn={setFontSizeToNormal}
+                    />
+                  </li>
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getFontSize() === 'BIGGER'}
+                      iconDefaultUrl="font-bigger-sm_default.svg"
+                      iconHoverUrl="font-bigger-sm_hover.svg"
+                      alt="Wielkość czcionki - powiększona."
+                      actionFn={setFontSizeToBigger}
+                    />
+                  </li>
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getFontSize() === 'BIGGEST'}
+                      iconDefaultUrl="font-biggest-sm_default.svg"
+                      iconHoverUrl="font-biggest-sm_hover.svg"
+                      alt="Wielkość czcionki - największa."
+                      actionFn={setFontSizeToBiggest}
+                    />
+                  </li>
+                </ul>
+              </li>
+
+              {/*  zmiana kolorów / kontrastu */}
+              <li className="flex flex-col items-end mt-11">
+                <h4 className="font-base-regular">Kolorystyka / kontrast</h4>
+                <ul className="flex justify-end gap-4 mt-4">
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getLayoutMode() === 'LIGHT'}
+                      iconDefaultUrl="layout-light-sm_default.svg"
+                      iconHoverUrl="layout-light-sm_hover.svg"
+                      alt="Ustawienia kolorów - tryb jasny."
+                      actionFn={setLayoutModeToLight}
+                    />
+                  </li>
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getLayoutMode() === 'DARK'}
+                      iconDefaultUrl="layout-dark-sm_default.svg"
+                      iconHoverUrl="layout-dark-sm_hover.svg"
+                      alt="Ustawienia kolorów - tryb ciemny."
+                      actionFn={setLayoutModeToDark}
+                    />
+                  </li>
+                  <li>
+                    <IconButton
+                      isCurrentlyActive={getLayoutMode() === 'CONTRAST'}
+                      iconDefaultUrl="layout-contrast-sm_default.svg"
+                      iconHoverUrl="layout-contrast-sm_hover.svg"
+                      alt="Ustawienia kolorów - tryb kontrastowy."
+                      actionFn={setLayoutModeToContrast}
+                    />
+                  </li>
+                </ul>
+              </li>
+
+              <li className="absolute top-8 right-8">
+                <IconButton
+                  isCurrentlyActive={false}
+                  iconDefaultUrl="prev-sm_default.svg"
+                  iconHoverUrl="prev-sm_hover.svg"
+                  alt="Wróc do menu głównego."
+                  size="BIG"
+                  actionFn={setIsAccessibilitySubmenuVisible_ToFalse}
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        {/* accessibility submenu - end */}
       </nav>
     </Fragment>
   );

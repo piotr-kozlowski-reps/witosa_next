@@ -20,7 +20,7 @@ export default function RootLayout({
   const currentFontSize = useLayoutState().getFontSize();
   const {
     setIsAccessibilitySubmenuVisible_ToTrue:
-      setIsAccessibilityNavigationVisible_ToTrue,
+      setIsAccessibilitySubmenuVisible_ToTrue,
   } = useNavigationState();
 
   ////tsx
@@ -52,7 +52,7 @@ export default function RootLayout({
         <a
           href="#accessibility_navigation"
           className="skip-link"
-          onClick={setIsAccessibilityNavigationVisible_ToTrue}
+          onClick={setIsAccessibilitySubmenuVisible_ToTrue}
         >
           Przejdź do narzędzi ułatwiających dostępność treści
         </a>

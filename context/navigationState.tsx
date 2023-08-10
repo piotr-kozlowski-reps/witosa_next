@@ -215,18 +215,18 @@ export function useNavigationState() {
   };
 
   return {
-    /** link getter */
+    // link getter
     getLinkData(linkName: TLinkName) {
       return state.links.get().find((link) => link.name === linkName);
     },
-    /** about submenu */
+    // about submenu
     getIsAboutSubmenuVisible() {
       return state.isAboutSubmenuVisible.get();
     },
     toggleIsAboutSubmenuVisible() {
       setProvidedSubmenuVisibilityToTrue_OtherToFalse('ABOUT');
     },
-    /** groups submenu */
+    // groups submenu
     getIsGroupsSubmenuVisible() {
       return state.isGroupsSubmenuVisible.get();
     },
@@ -234,7 +234,7 @@ export function useNavigationState() {
       setProvidedSubmenuVisibilityToTrue_OtherToFalse('GROUPS');
     },
 
-    /** accessibility navigation getter */
+    // accessibility navigation getter
     getIsAccessibilitySubmenuVisible() {
       return state.isAccessibilitySubmenuVisible.get();
     },
@@ -242,18 +242,20 @@ export function useNavigationState() {
       return state.isMobileAccessibilitySubMenuVisible.get();
     },
     setIsAccessibilitySubmenuVisible_ToTrue() {
+      state.isMobileMenuFirstLevelVisible.set(true);
       setProvidedSubmenuVisibilityToTrue_OtherToFalse('ACCESSIBILITY');
     },
     setIsAccessibilitySubmenuVisible_ToFalse() {
       state.isAccessibilitySubmenuVisible.set(false);
+      state.isMobileAccessibilitySubMenuVisible.set(false);
     },
 
-    /** hide all submenus */
+    // hide all submenus
     hideAllSubmenus() {
       setVisibilityOfAllSubmenusToFalse();
     },
 
-    /** current device */
+    // current device
     getCurrentDevice() {
       return state.currentDevice.get();
     },
@@ -261,12 +263,12 @@ export function useNavigationState() {
       return state.currentDevice.set(currentDevice);
     },
 
-    /** mobile menu - first level */
+    // mobile menu - first level
     getIsAnyOfSecondLevelSubmenusVisible() {
       return getIsAnyOfSecondLevelSubmenusVisibleHelper();
     },
 
-    /** mobile menu - first level */
+    // mobile menu - first level
     getIsMobileMenuFirstLevelVisible() {
       return state.isMobileMenuFirstLevelVisible.get();
     },
@@ -277,20 +279,19 @@ export function useNavigationState() {
       state.isMobileMenuFirstLevelVisible.set(false);
     },
 
-    /** mobile groups submenu */
+    // mobile groups submenu
     getIsMobileGroupsSubMenuVisible() {
       return state.isMobileGroupsSubMenuVisible.get();
     },
-    // setIsMobileGroupsSubMenu_ToBeVisible() {
-    //   state.isMobileGroupsSubMenuVisible.set(true);
-    // },
-    // setIsMobileGroupsSubMenu_Not_ToBeVisible() {
-    //   state.isMobileGroupsSubMenuVisible.set(false);
-    // },
 
-    /** mobile groups submenu */
+    // mobile about submenu
     getIsMobileAboutSubMenuVisible() {
       return state.isMobileAboutSubMenuVisible.get();
+    },
+
+    // mobile accessibility submenu
+    getIsMobileAccessibilitySubMenuVisible() {
+      return state.isMobileAccessibilitySubMenuVisible.get();
     },
   };
 }

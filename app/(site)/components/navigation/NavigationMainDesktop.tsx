@@ -47,7 +47,7 @@ export default function NavigationMainDesktop(props: Props) {
             <span aria-hidden="true">
               <Link href={'/'}>
                 <Image
-                  src="artck_logo.svg"
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
                   width={77}
                   height={24}
                   alt="ART CK logo"
