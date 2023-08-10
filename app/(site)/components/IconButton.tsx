@@ -50,7 +50,7 @@ export default function IconButton({
             ? 'w-6 h-6'
             : 'w-10 h-10'
         )}
-        onClick={() => actionFn()}
+        onClick={actionFn}
       >
         <span className="sr-only">{alt}</span>
         <div

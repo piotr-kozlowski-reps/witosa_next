@@ -42,9 +42,9 @@ export type TLinkName =
   | 'about_regulations'
   | 'about_availability_declarations'
   | 'about_rodo'
-  | 'groups_marzenie'
   | 'groups_marzenie_mini_mini'
-  | 'groups_zajecia_utaneczniajace'
+  | 'groups_marzenie_bis'
+  | 'groups_marzenie'
   | 'groups_hipnoteria'
   | 'groups_hipnoteria_bis'
   | 'bistro'
@@ -55,7 +55,7 @@ export type TLink = {
   path: string;
   isCurrentlyUsed: boolean;
 };
-export type TSubMenu = 'about' | 'groups';
+export type TSubMenu = 'ABOUT' | 'GROUPS' | 'ACCESSIBILITY';
 
 //slider
 export type TEventType = 'concert' | 'workshop';

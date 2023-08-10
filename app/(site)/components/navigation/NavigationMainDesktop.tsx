@@ -107,19 +107,6 @@ export default function NavigationMainDesktop(props: Props) {
                 >
                   <li>
                     <NavigationLink
-                      url={getLinkData('groups_marzenie')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_marzenie')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_marzenie')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-
-                  <li>
-                    <NavigationLink
                       url={getLinkData('groups_marzenie_mini_mini')?.path!}
                       hideAllSubmenus={hideAllSubmenus}
                       isCurrentlyUsed={
@@ -135,28 +122,26 @@ export default function NavigationMainDesktop(props: Props) {
 
                   <li>
                     <NavigationLink
-                      url={getLinkData('groups_zajecia_utaneczniajace')?.path!}
+                      url={getLinkData('groups_marzenie_bis')?.path!}
                       hideAllSubmenus={hideAllSubmenus}
                       isCurrentlyUsed={
-                        getLinkData('groups_zajecia_utaneczniajace')
-                          ?.isCurrentlyUsed!
+                        getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
                       }
                       nameToBeDisplayed={
-                        getLinkData('groups_zajecia_utaneczniajace')
-                          ?.nameToBeDisplayed!
+                        getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
                       }
                     />
                   </li>
 
                   <li>
                     <NavigationLink
-                      url={getLinkData('groups_hipnoteria')?.path!}
+                      url={getLinkData('groups_marzenie')?.path!}
                       hideAllSubmenus={hideAllSubmenus}
                       isCurrentlyUsed={
-                        getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                        getLinkData('groups_marzenie')?.isCurrentlyUsed!
                       }
                       nameToBeDisplayed={
-                        getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                        getLinkData('groups_marzenie')?.nameToBeDisplayed!
                       }
                     />
                   </li>
@@ -170,6 +155,19 @@ export default function NavigationMainDesktop(props: Props) {
                       }
                       nameToBeDisplayed={
                         getLinkData('groups_hipnoteria_bis')?.nameToBeDisplayed!
+                      }
+                    />
+                  </li>
+
+                  <li>
+                    <NavigationLink
+                      url={getLinkData('groups_hipnoteria')?.path!}
+                      hideAllSubmenus={hideAllSubmenus}
+                      isCurrentlyUsed={
+                        getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                      }
+                      nameToBeDisplayed={
+                        getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
                       }
                     />
                   </li>
@@ -246,6 +244,19 @@ export default function NavigationMainDesktop(props: Props) {
                       nameToBeDisplayed={
                         getLinkData('about_availability_declarations')
                           ?.nameToBeDisplayed!
+                      }
+                    />
+                  </li>
+
+                  <li>
+                    <NavigationLink
+                      url={getLinkData('about_rodo')?.path!}
+                      hideAllSubmenus={hideAllSubmenus}
+                      isCurrentlyUsed={
+                        getLinkData('about_rodo')?.isCurrentlyUsed!
+                      }
+                      nameToBeDisplayed={
+                        getLinkData('about_rodo')?.nameToBeDisplayed!
                       }
                     />
                   </li>

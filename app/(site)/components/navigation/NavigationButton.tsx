@@ -1,14 +1,25 @@
+'use client';
+
 import { TMode } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
 
 type Props = {
   buttonName: string;
+
   idForAriaControls: string;
+
+  /** layoutState for coloring arrow icon - according to layout mode */
   layoutState: TMode;
+
   getIsSubmenuVisible: () => boolean;
+
   toggleIsSubmenuVisible: () => void;
+
+  /** if true -> takes another set pf css classes to make buttons big enough for mobiles to be clearly visible */
   isMobileButton?: boolean;
+
+  idToJumpWhenButtonClicked?: string;
 };
 
 export default function NavigationButton(props: Props) {
@@ -20,50 +31,36 @@ export default function NavigationButton(props: Props) {
     buttonName,
     idForAriaControls,
     isMobileButton = false,
+    idToJumpWhenButtonClicked,
   } = props;
 
-  let cssButtonClasses = '';
-  if (getIsSubmenuVisible() && isMobileButton) {
-    cssButtonClasses = 'link-mobile-active';
-  }
-  if (!getIsSubmenuVisible() && !isMobileButton) {
-    cssButtonClasses = 'link-default';
-  }
-  if (getIsSubmenuVisible() && !isMobileButton) {
-    cssButtonClasses = 'link-active';
-  }
-  if (!getIsSubmenuVisible() && isMobileButton) {
-    cssButtonClasses = 'link-mobile-default';
-  }
+  const cssButtonClasses = getCssButtonClasses(
+    getIsSubmenuVisible(),
+    isMobileButton
+  );
 
-  let cssIconClasses = '';
-  if (getIsSubmenuVisible() && isMobileButton) {
-    cssIconClasses = 'rotate-90';
-  }
-  if (!getIsSubmenuVisible() && isMobileButton) {
-    cssIconClasses = '-rotate-90';
-  }
-  if (getIsSubmenuVisible() && !isMobileButton) {
-    cssIconClasses = 'rotate-180';
-  }
-  if (!getIsSubmenuVisible() && !isMobileButton) {
-    cssIconClasses = '';
-  }
+  const cssIconClasses = getCssIconClasses(
+    getIsSubmenuVisible(),
+    isMobileButton
+  );
+
+  const buttonActionHandler = () => {
+    toggleIsSubmenuVisible();
+    if (idToJumpWhenButtonClicked) {
+      window.location.href = `#${idToJumpWhenButtonClicked}`;
+    }
+  };
 
   ////tsx
   return (
     <button
       className={clsx('transition-all', cssButtonClasses)}
-      onClick={() => toggleIsSubmenuVisible()}
+      onClick={buttonActionHandler}
       aria-controls={idForAriaControls}
       aria-expanded={getIsSubmenuVisible() ? true : false}
     >
       <div className="flex items-center">
-        <span
-          className={clsx(isMobileButton ? 'py-[10px] pl-2 bg-red-500' : '')}
-        >
-          {buttonName}
-        </span>
+        <span className={clsx(isMobileButton ? '' : '')}>{buttonName}</span>
         <span className="relative pl-1" aria-hidden="true">
           <div
             className={clsx(
@@ -111,4 +108,45 @@ export default function NavigationButton(props: Props) {
       </div>
     </button>
   );
+}
+
+////helpers
+function getCssButtonClasses(
+  isSubmenuVisible: boolean,
+  isMobileButton: boolean
+) {
+  let cssButtonClasses = '';
+
+  if (isSubmenuVisible && isMobileButton) {
+    cssButtonClasses = 'link-mobile-active  pt-2';
+  }
+  if (!isSubmenuVisible && !isMobileButton) {
+    cssButtonClasses = 'link-default';
+  }
+  if (isSubmenuVisible && !isMobileButton) {
+    cssButtonClasses = 'link-active';
+  }
+  if (!isSubmenuVisible && isMobileButton) {
+    cssButtonClasses = 'link-mobile-default  pt-2';
+  }
+
+  return cssButtonClasses;
+}
+
+function getCssIconClasses(isSubmenuVisible: boolean, isMobileButton: boolean) {
+  let cssIconClasses = '';
+  if (isSubmenuVisible && isMobileButton) {
+    cssIconClasses = 'rotate-90';
+  }
+  if (!isSubmenuVisible && isMobileButton) {
+    cssIconClasses = '-rotate-90';
+  }
+  if (isSubmenuVisible && !isMobileButton) {
+    cssIconClasses = 'rotate-180';
+  }
+  if (!isSubmenuVisible && !isMobileButton) {
+    cssIconClasses = '';
+  }
+
+  return cssIconClasses;
 }

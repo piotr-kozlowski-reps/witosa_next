@@ -18,7 +18,10 @@ export default function RootLayout({
   ////logic
   const currentMode = useLayoutState().getLayoutMode();
   const currentFontSize = useLayoutState().getFontSize();
-  const { setIsAccessibilityNavigationVisible_ToTrue } = useNavigationState();
+  const {
+    setIsAccessibilitySubmenuVisible_ToTrue:
+      setIsAccessibilityNavigationVisible_ToTrue,
+  } = useNavigationState();
 
   ////tsx
   return (

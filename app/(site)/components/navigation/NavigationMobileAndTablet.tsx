@@ -3,7 +3,6 @@ import { useNavigationState } from '@/context/navigationState';
 import { TCurrentDevice } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Fragment } from 'react';
 import IconButton from '../IconButton';
 import NavigationButton from './NavigationButton';
@@ -22,9 +21,11 @@ export default function NavigationMobileAndTablet(props: Props) {
     toggleIsAboutSubmenuVisible,
     toggleIsGroupsSubmenuVisible,
     hideAllSubmenus,
-    getIsAccessibilityNavigationVisible,
-    setIsAccessibilityNavigationVisible_ToTrue,
-    setIsAccessibilityNavigationVisible_ToFalse,
+    getIsMobileMenuFirstLevelVisible,
+    getIsMobileAboutSubMenuVisible,
+    getIsAnyOfSecondLevelSubmenusVisible,
+    getIsMobileGroupsSubMenuVisible,
+    setIsMobileMenuFirstLevelVisible_ToBeVisible,
   } = useNavigationState();
   const {
     getFontSize,
@@ -36,9 +37,14 @@ export default function NavigationMobileAndTablet(props: Props) {
     setLayoutModeToDark,
     setLayoutModeToContrast,
   } = useLayoutState();
+
   const { getCurrentDevice } = props;
-  const mobileMargin = 'mx-3';
+
+  const mobileMargin = 'mx-8';
   const tabletMargin = 'mx-8';
+
+  const idGroupsSubmenuMenu = 'mobile_groups_submenu';
+  const idAboutSubmenuMenu = 'mobile_about_submenu';
 
   ////tsx
   return (
@@ -54,19 +60,17 @@ export default function NavigationMobileAndTablet(props: Props) {
           nawigacja główna
         </h2>
         <div className="flex items-start justify-between h-32">
-          <div className="mt-10">
+          <button onClick={() => {}} className="mt-10">
             <span aria-hidden="true">
-              <Link href={'/'}>
-                <Image
-                  src="artck_logo.svg"
-                  width={77}
-                  height={24}
-                  alt="ART CK logo"
-                />
-              </Link>
+              <Image
+                src="artck_logo.svg"
+                width={77}
+                height={24}
+                alt="ART CK logo"
+              />
             </span>
             <span className="sr-only">Strona główna</span>
-          </div>
+          </button>
           <div className="mt-[30px]">
             <IconButton
               isCurrentlyActive={false}
@@ -74,13 +78,25 @@ export default function NavigationMobileAndTablet(props: Props) {
               iconHoverUrl="hamburger-l_hover.svg"
               alt="Hamburger menu"
               size="BIG"
-              actionFn={() => alert('hamburger open - not implemented')}
+              actionFn={setIsMobileMenuFirstLevelVisible_ToBeVisible}
             />
           </div>
         </div>
 
-        {/* navigation - first level */}
-        <div className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen">
+        {/* navigation - first level - start*/}
+        <div
+          className="absolute top-0 bottom-0 w-screen h-screen transition-all"
+          style={{
+            left: getIsMobileMenuFirstLevelVisible()
+              ? getIsAnyOfSecondLevelSubmenusVisible()
+                ? '-80%'
+                : '0%'
+              : '100%',
+            visibility: getIsMobileMenuFirstLevelVisible()
+              ? 'visible'
+              : 'hidden',
+          }}
+        >
           <div className="w-full h-full bg-skin-fill">
             <ul className="flex flex-col items-end justify-center h-screen my-auto mr-8">
               <li>
@@ -123,86 +139,8 @@ export default function NavigationMobileAndTablet(props: Props) {
                     getIsSubmenuVisible={getIsGroupsSubmenuVisible}
                     toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
                     isMobileButton={true}
+                    // idToJumpWhenButtonClicked={idGroupsSubmenuMenu}
                   />
-                  {/* <ul
-                    id="options_groups"
-                    className={clsx(
-                      'absolute left-0 px-4 submenu-container top-[26px]  flex-col gap-2 transition-all',
-                      getIsGroupsSubmenuVisible() ? 'flex' : 'hidden'
-                    )}
-                  >
-                    <li>
-                      <NavigationLink
-                        url={getLinkData('groups_marzenie')?.path!}
-                        hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={
-                          getLinkData('groups_marzenie')?.isCurrentlyUsed!
-                        }
-                        nameToBeDisplayed={
-                          getLinkData('groups_marzenie')?.nameToBeDisplayed!
-                        }
-                      />
-                    </li>
-
-                    <li>
-                      <NavigationLink
-                        url={getLinkData('groups_marzenie_mini_mini')?.path!}
-                        hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={
-                          getLinkData('groups_marzenie_mini_mini')
-                            ?.isCurrentlyUsed!
-                        }
-                        nameToBeDisplayed={
-                          getLinkData('groups_marzenie_mini_mini')
-                            ?.nameToBeDisplayed!
-                        }
-                      />
-                    </li>
-
-                    <li>
-                      <NavigationLink
-                        url={
-                          getLinkData('groups_zajecia_utaneczniajace')?.path!
-                        }
-                        hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={
-                          getLinkData('groups_zajecia_utaneczniajace')
-                            ?.isCurrentlyUsed!
-                        }
-                        nameToBeDisplayed={
-                          getLinkData('groups_zajecia_utaneczniajace')
-                            ?.nameToBeDisplayed!
-                        }
-                      />
-                    </li>
-
-                    <li>
-                      <NavigationLink
-                        url={getLinkData('groups_hipnoteria')?.path!}
-                        hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={
-                          getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
-                        }
-                        nameToBeDisplayed={
-                          getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
-                        }
-                      />
-                    </li>
-
-                    <li>
-                      <NavigationLink
-                        url={getLinkData('groups_hipnoteria_bis')?.path!}
-                        hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={
-                          getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
-                        }
-                        nameToBeDisplayed={
-                          getLinkData('groups_hipnoteria_bis')
-                            ?.nameToBeDisplayed!
-                        }
-                      />
-                    </li>
-                  </ul> */}
                 </div>
               </li>
 
@@ -216,81 +154,8 @@ export default function NavigationMobileAndTablet(props: Props) {
                     getIsSubmenuVisible={getIsAboutSubmenuVisible}
                     toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
                     isMobileButton={true}
+                    // idToJumpWhenButtonClicked={idAboutSubmenuMenu}
                   />
-                  {/* <ul
-                  id="options_about"
-                  className={clsx(
-                    'absolute left-0 px-4 submenu-container top-[26px]  flex-col gap-2 transition-all',
-                    getIsAboutSubmenuVisible() ? 'flex' : 'hidden'
-                  )}
-                >
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_about')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_about')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_about')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_rent')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_rent')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_rent')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_regulations')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_regulations')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_regulations')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-
-                  <li>
-                    <NavigationLink
-                      url={
-                        getLinkData('about_availability_declarations')?.path!
-                      }
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_availability_declarations')
-                          ?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_availability_declarations')
-                          ?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('contact')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-                      nameToBeDisplayed={
-                        getLinkData('contact')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-                </ul> */}
                 </div>
               </li>
 
@@ -313,8 +178,6 @@ export default function NavigationMobileAndTablet(props: Props) {
                   isMobileLink={true}
                 />
               </li>
-
-              {/* <div className="separator-horizontal"></div> */}
 
               {/* internal socials ul  */}
               <ul className="flex items-center justify-end gap-4 mt-4">
@@ -370,13 +233,234 @@ export default function NavigationMobileAndTablet(props: Props) {
                     iconHoverUrl="close-sm_hover.svg"
                     alt="Zamknij mobilne menu."
                     size="BIG"
-                    actionFn={() => alert('hamburger close - not implemented')}
+                    actionFn={hideAllSubmenus}
                   />
                 </li>
               </ul>
             </ul>
           </div>
         </div>
+        {/* navigation - first level - end */}
+
+        {/* groups submenu - start */}
+        <div
+          className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
+          id={idGroupsSubmenuMenu}
+          style={{
+            left: getIsMobileGroupsSubMenuVisible() ? '0%' : '100%',
+            visibility: getIsMobileGroupsSubMenuVisible()
+              ? 'visible'
+              : 'hidden',
+          }}
+        >
+          <div
+            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
+            style={{ width: '20%' }}
+          ></div>
+          <div
+            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
+            style={{ width: '80%', left: '20%' }}
+          >
+            <ul
+              id="options_groups"
+              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+            >
+              <li>
+                <NavigationLink
+                  url={getLinkData('groups_marzenie_mini_mini')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('groups_marzenie_mini_mini')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('groups_marzenie_mini_mini')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('groups_marzenie_bis')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('groups_marzenie')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('groups_marzenie')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('groups_hipnoteria_bis')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('groups_hipnoteria_bis')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('groups_hipnoteria')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li className="absolute top-8 right-8">
+                <IconButton
+                  isCurrentlyActive={false}
+                  iconDefaultUrl="prev-sm_default.svg"
+                  iconHoverUrl="prev-sm_hover.svg"
+                  alt="Wróc do menu głównego."
+                  size="BIG"
+                  actionFn={toggleIsGroupsSubmenuVisible}
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        {/* groups submenu - end */}
+
+        {/* about submenu - start */}
+        <div
+          className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
+          id={idAboutSubmenuMenu}
+          style={{
+            left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
+            visibility: getIsMobileAboutSubMenuVisible() ? 'visible' : 'hidden',
+          }}
+        >
+          <div
+            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
+            style={{ width: '20%' }}
+          ></div>
+          <div
+            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
+            style={{ width: '80%', left: '20%' }}
+          >
+            <ul
+              id="options_groups"
+              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+            >
+              <li>
+                <NavigationLink
+                  url={getLinkData('about_about')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={getLinkData('about_about')?.isCurrentlyUsed!}
+                  nameToBeDisplayed={
+                    getLinkData('about_about')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('about_rent')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={getLinkData('about_rent')?.isCurrentlyUsed!}
+                  nameToBeDisplayed={
+                    getLinkData('about_rent')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('about_regulations')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('about_regulations')?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('about_regulations')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('about_availability_declarations')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={
+                    getLinkData('about_availability_declarations')
+                      ?.isCurrentlyUsed!
+                  }
+                  nameToBeDisplayed={
+                    getLinkData('about_availability_declarations')
+                      ?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('about_rodo')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={getLinkData('about_rodo')?.isCurrentlyUsed!}
+                  nameToBeDisplayed={
+                    getLinkData('about_rodo')?.nameToBeDisplayed!
+                  }
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li>
+                <NavigationLink
+                  url={getLinkData('contact')?.path!}
+                  hideAllSubmenus={hideAllSubmenus}
+                  isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
+                  nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
+                  isMobileLink={true}
+                />
+              </li>
+
+              <li className="absolute top-8 right-8">
+                <IconButton
+                  isCurrentlyActive={false}
+                  iconDefaultUrl="prev-sm_default.svg"
+                  iconHoverUrl="prev-sm_hover.svg"
+                  alt="Wróc do menu głównego."
+                  size="BIG"
+                  actionFn={toggleIsAboutSubmenuVisible}
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        {/* about submenu - end */}
       </nav>
     </Fragment>
   );

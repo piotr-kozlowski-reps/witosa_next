@@ -8,7 +8,11 @@ type TNavigationState = {
   links: TLink[];
   isAboutSubmenuVisible: boolean;
   isGroupsSubmenuVisible: boolean;
-  isAccessibilityNavigationVisible: boolean;
+  isAccessibilitySubmenuVisible: boolean;
+  isMobileMenuFirstLevelVisible: boolean;
+  isMobileGroupsSubMenuVisible: boolean;
+  isMobileAboutSubMenuVisible: boolean;
+  isMobileAccessibilitySubMenuVisible: boolean;
   currentDevice: TCurrentDevice;
 };
 
@@ -82,15 +86,15 @@ const navigationStateData: TNavigationState = {
       isCurrentlyUsed: false,
     },
     {
-      name: 'groups_marzenie_mini_mini',
-      nameToBeDisplayed: 'Marzenie mini mini',
-      path: '/groups/marzenieminimini',
+      name: 'groups_marzenie_bis',
+      nameToBeDisplayed: 'Marzenie bis',
+      path: '/groups/marzenie_bis',
       isCurrentlyUsed: false,
     },
     {
-      name: 'groups_zajecia_utaneczniajace',
-      nameToBeDisplayed: 'Zajęcia utaneczniające',
-      path: '/groups/zajeciautaneczniajace',
+      name: 'groups_marzenie_mini_mini',
+      nameToBeDisplayed: 'Marzenie mini mini',
+      path: '/groups/marzenieminimini',
       isCurrentlyUsed: false,
     },
     {
@@ -108,8 +112,12 @@ const navigationStateData: TNavigationState = {
   ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,
-  isAccessibilityNavigationVisible: false,
+  isAccessibilitySubmenuVisible: false,
   currentDevice: 'MOBILE',
+  isMobileMenuFirstLevelVisible: false,
+  isMobileAboutSubMenuVisible: false,
+  isMobileGroupsSubMenuVisible: false,
+  isMobileAccessibilitySubMenuVisible: false,
 };
 
 const navigationState = hookstate(
@@ -129,37 +137,81 @@ export function useNavigationState() {
   );
 
   /** handler to change visibility of other submenus despite one currently clicked */
-  const allSubmenus = [
+
+  const allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles = [
     state.isAboutSubmenuVisible,
     state.isGroupsSubmenuVisible,
+    state.isMobileAboutSubMenuVisible,
+    state.isMobileGroupsSubMenuVisible,
+    state.isMobileAccessibilitySubMenuVisible,
   ];
+  const allSubmenus = [
+    ...allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles,
+    state.isMobileMenuFirstLevelVisible,
+  ];
+
   const setVisibilityOfAllSubmenusToFalse = () => {
     allSubmenus.forEach((submenu) => {
       submenu.set(false);
     });
   };
+  const setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles =
+    () => {
+      allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles.forEach(
+        (submenu) => {
+          submenu.set(false);
+        }
+      );
+    };
   const setProvidedSubmenuVisibilityToTrue_OtherToFalse = (
     submenuProvided: TSubMenu
   ) => {
     switch (submenuProvided) {
-      case 'about':
+      case 'ABOUT':
         if (state.isAboutSubmenuVisible.get() === true) {
-          setVisibilityOfAllSubmenusToFalse();
+          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
           return;
         }
-        setVisibilityOfAllSubmenusToFalse();
+        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
         state.isAboutSubmenuVisible.set(true);
+        state.isMobileAboutSubMenuVisible.set(true);
         break;
 
-      case 'groups':
+      case 'GROUPS':
         if (state.isGroupsSubmenuVisible.get() === true) {
-          setVisibilityOfAllSubmenusToFalse();
+          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
           return;
         }
-        setVisibilityOfAllSubmenusToFalse();
+        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
         state.isGroupsSubmenuVisible.set(true);
-        return;
+        state.isMobileGroupsSubMenuVisible.set(true);
+        break;
+
+      case 'ACCESSIBILITY':
+        if (state.isAccessibilitySubmenuVisible.get() === true) {
+          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+          return;
+        }
+        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+        state.isAccessibilitySubmenuVisible.set(true);
+        state.isMobileAccessibilitySubMenuVisible.set(true);
+        break;
     }
+  };
+
+  /** helper to get info if any mobile second level submenus is visible */
+  const allMobileSecondLevelSubmenus = [
+    state.isMobileAboutSubMenuVisible,
+    state.isMobileGroupsSubMenuVisible,
+    state.isMobileAccessibilitySubMenuVisible,
+  ];
+  const getIsAnyOfSecondLevelSubmenusVisibleHelper = () => {
+    let result = false;
+    allMobileSecondLevelSubmenus.forEach((submenu) => {
+      if (submenu.get()) result = true;
+    });
+
+    return result;
   };
 
   return {
@@ -172,31 +224,33 @@ export function useNavigationState() {
       return state.isAboutSubmenuVisible.get();
     },
     toggleIsAboutSubmenuVisible() {
-      setProvidedSubmenuVisibilityToTrue_OtherToFalse('about');
+      setProvidedSubmenuVisibilityToTrue_OtherToFalse('ABOUT');
     },
     /** groups submenu */
     getIsGroupsSubmenuVisible() {
       return state.isGroupsSubmenuVisible.get();
     },
     toggleIsGroupsSubmenuVisible() {
-      setProvidedSubmenuVisibilityToTrue_OtherToFalse('groups');
+      setProvidedSubmenuVisibilityToTrue_OtherToFalse('GROUPS');
     },
 
     /** accessibility navigation getter */
-    getIsAccessibilityNavigationVisible() {
-      return state.isAccessibilityNavigationVisible.get();
+    getIsAccessibilitySubmenuVisible() {
+      return state.isAccessibilitySubmenuVisible.get();
     },
-    setIsAccessibilityNavigationVisible_ToTrue() {
-      state.isAccessibilityNavigationVisible.set(true);
+    getIsMobileAccessibilitySubmenuVisible() {
+      return state.isMobileAccessibilitySubMenuVisible.get();
     },
-    setIsAccessibilityNavigationVisible_ToFalse() {
-      state.isAccessibilityNavigationVisible.set(false);
+    setIsAccessibilitySubmenuVisible_ToTrue() {
+      setProvidedSubmenuVisibilityToTrue_OtherToFalse('ACCESSIBILITY');
+    },
+    setIsAccessibilitySubmenuVisible_ToFalse() {
+      state.isAccessibilitySubmenuVisible.set(false);
     },
 
     /** hide all submenus */
     hideAllSubmenus() {
-      state.isAboutSubmenuVisible.set(false);
-      state.isGroupsSubmenuVisible.set(false);
+      setVisibilityOfAllSubmenusToFalse();
     },
 
     /** current device */
@@ -205,6 +259,38 @@ export function useNavigationState() {
     },
     setCurrentDevice(currentDevice: TCurrentDevice) {
       return state.currentDevice.set(currentDevice);
+    },
+
+    /** mobile menu - first level */
+    getIsAnyOfSecondLevelSubmenusVisible() {
+      return getIsAnyOfSecondLevelSubmenusVisibleHelper();
+    },
+
+    /** mobile menu - first level */
+    getIsMobileMenuFirstLevelVisible() {
+      return state.isMobileMenuFirstLevelVisible.get();
+    },
+    setIsMobileMenuFirstLevelVisible_ToBeVisible() {
+      state.isMobileMenuFirstLevelVisible.set(true);
+    },
+    setIsMobileMenuFirstLevelVisible_Not_ToBeVisible() {
+      state.isMobileMenuFirstLevelVisible.set(false);
+    },
+
+    /** mobile groups submenu */
+    getIsMobileGroupsSubMenuVisible() {
+      return state.isMobileGroupsSubMenuVisible.get();
+    },
+    // setIsMobileGroupsSubMenu_ToBeVisible() {
+    //   state.isMobileGroupsSubMenuVisible.set(true);
+    // },
+    // setIsMobileGroupsSubMenu_Not_ToBeVisible() {
+    //   state.isMobileGroupsSubMenuVisible.set(false);
+    // },
+
+    /** mobile groups submenu */
+    getIsMobileAboutSubMenuVisible() {
+      return state.isMobileAboutSubMenuVisible.get();
     },
   };
 }

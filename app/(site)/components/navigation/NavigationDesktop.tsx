@@ -14,8 +14,9 @@ export default function NavigationDesktop() {
     toggleIsAboutSubmenuVisible,
     toggleIsGroupsSubmenuVisible,
     hideAllSubmenus,
-    getIsAccessibilityNavigationVisible,
-    setIsAccessibilityNavigationVisible_ToTrue,
+    getIsAccessibilitySubmenuVisible: getIsAccessibilityNavigationVisible,
+    setIsAccessibilitySubmenuVisible_ToTrue:
+      setIsAccessibilityNavigationVisible_ToTrue,
     setIsAccessibilityNavigationVisible_ToFalse,
   } = useNavigationState();
 
