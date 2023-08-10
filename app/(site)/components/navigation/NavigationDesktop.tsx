@@ -17,7 +17,7 @@ export default function NavigationDesktop() {
     getIsAccessibilitySubmenuVisible: getIsAccessibilityNavigationVisible,
     setIsAccessibilitySubmenuVisible_ToTrue:
       setIsAccessibilityNavigationVisible_ToTrue,
-    setIsAccessibilityNavigationVisible_ToFalse,
+    setIsAccessibilitySubmenuVisible_ToFalse,
   } = useNavigationState();
 
   const {
@@ -58,7 +58,7 @@ export default function NavigationDesktop() {
           setIsAccessibilityNavigationVisible_ToTrue
         }
         setIsAccessibilityNavigationVisible_ToFalse={
-          setIsAccessibilityNavigationVisible_ToFalse
+          setIsAccessibilitySubmenuVisible_ToFalse
         }
       />
     </Fragment>
