@@ -27,7 +27,7 @@ module.exports = {
       },
       fontSize: {
         'base-13': ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
-        'base-22': ['var(--font-size-22)', 'var(--font-size-22-line-height)'],
+        'base-19': ['var(--font-size-19)', 'var(--font-size-19-line-height)'],
         base: ['var(--font-size-base)', 'var(--font-size-13-line-height)'],
       },
       borderRadius: {

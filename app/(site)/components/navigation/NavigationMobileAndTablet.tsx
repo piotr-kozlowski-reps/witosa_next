@@ -82,7 +82,7 @@ export default function NavigationMobileAndTablet(props: Props) {
         {/* navigation - first level */}
         <div className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen">
           <div className="w-full h-full bg-skin-fill">
-            <ul className="flex flex-col items-end justify-center h-screen gap-4 my-auto mr-4">
+            <ul className="flex flex-col items-end justify-center h-screen my-auto mr-8">
               <li>
                 <NavigationLink
                   url={getLinkData('news')?.path!}
@@ -348,22 +348,32 @@ export default function NavigationMobileAndTablet(props: Props) {
                     actionFn={() => alert('go to youtube - not implemented')} //TODO: link youtube
                   />
                 </li>
+                <div className="separator-vertical"></div>
+                <li>
+                  <IconButton
+                    isCurrentlyActive={false}
+                    iconDefaultUrl="handicap-sm_default.svg"
+                    iconHoverUrl="handicap-sm_hover.svg"
+                    alt="Youtube"
+                    size="BIG"
+                    actionFn={() =>
+                      alert('show accessibility menu - not implemented')
+                    } //TODO: show accessibility menu
+                  />
+                </li>
+
+                {/* close menu */}
+                <li className="absolute top-8">
+                  <IconButton
+                    isCurrentlyActive={false}
+                    iconDefaultUrl="close-sm_default.svg"
+                    iconHoverUrl="close-sm_hover.svg"
+                    alt="Zamknij mobilne menu."
+                    size="BIG"
+                    actionFn={() => alert('hamburger close - not implemented')}
+                  />
+                </li>
               </ul>
-
-              <div className="separator-horizontal"></div>
-
-              <li>
-                <IconButton
-                  isCurrentlyActive={false}
-                  iconDefaultUrl="handicap-sm_default.svg"
-                  iconHoverUrl="handicap-sm_hover.svg"
-                  alt="Youtube"
-                  size="BIG"
-                  actionFn={() =>
-                    alert('show accessibility menu - not implemented')
-                  } //TODO: show accessibility menu
-                />
-              </li>
             </ul>
           </div>
         </div>

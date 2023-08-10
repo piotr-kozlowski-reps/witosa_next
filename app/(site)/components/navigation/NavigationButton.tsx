@@ -59,11 +59,15 @@ export default function NavigationButton(props: Props) {
       aria-expanded={getIsSubmenuVisible() ? true : false}
     >
       <div className="flex items-center">
-        <span>{buttonName}</span>
+        <span
+          className={clsx(isMobileButton ? 'py-[10px] pl-2 bg-red-500' : '')}
+        >
+          {buttonName}
+        </span>
         <span className="relative pl-1" aria-hidden="true">
           <div
             className={clsx(
-              'absolute w-[6px] h-[5px] bottom-0',
+              'absolute w-[6px] h-[5px] bottom-0 ',
               layoutState === 'LIGHT' ? 'opacity-100' : 'opacity-0'
             )}
           >

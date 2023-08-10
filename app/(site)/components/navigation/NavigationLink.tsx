@@ -22,8 +22,8 @@ export default function NavigationLink(props: Props) {
 
   const standardLinkDefaultClasses = 'link-default';
   const standardLinkActiveClasses = 'link-active';
-  const mobileLinkDefaultClasses = 'link-mobile-default';
-  const mobileLinkActiveClasses = 'link-mobile-active';
+  const mobileLinkDefaultClasses = 'link-mobile-default pt-2';
+  const mobileLinkActiveClasses = 'link-mobile-active pt-2';
 
   ////tsx
   return (
@@ -40,15 +40,19 @@ export default function NavigationLink(props: Props) {
           {nameToBeDisplayed}
         </a>
       ) : (
-        <Link
-          href={url}
-          onClick={() => hideAllSubmenus()}
-          className={
-            isMobileLink ? mobileLinkDefaultClasses : standardLinkDefaultClasses
-          }
-        >
-          <span className="whitespace-nowrap">{nameToBeDisplayed}</span>
-        </Link>
+        <div>
+          <Link
+            href={url}
+            onClick={() => hideAllSubmenus()}
+            className={clsx(
+              isMobileLink
+                ? mobileLinkDefaultClasses
+                : standardLinkDefaultClasses
+            )}
+          >
+            <span className="whitespace-nowrap">{nameToBeDisplayed}</span>
+          </Link>
+        </div>
       )}
     </Fragment>
   );

@@ -22,8 +22,8 @@
     /* fonts */
     --font-size-13: 13px;
     --font-size-13-line-height: 18px;
-    --font-size-22: 20px;
-    --font-size-22-line-height: 28px;
+    --font-size-19: 19px;
+    --font-size-19-line-height: 27px;
 
     /* --color-foreground-base: #333333;
     --color-text-inverted: #dddddd;
@@ -76,7 +76,7 @@
     @apply font-light text-base-13 text-skin-base focus:primary-focus;
   }
   .link-mobile-default {
-    @apply font-semibold text-base-22 text-skin-base focus:primary-focus;
+    @apply block font-semibold h-11 text-base-19 text-skin-base focus:primary-focus;
   }
   .link-default::after,
   .link-mobile-default::after {
@@ -101,7 +101,7 @@
     @apply font-normal cursor-default text-base-13 text-skin-base;
   }
   .link-mobile-active {
-    @apply font-semibold cursor-default text-base-22 text-skin-base;
+    @apply block font-semibold cursor-default h-11 text-base-19 text-skin-base;
   }
   .link-active::after,
   .link-mobile-active::after {
@@ -179,7 +179,7 @@
 
   /* separators */
   .separator-vertical {
-    @apply w-[1px] h-4 my-1 mx-4 bg-skin-primary;
+    @apply w-[1px] h-4 my-2 mx-4 bg-skin-primary;
   }
   .separator-vertical::after {
     content: '';
@@ -189,7 +189,7 @@
     height: 100%;
   }
   .separator-horizontal {
-    @apply w-11 h-[1px] my-5 bg-skin-gray;
+    @apply w-4 h-[1px] mt-[28px] mb-11 bg-skin-gray;
   }
   .separator-horizontal::after {
     content: '';
