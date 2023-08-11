@@ -10,6 +10,9 @@ module.exports = {
         skin: {
           base: 'var(--color-foreground-base)',
           inverted: 'var(--color-background-base)',
+          gray: 'var(--color-gray)',
+          'cta-primary': 'var(--cta-primary)',
+          'cta-secondary': 'var(--cta-secondary)',
           // inverted: 'var(--color-text-inverted)',
         },
       },
@@ -19,6 +22,8 @@ module.exports = {
           primary: 'var(--color-foreground-base)',
           fill: 'var(--color-background-base)',
           gray: 'var(--color-gray)',
+          'cta-primary': 'var(--cta-primary)',
+          'cta-secondary': 'var(--cta-secondary)',
           // fill: 'var(--color-fill)',
           // 'fill-inverted': 'var(--color-fill-inverted)',
           // 'button-accent': 'var(--color-button-accent)',
@@ -48,7 +53,27 @@ module.exports = {
         'mobile-for-absolute-margin': '16px',
         'tablet-for-absolute-margin': '32px',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              'font-size': 'var(--font-size-32)',
+              'font-weight': 800,
+              'line-height': 'var(--font-size-32-line-height)',
+              color: 'var(--color-foreground-base)',
+              'letter-spacing': '-1px',
+            },
+            h2: {
+              'font-size': 'var(--font-size-32)',
+              'font-weight': 400,
+              'line-height': 'var(--font-size-32-line-height)',
+              color: 'var(--color-foreground-base)',
+              'letter-spacing': '-1px',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: ['@tailwindcss/typography'],
+  plugins: [require('@tailwindcss/typography')],
 };

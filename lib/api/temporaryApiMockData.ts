@@ -7,7 +7,7 @@ export const mainSliderMockData: Slide[] = [
     slideTitle: 'Pink Floyd - Dark side of the moon.',
     slideAlt: 'Koncert zespołu Pink Floyd, z płytą: Dark side of the moon.',
     eventDate: new Date('2023-09-13T19:30:00'),
-    eventUrl: '/events/8976badfcas8dcasd6c',
+    eventUrl: '#',
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),

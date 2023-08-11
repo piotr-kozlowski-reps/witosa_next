@@ -6,5 +6,5 @@ import SliderView from './SliderView';
 export default async function MainSlider() {
   const sliderData: Slide[] = await getSliderData();
 
-  return <SliderView slidersData={sliderData} />;
+  return <SliderView sliderData={sliderData[0]} />;
 }
