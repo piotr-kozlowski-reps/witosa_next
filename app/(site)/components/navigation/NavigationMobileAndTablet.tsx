@@ -43,9 +43,6 @@ export default function NavigationMobileAndTablet(props: Props) {
 
   const { getCurrentDevice } = props;
 
-  const mobileMargin = 'mx-8';
-  const tabletMargin = 'mx-8';
-
   const idGroupsSubmenuMenu = 'mobile_groups_submenu';
   const idAboutSubmenuMenu = 'mobile_about_submenu';
   const idAccessibilitySubmenuMenu = 'accessibility_navigation';
@@ -54,10 +51,11 @@ export default function NavigationMobileAndTablet(props: Props) {
   return (
     <Fragment>
       <nav
-        className={
-          (clsx('w-full bg-skin-fill'),
-          getCurrentDevice() === 'MOBILE' ? mobileMargin : tabletMargin)
-        }
+        className={clsx(
+          'w-full bg-skin-fill',
+          getCurrentDevice() === 'MOBILE' ? 'ml-mobile-margin' : '',
+          getCurrentDevice() === 'TABLET' ? 'ml-tablet-margin' : ''
+        )}
         aria-labelledby="main_navigation_heading"
       >
         <h2 id="main_navigation_heading" className="sr-only">
@@ -75,7 +73,17 @@ export default function NavigationMobileAndTablet(props: Props) {
             </span>
             <span className="sr-only">Strona główna</span>
           </button>
-          <div className="mt-[30px]">
+          <div
+            className={clsx(
+              'absolute top-[30px]',
+              getCurrentDevice() === 'MOBILE'
+                ? 'right-mobile-for-absolute-margin'
+                : '',
+              getCurrentDevice() === 'TABLET'
+                ? 'right-tablet-for-absolute-margin'
+                : ''
+            )}
+          >
             <IconButton
               isCurrentlyActive={false}
               iconDefaultUrl="hamburger-l_default.svg"
@@ -87,7 +95,7 @@ export default function NavigationMobileAndTablet(props: Props) {
           </div>
         </div>
 
-        {/* navigation - first level - start*/}
+        {/* navigation - first level - start */}
         <div
           className="absolute top-0 bottom-0 w-screen h-screen transition-all"
           style={{
@@ -102,7 +110,13 @@ export default function NavigationMobileAndTablet(props: Props) {
           }}
         >
           <div className="w-full h-full bg-skin-fill">
-            <ul className="flex flex-col items-end justify-center h-screen my-auto mr-8">
+            <ul
+              className={clsx(
+                'flex flex-col items-end justify-center h-screen my-auto',
+                getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+              )}
+            >
               <li>
                 <NavigationLink
                   url={getLinkData('news')?.path!}
@@ -255,17 +269,14 @@ export default function NavigationMobileAndTablet(props: Props) {
               : 'hidden',
           }}
         >
-          <div
-            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
-            style={{ width: '20%' }}
-          ></div>
-          <div
-            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
-            style={{ width: '80%', left: '20%' }}
-          >
+          <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
             <ul
               id="options_groups"
-              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+              className={clsx(
+                'flex flex-col items-end justify-center h-full my-auto',
+                getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+              )}
             >
               <li>
                 <NavigationLink
@@ -337,7 +348,17 @@ export default function NavigationMobileAndTablet(props: Props) {
                 />
               </li>
 
-              <li className="absolute top-8 right-8">
+              <li
+                className={clsx(
+                  'absolute top-8',
+                  getCurrentDevice() === 'MOBILE'
+                    ? 'right-mobile-for-absolute-margin'
+                    : '',
+                  getCurrentDevice() === 'TABLET'
+                    ? 'right-mobile-for-absolute-margin'
+                    : ''
+                )}
+              >
                 <IconButton
                   isCurrentlyActive={false}
                   iconDefaultUrl="prev-sm_default.svg"
@@ -361,17 +382,14 @@ export default function NavigationMobileAndTablet(props: Props) {
             visibility: getIsMobileAboutSubMenuVisible() ? 'visible' : 'hidden',
           }}
         >
-          <div
-            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
-            style={{ width: '20%' }}
-          ></div>
-          <div
-            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
-            style={{ width: '80%', left: '20%' }}
-          >
+          <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
             <ul
               id="options_groups"
-              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+              className={clsx(
+                'flex flex-col items-end justify-center h-full my-auto',
+                getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+              )}
             >
               <li>
                 <NavigationLink
@@ -449,7 +467,17 @@ export default function NavigationMobileAndTablet(props: Props) {
                 />
               </li>
 
-              <li className="absolute top-8 right-8">
+              <li
+                className={clsx(
+                  'absolute top-8',
+                  getCurrentDevice() === 'MOBILE'
+                    ? 'right-mobile-for-absolute-margin'
+                    : '',
+                  getCurrentDevice() === 'TABLET'
+                    ? 'right-tablet-for-absolute-margin'
+                    : ''
+                )}
+              >
                 <IconButton
                   isCurrentlyActive={false}
                   iconDefaultUrl="prev-sm_default.svg"
@@ -475,17 +503,14 @@ export default function NavigationMobileAndTablet(props: Props) {
               : 'hidden',
           }}
         >
-          <div
-            className="absolute top-0 left-0 h-screen opacity-70 bg-skin-fill"
-            style={{ width: '20%' }}
-          ></div>
-          <div
-            className="absolute top-0 h-screen bg-skin-fill drop-shadow-big"
-            style={{ width: '80%', left: '20%' }}
-          >
+          <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
             <ul
               id="options_accessibility"
-              className="flex flex-col items-end justify-center h-full my-auto mr-8"
+              className={clsx(
+                'flex flex-col items-end justify-center h-full my-auto',
+                getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+              )}
             >
               {/* dla niedowidzących - zmiana wielkosci fonta */}
               <li className="flex flex-col items-end">
@@ -555,7 +580,17 @@ export default function NavigationMobileAndTablet(props: Props) {
                 </ul>
               </li>
 
-              <li className="absolute top-8 right-8">
+              <li
+                className={clsx(
+                  'absolute top-8',
+                  getCurrentDevice() === 'MOBILE'
+                    ? 'right-mobile-for-absolute-margin'
+                    : '',
+                  getCurrentDevice() === 'TABLET'
+                    ? 'right-tablet-for-absolute-margin'
+                    : ''
+                )}
+              >
                 <IconButton
                   isCurrentlyActive={false}
                   iconDefaultUrl="prev-sm_default.svg"

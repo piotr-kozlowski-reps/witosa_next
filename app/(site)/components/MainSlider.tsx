@@ -1,12 +1,10 @@
-import { mainSliderMockData } from '@/lib/api/temporaryApiMockData';
+// import { mainSliderMockData } from '@/lib/api/temporaryApiMockData';
+import { getSliderData } from '@/lib/api/sliderUtils';
+import { Slide } from '@prisma/client';
 import SliderView from './SliderView';
 
-export default function MainSlider() {
-  const slidersData = mainSliderMockData;
+export default async function MainSlider() {
+  const sliderData: Slide[] = await getSliderData();
 
-  return (
-    <section className="desktop-container">
-      <SliderView slidersData={slidersData} />
-    </section>
-  );
+  return <SliderView slidersData={sliderData} />;
 }

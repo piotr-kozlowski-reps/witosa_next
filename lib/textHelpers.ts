@@ -1,14 +1,14 @@
-import { TEventType } from '@/types';
+import { EventsType } from '@prisma/client';
 
-export function getPolishTypeName(type: TEventType) {
+export function getPolishTypeName(type: EventsType) {
   let polishTypeName = '';
 
   switch (type) {
-    case 'concert':
+    case 'CONCERT':
       polishTypeName = 'koncert';
       break;
 
-    case 'workshop':
+    case 'WORKSHOP':
       polishTypeName = 'warsztaty';
       break;
 

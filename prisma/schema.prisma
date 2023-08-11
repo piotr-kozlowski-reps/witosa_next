@@ -35,6 +35,7 @@ model User{
   updatedAt DateTime @updatedAt
   role UserRole @default(EDITOR)
   events Event[]
+  sliders Slide[]
 }
 
 model Event{
@@ -45,6 +46,22 @@ model Event{
   content String
   eventStartDate DateTime
   eventEndDate DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+model Slide{
+  id String @id @default(uuid())
+  slideTitle String
+  slideUrl String
+  slideAlt String
+  eventType EventsType[]
+  eventUrl String
+  eventDate DateTime
+  visibleFrom DateTime
+  visibleUntil DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author User @relation(fields: [authorId], references: [id])

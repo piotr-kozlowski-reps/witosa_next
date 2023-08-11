@@ -1,7 +1,9 @@
+import MainSlider from './(site)/components/MainSlider';
+
 export default function Home() {
   return (
     <main>
-      {/* <MainSlider /> */}
+      <MainSlider />
       {/* <div className="bg-red-200"> */}
       {/* <br />
         <br />
@@ -15,8 +17,8 @@ export default function Home() {
         <br />
         <br /> */}
       {/* <Test /> */}
-      {/* <TestServerSession /> */}
-      {/* <TestClientSession /> */}
+      {/* <TestServerSession />
+      <TestClientSession /> */}
       {/* </div> */}
     </main>
   );

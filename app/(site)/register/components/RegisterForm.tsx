@@ -1,6 +1,7 @@
 'use client';
 
 import { TRegisterFormValues, TRegisterFormValuesSent } from '@/types';
+import { UserRole } from '@prisma/client';
 import axios from 'axios';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { Fragment } from 'react';
@@ -20,6 +21,7 @@ export default function RegisterForm() {
       email: z.string().email(),
       password: z.string().min(5).max(20),
       confirmPassword: z.string().min(5).max(20),
+      userRole: z.nativeEnum(UserRole),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Wpisane hasła się różnią',
@@ -38,6 +40,7 @@ export default function RegisterForm() {
       name: values.name,
       email: values.email,
       password: values.password,
+      userRole: values.userRole,
     };
 
     axios
@@ -54,12 +57,13 @@ export default function RegisterForm() {
           email: '',
           password: '',
           confirmPassword: '',
+          userRole: 'EDITOR',
         }}
         onSubmit={submitFormHandler}
         validationSchema={toFormikValidationSchema(validationSchema)}
       >
         {(formik) => {
-          // console.log(formik);
+          console.log(formik);
 
           return (
             <Form>
@@ -100,6 +104,11 @@ export default function RegisterForm() {
               </div>
               <div className="">
                 <label htmlFor="name">ADMIN/USER: </label>
+                <Field
+                  type="userRole"
+                  name="Rola użytkownika"
+                  placeholder="rola użytkownika"
+                ></Field>
               </div>
               <button
                 className="p-2 cursor-pointer bg-skin-fill-inverted text-skin-inverted hover:bg-red-300 disabled:bg-gray-300 disabled:cursor-auto"

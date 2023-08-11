@@ -1,3 +1,5 @@
+import { UserRole } from '@prisma/client';
+
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
 export type TLayoutState = {
@@ -11,11 +13,13 @@ export type TRegisterFormValues = {
   email: string;
   password: string;
   confirmPassword: string;
+  userRole: UserRole;
 };
 export type TRegisterFormValuesSent = {
   name: string;
   email: string;
   password: string;
+  userRole: UserRole;
 };
 
 export type TLoginFormValues = {

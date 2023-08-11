@@ -40,7 +40,15 @@ module.exports = {
       colors: {
         'primary-color': 'var(--color-foreground-base)',
       },
+      spacing: {
+        'mobile-margin': '16px',
+        'tablet-margin': '32px',
+      },
+      inset: {
+        'mobile-for-absolute-margin': '16px',
+        'tablet-for-absolute-margin': '32px',
+      },
     },
   },
-  plugins: [],
+  plugins: ['@tailwindcss/typography'],
 };

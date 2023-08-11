@@ -50,10 +50,14 @@
   .theme-font-size-bigger {
     --font-size-13: 14px;
     --font-size-13-line-height: 19px;
+    --font-size-19: 20px;
+    --font-size-19-line-height: 28px;
   }
   .theme-font-size-biggest {
     --font-size-13: 15px;
     --font-size-13-line-height: 21px;
+    --font-size-19: 21px;
+    --font-size-19-line-height: 29px;
   }
 }
 
@@ -65,6 +69,7 @@
   .font-base-bold {
     @apply font-bold text-skin-base;
   }
+
   /*   focus   */
   .primary-focus {
     @apply outline-dashed outline-2 outline-primary-color;
@@ -76,7 +81,7 @@
     @apply font-light text-base-13 text-skin-base focus:primary-focus;
   }
   .link-mobile-default {
-    @apply block font-semibold h-11 text-base-19 text-skin-base focus:primary-focus;
+    @apply block font-semibold tracking-tight h-11 text-base-19 text-skin-base focus:primary-focus;
   }
   .link-default::after,
   .link-mobile-default::after {
@@ -98,10 +103,10 @@
 
   /* link-active */
   .link-active {
-    @apply font-normal cursor-default text-base-13 text-skin-base;
+    @apply font-normal cursor-default text-base-13 text-skin-base whitespace-nowrap;
   }
   .link-mobile-active {
-    @apply block font-semibold cursor-default h-11 text-base-19 text-skin-base;
+    @apply font-semibold cursor-default h-11 text-base-19 text-skin-base whitespace-nowrap;
   }
   .link-active::after,
   .link-mobile-active::after {
