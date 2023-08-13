@@ -1,11 +1,19 @@
 // import { TLayoutState } from '@/types';
 import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
-import { TCurrentDevice, TLink, TLinkName, TSubMenu } from '@/types';
+import {
+  TCurrentDevice,
+  TLink,
+  TLinkName,
+  TSubMenu,
+  TsocialLinkName,
+  TsocialLinks,
+} from '@/types';
 import { hookstate, useHookstate } from '@hookstate/core';
 import { devtools } from '@hookstate/devtools';
 
 type TNavigationState = {
   links: TLink[];
+  socialLinks: TsocialLinks[];
   isAboutSubmenuVisible: boolean;
   isGroupsSubmenuVisible: boolean;
   isAccessibilitySubmenuVisible: boolean;
@@ -116,6 +124,11 @@ const navigationStateData: TNavigationState = {
       isCurrentlyUsed: false,
     },
   ],
+  socialLinks: [
+    { name: 'FACEBOOK', path: 'https://www.onet.pl/' },
+    { name: 'INSTAGRAM', path: 'https://www.wp.pl/' },
+    { name: 'YOUTUBE', path: 'https://wykop.pl/' },
+  ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,
   isAccessibilitySubmenuVisible: false,
@@ -224,6 +237,11 @@ export function useNavigationState() {
     // link getter
     getLinkData(linkName: TLinkName) {
       return state.links.get().find((link) => link.name === linkName);
+    },
+    getSocialLinkData(socialLinkName: TsocialLinkName) {
+      return state.socialLinks
+        .get()
+        .find((socialLink) => socialLink.name === socialLinkName);
     },
     // about submenu
     getIsAboutSubmenuVisible() {

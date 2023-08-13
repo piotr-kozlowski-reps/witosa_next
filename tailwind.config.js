@@ -78,6 +78,18 @@ module.exports = {
               color: 'var(--color-foreground-base)',
               // 'letter-spacing': '1px',
             },
+            b: {
+              'font-size': 'var(--font-size-13)',
+              'font-weight': 600,
+              'line-height': 'var(--font-size-13-line-height)',
+              color: 'var(--color-foreground-base)',
+            },
+            p: {
+              'font-size': 'var(--font-size-13)',
+              'font-weight': 400,
+              'line-height': 'var(--font-size-13-line-height)',
+              color: 'var(--color-foreground-base)',
+            },
           },
         },
       },

@@ -54,6 +54,12 @@ export type TLinkName =
   | 'bistro'
   | 'contact'
   | 'login';
+export type TsocialLinkName = 'FACEBOOK' | 'INSTAGRAM' | 'YOUTUBE';
+export type TsocialLinks = {
+  name: TsocialLinkName;
+  path: string;
+};
+
 export type TLink = {
   name: TLinkName;
   nameToBeDisplayed: string;
