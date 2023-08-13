@@ -109,6 +109,12 @@ const navigationStateData: TNavigationState = {
       path: '/groups/hipnoteriabis',
       isCurrentlyUsed: false,
     },
+    {
+      name: 'login',
+      nameToBeDisplayed: 'panel administracyjny',
+      path: '/dashboard',
+      isCurrentlyUsed: false,
+    },
   ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,

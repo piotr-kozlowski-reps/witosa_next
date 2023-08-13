@@ -46,10 +46,21 @@ export default function SliderView(props: Props) {
       <Fragment>
         <span>{`${dataObject.getDate()}.${month[dataObject.getMonth()]}`}</span>
         <span className="text-skin-gray">{`.${dataObject.getFullYear()}`}</span>
-        <div className="inline px-4 pb-4 text-skin-gray">|</div>
+        <span className="px-4 pb-4 text-skin-gray">|</span>
         <span className="text-skin-gray">{`${day[dataObject.getDay()]}`}</span>
-        <div className="inline px-4 pb-4 text-skin-gray">|</div>
-        <span>{`g. ${dataObject.getHours()}:${dataObject.getMinutes()}`}</span>
+        {getCurrentDevice() !== 'MOBILE' ? (
+          <Fragment>
+            <span className="px-4 pb-4 text-skin-gray">|</span>
+            <span>{`g. ${dataObject.getHours()}:${dataObject.getMinutes()}`}</span>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <div>
+              <span>{`g. ${dataObject.getHours()}:${dataObject.getMinutes()}`}</span>
+            </div>
+            {/* <span className="px-4 pb-4 text-skin-gray">|</span> */}
+          </Fragment>
+        )}
       </Fragment>
     );
   }
@@ -79,11 +90,13 @@ export default function SliderView(props: Props) {
         </div>
         <h1 className="mt-[18px]">{sliderData.slideTitle}</h1>
         <h2 className="-mt-[15px]">{createDateText(sliderData.eventDate)}</h2>
-        <CustomLink
-          visibleText="dowiedz się więcej ..."
-          url={sliderData.eventUrl}
-          descriptionText={sliderData.slideTitle}
-        />
+        <div className="mt-[41px]">
+          <CustomLink
+            visibleText="dowiedz się więcej ..."
+            url={sliderData.eventUrl}
+            descriptionText={sliderData.slideTitle}
+          />
+        </div>
 
         <p></p>
       </div>

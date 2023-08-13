@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 export function useGetCurrentDevice() {
   const { setCurrentDevice } = useNavigationState();
   const handleWindowResize = () => {
-    if (window.innerWidth <= 640) {
+    if (window.innerWidth <= 520) {
       setCurrentDevice('MOBILE');
     }
-    if (window.innerWidth > 640 && window.innerWidth < 1280) {
+    if (window.innerWidth > 520 && window.innerWidth < 1280) {
       setCurrentDevice('TABLET');
     }
     if (window.innerWidth >= 1280) {

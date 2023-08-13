@@ -52,7 +52,8 @@ export type TLinkName =
   | 'groups_hipnoteria'
   | 'groups_hipnoteria_bis'
   | 'bistro'
-  | 'contact';
+  | 'contact'
+  | 'login';
 export type TLink = {
   name: TLinkName;
   nameToBeDisplayed: string;

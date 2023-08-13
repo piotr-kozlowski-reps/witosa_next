@@ -8,6 +8,7 @@ type Props = {
   nameToBeDisplayed: string;
   hideAllSubmenus: () => void;
   isMobileLink?: boolean;
+  isSiteMapLink?: boolean;
 };
 
 export default function NavigationLink(props: Props) {
@@ -18,12 +19,20 @@ export default function NavigationLink(props: Props) {
     nameToBeDisplayed,
     hideAllSubmenus,
     isMobileLink = false,
+    isSiteMapLink = false,
   } = props;
 
   const standardLinkDefaultClasses = 'link-default';
   const standardLinkActiveClasses = 'link-active';
+
   const mobileLinkDefaultClasses = 'link-mobile-default pt-2';
   const mobileLinkActiveClasses = 'link-mobile-active pt-2';
+
+  const sitemapLinkDefaultClasses = 'link-default-sitemap';
+  const sitemapLinkActiveClasses = 'link-active-sitemap';
+
+  const isLinkInDesktopNavigation = !isMobileLink && !isSiteMapLink;
+  const isLinkInSiteMapNavigation = !isMobileLink && isSiteMapLink;
 
   ////tsx
   return (
@@ -31,8 +40,15 @@ export default function NavigationLink(props: Props) {
       {isCurrentlyUsed ? (
         <a
           className={
-            (clsx('pt-[3px] whitespace-nowrap'),
-            isMobileLink ? mobileLinkActiveClasses : standardLinkActiveClasses)
+            clsx(
+              'pt-[3px] whitespace-nowrap',
+              isMobileLink ? mobileLinkActiveClasses : '',
+              isLinkInDesktopNavigation ? standardLinkActiveClasses : '',
+              isLinkInSiteMapNavigation ? sitemapLinkActiveClasses : ''
+            )
+
+            // isMobileLink ? mobileLinkActiveClasses : standardLinkActiveClasses,
+            // isMobileLink ? mobileLinkActiveClasses : standardLinkActiveClasses,
           }
           aria-current="page"
           aria-disabled="true"
@@ -45,9 +61,9 @@ export default function NavigationLink(props: Props) {
             href={url}
             onClick={() => hideAllSubmenus()}
             className={clsx(
-              isMobileLink
-                ? mobileLinkDefaultClasses
-                : standardLinkDefaultClasses
+              isMobileLink ? mobileLinkDefaultClasses : '',
+              isLinkInDesktopNavigation ? standardLinkDefaultClasses : '',
+              isLinkInSiteMapNavigation ? sitemapLinkDefaultClasses : ''
             )}
           >
             <span className="whitespace-nowrap">{nameToBeDisplayed}</span>

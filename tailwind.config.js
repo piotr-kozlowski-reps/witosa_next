@@ -31,9 +31,10 @@ module.exports = {
         },
       },
       fontSize: {
+        'base-10': ['var(--font-size-10)', 'var(--font-size-10-line-height)'],
         'base-13': ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
         'base-19': ['var(--font-size-19)', 'var(--font-size-19-line-height)'],
-        base: ['var(--font-size-base)', 'var(--font-size-13-line-height)'],
+        base: ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
       },
       borderRadius: {
         base: '20px',
@@ -69,6 +70,13 @@ module.exports = {
               'line-height': 'var(--font-size-32-line-height)',
               color: 'var(--color-foreground-base)',
               'letter-spacing': '-1px',
+            },
+            h4: {
+              'font-size': 'var(--font-size-13)',
+              'font-weight': 900,
+              'line-height': 'var(--font-size-13-line-height)',
+              color: 'var(--color-foreground-base)',
+              // 'letter-spacing': '1px',
             },
           },
         },
