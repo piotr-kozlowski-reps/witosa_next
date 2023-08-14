@@ -13,6 +13,7 @@ module.exports = {
           gray: 'var(--color-gray)',
           'cta-primary': 'var(--cta-primary)',
           'cta-secondary': 'var(--cta-secondary)',
+          error: 'var(--color-error)',
           // inverted: 'var(--color-text-inverted)',
         },
       },
@@ -24,6 +25,7 @@ module.exports = {
           gray: 'var(--color-gray)',
           'cta-primary': 'var(--cta-primary)',
           'cta-secondary': 'var(--cta-secondary)',
+          error: 'var(--color-error)',
           // fill: 'var(--color-fill)',
           // 'fill-inverted': 'var(--color-fill-inverted)',
           // 'button-accent': 'var(--color-button-accent)',
@@ -45,6 +47,9 @@ module.exports = {
       },
       colors: {
         'primary-color': 'var(--color-foreground-base)',
+        'cta-primary': 'var(--cta-primary)',
+        'cta-secondary': 'var(--cta-secondary)',
+        error: 'var(--color-error)',
       },
       spacing: {
         'mobile-margin': '16px',

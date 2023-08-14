@@ -20,6 +20,7 @@
     --color-gray: #9e9e9e;
     --cta-primary: #f16730;
     --cta-secondary: #256254;
+    --color-error: #ff0000;
     --color-shadow: rgba(18, 41, 36, 0.15);
     /* fonts */
     --font-size-10: 10px;
@@ -171,7 +172,7 @@
     @apply font-light text-base-13 text-skin-gray focus:primary-focus;
   }
 
-  /* icons after line */
+  /* icons*/
   .icon-active {
     @apply font-normal;
   }
@@ -200,6 +201,11 @@
     width: 100%;
     height: 1px;
     margin-top: 8px;
+  }
+
+  /* buttons */
+  .standard-button {
+    @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-base-13 text-skin-inverted hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray;
   }
 
   .desktop-container {

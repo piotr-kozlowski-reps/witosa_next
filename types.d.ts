@@ -27,6 +27,10 @@ export type TLoginFormValues = {
   password: string;
 };
 
+export type TNewsletterFormValues = {
+  email: string;
+};
+
 export type NOTIFICATION_TYPES = 'ERROR' | 'SUCCESS';
 
 export type FileList = {
@@ -80,3 +84,5 @@ export type TMainSliderData = {
 export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL';
 
 export type TCurrentDevice = 'MOBILE' | 'TABLET' | 'DESKTOP';
+
+// formik

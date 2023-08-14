@@ -12,6 +12,9 @@ export default function ContactInfo(props: Props) {
   ////vars
   const { getSocialLinkData } = props;
 
+  const telNumber = '32 235 48 78'; //TODO: check if number works and what it opens
+  const email = 'witosa@artck.pl'; //TODO: check if email works and opens email client
+
   ////tsx
   return (
     <div className="w-full prose">
@@ -23,10 +26,23 @@ export default function ContactInfo(props: Props) {
       </div>
       <div className="mt-[23px]">
         <p className="mt-1">
-          tel. <b>32 235 48 78</b>
+          tel.{' '}
+          <span className="inline-block not-prose">
+            <a
+              href={`tel:+48 ${telNumber}`}
+              className="font-medium link-default"
+            >
+              {telNumber}
+            </a>
+          </span>
         </p>
         <p className="-mt-2">
-          e-mail: <b>witosa@artck.pl</b>
+          e-mail:{' '}
+          <span className="inline-block not-prose">
+            <a href={`mailto:${email}`} className="font-medium link-default">
+              {email}
+            </a>
+          </span>
         </p>
       </div>
       <div className="mt-[28px] mb-8 separator-horizontal"></div>

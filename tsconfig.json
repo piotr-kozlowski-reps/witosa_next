@@ -31,7 +31,8 @@
     "lib/errors/ApiError.notUsed",
     "lib/errors/handleError.notUsed",
     "lib/errors/handleApiError.tssdcds",
-    "lib/middlewareHelpers/withNextAuthExceptionFilter.notUsed"
+    "lib/middlewareHelpers/withNextAuthExceptionFilter.notUsed",
+    "app/(site)/components/forms/FormikControl.notusedanymore"
   ],
   "exclude": ["node_modules"]
 }

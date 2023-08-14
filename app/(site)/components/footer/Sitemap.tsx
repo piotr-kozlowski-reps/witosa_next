@@ -1,20 +1,27 @@
-import { TLink, TLinkName } from '@/types';
+import { TCurrentDevice, TLink, TLinkName } from '@/types';
 import { ImmutableObject } from '@hookstate/core';
+import clsx from 'clsx';
 import NavigationLink from '../navigation/NavigationLink';
 
 interface Props {
   getLinkData: (
     linkName: TLinkName
   ) => ImmutableObject<ImmutableObject<TLink>> | undefined;
+  getCurrentDevice: () => TCurrentDevice;
 }
 
 export default function Sitemap(props: Props) {
   ////vars
-  const { getLinkData } = props;
+  const { getLinkData, getCurrentDevice } = props;
 
   ////tsx
   return (
-    <div className="w-full prose">
+    <div
+      className={clsx(
+        'w-full prose',
+        getCurrentDevice() !== 'DESKTOP' ? 'order-3' : ''
+      )}
+    >
       <h4>Mapa strony</h4>
       <ul className="flex flex-col items-start justify-center list-none not-prose mt-[17px]">
         <li className="-ml-[26px]">
