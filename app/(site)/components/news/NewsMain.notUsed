@@ -1,0 +1,38 @@
+// 'use client';
+
+// import { useNavigationState } from '@/context/navigationState';
+// import clsx from 'clsx';
+
+// async function NewsMain() {
+//   ////vars
+//   const { getCurrentDevice } = useNavigationState();
+
+//   ////tsx
+//   return (
+//     <section
+//       className={clsx(
+//         'mt-[192px]',
+//         getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+//         getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
+//         getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
+//       )}
+//     >
+//       {/* <div
+//         className={clsx(
+//           'bg-skin-gray w-[753px] h-[1px] mb-24',
+//           getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''
+//         )}
+//       ></div>
+//       <div
+//         className={clsx(
+//           'w-full prose',
+//           getCurrentDevice() !== 'DESKTOP' ? 'order-3' : ''
+//         )}
+//       >
+//         <h4>Aktualności</h4>
+//       </div> */}
+//     </section>
+//   );
+// }
+
+// export default NewsMain;

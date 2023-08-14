@@ -1,0 +1,52 @@
+// import { TCurrentDevice } from '@/types';
+// import clsx from 'clsx';
+
+// interface Props {
+//   getCurrentDevice: () => TCurrentDevice;
+// }
+
+// export default async function NewsInside(props: Props) {
+//   ////vars
+//   const { getCurrentDevice } = props;
+//   // const newsData: TEventsMappedForNews[] = await getNewsData();
+
+//   ////tsx
+//   return (
+//     <section
+//       className={clsx(
+//         'mt-[192px]',
+//         getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+//         getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
+//         getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
+//       )}
+//     >
+//       {/* <div
+//         className={clsx(
+//           'bg-skin-gray w-[753px] h-[1px] mb-24',
+//           getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''
+//         )}
+//       ></div> */}
+//       {/* <div
+//         className={clsx(
+//           'w-full prose',
+//           getCurrentDevice() !== 'DESKTOP' ? 'order-3' : ''
+//         )}
+//       >
+//         <h4>Aktualności</h4>
+//       </div> */}
+
+//       {/* {newsData.map((newsEvent) => (
+//         <div key={newsEvent.id}>{newsEvent.title}</div>
+//       ))} */}
+
+//       {/* <div className="grid grid-cols-3 gap-4 not-prose mt-[27px]">
+//         <div className="h-32 bg-red-400">dfv</div>
+//         <div className="bg-red-400">sdcqasdcqadcqw</div>
+//         <div className="h-64 bg-red-400">qwecqwecqwec</div>
+//         <div className="bg-red-400">
+//           wc dscasd casd ca sdc asd c asdc a sdc as dc asd ca sdc
+//         </div>
+//       </div> */}
+//     </section>
+//   );
+// }

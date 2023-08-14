@@ -40,16 +40,20 @@ model User{
 
 model Event{
   id String @id @default(uuid())
-  eventType EventsType
+  eventTypes EventsType[]
   title String
-  imageUrl String
-  content String
+  isToBeInNewsSection Boolean
+  newsSectionImageUrl String?
+  shortDescription String
+  // imageUrl String
+  // content String
   eventStartDate DateTime
   eventEndDate DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author User @relation(fields: [authorId], references: [id])
   authorId String
+  isToBePublished Boolean
 }
 
 model Slide{

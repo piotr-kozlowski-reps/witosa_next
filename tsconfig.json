@@ -32,7 +32,9 @@
     "lib/errors/handleError.notUsed",
     "lib/errors/handleApiError.tssdcds",
     "lib/middlewareHelpers/withNextAuthExceptionFilter.notUsed",
-    "app/(site)/components/forms/FormikControl.notusedanymore"
+    "app/(site)/components/forms/FormikControl.notusedanymore",
+    "app/(site)/components/news/NewsInside.notUsed",
+    "app/(site)/components/news/NewsMain.notUsed"
   ],
   "exclude": ["node_modules"]
 }

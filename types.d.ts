@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { EventsType, UserRole } from '@prisma/client';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
@@ -85,4 +85,11 @@ export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL';
 
 export type TCurrentDevice = 'MOBILE' | 'TABLET' | 'DESKTOP';
 
-// formik
+export type TEventInNewsSection = {
+  id: string;
+  eventTypes: EventsType[];
+  eventStartDate: Date;
+  newsSectionImageUrl: string;
+  title: string;
+  shortDescription: string;
+};

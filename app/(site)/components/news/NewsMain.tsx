@@ -1,11 +1,11 @@
-'use client';
+import { getNewsData } from '@/lib/api/newsUtils';
+import { TEventInNewsSection } from '@/types';
 
-import { useNavigationState } from '@/context/navigationState';
-import NewsInside from './NewsInside';
-
-export default function NewsMain() {
+async function NewsMain() {
   ////vars
-  const { getCurrentDevice } = useNavigationState();
+  const newsData: TEventInNewsSection[] = await getNewsData();
   ////tsx
-  return <NewsInside getCurrentDevice={getCurrentDevice} />;
+  return <div>NewsMain</div>;
 }
+
+export default NewsMain;

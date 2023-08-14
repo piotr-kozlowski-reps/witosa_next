@@ -1,4 +1,4 @@
-import { TsocialLinkName, TsocialLinks } from '@/types';
+import { TCurrentDevice, TsocialLinkName, TsocialLinks } from '@/types';
 import { ImmutableObject } from '@hookstate/core';
 import IconButton from '../IconButton';
 
@@ -6,11 +6,12 @@ interface Props {
   getSocialLinkData: (
     socialLinkName: TsocialLinkName
   ) => ImmutableObject<ImmutableObject<TsocialLinks>> | undefined;
+  getCurrentDevice: () => TCurrentDevice;
 }
 
 export default function ContactInfo(props: Props) {
   ////vars
-  const { getSocialLinkData } = props;
+  const { getSocialLinkData, getCurrentDevice } = props;
 
   const telNumber = '32 235 48 78'; //TODO: check if number works and what it opens
   const email = 'witosa@artck.pl'; //TODO: check if email works and opens email client
@@ -55,7 +56,7 @@ export default function ContactInfo(props: Props) {
               iconDefaultUrl="facebook-xsm_default.svg"
               iconHoverUrl="facebook-xsm_hover.svg"
               alt="Facebook"
-              size="SMALL"
+              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
               actionFn={() => {}}
               isLink={true}
               linkUrl={getSocialLinkData('FACEBOOK')!.path}
@@ -67,7 +68,7 @@ export default function ContactInfo(props: Props) {
               iconDefaultUrl="instagram-xsm_default.svg"
               iconHoverUrl="instagram-xsm_hover.svg"
               alt="Instagram"
-              size="SMALL"
+              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
               actionFn={() => {}}
               isLink={true}
               linkUrl={getSocialLinkData('INSTAGRAM')!.path}
@@ -79,7 +80,7 @@ export default function ContactInfo(props: Props) {
               iconDefaultUrl="youtube-xsm_default.svg"
               iconHoverUrl="youtube-xsm_hover.svg"
               alt="Youtube"
-              size="SMALL"
+              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
               actionFn={() => {}}
               isLink={true}
               linkUrl={getSocialLinkData('YOUTUBE')!.path}
