@@ -1,5 +1,6 @@
-import MainSlider from './(site)/components/MainSlider';
+import FooterMain from './(site)/components/footer/FooterMain';
 import NewsMain from './(site)/components/news/NewsMain';
+import MainSlider from './(site)/components/slider_main/MainSlider';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       {/* <TestServerSession />
       <TestClientSession /> */}
       {/* </div> */}
+      <FooterMain />
     </main>
   );
 }

@@ -5,7 +5,7 @@ import { getPolishTypeName } from '@/lib/textHelpers';
 import { Slide } from '@prisma/client';
 import clsx from 'clsx';
 import { Fragment } from 'react';
-import CustomLink from './CustomLink';
+import CustomLink from '../CustomLink';
 
 type Props = {
   sliderData: Slide;

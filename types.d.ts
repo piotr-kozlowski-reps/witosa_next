@@ -94,3 +94,8 @@ export type TEventInNewsSection = Pick<
   | 'title'
   | 'shortDescription'
 >;
+
+export type TSliderGroupsImages = {
+  url: string;
+  alt: string;
+};

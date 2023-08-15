@@ -1,4 +1,3 @@
-// import { mainSliderMockData } from '@/lib/api/temporaryApiMockData';
 import { getSliderData } from '@/lib/api/sliderUtils';
 import { Slide } from '@prisma/client';
 import SliderView from './SliderView';

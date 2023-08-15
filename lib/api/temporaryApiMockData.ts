@@ -1,3 +1,4 @@
+import { TSliderGroupsImages } from '@/types';
 import { Event, Slide } from '@prisma/client';
 
 export const mainSliderMockData: Slide[] = [
@@ -78,64 +79,8 @@ export const allEventsMockData: Event[] = [
     eventEndDate: new Date('2023-09-12T21:00:24.968Z'),
     isToBePublished: true,
   },
-  {
-    id: '854rrc17-0584-4881-fff5-ce6bf7fde841',
-    eventTypes: ['WORKSHOP'],
-    title: 'Kino Szkoła - Zajęcia kinematograficzne',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    isToBeInNewsSection: true,
-    newsSectionImageUrl: 'news-img-003.jpg',
-    shortDescription:
-      '„Tylko to dzieło czegoś jest warte, z którego człowiek może się poprawić i mądrości nauczyć”-słowa Adama Mickiewicza były przewodnią myślą uroczystości wręczenia stypendiów Prezesa Rady Ministrów na rok szkolny 2018/2019, która odbyła się 26 listopada w Wyższej Szkole Menadżerskiej w Warszawie. W uroczystości udział wzięli między innymi Minister Marek Suski, Mazowiecki Kurator Oświaty Aurelia Michałowska, Dyrektor Generalny Ministerstwa Edukacji Narodowej Joanna Szczawińska.',
-    eventStartDate: new Date('2023-08-30T18:30:24.968Z'),
-    eventEndDate: new Date('2023-09-02T21:00:24.968Z'),
-    isToBePublished: true,
-  },
-  {
-    id: '854e7c57-0584-4881-yff5-ce6bgefde841',
-    eventTypes: ['CONCERT'],
-    title: 'Knury Knurów - Koncert charytatywny na rzecz ...',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    isToBeInNewsSection: true,
-    newsSectionImageUrl: 'news-img-004.jpg',
-    shortDescription:
-      '„Miejsce, w którym koncert ma być zorganizowany, powinno być dostosowane do wielkości imprezy. Eventy charytatywne zazwyczaj przygotowywane są na większą skalę, aby jak najwięcej osób mogło wziąć udział w wydarzeniu, z którego dochód przeznaczony będzie na szczytny cel. Wiele placówek oferuje możliwość zorganizowania koncertów charytatywnych, warto więc porozmawiać z władzami miasta, w którym koncert ma się odbyć, a na pewno zaprezentują oni odpowiednie rozwiązanie.',
-    eventStartDate: new Date('2023-09-10T18:30:24.968Z'),
-    eventEndDate: new Date('2023-09-12T21:00:24.968Z'),
-    isToBePublished: true,
-  },
-  {
-    id: '854e7c17-0584-4881-4ff5-c36bf7fde841',
-    eventTypes: ['WORKSHOP'],
-    title: 'Kino Szkoła - Zajęcia kinematograficzne',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    isToBeInNewsSection: true,
-    newsSectionImageUrl: 'news-img-003.jpg',
-    shortDescription:
-      '„Tylko to dzieło czegoś jest warte, z którego człowiek może się poprawić i mądrości nauczyć”-słowa Adama Mickiewicza były przewodnią myślą uroczystości wręczenia stypendiów Prezesa Rady Ministrów na rok szkolny 2018/2019, która odbyła się 26 listopada w Wyższej Szkole Menadżerskiej w Warszawie. W uroczystości udział wzięli między innymi Minister Marek Suski, Mazowiecki Kurator Oświaty Aurelia Michałowska, Dyrektor Generalny Ministerstwa Edukacji Narodowej Joanna Szczawińska.',
-    eventStartDate: new Date('2023-08-30T18:30:24.968Z'),
-    eventEndDate: new Date('2023-09-02T21:00:24.968Z'),
-    isToBePublished: true,
-  },
-  {
-    id: '854e7c17-0584-4881-aff5-856bgefde841',
-    eventTypes: ['CONCERT'],
-    title: 'Knury Knurów - Koncert charytatywny na rzecz ...',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    isToBeInNewsSection: true,
-    newsSectionImageUrl: 'news-img-004.jpg',
-    shortDescription:
-      '„Miejsce, w którym koncert ma być zorganizowany, powinno być dostosowane do wielkości imprezy. Eventy charytatywne zazwyczaj przygotowywane są na większą skalę, aby jak najwięcej osób mogło wziąć udział w wydarzeniu, z którego dochód przeznaczony będzie na szczytny cel. Wiele placówek oferuje możliwość zorganizowania koncertów charytatywnych, warto więc porozmawiać z władzami miasta, w którym koncert ma się odbyć, a na pewno zaprezentują oni odpowiednie rozwiązanie.',
-    eventStartDate: new Date('2023-09-10T18:30:24.968Z'),
-    eventEndDate: new Date('2023-09-12T21:00:24.968Z'),
-    isToBePublished: true,
-  },
+];
+
+export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages[] = [
+  { url: '', alt: '' },
 ];
