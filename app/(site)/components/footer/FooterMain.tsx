@@ -31,10 +31,14 @@ export default function FooterMain() {
         ></div>
         <div
           className={clsx(
-            'grid w-full gap-x-4 gap-y-24 mb-16',
-            getCurrentDevice() === 'MOBILE' ? 'grid-cols-1' : '',
-            getCurrentDevice() === 'TABLET' ? 'grid-cols-2' : '',
-            getCurrentDevice() === 'DESKTOP' ? 'grid-cols-3' : ''
+            'grid w-full gap-y-24 mb-16',
+            getCurrentDevice() === 'MOBILE'
+              ? 'grid-cols-1 gap-x-mobile-margin'
+              : '',
+            getCurrentDevice() === 'TABLET'
+              ? 'grid-cols-2 gap-x-tablet-margin'
+              : '',
+            getCurrentDevice() === 'DESKTOP' ? 'grid-cols-3 gap-x-4' : ''
           )}
         >
           <Sitemap

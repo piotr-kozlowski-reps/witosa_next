@@ -1,4 +1,4 @@
-import { EventsType, UserRole } from '@prisma/client';
+import { Event, UserRole } from '@prisma/client';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
@@ -85,11 +85,12 @@ export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL';
 
 export type TCurrentDevice = 'MOBILE' | 'TABLET' | 'DESKTOP';
 
-export type TEventInNewsSection = {
-  id: string;
-  eventTypes: EventsType[];
-  eventStartDate: Date;
-  newsSectionImageUrl: string;
-  title: string;
-  shortDescription: string;
-};
+export type TEventInNewsSection = Pick<
+  Event,
+  | 'id'
+  | 'eventTypes'
+  | 'eventStartDate'
+  | 'newsSectionImageUrl'
+  | 'title'
+  | 'shortDescription'
+>;

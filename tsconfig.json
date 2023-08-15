@@ -23,18 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "lib/errors/ApiError.notUsed",
-    "lib/errors/handleError.notUsed",
-    "lib/errors/handleApiError.tssdcds",
-    "lib/middlewareHelpers/withNextAuthExceptionFilter.notUsed",
-    "app/(site)/components/forms/FormikControl.notusedanymore",
-    "app/(site)/components/news/NewsInside.notUsed",
-    "app/(site)/components/news/NewsMain.notUsed"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

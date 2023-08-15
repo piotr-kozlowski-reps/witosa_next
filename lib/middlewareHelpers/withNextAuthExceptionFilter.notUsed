@@ -1,7 +1,0 @@
-import NextAuth from 'next-auth';
-
-export function withNextAuthExceptionFilter(nextAuth: typeof NextAuth) {
-  return async function (handler: typeof NextAuth) {
-    return handler;
-  };
-}

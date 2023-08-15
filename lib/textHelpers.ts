@@ -12,8 +12,12 @@ export function getPolishTypeName(type: EventsType) {
       polishTypeName = 'warsztaty';
       break;
 
+    case 'LECTURE':
+      polishTypeName = 'wykłady';
+      break;
+
     default:
-      polishTypeName = '';
+      throw new Error('getPolishTypeName not defined');
   }
 
   return polishTypeName;

@@ -1,11 +1,13 @@
-import { getNewsData } from '@/lib/api/newsUtils';
+import { getNewsDataSorted } from '@/lib/api/newsUtils';
 import { TEventInNewsSection } from '@/types';
+import NewsInside from './NewsInside';
 
 async function NewsMain() {
   ////vars
-  const newsData: TEventInNewsSection[] = await getNewsData();
+  const newsData: TEventInNewsSection[] = await getNewsDataSorted();
+
   ////tsx
-  return <div>NewsMain</div>;
+  return <NewsInside newsData={newsData} />;
 }
 
 export default NewsMain;

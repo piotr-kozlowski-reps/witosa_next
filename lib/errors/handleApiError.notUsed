@@ -1,7 +1,0 @@
-// import logger from '../logger';
-// import { ApiError } from './ApiError';
-
-// export function handleApiError(errorCode: number, message: string) {
-//   logger.warn(message);
-//   throw new ApiError(errorCode, message);
-// }
