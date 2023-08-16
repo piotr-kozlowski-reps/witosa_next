@@ -52,7 +52,7 @@ module.exports = {
         error: 'var(--color-error)',
       },
       spacing: {
-        'mobile-margin': '16px',
+        'mobile-margin': '32px',
         'tablet-margin': '32px',
       },
       inset: {

@@ -82,5 +82,8 @@ export const allEventsMockData: Event[] = [
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages[] = [
-  { url: '', alt: '' },
+  {
+    url: 'groups_hipnoteriabis_001.jpg',
+    alt: 'Grupa artystyczna Hipnoteria Bis.',
+  },
 ];

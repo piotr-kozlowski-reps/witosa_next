@@ -1,20 +1,18 @@
-'use client';
+import { getGroupsSliderData } from '@/lib/api/sliderUtils';
+import { TSliderGroupsImages } from '@/types';
+import FooterMain from '../../components/footer/FooterMain';
+import SliderGroups from '../../components/slider_groups/SliderGroups';
+import HipnoteriaBisContent from './components/HipnoteriaBisContent';
 
-import { useNavigationState } from '@/context/navigationState';
-import clsx from 'clsx';
-import SliderGroups from '../../components/slider_main/SliderGroups';
+export default async function HipnoteriaBisPage() {
+  ////vars
+  const sliderImages: TSliderGroupsImages[] = await getGroupsSliderData();
 
-export default function HipnoteriaBisPage() {
-  const { getCurrentDevice } = useNavigationState();
   return (
-    <main
-      className={clsx(
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
-      )}
-    >
-      <SliderGroups />
+    <main>
+      <SliderGroups sliderImages={sliderImages} />
+      <HipnoteriaBisContent />
+      <FooterMain />
     </main>
   );
 }
