@@ -1,7 +1,7 @@
 'use client';
 
 import { useNavigationState } from '@/context/navigationState';
-import { TSliderGroupsImages } from '@/types';
+import { TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import {
   HashNavigation,
@@ -18,7 +18,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 type Props = {
-  sliderImages: TSliderGroupsImages[];
+  sliderImages: TSliderGroupImage[];
 };
 
 export default function SliderGroups(props: Props) {

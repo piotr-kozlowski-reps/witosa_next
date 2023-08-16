@@ -96,6 +96,21 @@ export type TEventInNewsSection = Pick<
 >;
 
 export type TSliderGroupsImages = {
+  marzenieMiniMini: TSliderGroupImage[];
+  marzenieBis: TSliderGroupImage[];
+  marzenie: TSliderGroupImage[];
+  hipnoteriaBis: TSliderGroupImage[];
+  hipnoteria: TSliderGroupImage[];
+};
+
+export type TSliderGroupImage = {
   url: string;
   alt: string;
 };
+
+export type TGroups =
+  | 'MARZENIE_MINI_MINI'
+  | 'MARZENIE_BIS'
+  | 'MARZENIE'
+  | 'HIPNOTERIA_BIS'
+  | 'HIPNOTERIA';

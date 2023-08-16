@@ -81,21 +81,83 @@ export const allEventsMockData: Event[] = [
   },
 ];
 
-export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages[] = [
-  {
-    url: 'groups_hipnoteriabis_001.jpg',
-    alt: 'Grupa artystyczna Hipnoteria Bis.',
-  },
-  {
-    url: 'groups_hipnoteriabis_002.jpg',
-    alt: 'Grupa artystyczna Hipnoteria Bis.',
-  },
-  {
-    url: 'groups_hipnoteriabis_003.jpg',
-    alt: 'Grupa artystyczna Hipnoteria Bis.',
-  },
-  {
-    url: 'groups_hipnoteriabis_004.jpg',
-    alt: 'Grupa artystyczna Hipnoteria Bis.',
-  },
-];
+export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
+  marzenieMiniMini: [
+    {
+      url: 'groups_marzenie_mini_mini_001.jpg',
+      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+    },
+    {
+      url: 'groups_marzenie_mini_mini_002.jpg',
+      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+    },
+    {
+      url: 'groups_marzenie_mini_mini_003.jpg',
+      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+    },
+  ],
+  marzenieBis: [
+    {
+      url: 'groups_marzenie_bis_001.jpg',
+      alt: 'Grupa artystyczna Marzenie bis.',
+    },
+    {
+      url: 'groups_marzenie_bis_002.jpg',
+      alt: 'Grupa artystyczna Marzenie bis.',
+    },
+    {
+      url: 'groups_marzenie_bis_003.jpg',
+      alt: 'Grupa artystyczna Marzenie bis.',
+    },
+    {
+      url: 'groups_marzenie_bis_004.jpg',
+      alt: 'Grupa artystyczna Marzenie bis.',
+    },
+  ],
+  marzenie: [
+    {
+      url: 'groups_marzenie_001.jpg',
+      alt: 'Grupa artystyczna Marzenie.',
+    },
+    {
+      url: 'groups_marzenie_002.jpg',
+      alt: 'Grupa artystyczna Marzenie.',
+    },
+    {
+      url: 'groups_marzenie_003.jpg',
+      alt: 'Grupa artystyczna Marzenie.',
+    },
+    {
+      url: 'groups_marzenie_004.jpg',
+      alt: 'Grupa artystyczna Marzenie.',
+    },
+    {
+      url: 'groups_marzenie_005.jpg',
+      alt: 'Grupa artystyczna Marzenie.',
+    },
+  ],
+  hipnoteriaBis: [
+    {
+      url: 'groups_hipnoteriabis_001.jpg',
+      alt: 'Grupa artystyczna Hipnoteria Bis.',
+    },
+    {
+      url: 'groups_hipnoteriabis_002.jpg',
+      alt: 'Grupa artystyczna Hipnoteria Bis.',
+    },
+    {
+      url: 'groups_hipnoteriabis_003.jpg',
+      alt: 'Grupa artystyczna Hipnoteria Bis.',
+    },
+    {
+      url: 'groups_hipnoteriabis_004.jpg',
+      alt: 'Grupa artystyczna Hipnoteria Bis.',
+    },
+  ],
+  hipnoteria: [
+    {
+      url: 'groups_hipnoteria_001.jpg',
+      alt: 'Grupa artystyczna Hipnoteria.',
+    },
+  ],
+};

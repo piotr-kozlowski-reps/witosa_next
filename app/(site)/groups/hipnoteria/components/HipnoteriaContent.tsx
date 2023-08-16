@@ -3,7 +3,7 @@
 import { useNavigationState } from '@/context/navigationState';
 import clsx from 'clsx';
 
-export default function HipnoteriaBisContent() {
+export default function HipnoteriaContent() {
   ////vars
   const { getCurrentDevice } = useNavigationState();
 
@@ -17,7 +17,7 @@ export default function HipnoteriaBisContent() {
       )}
     >
       <div className="max-w-full prose">
-        <h1 className="mt-[57px]">Hipnoteria bis</h1>
+        <h1 className="mt-[57px]">Hipnoteria</h1>
         <p className="w-full ">
           To szereg stylów tańca ulicznego ewolujący jako część kultury
           hip-hopowej. Zaliczany jest do Street Dance, co czyni go wyjątkowo
