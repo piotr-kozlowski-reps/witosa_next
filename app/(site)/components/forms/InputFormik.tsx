@@ -28,10 +28,9 @@ export default function InputFormik(props: Props) {
           ////vars
           const { field, form, values } = formik;
           const { onChange, onBlur } = field;
-          const { errors, touched } = form;
+          const { errors } = form;
 
           const isErrorPresent: undefined | string = errors[name];
-          const isTouched: undefined | boolean = touched[name];
 
           return (
             <Fragment>

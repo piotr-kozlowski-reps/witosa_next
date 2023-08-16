@@ -5,7 +5,7 @@ import NavigationLink from '../navigation/NavigationLink';
 
 interface Props {
   getLinkData: (
-    linkName: TLinkName
+    _linkName: TLinkName
   ) => ImmutableObject<ImmutableObject<TLink>> | undefined;
   getCurrentDevice: () => TCurrentDevice;
 }

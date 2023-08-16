@@ -4,7 +4,7 @@ import IconButton from '../IconButton';
 
 interface Props {
   getSocialLinkData: (
-    socialLinkName: TsocialLinkName
+    _socialLinkName: TsocialLinkName
   ) => ImmutableObject<ImmutableObject<TsocialLinks>> | undefined;
   getCurrentDevice: () => TCurrentDevice;
 }

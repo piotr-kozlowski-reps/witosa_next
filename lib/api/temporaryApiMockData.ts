@@ -86,4 +86,16 @@ export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages[] = [
     url: 'groups_hipnoteriabis_001.jpg',
     alt: 'Grupa artystyczna Hipnoteria Bis.',
   },
+  {
+    url: 'groups_hipnoteriabis_002.jpg',
+    alt: 'Grupa artystyczna Hipnoteria Bis.',
+  },
+  {
+    url: 'groups_hipnoteriabis_003.jpg',
+    alt: 'Grupa artystyczna Hipnoteria Bis.',
+  },
+  {
+    url: 'groups_hipnoteriabis_004.jpg',
+    alt: 'Grupa artystyczna Hipnoteria Bis.',
+  },
 ];

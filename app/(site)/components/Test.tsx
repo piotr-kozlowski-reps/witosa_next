@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 
 export default function Test() {
   ////vars
-  const layoutState = useLayoutState();
+  const _layoutState = useLayoutState();
 
   ////logic
   function highContrastButtonHandler() {

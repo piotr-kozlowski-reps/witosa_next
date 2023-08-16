@@ -10,7 +10,7 @@ import NavigationLink from './NavigationLink';
 
 interface Props {
   getLinkData: (
-    linkName: TLinkName
+    _linkName: TLinkName
   ) => ImmutableObject<ImmutableObject<TLink>> | undefined;
   hideAllSubmenus: () => void;
   getLayoutMode: () => TMode;
