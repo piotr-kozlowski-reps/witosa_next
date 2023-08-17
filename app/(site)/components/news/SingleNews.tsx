@@ -56,7 +56,10 @@ export default function SingleNews(props: Props) {
       >
         <div className="absolute top-0 left-0">
           {eventTypes.map((type, index) => (
-            <div key={index} className="inline font-base-regular text-base-13">
+            <div
+              key={index}
+              className="inline font-base-regular text-size-normal"
+            >
               <span>{index !== 0 ? '|' : ''}</span>
               <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
                 {getPolishTypeName(type)}

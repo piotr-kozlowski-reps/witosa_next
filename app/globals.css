@@ -51,14 +51,14 @@
     --swiper-pagination-bullet-inactive-color: #f16730;
 
     /* fonts */
-    --font-size-10: 10px;
-    --font-size-10-line-height: 10px;
-    --font-size-13: 13px;
-    --font-size-13-line-height: 18px;
-    --font-size-19: 19px;
-    --font-size-19-line-height: 27px;
-    --font-size-32: 32px;
-    --font-size-32-line-height: 38px;
+    --font-size-small: 10px;
+    --font-size-small-line-height: 10px;
+    --font-size-normal: 14px;
+    --font-size-normal-line-height: 19px;
+    --font-size-large: 19px;
+    --font-size-large-line-height: 27px;
+    --font-size-x-large: 32px;
+    --font-size-x-large-line-height: 38px;
 
     /* --color-foreground-base: #333333;
     --color-text-inverted: #dddddd;
@@ -66,7 +66,7 @@
     --color-fill-inverted: #0c1e36;
     --color-button-accent: #350edf;
     --color-button-accent-hover: #1a0e50;
-    --font-size-13-line-height: 20px; */
+    --font-size-normal-line-height: 20px; */
   }
 
   /* colors / contrasts */
@@ -84,32 +84,32 @@
 
   /* font sizes */
   .theme-font-size-bigger {
-    --font-size-10: 10px;
-    --font-size-10-line-height: 14px;
-    --font-size-13: 14px;
-    --font-size-13-line-height: 19px;
-    --font-size-19: 20px;
-    --font-size-19-line-height: 28px;
-    --font-size-32: 33px;
-    --font-size-32-line-height: 40px;
+    --font-size-small: 10px;
+    --font-size-small-line-height: 14px;
+    --font-size-normal: 15px;
+    --font-size-normal-line-height: 20px;
+    --font-size-large: 20px;
+    --font-size-large-line-height: 28px;
+    --font-size-x-large: 33px;
+    --font-size-x-large-line-height: 40px;
   }
   .theme-font-size-biggest {
-    --font-size-13: 15px;
-    --font-size-13-line-height: 21px;
-    --font-size-19: 21px;
-    --font-size-19-line-height: 29px;
-    --font-size-32: 34px;
-    --font-size-32-line-height: 41px;
+    --font-size-normal: 16px;
+    --font-size-normal-line-height: 21px;
+    --font-size-large: 21px;
+    --font-size-large-line-height: 29px;
+    --font-size-x-large: 34px;
+    --font-size-x-large-line-height: 41px;
   }
 }
 
 @layer components {
   /*   fonts   */
   .font-sm-normal {
-    @apply font-normal text-base-10 text-skin-base;
+    @apply font-normal text-size-small text-skin-base;
   }
   .font-base-regular {
-    @apply font-normal text-base-13 text-skin-base;
+    @apply font-normal text-size-normal text-skin-base;
   }
   .font-base-bold {
     @apply font-bold text-skin-base;
@@ -123,10 +123,10 @@
   /*   navigation   */
   /* link-default */
   .link-default {
-    @apply font-light text-base-13 text-skin-base focus:primary-focus;
+    @apply font-light text-size-normal text-skin-base focus:primary-focus;
   }
   .link-mobile-default {
-    @apply block font-semibold tracking-tight h-11 text-base-19 text-skin-base focus:primary-focus;
+    @apply block font-semibold tracking-tight h-11 text-size-large text-skin-base focus:primary-focus;
   }
   .link-default::after,
   .link-mobile-default::after {
@@ -147,7 +147,7 @@
   }
 
   .link-default-sitemap {
-    @apply font-light text-base-13 text-skin-base focus:primary-focus;
+    @apply font-light text-size-normal text-skin-base focus:primary-focus;
   }
   .link-default-sitemap::after {
     content: '';
@@ -167,10 +167,10 @@
 
   /* link-active */
   .link-active {
-    @apply font-normal cursor-default text-base-13 text-skin-base whitespace-nowrap;
+    @apply font-normal cursor-default text-size-normal text-skin-base whitespace-nowrap;
   }
   .link-mobile-active {
-    @apply font-semibold cursor-default h-11 text-base-19 text-skin-base whitespace-nowrap;
+    @apply font-semibold cursor-default h-11 text-size-large text-skin-base whitespace-nowrap;
   }
   .link-active::after,
   .link-mobile-active::after {
@@ -183,7 +183,7 @@
   }
 
   .link-active-sitemap {
-    @apply font-normal cursor-default text-base-13 text-skin-base whitespace-nowrap;
+    @apply font-normal cursor-default text-size-normal text-skin-base whitespace-nowrap;
   }
   .link-active-sitemap::after {
     content: '';
@@ -197,7 +197,7 @@
     transition: all ease-out 100ms;
   }
   .submenu-name-sitemap {
-    @apply font-light text-base-13 text-skin-gray focus:primary-focus;
+    @apply font-light text-size-normal text-skin-gray focus:primary-focus;
   }
 
   /* icons*/
@@ -233,7 +233,7 @@
 
   /* buttons */
   .standard-button {
-    @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-base-13 text-skin-inverted hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray;
+    @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-size-normal text-skin-inverted hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray;
   }
 
   .desktop-container {

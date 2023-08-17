@@ -33,10 +33,22 @@ module.exports = {
         },
       },
       fontSize: {
-        'base-10': ['var(--font-size-10)', 'var(--font-size-10-line-height)'],
-        'base-13': ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
-        'base-19': ['var(--font-size-19)', 'var(--font-size-19-line-height)'],
-        base: ['var(--font-size-13)', 'var(--font-size-13-line-height)'],
+        'size-small': [
+          'var(--font-size-small)',
+          'var(--font-size-small-line-height)',
+        ],
+        'size-normal': [
+          'var(--font-size-normal)',
+          'var(--font-size-normal-line-height)',
+        ],
+        'size-large': [
+          'var(--font-size-large)',
+          'var(--font-size-large-line-height)',
+        ],
+        base: [
+          'var(--font-size-normal)',
+          'var(--font-size-normal-line-height)',
+        ],
       },
       borderRadius: {
         base: '20px',
@@ -63,36 +75,36 @@ module.exports = {
         DEFAULT: {
           css: {
             h1: {
-              'font-size': 'var(--font-size-32)',
+              'font-size': 'var(--font-size-x-large)',
               'font-weight': 800,
-              'line-height': 'var(--font-size-32-line-height)',
+              'line-height': 'var(--font-size-x-large-line-height)',
               color: 'var(--color-foreground-base)',
               'letter-spacing': '-1px',
             },
             h2: {
-              'font-size': 'var(--font-size-32)',
+              'font-size': 'var(--font-size-x-large)',
               'font-weight': 400,
-              'line-height': 'var(--font-size-32-line-height)',
+              'line-height': 'var(--font-size-x-large-line-height)',
               color: 'var(--color-foreground-base)',
               'letter-spacing': '-1px',
             },
             h4: {
-              'font-size': 'var(--font-size-13)',
+              'font-size': 'var(--font-size-normal)',
               'font-weight': 900,
-              'line-height': 'var(--font-size-13-line-height)',
+              'line-height': 'var(--font-size-normal-line-height)',
               color: 'var(--color-foreground-base)',
               // 'letter-spacing': '1px',
             },
             b: {
-              'font-size': 'var(--font-size-13)',
+              'font-size': 'var(--font-size-normal)',
               'font-weight': 600,
-              'line-height': 'var(--font-size-13-line-height)',
+              'line-height': 'var(--font-size-normal-line-height)',
               color: 'var(--color-foreground-base)',
             },
             p: {
-              'font-size': 'var(--font-size-13)',
+              'font-size': 'var(--font-size-normal)',
               'font-weight': 400,
-              'line-height': 'var(--font-size-13-line-height)',
+              'line-height': 'var(--font-size-normal-line-height)',
               color: 'var(--color-foreground-base)',
             },
           },

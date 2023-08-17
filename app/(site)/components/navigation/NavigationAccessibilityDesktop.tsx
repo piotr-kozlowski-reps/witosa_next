@@ -36,12 +36,18 @@ export default function NavigationAccessibilityDesktop(props: Props) {
   ////tsx
   return (
     <Fragment>
+      <button
+        onClick={setIsAccessibilityNavigationVisible_ToTrue}
+        className="absolute"
+      >
+        pokaż menu
+      </button>
       <div
         className={clsx(
-          'absolute transition-accessibility-menu z-40',
+          'absolute transition-accessibility-menu z-40 ',
           getIsAccessibilityNavigationVisible()
-            ? 'w-full top-[128px] right-0'
-            : '-right-[1076px] top-[128px]'
+            ? 'w-full top-[128px] right-0 visible'
+            : '-right-[1076px] top-[128px] hidden'
         )}
         id="accessibility_navigation"
       >
