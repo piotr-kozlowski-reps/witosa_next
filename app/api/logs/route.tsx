@@ -7,9 +7,9 @@ export async function GET(_req: NextRequest) {
   const isLoggedIn = session?.user;
   const isAdmin = session?.user?.role === 'ADMIN';
 
-  console.log({ session });
-  console.log({ isLoggedIn });
-  console.log({ isAdmin });
+  // console.log({ session });
+  // console.log({ isLoggedIn });
+  // console.log({ isAdmin });
 
   // if (!isLoggedIn) {
   //   return logAndRespondWithApiError(

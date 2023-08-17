@@ -1,14 +1,25 @@
-import { TLink, TLinkName, TMode } from '@/types';
+import {
+  TLink,
+  TLinkName,
+  TMode,
+  TsocialLinkName,
+  TsocialLinks,
+} from '@/types';
 import { ImmutableObject } from '@hookstate/core';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import IconButton from '../IconButton';
+import FacebookIcon from './FacebookIcon';
+import InstagramIcon from './InstagramIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
+import YoutubeIcon from './YoutubeIcon';
 
 interface Props {
+  getSocialLinkData: (
+    _socialLinkName: TsocialLinkName
+  ) => ImmutableObject<ImmutableObject<TsocialLinks>> | undefined;
   getLinkData: (
     _linkName: TLinkName
   ) => ImmutableObject<ImmutableObject<TLink>> | undefined;
@@ -30,6 +41,7 @@ export default function NavigationMainDesktop(props: Props) {
     toggleIsGroupsSubmenuVisible,
     getIsAboutSubmenuVisible,
     toggleIsAboutSubmenuVisible,
+    getSocialLinkData,
   } = props;
 
   ////tsx
@@ -57,7 +69,7 @@ export default function NavigationMainDesktop(props: Props) {
             <span className="sr-only">Strona główna</span>
           </li>
         </ul>
-        <div className="absolute right-0 bottom-[55px]">
+        <div className="absolute right-0 bottom-[52px]">
           <ul className="flex gap-6">
             <li>
               <NavigationLink
@@ -292,40 +304,32 @@ export default function NavigationMainDesktop(props: Props) {
                 nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
               />
             </li>
-            <div className="separator-vertical"></div>
-            <li className="-mt-1 ">
-              <IconButton
-                isCurrentlyActive={false}
-                iconDefaultUrl="facebook-xsm_default.svg"
-                iconHoverUrl="facebook-xsm_hover.svg"
+            <div className="w-[1px] h-4 mt-[4px] mb-[9px] ml-4 mr-2 bg-skin-primary"></div>
+            <li>
+              <FacebookIcon
+                size="SMALL"
                 alt="Facebook"
-                size="SMALL"
-                actionFn={() => alert('go to facebook - not implemented')} //TODO: link facebook
+                url={getSocialLinkData('FACEBOOK')!.path}
               />
             </li>
-            <li className="-mt-1 -ml-1">
-              <IconButton
-                isCurrentlyActive={false}
-                iconDefaultUrl="instagram-xsm_default.svg"
-                iconHoverUrl="instagram-xsm_hover.svg"
+            <li className="-ml-[14px]">
+              <InstagramIcon
+                size="SMALL"
                 alt="Instagram"
-                size="SMALL"
-                actionFn={() => alert('go to instagram - not implemented')} //TODO: link instagram
+                url={getSocialLinkData('INSTAGRAM')!.path}
               />
             </li>
-            <li className="-mt-1 -ml-1">
-              <IconButton
-                isCurrentlyActive={false}
-                iconDefaultUrl="youtube-xsm_default.svg"
-                iconHoverUrl="youtube-xsm_hover.svg"
-                alt="Youtube"
+            <li className="-ml-[14px]">
+              <YoutubeIcon
                 size="SMALL"
-                actionFn={() => alert('go to youtube - not implemented')} //TODO: link youtube
+                alt="Youtube"
+                url={getSocialLinkData('YOUTUBE')!.path}
               />
             </li>
           </ul>
         </div>
       </nav>
+
       {/* overlay to groups button */}
       <div
         className={clsx(
@@ -334,6 +338,7 @@ export default function NavigationMainDesktop(props: Props) {
         )}
         onClick={toggleIsGroupsSubmenuVisible}
       ></div>
+
       {/* overlay to about button */}
       <div
         className={clsx(

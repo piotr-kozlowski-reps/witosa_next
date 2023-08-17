@@ -46,7 +46,7 @@ export default function NewsInside(props: Props) {
         )}
       >
         {newsData.map((newsEvent, index) => {
-          console.log('index passed: ', index);
+          // console.log('index passed: ', index);
 
           return (
             <div key={newsEvent.id} className="w-full">

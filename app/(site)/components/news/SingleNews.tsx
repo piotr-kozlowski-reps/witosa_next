@@ -42,8 +42,6 @@ export default function SingleNews(props: Props) {
       currentDevice
     );
 
-  console.log({ currentDevice });
-
   ////tsx
   return (
     <Fragment>
@@ -112,7 +110,6 @@ function checkIfShouldShowBothSurroundingLines_WhenThreeColumnSelected(
   currentDevice: TCurrentDevice
 ) {
   let isShouldShowBothLines = false;
-  console.log('inside loop');
   for (let i = 1; i <= index; i += 3) {
     if (i > index) break;
     if (i === index) {
@@ -128,12 +125,7 @@ function checkIfShouldShowOnlyLeftSurroundingLine_WhenTwoColumnSelected(
   currentDevice: TCurrentDevice
 ) {
   let isShouldShowBothLines = false;
-  console.log('inside loop');
   for (let i = 1; i <= index; i += 2) {
-    console.log({ i });
-    console.log({ index });
-    console.log('final comparision: ', i === index);
-
     if (i > index) break;
 
     if (i === index) {

@@ -18,6 +18,7 @@ export default function NavigationDesktop() {
     setIsAccessibilitySubmenuVisible_ToTrue:
       setIsAccessibilityNavigationVisible_ToTrue,
     setIsAccessibilitySubmenuVisible_ToFalse,
+    getSocialLinkData,
   } = useNavigationState();
 
   const {
@@ -40,6 +41,7 @@ export default function NavigationDesktop() {
         toggleIsGroupsSubmenuVisible={toggleIsGroupsSubmenuVisible}
         getIsAboutSubmenuVisible={getIsAboutSubmenuVisible}
         toggleIsAboutSubmenuVisible={toggleIsAboutSubmenuVisible}
+        getSocialLinkData={getSocialLinkData}
       />
 
       <NavigationAccessibilityDesktop

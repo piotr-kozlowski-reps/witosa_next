@@ -63,7 +63,7 @@ export default function RegisterForm() {
         validationSchema={toFormikValidationSchema(validationSchema)}
       >
         {(formik) => {
-          console.log(formik);
+          // console.log(formik);
 
           return (
             <Form>

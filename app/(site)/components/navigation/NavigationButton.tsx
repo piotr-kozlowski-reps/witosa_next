@@ -54,7 +54,7 @@ export default function NavigationButton(props: Props) {
   ////tsx
   return (
     <button
-      className={clsx('transition-all', cssButtonClasses)}
+      className={clsx('transition-all ', cssButtonClasses)}
       onClick={buttonActionHandler}
       aria-controls={idForAriaControls}
       aria-expanded={getIsSubmenuVisible() ? true : false}
@@ -121,10 +121,10 @@ function getCssButtonClasses(
     cssButtonClasses = 'link-mobile-active  pt-2';
   }
   if (!isSubmenuVisible && !isMobileButton) {
-    cssButtonClasses = 'link-default';
+    cssButtonClasses = 'link-default-different-pseudo-after';
   }
   if (isSubmenuVisible && !isMobileButton) {
-    cssButtonClasses = 'link-active';
+    cssButtonClasses = 'link-active--different-pseudo-after';
   }
   if (!isSubmenuVisible && isMobileButton) {
     cssButtonClasses = 'link-mobile-default  pt-2';

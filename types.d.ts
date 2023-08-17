@@ -5,6 +5,7 @@ export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
 export type TLayoutState = {
   mode: TMode;
   fontSize: TFontSize;
+  foregroundColor: string;
 };
 
 //register form

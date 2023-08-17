@@ -6,7 +6,7 @@ export default function TestClientSession() {
   const session = useSession();
 
   const signOutHandler = () => {
-    console.log('signOut');
+    // console.log('signOut');
     signOut();
   };
 
