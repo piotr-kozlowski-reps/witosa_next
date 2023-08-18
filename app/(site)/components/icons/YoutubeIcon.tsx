@@ -1,8 +1,8 @@
 'use client';
 
-import { useLayoutState } from '@/context/layoutState';
+import { useIconsLogicHandler } from '@/hooks/useIconsLogicHandler';
 import { TIconSize } from '@/types';
-import clsx from 'clsx';
+import IconLinkWrapper from './IconLinkWrapper';
 
 type Props = {
   alt: string;
@@ -13,38 +13,11 @@ type Props = {
 export default function YoutubeIcon(props: Props) {
   ////vars
   const { size, alt, url } = props;
-  const { getCurrentForegroundColor } = useLayoutState();
-
-  let width = 32;
-  let height = 32;
-  switch (size) {
-    case 'SMALL':
-      width = 24;
-      height = 24;
-      break;
-
-    case 'BIG':
-      width = 44;
-      height = 44;
-      break;
-  }
+  const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
 
   ////tsx
   return (
-    <a
-      aria-label={alt}
-      href={url}
-      target="_blank"
-      className={clsx(
-        'relative mt-[5px] icon-active',
-        size === 'NORMAL'
-          ? 'w-8 h-8'
-          : size === 'SMALL'
-          ? 'w-6 h-6'
-          : 'w-10 h-10'
-      )}
-    >
-      <span className="sr-only">{alt}</span>
+    <IconLinkWrapper alt={alt} url={url}>
       <svg
         width={`${width}`}
         height={`${height}`}
@@ -55,9 +28,9 @@ export default function YoutubeIcon(props: Props) {
         <circle cx="12" cy="12" r="11" />
         <path
           d="M17.7496 9.61883C17.6812 9.38289 17.5473 9.16773 17.3612 8.99487C17.175 8.82202 16.9432 8.69754 16.6888 8.63389C15.7527 8.40039 12 8.40039 12 8.40039C12 8.40039 8.24732 8.40039 7.31116 8.63265C7.05672 8.69609 6.82477 8.8205 6.63858 8.99339C6.45239 9.16627 6.31853 9.38155 6.25045 9.61759C6 10.487 6 12.3004 6 12.3004C6 12.3004 6 14.1138 6.25045 14.982C6.38839 15.4614 6.79554 15.839 7.31116 15.9669C8.24732 16.2004 12 16.2004 12 16.2004C12 16.2004 15.7527 16.2004 16.6888 15.9669C17.2058 15.839 17.6116 15.4614 17.7496 14.982C18 14.1138 18 12.3004 18 12.3004C18 12.3004 18 10.487 17.7496 9.61883ZM10.808 13.9647V10.6361L13.9152 12.288L10.808 13.9647Z"
-          fill={`${getCurrentForegroundColor()}`}
+          fill={currentForegroundColor}
         />
       </svg>
-    </a>
+    </IconLinkWrapper>
   );
 }

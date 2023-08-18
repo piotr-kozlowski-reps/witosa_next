@@ -1,6 +1,8 @@
 'use client';
 import { useLayoutState } from '@/context/layoutState';
 import { useNavigationState } from '@/context/navigationState';
+import { containerVariant } from '@/lib/animations/variants';
+import { motion } from 'framer-motion';
 import { Fragment } from 'react';
 import NavigationAccessibilityDesktop from './NavigationAccessibilityDesktop';
 import NavigationMainDesktop from './NavigationMainDesktop';
@@ -33,36 +35,43 @@ export default function NavigationDesktop() {
   } = useLayoutState();
   return (
     <Fragment>
-      <NavigationMainDesktop
-        getLinkData={getLinkData}
-        hideAllSubmenus={hideAllSubmenus}
-        getLayoutMode={getLayoutMode}
-        getIsGroupsSubmenuVisible={getIsGroupsSubmenuVisible}
-        toggleIsGroupsSubmenuVisible={toggleIsGroupsSubmenuVisible}
-        getIsAboutSubmenuVisible={getIsAboutSubmenuVisible}
-        toggleIsAboutSubmenuVisible={toggleIsAboutSubmenuVisible}
-        getSocialLinkData={getSocialLinkData}
-      />
+      <motion.div
+        variants={containerVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <NavigationMainDesktop
+          getLinkData={getLinkData}
+          hideAllSubmenus={hideAllSubmenus}
+          getLayoutMode={getLayoutMode}
+          getIsGroupsSubmenuVisible={getIsGroupsSubmenuVisible}
+          toggleIsGroupsSubmenuVisible={toggleIsGroupsSubmenuVisible}
+          getIsAboutSubmenuVisible={getIsAboutSubmenuVisible}
+          toggleIsAboutSubmenuVisible={toggleIsAboutSubmenuVisible}
+          getSocialLinkData={getSocialLinkData}
+        />
 
-      <NavigationAccessibilityDesktop
-        getIsAccessibilityNavigationVisible={
-          getIsAccessibilityNavigationVisible
-        }
-        setFontSizeToNormal={setFontSizeToNormal}
-        getFontSize={getFontSize}
-        setFontSizeToBigger={setFontSizeToBigger}
-        setFontSizeToBiggest={setFontSizeToBiggest}
-        getLayoutMode={getLayoutMode}
-        setLayoutModeToLight={setLayoutModeToLight}
-        setLayoutModeToDark={setLayoutModeToDark}
-        setLayoutModeToContrast={setLayoutModeToContrast}
-        setIsAccessibilityNavigationVisible_ToTrue={
-          setIsAccessibilityNavigationVisible_ToTrue
-        }
-        setIsAccessibilityNavigationVisible_ToFalse={
-          setIsAccessibilitySubmenuVisible_ToFalse
-        }
-      />
+        <NavigationAccessibilityDesktop
+          getIsAccessibilityNavigationVisible={
+            getIsAccessibilityNavigationVisible
+          }
+          setFontSizeToNormal={setFontSizeToNormal}
+          getFontSize={getFontSize}
+          setFontSizeToBigger={setFontSizeToBigger}
+          setFontSizeToBiggest={setFontSizeToBiggest}
+          getLayoutMode={getLayoutMode}
+          setLayoutModeToLight={setLayoutModeToLight}
+          setLayoutModeToDark={setLayoutModeToDark}
+          setLayoutModeToContrast={setLayoutModeToContrast}
+          setIsAccessibilityNavigationVisible_ToTrue={
+            setIsAccessibilityNavigationVisible_ToTrue
+          }
+          setIsAccessibilityNavigationVisible_ToFalse={
+            setIsAccessibilitySubmenuVisible_ToFalse
+          }
+        />
+      </motion.div>
     </Fragment>
   );
 }

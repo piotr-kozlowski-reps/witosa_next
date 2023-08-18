@@ -1,4 +1,8 @@
 import {
+  overlaySubMenuVariant,
+  subMenuVariant,
+} from '@/lib/animations/variants';
+import {
   TLink,
   TLinkName,
   TMode,
@@ -7,14 +11,15 @@ import {
 } from '@/types';
 import { ImmutableObject } from '@hookstate/core';
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import FacebookIcon from './FacebookIcon';
-import InstagramIcon from './InstagramIcon';
+import FacebookIcon from '../icons/FacebookIcon';
+import InstagramIcon from '../icons/InstagramIcon';
+import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
-import YoutubeIcon from './YoutubeIcon';
 
 interface Props {
   getSocialLinkData: (
@@ -48,7 +53,7 @@ export default function NavigationMainDesktop(props: Props) {
   return (
     <Fragment>
       <nav
-        className="relative flex items-start justify-between h-32 bg-skin-fill desktop-container"
+        className="relative flex items-start justify-between h-32 desktop-container"
         aria-labelledby="main_navigation_heading"
       >
         <h2 id="main_navigation_heading" className="sr-only">
@@ -102,7 +107,7 @@ export default function NavigationMainDesktop(props: Props) {
 
             {/* groups */}
             <li>
-              <div className="relative z-20">
+              <div className="relative z-30">
                 <NavigationButton
                   buttonName="grupy artystyczne"
                   idForAriaControls="options_groups"
@@ -110,86 +115,96 @@ export default function NavigationMainDesktop(props: Props) {
                   getIsSubmenuVisible={getIsGroupsSubmenuVisible}
                   toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
                 />
-                <ul
-                  id="options_groups"
-                  className={clsx(
-                    'absolute left-0 px-4 submenu-container top-[26px]  flex-col gap-2 transition-all',
-                    getIsGroupsSubmenuVisible() ? 'flex' : 'hidden'
-                  )}
-                >
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('groups_marzenie_mini_mini')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_marzenie_mini_mini')
-                          ?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_marzenie_mini_mini')
-                          ?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                <AnimatePresence mode="wait">
+                  {getIsGroupsSubmenuVisible() ? (
+                    <motion.ul
+                      variants={subMenuVariant}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      id="options_groups"
+                      className={clsx(
+                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
+                      )}
+                    >
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('groups_marzenie_mini_mini')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('groups_marzenie_mini_mini')
+                              ?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('groups_marzenie_mini_mini')
+                              ?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('groups_marzenie_bis')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('groups_marzenie_bis')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('groups_marzenie_bis')
+                              ?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('groups_marzenie')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_marzenie')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_marzenie')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('groups_marzenie')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('groups_marzenie')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('groups_hipnoteria_bis')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_hipnoteria_bis')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('groups_hipnoteria_bis')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('groups_hipnoteria_bis')
+                              ?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('groups_hipnoteria_bis')
+                              ?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('groups_hipnoteria')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-                </ul>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('groups_hipnoteria')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
+                    </motion.ul>
+                  ) : null}
+                </AnimatePresence>
               </div>
             </li>
 
             {/* about */}
             <li>
-              <div className="relative z-20">
+              <div className="relative z-30">
                 <NavigationButton
                   buttonName="o nas"
                   idForAriaControls="options_about"
@@ -197,93 +212,104 @@ export default function NavigationMainDesktop(props: Props) {
                   getIsSubmenuVisible={getIsAboutSubmenuVisible}
                   toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
                 />
-                <ul
-                  id="options_about"
-                  className={clsx(
-                    'absolute left-0 px-4 submenu-container top-[26px]  flex-col gap-2 transition-all',
-                    getIsAboutSubmenuVisible() ? 'flex' : 'hidden'
-                  )}
-                >
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_about')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_about')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_about')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                <AnimatePresence mode="wait">
+                  {getIsAboutSubmenuVisible() ? (
+                    <motion.ul
+                      variants={subMenuVariant}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      id="options_about"
+                      className={clsx(
+                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
+                        // getIsAboutSubmenuVisible() ? 'flex' : 'hidden'
+                      )}
+                    >
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('about_about')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('about_about')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('about_about')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_rent')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_rent')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_rent')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('about_rent')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('about_rent')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('about_rent')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_regulations')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_regulations')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_regulations')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('about_regulations')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('about_regulations')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('about_regulations')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={
-                        getLinkData('about_availability_declarations')?.path!
-                      }
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_availability_declarations')
-                          ?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_availability_declarations')
-                          ?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={
+                            getLinkData('about_availability_declarations')
+                              ?.path!
+                          }
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('about_availability_declarations')
+                              ?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('about_availability_declarations')
+                              ?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('about_rodo')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={
-                        getLinkData('about_rodo')?.isCurrentlyUsed!
-                      }
-                      nameToBeDisplayed={
-                        getLinkData('about_rodo')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('about_rodo')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('about_rodo')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('about_rodo')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
 
-                  <li>
-                    <NavigationLink
-                      url={getLinkData('contact')?.path!}
-                      hideAllSubmenus={hideAllSubmenus}
-                      isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-                      nameToBeDisplayed={
-                        getLinkData('contact')?.nameToBeDisplayed!
-                      }
-                    />
-                  </li>
-                </ul>
+                      <li>
+                        <NavigationLink
+                          url={getLinkData('contact')?.path!}
+                          hideAllSubmenus={hideAllSubmenus}
+                          isCurrentlyUsed={
+                            getLinkData('contact')?.isCurrentlyUsed!
+                          }
+                          nameToBeDisplayed={
+                            getLinkData('contact')?.nameToBeDisplayed!
+                          }
+                        />
+                      </li>
+                    </motion.ul>
+                  ) : null}
+                </AnimatePresence>
               </div>
             </li>
 
@@ -331,22 +357,34 @@ export default function NavigationMainDesktop(props: Props) {
       </nav>
 
       {/* overlay to groups button */}
-      <div
-        className={clsx(
-          'absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen overlay-minimal',
-          getIsGroupsSubmenuVisible() ? 'visible' : 'hidden'
-        )}
-        onClick={toggleIsGroupsSubmenuVisible}
-      ></div>
+      <AnimatePresence mode="wait">
+        {getIsGroupsSubmenuVisible() ? (
+          <div
+            className={clsx(
+              'absolute top-0 bottom-0 left-0 right-0 z-20 w-screen h-screen overlay-minimal',
+              getIsGroupsSubmenuVisible() ? 'visible' : 'hidden'
+            )}
+            onClick={toggleIsGroupsSubmenuVisible}
+          ></div>
+        ) : null}
+      </AnimatePresence>
 
       {/* overlay to about button */}
-      <div
-        className={clsx(
-          'absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen overlay-minimal',
-          getIsAboutSubmenuVisible() ? 'visible' : 'hidden'
-        )}
-        onClick={toggleIsAboutSubmenuVisible}
-      ></div>
+      <AnimatePresence mode="wait">
+        {getIsAboutSubmenuVisible() ? (
+          <motion.div
+            variants={overlaySubMenuVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className={clsx(
+              'absolute top-0 bottom-0 left-0 right-0 z-20 w-screen h-screen overlay-minimal'
+              // getIsAboutSubmenuVisible() ? 'visible' : 'hidden'
+            )}
+            onClick={toggleIsAboutSubmenuVisible}
+          ></motion.div>
+        ) : null}
+      </AnimatePresence>
     </Fragment>
   );
 }

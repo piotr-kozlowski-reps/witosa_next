@@ -5,6 +5,7 @@ import ToasterContext from '@/context/ToasterContext';
 import { useLayoutState } from '@/context/layoutState';
 import { useNavigationState } from '@/context/navigationState';
 import { clsx } from 'clsx';
+import { AnimatePresence } from 'framer-motion';
 import { Rubik } from 'next/font/google';
 import Navigation from './(site)/components/navigation/Navigation';
 import './globals.css';
@@ -59,7 +60,7 @@ export default function RootLayout({
         <Navigation />
         <AuthProvider>
           <ToasterContext />
-          {children}
+          <AnimatePresence mode="wait">{children}</AnimatePresence>
         </AuthProvider>
       </body>
     </html>
