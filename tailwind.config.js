@@ -68,7 +68,7 @@ module.exports = {
         'tablet-margin': '32px',
       },
       inset: {
-        'mobile-for-absolute-margin': '16px',
+        'mobile-for-absolute-margin': '32px',
         'tablet-for-absolute-margin': '32px',
       },
       typography: {

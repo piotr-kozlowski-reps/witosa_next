@@ -1,24 +1,21 @@
+'use client';
+
 import { useLayoutState } from '@/context/layoutState';
 import { useNavigationState } from '@/context/navigationState';
-import { containerVariant } from '@/lib/animations/variants';
+import { containerVariant, mobileVariant } from '@/lib/animations/variants';
 import { TCurrentDevice } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fragment } from 'react';
-import IconButton from '../IconButton';
+import CloseIcon from '../icons/CloseIcon';
+import HamburgerIcon from '../icons/HamburgerIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
 
 type Props = {
   getCurrentDevice: () => TCurrentDevice;
 };
-
-// const pixelMoveContainerAmount = 50;
-// const variants = {
-//   hidden: { y: Number(`${pixelMoveContainerAmount}`), opacity: 0 },
-//   visible: { y: 0, opacity: 1 },
-// };
 
 export default function NavigationMobileAndTablet(props: Props) {
   ////vars
@@ -65,9 +62,12 @@ export default function NavigationMobileAndTablet(props: Props) {
           animate="visible"
           exit="exit"
           className={clsx(
-            'w-full',
-            getCurrentDevice() === 'MOBILE' ? 'ml-mobile-margin' : '',
-            getCurrentDevice() === 'TABLET' ? 'ml-tablet-margin' : ''
+            ' mx-mobile-margin'
+            // getCurrentDevice() === 'MOBILE'
+            //   ? // ? 'ml-mobile-margin mr-mobile-margin'
+            //     'mx-mobile-margin'
+            //   : '',
+            // getCurrentDevice() === 'TABLET' ? 'ml-tablet-margin' : ''
           )}
           aria-labelledby="main_navigation_heading"
         >
@@ -75,7 +75,11 @@ export default function NavigationMobileAndTablet(props: Props) {
             nawigacja główna
           </h2>
           <div className="flex items-start justify-between h-32">
-            <button onClick={() => {}} className="mt-10">
+            <button
+              onClick={() => {}}
+              className="mt-10"
+              aria-label="Strona główna"
+            >
               <span aria-hidden="true">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
@@ -97,10 +101,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                   : ''
               )}
             >
-              <IconButton
-                isCurrentlyActive={false}
-                iconDefaultUrl="hamburger-l_default.svg"
-                iconHoverUrl="hamburger-l_hover.svg"
+              <HamburgerIcon
                 alt="Hamburger menu"
                 size="BIG"
                 actionFn={setIsMobileMenuFirstLevelVisible_ToBeVisible}
@@ -109,117 +110,126 @@ export default function NavigationMobileAndTablet(props: Props) {
           </div>
 
           {/* navigation - first level - start */}
-          <div
-            className="absolute top-0 bottom-0 w-screen h-screen transition-all"
-            style={{
-              left: getIsMobileMenuFirstLevelVisible()
-                ? getIsAnyOfSecondLevelSubmenusVisible()
-                  ? '-80%'
-                  : '0%'
-                : '100%',
-              visibility: getIsMobileMenuFirstLevelVisible()
-                ? 'visible'
-                : 'hidden',
-            }}
-          >
-            <div className="w-full h-full bg-skin-fill">
-              <ul
-                className={clsx(
-                  'flex flex-col items-end justify-center h-screen my-auto',
-                  getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-                  getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
-                )}
+          <AnimatePresence mode="wait">
+            {getIsMobileMenuFirstLevelVisible() ? (
+              <motion.div
+                variants={mobileVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                // style={{
+                //   left: getIsMobileMenuFirstLevelVisible()
+                //     ? getIsAnyOfSecondLevelSubmenusVisible()
+                //       ? '-80%'
+                //       : '0%'
+                //     : '100%',
+                //   visibility: getIsMobileMenuFirstLevelVisible()
+                //     ? 'visible'
+                //     : 'hidden',
+                // }}
               >
-                <li>
-                  <NavigationLink
-                    url={getLinkData('news')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
-                    nameToBeDisplayed={getLinkData('news')?.nameToBeDisplayed!}
-                    isMobileLink={true}
-                  />
-                </li>
-                <li>
-                  <NavigationLink
-                    url={getLinkData('events')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={getLinkData('events')?.isCurrentlyUsed!}
-                    nameToBeDisplayed={
-                      getLinkData('events')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
-                <li>
-                  <NavigationLink
-                    url={getLinkData('activities')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('activities')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('activities')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                <div className="bg-skin-fill">
+                  <ul
+                    className={clsx(
+                      'flex flex-col items-end justify-center h-screen',
+                      getCurrentDevice() === 'MOBILE' ? 'px-mobile-margin' : '',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+                    )}
+                  >
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('news')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
+                        nameToBeDisplayed={
+                          getLinkData('news')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('events')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('events')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('events')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('activities')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('activities')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('activities')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                {/* groups */}
-                <li>
-                  <div className="z-20">
-                    <NavigationButton
-                      buttonName="grupy artystyczne"
-                      idForAriaControls="options_groups"
-                      layoutState={getLayoutMode()}
-                      getIsSubmenuVisible={getIsGroupsSubmenuVisible}
-                      toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
-                      isMobileButton={true}
-                      // idToJumpWhenButtonClicked={idGroupsSubmenuMenu}
-                    />
-                  </div>
-                </li>
+                    <li>
+                      <div className="z-20">
+                        <NavigationButton
+                          buttonName="grupy artystyczne"
+                          idForAriaControls="options_groups"
+                          layoutState={getLayoutMode()}
+                          getIsSubmenuVisible={getIsGroupsSubmenuVisible}
+                          toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
+                          isMobileButton={true}
+                          // idToJumpWhenButtonClicked={idGroupsSubmenuMenu}
+                        />
+                      </div>
+                    </li>
 
-                {/* about */}
-                <li>
-                  <div className="z-20">
-                    <NavigationButton
-                      buttonName="o nas"
-                      idForAriaControls="options_about"
-                      layoutState={getLayoutMode()}
-                      getIsSubmenuVisible={getIsAboutSubmenuVisible}
-                      toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
-                      isMobileButton={true}
-                      // idToJumpWhenButtonClicked={idAboutSubmenuMenu}
-                    />
-                  </div>
-                </li>
+                    <li>
+                      <div className="z-20">
+                        <NavigationButton
+                          buttonName="o nas"
+                          idForAriaControls="options_about"
+                          layoutState={getLayoutMode()}
+                          getIsSubmenuVisible={getIsAboutSubmenuVisible}
+                          toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
+                          isMobileButton={true}
+                          // idToJumpWhenButtonClicked={idAboutSubmenuMenu}
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('bistro')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('bistro')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('bistro')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('bistro')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={getLinkData('bistro')?.isCurrentlyUsed!}
-                    nameToBeDisplayed={
-                      getLinkData('bistro')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
-
-                <li>
-                  <NavigationLink
-                    url={getLinkData('contact')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-                    nameToBeDisplayed={
-                      getLinkData('contact')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
-
-                {/* internal socials ul  */}
-                <ul className="flex items-center justify-end gap-4 mt-4">
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('contact')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('contact')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('contact')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
+                    {/* <ul className="flex items-center justify-end gap-4 mt-4">
                   <li>
                     <IconButton
                       isCurrentlyActive={false}
@@ -264,25 +274,25 @@ export default function NavigationMobileAndTablet(props: Props) {
                     />
                   </li>
 
-                  {/* close menu */}
-                  <li className="absolute top-8">
-                    <IconButton
-                      isCurrentlyActive={false}
-                      iconDefaultUrl="close-sm_default.svg"
-                      iconHoverUrl="close-sm_hover.svg"
-                      alt="Zamknij mobilne menu."
-                      size="BIG"
-                      actionFn={hideAllSubmenus}
-                    />
-                  </li>
-                </ul>
-              </ul>
-            </div>
-          </div>
+                 
+
+                </ul> */}
+                    <li className="absolute top-8">
+                      <CloseIcon
+                        alt="Zamknij mobilne menu."
+                        actionFn={hideAllSubmenus}
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
           {/* navigation - first level - end */}
 
           {/* groups submenu - start */}
-          <div
+          {/* <div
             className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
             id={idGroupsSubmenuMenu}
             style={{
@@ -394,11 +404,11 @@ export default function NavigationMobileAndTablet(props: Props) {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
           {/* groups submenu - end */}
 
           {/* about submenu - start */}
-          <div
+          {/* <div
             className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
             id={idAboutSubmenuMenu}
             style={{
@@ -523,11 +533,11 @@ export default function NavigationMobileAndTablet(props: Props) {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
           {/* about submenu - end */}
 
           {/* accessibility submenu - start */}
-          <div
+          {/* <div
             className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
             id={idAccessibilitySubmenuMenu}
             style={{
@@ -546,7 +556,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                   getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
                 )}
               >
-                {/* dla niedowidzących - zmiana wielkosci fonta */}
+                
                 <li className="flex flex-col items-end">
                   <h4 className="font-base-regular">Dla niedowidzących</h4>
                   <ul className="flex justify-end gap-4 mt-4">
@@ -580,7 +590,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                   </ul>
                 </li>
 
-                {/*  zmiana kolorów / kontrastu */}
+                
                 <li className="flex flex-col items-end mt-11">
                   <h4 className="font-base-regular">Kolorystyka / kontrast</h4>
                   <ul className="flex justify-end gap-4 mt-4">
@@ -636,7 +646,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
           {/* accessibility submenu - end */}
         </motion.nav>
       </AnimatePresence>

@@ -70,6 +70,21 @@ export const accessibilityVariant = {
     opacity: 0,
   },
 };
+export const mobileVariant = {
+  hidden: {
+    x: '100%',
+  },
+  visible: {
+    x: 0,
+    transition: {
+      type: 'spring',
+      bounce: 0.3,
+    },
+  },
+  exit: {
+    x: '100%',
+  },
+};
 
 //  initial={{ scale: 0.5, opacity: 0 }}
 //     animate={{ scale: 1, opacity: 1 }}
