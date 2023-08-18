@@ -1,11 +1,10 @@
 'use client';
 
-import { useLayoutState } from '@/context/layoutState';
 import { Fragment } from 'react';
 
 export default function Test() {
   ////vars
-  const _layoutState = useLayoutState();
+  // const _layoutState = useLayoutState();
 
   ////logic
   function highContrastButtonHandler() {

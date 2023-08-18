@@ -11,7 +11,7 @@ interface Props {
 
 export default function IconButtonWrapper(props: Props) {
   ////vars
-  const { actionFn, additionalClasses, alt, children, size = 'NORMAL' } = props;
+  const { actionFn, additionalClasses, alt, children } = props;
 
   ////tsx
   return (

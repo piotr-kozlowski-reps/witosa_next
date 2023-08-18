@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(_req: NextRequest) {
   const session = await getSession(); //TODO: znaleźć sposób aby uzyskać dostęp do sesji (przesłać pewnei cookies w zapytaniu)
-  const isLoggedIn = session?.user;
-  const isAdmin = session?.user?.role === 'ADMIN';
+  const _isLoggedIn = session?.user;
+  const _isAdmin = session?.user?.role === 'ADMIN';
 
   // console.log({ session });
   // console.log({ isLoggedIn });

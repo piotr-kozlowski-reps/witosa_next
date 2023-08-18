@@ -26,7 +26,7 @@ export default function InputFormik(props: Props) {
       <Field id={name} name="name">
         {(formik: any) => {
           ////vars
-          const { field, form, values } = formik;
+          const { field, form } = formik;
           const { onChange, onBlur } = field;
           const { errors } = form;
 
