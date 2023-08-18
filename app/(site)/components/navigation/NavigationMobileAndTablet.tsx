@@ -8,8 +8,14 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fragment } from 'react';
+import IconButton from '../IconButton';
 import CloseIcon from '../icons/CloseIcon';
+import FacebookIcon from '../icons/FacebookIcon';
 import HamburgerIcon from '../icons/HamburgerIcon';
+import HandicapIcon from '../icons/HandicapIcon';
+import InstagramIcon from '../icons/InstagramIcon';
+import PrevIcon from '../icons/PrevIcon';
+import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
 
@@ -21,6 +27,7 @@ export default function NavigationMobileAndTablet(props: Props) {
   ////vars
   const {
     getLinkData,
+    getSocialLinkData,
     getIsAboutSubmenuVisible,
     getIsGroupsSubmenuVisible,
     getIsMobileAccessibilitySubMenuVisible,
@@ -92,7 +99,7 @@ export default function NavigationMobileAndTablet(props: Props) {
             </button>
             <div
               className={clsx(
-                'absolute top-[30px]',
+                'absolute top-[33px]',
                 getCurrentDevice() === 'MOBILE'
                   ? 'right-mobile-for-absolute-margin'
                   : '',
@@ -184,7 +191,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                           getIsSubmenuVisible={getIsGroupsSubmenuVisible}
                           toggleIsSubmenuVisible={toggleIsGroupsSubmenuVisible}
                           isMobileButton={true}
-                          // idToJumpWhenButtonClicked={idGroupsSubmenuMenu}
+                          idToJumpWhenButtonClicked={idGroupsSubmenuMenu}
                         />
                       </div>
                     </li>
@@ -198,7 +205,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                           getIsSubmenuVisible={getIsAboutSubmenuVisible}
                           toggleIsSubmenuVisible={toggleIsAboutSubmenuVisible}
                           isMobileButton={true}
-                          // idToJumpWhenButtonClicked={idAboutSubmenuMenu}
+                          idToJumpWhenButtonClicked={idAboutSubmenuMenu}
                         />
                       </div>
                     </li>
@@ -229,55 +236,39 @@ export default function NavigationMobileAndTablet(props: Props) {
                         isMobileLink={true}
                       />
                     </li>
-                    {/* <ul className="flex items-center justify-end gap-4 mt-4">
-                  <li>
-                    <IconButton
-                      isCurrentlyActive={false}
-                      iconDefaultUrl="facebook-xsm_default.svg"
-                      iconHoverUrl="facebook-xsm_hover.svg"
-                      alt="Facebook"
-                      size="BIG"
-                      actionFn={() => alert('go to facebook - not implemented')} //TODO: link facebook
-                    />
-                  </li>
-                  <li>
-                    <IconButton
-                      isCurrentlyActive={false}
-                      iconDefaultUrl="instagram-xsm_default.svg"
-                      iconHoverUrl="instagram-xsm_hover.svg"
-                      alt="Instagram"
-                      size="BIG"
-                      actionFn={() =>
-                        alert('go to instagram - not implemented')
-                      } //TODO: link instagram
-                    />
-                  </li>
-                  <li>
-                    <IconButton
-                      isCurrentlyActive={false}
-                      iconDefaultUrl="youtube-xsm_default.svg"
-                      iconHoverUrl="youtube-xsm_hover.svg"
-                      alt="Youtube"
-                      size="BIG"
-                      actionFn={() => alert('go to youtube - not implemented')} //TODO: link youtube
-                    />
-                  </li>
-                  <div className="separator-vertical"></div>
-                  <li>
-                    <IconButton
-                      isCurrentlyActive={false}
-                      iconDefaultUrl="handicap-sm_default.svg"
-                      iconHoverUrl="handicap-sm_hover.svg"
-                      alt="Youtube"
-                      size="BIG"
-                      actionFn={setIsAccessibilitySubmenuVisible_ToTrue}
-                    />
-                  </li>
-
-                 
-
-                </ul> */}
-                    <li className="absolute top-8">
+                    <ul className="flex items-center justify-end gap-[5px] mt-4">
+                      <li>
+                        <FacebookIcon
+                          alt="Facebook"
+                          size="BIG"
+                          url={getSocialLinkData('FACEBOOK')!.path}
+                        />
+                      </li>
+                      <li>
+                        <InstagramIcon
+                          alt="Instagram"
+                          size="BIG"
+                          url={getSocialLinkData('INSTAGRAM')!.path}
+                        />
+                      </li>
+                      <li>
+                        <YoutubeIcon
+                          alt="Youtube"
+                          size="BIG"
+                          url={getSocialLinkData('YOUTUBE')!.path}
+                        />
+                      </li>
+                      <div className="separator-vertical"></div>
+                      <li>
+                        <HandicapIcon
+                          size="BIG"
+                          alt="Narzędzia ułatwiające dostępność treści."
+                          actionFn={setIsAccessibilitySubmenuVisible_ToTrue}
+                          additionalClasses="mt-2 -ml-[3px]"
+                        />
+                      </li>
+                    </ul>
+                    <li className="absolute top-[30px]">
                       <CloseIcon
                         alt="Zamknij mobilne menu."
                         actionFn={hideAllSubmenus}
@@ -288,365 +279,345 @@ export default function NavigationMobileAndTablet(props: Props) {
               </motion.div>
             ) : null}
           </AnimatePresence>
-
           {/* navigation - first level - end */}
 
           {/* groups submenu - start */}
-          {/* <div
-            className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
-            id={idGroupsSubmenuMenu}
-            style={{
-              left: getIsMobileGroupsSubMenuVisible() ? '0%' : '100%',
-              visibility: getIsMobileGroupsSubMenuVisible()
-                ? 'visible'
-                : 'hidden',
-            }}
-          >
-            <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
-              <ul
-                id="options_groups"
-                className={clsx(
-                  'flex flex-col items-end justify-center h-full my-auto',
-                  getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-                  getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
-                )}
+          <AnimatePresence mode="wait">
+            {getIsMobileGroupsSubMenuVisible() ? (
+              <motion.div
+                variants={mobileVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                id={idGroupsSubmenuMenu}
               >
-                <li>
-                  <NavigationLink
-                    url={getLinkData('groups_marzenie_mini_mini')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('groups_marzenie_mini_mini')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('groups_marzenie_mini_mini')
-                        ?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                <div className="absolute top-0 w-screen h-screen bg-skin-fill ">
+                  <ul
+                    id="options_groups"
+                    className={clsx(
+                      'flex flex-col items-end justify-center h-full my-auto',
+                      getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+                    )}
+                  >
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('groups_marzenie_mini_mini')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('groups_marzenie_mini_mini')
+                            ?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('groups_marzenie_mini_mini')
+                            ?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('groups_marzenie_bis')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('groups_marzenie_bis')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('groups_marzenie')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('groups_marzenie')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('groups_marzenie')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('groups_marzenie')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('groups_marzenie')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('groups_hipnoteria_bis')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('groups_hipnoteria_bis')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('groups_hipnoteria_bis')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('groups_hipnoteria_bis')
+                            ?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('groups_hipnoteria')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
-
-                <li
-                  className={clsx(
-                    'absolute top-8',
-                    getCurrentDevice() === 'MOBILE'
-                      ? 'right-mobile-for-absolute-margin'
-                      : '',
-                    getCurrentDevice() === 'TABLET'
-                      ? 'right-mobile-for-absolute-margin'
-                      : ''
-                  )}
-                >
-                  <IconButton
-                    isCurrentlyActive={false}
-                    iconDefaultUrl="prev-sm_default.svg"
-                    iconHoverUrl="prev-sm_hover.svg"
-                    alt="Wróc do menu głównego."
-                    size="BIG"
-                    actionFn={toggleIsGroupsSubmenuVisible}
-                  />
-                </li>
-              </ul>
-            </div>
-          </div> */}
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('groups_hipnoteria')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
+                    <li className="absolute top-[30px]">
+                      <PrevIcon
+                        alt="Zamknij mobilne menu."
+                        actionFn={toggleIsGroupsSubmenuVisible}
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
           {/* groups submenu - end */}
 
           {/* about submenu - start */}
-          {/* <div
-            className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
-            id={idAboutSubmenuMenu}
-            style={{
-              left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
-              visibility: getIsMobileAboutSubMenuVisible()
-                ? 'visible'
-                : 'hidden',
-            }}
-          >
-            <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
-              <ul
-                id="options_groups"
-                className={clsx(
-                  'flex flex-col items-end justify-center h-full my-auto',
-                  getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-                  getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
-                )}
+          <AnimatePresence mode="wait">
+            {getIsMobileAboutSubMenuVisible() ? (
+              <motion.div
+                variants={mobileVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                id={idAboutSubmenuMenu}
+                // style={{
+                //   left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
+                //   visibility: getIsMobileAboutSubMenuVisible()
+                //     ? 'visible'
+                //     : 'hidden',
+                // }}
               >
-                <li>
-                  <NavigationLink
-                    url={getLinkData('about_about')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('about_about')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('about_about')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                <div className="absolute top-0 w-screen h-screen bg-skin-fill">
+                  <ul
+                    id="options_groups"
+                    className={clsx(
+                      'flex flex-col items-end justify-center h-full my-auto',
+                      getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+                    )}
+                  >
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('about_about')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('about_about')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('about_about')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('about_rent')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('about_rent')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('about_rent')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('about_rent')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('about_rent')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('about_rent')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('about_regulations')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('about_regulations')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('about_regulations')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('about_regulations')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('about_regulations')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('about_regulations')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('about_availability_declarations')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('about_availability_declarations')
-                        ?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('about_availability_declarations')
-                        ?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={
+                          getLinkData('about_availability_declarations')?.path!
+                        }
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('about_availability_declarations')
+                            ?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('about_availability_declarations')
+                            ?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('about_rodo')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={
-                      getLinkData('about_rodo')?.isCurrentlyUsed!
-                    }
-                    nameToBeDisplayed={
-                      getLinkData('about_rodo')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('about_rodo')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('about_rodo')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('about_rodo')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
 
-                <li>
-                  <NavigationLink
-                    url={getLinkData('contact')?.path!}
-                    hideAllSubmenus={hideAllSubmenus}
-                    isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-                    nameToBeDisplayed={
-                      getLinkData('contact')?.nameToBeDisplayed!
-                    }
-                    isMobileLink={true}
-                  />
-                </li>
-
-                <li
-                  className={clsx(
-                    'absolute top-8',
-                    getCurrentDevice() === 'MOBILE'
-                      ? 'right-mobile-for-absolute-margin'
-                      : '',
-                    getCurrentDevice() === 'TABLET'
-                      ? 'right-tablet-for-absolute-margin'
-                      : ''
-                  )}
-                >
-                  <IconButton
-                    isCurrentlyActive={false}
-                    iconDefaultUrl="prev-sm_default.svg"
-                    iconHoverUrl="prev-sm_hover.svg"
-                    alt="Wróc do menu głównego."
-                    size="BIG"
-                    actionFn={toggleIsAboutSubmenuVisible}
-                  />
-                </li>
-              </ul>
-            </div>
-          </div> */}
+                    <li>
+                      <NavigationLink
+                        url={getLinkData('contact')?.path!}
+                        hideAllSubmenus={hideAllSubmenus}
+                        isCurrentlyUsed={
+                          getLinkData('contact')?.isCurrentlyUsed!
+                        }
+                        nameToBeDisplayed={
+                          getLinkData('contact')?.nameToBeDisplayed!
+                        }
+                        isMobileLink={true}
+                      />
+                    </li>
+                    <li className="absolute top-[30px]">
+                      <PrevIcon
+                        alt="Zamknij mobilne menu."
+                        actionFn={toggleIsAboutSubmenuVisible}
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
           {/* about submenu - end */}
 
           {/* accessibility submenu - start */}
-          {/* <div
-            className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen transition-all"
-            id={idAccessibilitySubmenuMenu}
-            style={{
-              left: getIsMobileAccessibilitySubMenuVisible() ? '0%' : '100%',
-              visibility: getIsMobileAccessibilitySubMenuVisible()
-                ? 'visible'
-                : 'hidden',
-            }}
-          >
-            <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
-              <ul
-                id="options_accessibility"
-                className={clsx(
-                  'flex flex-col items-end justify-center h-full my-auto',
-                  getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-                  getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
-                )}
+          <AnimatePresence mode="wait">
+            {getIsMobileAccessibilitySubMenuVisible() ? (
+              <motion.div
+                variants={mobileVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                id={idAccessibilitySubmenuMenu}
+                // style={{
+                //   left: getIsMobileAccessibilitySubMenuVisible()
+                //     ? '0%'
+                //     : '100%',
+                //   visibility: getIsMobileAccessibilitySubMenuVisible()
+                //     ? 'visible'
+                //     : 'hidden',
+                // }}
               >
-                
-                <li className="flex flex-col items-end">
-                  <h4 className="font-base-regular">Dla niedowidzących</h4>
-                  <ul className="flex justify-end gap-4 mt-4">
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getFontSize() === 'NORMAL'}
-                        iconDefaultUrl="font-small-sm_default.svg"
-                        iconHoverUrl="font-small-sm_hover.svg"
-                        alt="Wielkość czcionki - normalna."
-                        actionFn={setFontSizeToNormal}
-                      />
+                <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
+                  <ul
+                    id="options_accessibility"
+                    className={clsx(
+                      'flex flex-col items-end justify-center h-full my-auto',
+                      getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
+                    )}
+                  >
+                    <li className="flex flex-col items-end">
+                      <h4 className="font-base-regular">Dla niedowidzących</h4>
+                      <ul className="flex justify-end gap-4 mt-4">
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getFontSize() === 'NORMAL'}
+                            iconDefaultUrl="font-small-sm_default.svg"
+                            iconHoverUrl="font-small-sm_hover.svg"
+                            alt="Wielkość czcionki - normalna."
+                            actionFn={setFontSizeToNormal}
+                          />
+                        </li>
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getFontSize() === 'BIGGER'}
+                            iconDefaultUrl="font-bigger-sm_default.svg"
+                            iconHoverUrl="font-bigger-sm_hover.svg"
+                            alt="Wielkość czcionki - powiększona."
+                            actionFn={setFontSizeToBigger}
+                          />
+                        </li>
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getFontSize() === 'BIGGEST'}
+                            iconDefaultUrl="font-biggest-sm_default.svg"
+                            iconHoverUrl="font-biggest-sm_hover.svg"
+                            alt="Wielkość czcionki - największa."
+                            actionFn={setFontSizeToBiggest}
+                          />
+                        </li>
+                      </ul>
                     </li>
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getFontSize() === 'BIGGER'}
-                        iconDefaultUrl="font-bigger-sm_default.svg"
-                        iconHoverUrl="font-bigger-sm_hover.svg"
-                        alt="Wielkość czcionki - powiększona."
-                        actionFn={setFontSizeToBigger}
-                      />
+
+                    <li className="flex flex-col items-end mt-11">
+                      <h4 className="font-base-regular">
+                        Kolorystyka / kontrast
+                      </h4>
+                      <ul className="flex justify-end gap-4 mt-4">
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getLayoutMode() === 'LIGHT'}
+                            iconDefaultUrl="layout-light-sm_default.svg"
+                            iconHoverUrl="layout-light-sm_hover.svg"
+                            alt="Ustawienia kolorów - tryb jasny."
+                            actionFn={setLayoutModeToLight}
+                          />
+                        </li>
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getLayoutMode() === 'DARK'}
+                            iconDefaultUrl="layout-dark-sm_default.svg"
+                            iconHoverUrl="layout-dark-sm_hover.svg"
+                            alt="Ustawienia kolorów - tryb ciemny."
+                            actionFn={setLayoutModeToDark}
+                          />
+                        </li>
+                        <li>
+                          <IconButton
+                            isCurrentlyActive={getLayoutMode() === 'CONTRAST'}
+                            iconDefaultUrl="layout-contrast-sm_default.svg"
+                            iconHoverUrl="layout-contrast-sm_hover.svg"
+                            alt="Ustawienia kolorów - tryb kontrastowy."
+                            actionFn={setLayoutModeToContrast}
+                          />
+                        </li>
+                      </ul>
                     </li>
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getFontSize() === 'BIGGEST'}
-                        iconDefaultUrl="font-biggest-sm_default.svg"
-                        iconHoverUrl="font-biggest-sm_hover.svg"
-                        alt="Wielkość czcionki - największa."
-                        actionFn={setFontSizeToBiggest}
+                    <li className="absolute top-[30px]">
+                      <PrevIcon
+                        alt="Zamknij mobilne menu."
+                        actionFn={setIsAccessibilitySubmenuVisible_ToFalse}
                       />
                     </li>
                   </ul>
-                </li>
-
-                
-                <li className="flex flex-col items-end mt-11">
-                  <h4 className="font-base-regular">Kolorystyka / kontrast</h4>
-                  <ul className="flex justify-end gap-4 mt-4">
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getLayoutMode() === 'LIGHT'}
-                        iconDefaultUrl="layout-light-sm_default.svg"
-                        iconHoverUrl="layout-light-sm_hover.svg"
-                        alt="Ustawienia kolorów - tryb jasny."
-                        actionFn={setLayoutModeToLight}
-                      />
-                    </li>
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getLayoutMode() === 'DARK'}
-                        iconDefaultUrl="layout-dark-sm_default.svg"
-                        iconHoverUrl="layout-dark-sm_hover.svg"
-                        alt="Ustawienia kolorów - tryb ciemny."
-                        actionFn={setLayoutModeToDark}
-                      />
-                    </li>
-                    <li>
-                      <IconButton
-                        isCurrentlyActive={getLayoutMode() === 'CONTRAST'}
-                        iconDefaultUrl="layout-contrast-sm_default.svg"
-                        iconHoverUrl="layout-contrast-sm_hover.svg"
-                        alt="Ustawienia kolorów - tryb kontrastowy."
-                        actionFn={setLayoutModeToContrast}
-                      />
-                    </li>
-                  </ul>
-                </li>
-
-                <li
-                  className={clsx(
-                    'absolute top-8',
-                    getCurrentDevice() === 'MOBILE'
-                      ? 'right-mobile-for-absolute-margin'
-                      : '',
-                    getCurrentDevice() === 'TABLET'
-                      ? 'right-tablet-for-absolute-margin'
-                      : ''
-                  )}
-                >
-                  <IconButton
-                    isCurrentlyActive={false}
-                    iconDefaultUrl="prev-sm_default.svg"
-                    iconHoverUrl="prev-sm_hover.svg"
-                    alt="Wróc do menu głównego."
-                    size="BIG"
-                    actionFn={setIsAccessibilitySubmenuVisible_ToFalse}
-                  />
-                </li>
-              </ul>
-            </div>
-          </div> */}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
           {/* accessibility submenu - end */}
         </motion.nav>
       </AnimatePresence>

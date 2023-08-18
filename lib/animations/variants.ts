@@ -72,16 +72,19 @@ export const accessibilityVariant = {
 };
 export const mobileVariant = {
   hidden: {
+    opacity: 0,
     x: '100%',
   },
   visible: {
     x: 0,
+    opacity: 1,
     transition: {
       type: 'spring',
       bounce: 0.3,
     },
   },
   exit: {
+    opacity: 0,
     x: '100%',
   },
 };

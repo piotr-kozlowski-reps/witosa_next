@@ -5,7 +5,7 @@ import IconButtonWrapper from './IconButtonWrapper';
 type Props = {
   alt: string;
   size?: TIconSize;
-  additionalClasses: string;
+  additionalClasses?: string;
   actionFn: () => void;
 };
 
