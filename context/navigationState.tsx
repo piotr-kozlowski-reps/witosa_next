@@ -174,44 +174,53 @@ export function useNavigationState() {
       submenu.set(false);
     });
   };
-  const setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles =
-    () => {
-      allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles.forEach(
-        (submenu) => {
-          submenu.set(false);
-        }
-      );
-    };
+
+  const setVisibilityOfFirstLevelSubmenuToTrue = () => {
+    state.isMobileMenuFirstLevelVisible.set(true);
+  };
+
+  // const setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles =
+  //   () => {
+  //     allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles.forEach(
+  //       (submenu) => {
+  //         submenu.set(false);
+  //       }
+  //     );
+  //   };
   const setProvidedSubmenuVisibilityToTrue_OtherToFalse = (
     submenuProvided: TSubMenu
   ) => {
     switch (submenuProvided) {
       case 'ABOUT':
         if (state.isAboutSubmenuVisible.get() === true) {
-          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+          setVisibilityOfAllSubmenusToFalse();
+          setVisibilityOfFirstLevelSubmenuToTrue();
           return;
         }
-        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+        setVisibilityOfAllSubmenusToFalse();
         state.isAboutSubmenuVisible.set(true);
         state.isMobileAboutSubMenuVisible.set(true);
         break;
 
       case 'GROUPS':
         if (state.isGroupsSubmenuVisible.get() === true) {
-          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+          setVisibilityOfAllSubmenusToFalse();
+          setVisibilityOfFirstLevelSubmenuToTrue();
           return;
         }
-        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+        setVisibilityOfAllSubmenusToFalse();
         state.isGroupsSubmenuVisible.set(true);
         state.isMobileGroupsSubMenuVisible.set(true);
         break;
 
       case 'ACCESSIBILITY':
         if (state.isAccessibilitySubmenuVisible.get() === true) {
-          setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+          setVisibilityOfAllSubmenusToFalse();
+          setVisibilityOfFirstLevelSubmenuToTrue();
           return;
         }
-        setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+        // setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles();
+        setVisibilityOfAllSubmenusToFalse();
         state.isAccessibilitySubmenuVisible.set(true);
         state.isMobileAccessibilitySubMenuVisible.set(true);
         break;
@@ -271,7 +280,11 @@ export function useNavigationState() {
     },
     setIsAccessibilitySubmenuVisible_ToFalse() {
       state.isAccessibilitySubmenuVisible.set(false);
+    },
+    setIsAccessibilitySubmenuVisibleForMobile_ToFalse() {
+      state.isAccessibilitySubmenuVisible.set(false);
       state.isMobileAccessibilitySubMenuVisible.set(false);
+      setVisibilityOfFirstLevelSubmenuToTrue();
     },
 
     // hide all submenus

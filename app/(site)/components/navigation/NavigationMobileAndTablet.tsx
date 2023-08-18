@@ -7,6 +7,7 @@ import { TCurrentDevice } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Fragment } from 'react';
 import IconButton from '../IconButton';
 import CloseIcon from '../icons/CloseIcon';
@@ -36,11 +37,10 @@ export default function NavigationMobileAndTablet(props: Props) {
     hideAllSubmenus,
     getIsMobileMenuFirstLevelVisible,
     getIsMobileAboutSubMenuVisible,
-    getIsAnyOfSecondLevelSubmenusVisible,
     getIsMobileGroupsSubMenuVisible,
     setIsMobileMenuFirstLevelVisible_ToBeVisible,
     setIsAccessibilitySubmenuVisible_ToTrue,
-    setIsAccessibilitySubmenuVisible_ToFalse,
+    setIsAccessibilitySubmenuVisibleForMobile_ToFalse,
   } = useNavigationState();
   const {
     getFontSize,
@@ -82,8 +82,9 @@ export default function NavigationMobileAndTablet(props: Props) {
             nawigacja główna
           </h2>
           <div className="flex items-start justify-between h-32">
-            <button
-              onClick={() => {}}
+            <Link
+              href="/"
+              // onClick={() => {}}
               className="mt-10"
               aria-label="Strona główna"
             >
@@ -96,7 +97,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 />
               </span>
               <span className="sr-only">Strona główna</span>
-            </button>
+            </Link>
             <div
               className={clsx(
                 'absolute top-[33px]',
@@ -289,7 +290,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
                 id={idGroupsSubmenuMenu}
               >
                 <div className="absolute top-0 w-screen h-screen bg-skin-fill ">
@@ -394,7 +395,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
                 id={idAboutSubmenuMenu}
                 // style={{
                 //   left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
@@ -520,18 +521,11 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen"
+                // className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
                 id={idAccessibilitySubmenuMenu}
-                // style={{
-                //   left: getIsMobileAccessibilitySubMenuVisible()
-                //     ? '0%'
-                //     : '100%',
-                //   visibility: getIsMobileAccessibilitySubMenuVisible()
-                //     ? 'visible'
-                //     : 'hidden',
-                // }}
               >
-                <div className="absolute top-0 w-screen h-screen bg-skin-fill drop-shadow-big">
+                <div className="absolute top-0 w-screen h-screen">
                   <ul
                     id="options_accessibility"
                     className={clsx(
@@ -610,7 +604,9 @@ export default function NavigationMobileAndTablet(props: Props) {
                     <li className="absolute top-[30px]">
                       <PrevIcon
                         alt="Zamknij mobilne menu."
-                        actionFn={setIsAccessibilitySubmenuVisible_ToFalse}
+                        actionFn={
+                          setIsAccessibilitySubmenuVisibleForMobile_ToFalse
+                        }
                       />
                     </li>
                   </ul>
