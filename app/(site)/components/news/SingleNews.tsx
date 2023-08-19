@@ -2,8 +2,9 @@ import { getPolishTypeName } from '@/lib/textHelpers';
 import { TCurrentDevice } from '@/types';
 import { EventsType } from '@prisma/client';
 import clsx from 'clsx';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import CustomLink from '../CustomLink';
 
 interface Props {
@@ -42,54 +43,93 @@ export default function SingleNews(props: Props) {
       currentDevice
     );
 
+  ////animation
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end start'],
+  });
+  const animationState = {
+    start: 0,
+    endOfStartingAnimation: 0.4,
+    startOfEndingAnimation: 0.75,
+    end: 1,
+  };
+
+  const wholeDivOpacity = useTransform(
+    scrollYProgress,
+    [
+      animationState.start,
+      animationState.endOfStartingAnimation,
+      animationState.startOfEndingAnimation,
+      animationState.end,
+    ],
+    [0, 1, 1, 0]
+  );
+  const wholeDivScale = useTransform(
+    scrollYProgress,
+    [
+      animationState.start,
+      animationState.endOfStartingAnimation,
+      animationState.startOfEndingAnimation,
+      animationState.end,
+    ],
+    [0.9, 1, 1, 0.9]
+  );
+
   ////tsx
   return (
     <Fragment>
-      <div
-        className={clsx(
-          'relative',
-          isShowingBothSurroundingLines ? 'add-both-surrounding-lines' : '',
-          isShowingOnlyLeftSurroundingLine ? 'add-left-surrounding-line' : ''
-        )}
+      <motion.section
+        ref={targetRef}
+        style={{ opacity: wholeDivOpacity, scale: wholeDivScale }}
       >
-        <div className="absolute top-0 left-0">
-          {eventTypes.map((type, index) => (
-            <div
-              key={index}
-              className="inline font-base-regular text-size-normal"
-            >
-              <span>{index !== 0 ? '|' : ''}</span>
-              <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
-                {getPolishTypeName(type)}
-              </span>
-            </div>
-          ))}
+        <div
+          className={clsx(
+            'relative',
+            isShowingBothSurroundingLines ? 'add-both-surrounding-lines' : '',
+            isShowingOnlyLeftSurroundingLine ? 'add-left-surrounding-line' : ''
+          )}
+        >
+          <div className="absolute top-0 left-0">
+            {eventTypes.map((type, index) => (
+              <div
+                key={index}
+                className="inline font-base-regular text-size-normal"
+              >
+                <span>{index !== 0 ? '|' : ''}</span>
+                <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
+                  {getPolishTypeName(type)}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="absolute prose top-[50px]">
+            <h2>{createFormattedDate(eventStartDate)}</h2>
+          </div>
         </div>
-        <div className="absolute prose top-[50px]">
-          <h2>{createFormattedDate(eventStartDate)}</h2>
-        </div>
-      </div>
 
-      <div className="max-w-[271px] max-h-[271px] mx-auto mt-[57px] ">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
-          width={271}
-          height={271}
-          alt={title}
-          className="rounded-full"
-        />
-      </div>
-      <div className="mt-12 prose">
-        <h4>{title}</h4>
-        <p>{shortDescription}</p>
-      </div>
-      <div className="mt-[30px]">
-        <CustomLink
-          visibleText="dowiedz się więcej ..."
-          url={`/events/${id}`}
-          descriptionText={title}
-        />
-      </div>
+        <div className="max-w-[271px] max-h-[271px] mx-auto mt-[57px] ">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
+            width={271}
+            height={271}
+            alt={title}
+            className="rounded-full"
+          />
+        </div>
+        <div className="mt-12 prose">
+          <h4>{title}</h4>
+          <p>{shortDescription}</p>
+        </div>
+        <div className="mt-[30px]">
+          <CustomLink
+            visibleText="dowiedz się więcej ..."
+            url={`/events/${id}`}
+            descriptionText={title}
+          />
+        </div>
+      </motion.section>
     </Fragment>
   );
 }
