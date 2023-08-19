@@ -24,6 +24,14 @@ export default function RootLayout({
       setIsAccessibilitySubmenuVisible_ToTrue,
   } = useNavigationState();
 
+  const gotoAccessibilityTools = () => {
+    setIsAccessibilitySubmenuVisible_ToTrue();
+    const timeout = setTimeout(() => {
+      window.location.replace('#accessibility_navigation');
+    }, 400);
+    clearTimeout(timeout);
+  };
+
   ////tsx
   return (
     <html lang="pl">
@@ -50,11 +58,7 @@ export default function RootLayout({
         <a href="#main_content" className="skip-link">
           Przejdź do treści
         </a>
-        <a
-          href="#accessibility_navigation"
-          className="skip-link"
-          onClick={setIsAccessibilitySubmenuVisible_ToTrue}
-        >
+        <a href="#" className="skip-link" onClick={gotoAccessibilityTools}>
           Przejdź do narzędzi ułatwiających dostępność treści
         </a>
         <Navigation />

@@ -82,12 +82,7 @@ export default function NavigationMobileAndTablet(props: Props) {
             nawigacja główna
           </h2>
           <div className="flex items-start justify-between h-32">
-            <Link
-              href="/"
-              // onClick={() => {}}
-              className="mt-10"
-              aria-label="Strona główna"
-            >
+            <Link href="/" className="mt-10" aria-label="Strona główna">
               <span aria-hidden="true">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
@@ -125,7 +120,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
                 // style={{
                 //   left: getIsMobileMenuFirstLevelVisible()
                 //     ? getIsAnyOfSecondLevelSubmenusVisible()
@@ -290,7 +285,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
                 id={idGroupsSubmenuMenu}
               >
                 <div className="absolute top-0 w-screen h-screen bg-skin-fill ">
@@ -395,7 +390,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg "
                 id={idAboutSubmenuMenu}
                 // style={{
                 //   left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
@@ -522,7 +517,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 animate="visible"
                 exit="exit"
                 // className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
-                className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
+                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
                 id={idAccessibilitySubmenuMenu}
               >
                 <div className="absolute top-0 w-screen h-screen">
