@@ -1,6 +1,8 @@
 import { TCurrentDevice, TsocialLinkName, TsocialLinks } from '@/types';
 import { ImmutableObject } from '@hookstate/core';
-import IconButton from '../IconButton';
+import FacebookIcon from '../icons/FacebookIcon';
+import InstagramIcon from '../icons/InstagramIcon';
+import YoutubeIcon from '../icons/YoutubeIcon';
 
 interface Props {
   getSocialLinkData: (
@@ -13,35 +15,51 @@ export default function ContactInfo(props: Props) {
   ////vars
   const { getSocialLinkData, getCurrentDevice } = props;
 
-  const telNumber = '32 235 48 78'; //TODO: check if number works and what it opens
-  const email = 'witosa@artck.pl'; //TODO: check if email works and opens email client
-
   ////tsx
   return (
     <div className="w-full prose">
       <h4>Dane kontaktowe</h4>
       <div className="mt-[17px]">
         <b>ART CK</b>
-        <p className="mt-1">ul. Wincentego Witosa 5</p>
+        <p className="mt-1">ul. Wincentego Witosa 6</p>
         <p className="-mt-2">44-196 Knurów</p>
       </div>
       <div className="mt-[23px]">
         <p className="mt-1">
-          tel.{' '}
+          tel. biuro:{' '}
           <span className="inline-block not-prose">
-            <a
-              href={`tel:+48 ${telNumber}`}
-              className="font-medium link-default"
-            >
-              {telNumber}
+            <a href={`tel:0048323326397`} className="font-medium link-default">
+              +48 32 332 63 97
             </a>
           </span>
         </p>
         <p className="-mt-2">
+          tel. recepcja:{' '}
+          <span className="inline-block not-prose">
+            <a href={`tel:0048323326379`} className="font-medium link-default">
+              +48 32 332 63 79
+            </a>
+          </span>
+        </p>
+        <p className="mt-1">
+          www:{' '}
+          <span className="inline-block not-prose">
+            <a
+              href={`https://www.art-ck.pl`}
+              className="font-medium link-default"
+            >
+              www.art-ck.pl
+            </a>
+          </span>
+        </p>
+        <p className="mt-1">
           e-mail:{' '}
           <span className="inline-block not-prose">
-            <a href={`mailto:${email}`} className="font-medium link-default">
-              {email}
+            <a
+              href={`mailto:info@art-ck.pl`}
+              className="font-medium link-default"
+            >
+              info@art-ck.pl
             </a>
           </span>
         </p>
@@ -51,39 +69,24 @@ export default function ContactInfo(props: Props) {
       <div className="not-prose">
         <ul className="flex items-center justify-start gap-4 mt-4 ">
           <li>
-            <IconButton
-              isCurrentlyActive={false}
-              iconDefaultUrl="facebook-xsm_default.svg"
-              iconHoverUrl="facebook-xsm_hover.svg"
+            <FacebookIcon
+              size="NORMAL"
               alt="Facebook"
-              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
-              actionFn={() => {}}
-              isLink={true}
-              linkUrl={getSocialLinkData('FACEBOOK')!.path}
+              url={getSocialLinkData('FACEBOOK')!.path}
             />
           </li>
           <li>
-            <IconButton
-              isCurrentlyActive={false}
-              iconDefaultUrl="instagram-xsm_default.svg"
-              iconHoverUrl="instagram-xsm_hover.svg"
+            <InstagramIcon
+              size="NORMAL"
               alt="Instagram"
-              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
-              actionFn={() => {}}
-              isLink={true}
-              linkUrl={getSocialLinkData('INSTAGRAM')!.path}
+              url={getSocialLinkData('INSTAGRAM')!.path}
             />
           </li>
           <li>
-            <IconButton
-              isCurrentlyActive={false}
-              iconDefaultUrl="youtube-xsm_default.svg"
-              iconHoverUrl="youtube-xsm_hover.svg"
+            <YoutubeIcon
+              size="NORMAL"
               alt="Youtube"
-              size={getCurrentDevice() === 'DESKTOP' ? 'SMALL' : 'BIG'}
-              actionFn={() => {}}
-              isLink={true}
-              linkUrl={getSocialLinkData('YOUTUBE')!.path}
+              url={getSocialLinkData('YOUTUBE')!.path}
             />
           </li>
         </ul>

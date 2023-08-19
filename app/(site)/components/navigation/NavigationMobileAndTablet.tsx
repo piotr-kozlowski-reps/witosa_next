@@ -121,16 +121,6 @@ export default function NavigationMobileAndTablet(props: Props) {
                 animate="visible"
                 exit="exit"
                 className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
-                // style={{
-                //   left: getIsMobileMenuFirstLevelVisible()
-                //     ? getIsAnyOfSecondLevelSubmenusVisible()
-                //       ? '-80%'
-                //       : '0%'
-                //     : '100%',
-                //   visibility: getIsMobileMenuFirstLevelVisible()
-                //     ? 'visible'
-                //     : 'hidden',
-                // }}
               >
                 <div className="bg-skin-fill">
                   <ul
