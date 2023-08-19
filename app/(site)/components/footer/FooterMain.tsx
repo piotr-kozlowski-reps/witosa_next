@@ -2,6 +2,7 @@
 import { useNavigationState } from '@/context/navigationState';
 import clsx from 'clsx';
 import { Fragment } from 'react';
+import HorizontalSeparatorLine from '../HorizontalSeparatorLine';
 import ContactInfo from './ContactInfo';
 import FooterStamp from './FooterStamp';
 import NewsLetter from './Newsletter';
@@ -23,12 +24,9 @@ export default function FooterMain() {
           getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
         )}
       >
-        <div
-          className={clsx(
-            'bg-skin-gray w-[753px] h-[1px] mb-24',
-            getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''
-          )}
-        ></div>
+        <HorizontalSeparatorLine
+          additionalClasses={getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''}
+        />
         <div
           className={clsx(
             'grid w-full gap-y-24 mb-16',

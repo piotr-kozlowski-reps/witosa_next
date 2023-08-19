@@ -21,14 +21,18 @@ export default function ContactInfo(props: Props) {
       <h4>Dane kontaktowe</h4>
       <div className="mt-[17px]">
         <b>ART CK</b>
-        <p className="mt-1">ul. Wincentego Witosa 6</p>
+        <p className="mt-1">Centrum Kultury w Knurowie </p>
+        <p className="-mt-2">ul. Wincentego Witosa 6</p>
         <p className="-mt-2">44-196 Knurów</p>
       </div>
       <div className="mt-[23px]">
         <p className="mt-1">
           tel. biuro:{' '}
           <span className="inline-block not-prose">
-            <a href={`tel:0048323326397`} className="font-medium link-default">
+            <a
+              href={`tel:0048323326397`}
+              className="font-semibold link-default"
+            >
               +48 32 332 63 97
             </a>
           </span>
@@ -36,7 +40,10 @@ export default function ContactInfo(props: Props) {
         <p className="-mt-2">
           tel. recepcja:{' '}
           <span className="inline-block not-prose">
-            <a href={`tel:0048323326379`} className="font-medium link-default">
+            <a
+              href={`tel:0048323326379`}
+              className="font-semibold link-default"
+            >
               +48 32 332 63 79
             </a>
           </span>
@@ -46,7 +53,7 @@ export default function ContactInfo(props: Props) {
           <span className="inline-block not-prose">
             <a
               href={`https://www.art-ck.pl`}
-              className="font-medium link-default"
+              className="font-semibold link-default"
             >
               www.art-ck.pl
             </a>
@@ -57,7 +64,7 @@ export default function ContactInfo(props: Props) {
           <span className="inline-block not-prose">
             <a
               href={`mailto:info@art-ck.pl`}
-              className="font-medium link-default"
+              className="font-semibold link-default"
             >
               info@art-ck.pl
             </a>
@@ -66,8 +73,8 @@ export default function ContactInfo(props: Props) {
       </div>
       <div className="mt-[28px] mb-8 separator-horizontal"></div>
       {/* internal socials ul  */}
-      <div className="not-prose">
-        <ul className="flex items-center justify-start gap-4 mt-4 ">
+      <div className="not-prose -mt-2">
+        <ul className="flex items-center justify-start gap-4 mt-4">
           <li>
             <FacebookIcon
               size="NORMAL"

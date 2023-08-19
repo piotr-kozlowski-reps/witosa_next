@@ -186,7 +186,7 @@
 
   /* link-active */
   .link-active {
-    @apply font-normal cursor-default text-size-normal text-skin-base whitespace-nowrap;
+    @apply font-medium cursor-default text-size-normal text-skin-base whitespace-nowrap;
   }
   .link-mobile-active {
     @apply font-semibold cursor-default h-11 text-size-large text-skin-base whitespace-nowrap;
@@ -202,7 +202,7 @@
   }
 
   .link-active-sitemap {
-    @apply font-normal cursor-default text-size-normal text-skin-base whitespace-nowrap;
+    @apply font-medium cursor-default text-size-normal text-skin-base whitespace-nowrap;
   }
   .link-active-sitemap::after {
     content: '';
@@ -220,7 +220,7 @@
   }
 
   .link-active--different-pseudo-after {
-    @apply font-normal cursor-default text-size-normal text-skin-base whitespace-nowrap;
+    @apply font-medium cursor-default text-size-normal text-skin-base whitespace-nowrap;
   }
   .link-active--different-pseudo-after::after {
     content: '';

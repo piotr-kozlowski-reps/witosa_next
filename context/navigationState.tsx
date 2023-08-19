@@ -125,9 +125,12 @@ const navigationStateData: TNavigationState = {
     },
   ],
   socialLinks: [
-    { name: 'FACEBOOK', path: 'https://www.onet.pl/' },
-    { name: 'INSTAGRAM', path: 'https://www.wp.pl/' },
-    { name: 'YOUTUBE', path: 'https://wykop.pl/' },
+    { name: 'FACEBOOK', path: 'https://www.facebook.com/ArtCKwKnurowie/' },
+    { name: 'INSTAGRAM', path: 'https://www.instagram.com/artckwknurowie/' },
+    {
+      name: 'YOUTUBE',
+      path: 'https://www.youtube.com/@centrumkulturywknurowie5350',
+    },
   ],
   isAboutSubmenuVisible: false,
   isGroupsSubmenuVisible: false,

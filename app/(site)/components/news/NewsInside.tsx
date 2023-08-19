@@ -3,6 +3,7 @@
 import { useNavigationState } from '@/context/navigationState';
 import { TEventInNewsSection } from '@/types';
 import clsx from 'clsx';
+import HorizontalSeparatorLine from '../HorizontalSeparatorLine';
 import SingleNews from './SingleNews';
 
 interface Props {
@@ -24,12 +25,10 @@ export default function NewsInside(props: Props) {
         getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
       )}
     >
-      <div
-        className={clsx(
-          'bg-skin-gray w-[753px] h-[1px] mb-24',
-          getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''
-        )}
-      ></div>
+      <HorizontalSeparatorLine
+        additionalClasses={getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''}
+      />
+
       <div className={clsx('w-full prose')}>
         <h4>Aktualności</h4>
       </div>

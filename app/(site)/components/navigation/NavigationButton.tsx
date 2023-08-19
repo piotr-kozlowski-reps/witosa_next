@@ -54,7 +54,7 @@ export default function NavigationButton(props: Props) {
   ////tsx
   return (
     <button
-      className={clsx('transition-all ', cssButtonClasses)}
+      className={clsx('transition-all', cssButtonClasses)}
       onClick={buttonActionHandler}
       aria-controls={idForAriaControls}
       aria-expanded={getIsSubmenuVisible() ? true : false}

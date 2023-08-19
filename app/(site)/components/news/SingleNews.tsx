@@ -52,6 +52,7 @@ export default function SingleNews(props: Props) {
   const animationState = {
     start: 0,
     endOfStartingAnimation: 0.4,
+    textEndAnimation: 0.5,
     startOfEndingAnimation: 0.75,
     end: 1,
   };
@@ -75,6 +76,17 @@ export default function SingleNews(props: Props) {
       animationState.end,
     ],
     [0.9, 1, 1, 0.9]
+  );
+
+  const textScale = useTransform(
+    scrollYProgress,
+    [animationState.start, animationState.textEndAnimation],
+    [1.2, 1]
+  );
+  const textX = useTransform(
+    scrollYProgress,
+    [animationState.start, animationState.textEndAnimation],
+    [45, 0]
   );
 
   ////tsx
@@ -104,30 +116,36 @@ export default function SingleNews(props: Props) {
               </div>
             ))}
           </div>
-          <div className="absolute prose top-[50px]">
+          <div className="absolute prose top-[46px] bg-skin-main-bg py-1 pr-4 rounded-r-base">
             <h2>{createFormattedDate(eventStartDate)}</h2>
           </div>
         </div>
 
-        <div className="max-w-[271px] max-h-[271px] mx-auto mt-[57px] ">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
-            width={271}
-            height={271}
-            alt={title}
-            className="rounded-full"
-          />
-        </div>
-        <div className="mt-12 prose">
-          <h4>{title}</h4>
-          <p>{shortDescription}</p>
-        </div>
-        <div className="mt-[30px]">
-          <CustomLink
-            visibleText="dowiedz się więcej ..."
-            url={`/events/${id}`}
-            descriptionText={title}
-          />
+        <div className="-mt-[7px]">
+          <div className="pt-[57px]">
+            <div className="max-w-[271px] max-h-[271px] mx-auto">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
+                width={271}
+                height={271}
+                alt={title}
+                className="rounded-full"
+              />
+            </div>
+          </div>
+          <div className="mt-12 prose">
+            <motion.h4 style={{ scale: textScale, x: textX }}>
+              {title}
+            </motion.h4>
+            <p>{shortDescription}</p>
+          </div>
+          <div className="mt-[30px]">
+            <CustomLink
+              visibleText="dowiedz się więcej ..."
+              url={`/events/${id}`}
+              descriptionText={title}
+            />
+          </div>
         </div>
       </motion.section>
     </Fragment>
