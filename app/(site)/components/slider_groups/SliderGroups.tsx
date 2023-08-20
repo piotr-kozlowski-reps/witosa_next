@@ -13,6 +13,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -25,6 +26,7 @@ export default function SliderGroups(props: Props) {
   ////vars
   const { sliderImages } = props;
   const { getCurrentDevice } = useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
@@ -40,11 +42,7 @@ export default function SliderGroups(props: Props) {
         watchState: true,
       }}
       modules={[Navigation, Pagination, Mousewheel, Keyboard, HashNavigation]}
-      className={clsx(
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container ' : ''
-      )}
+      className={containerProperClasses}
     >
       {sliderImages.map((sliderImage, index) => {
         return (
@@ -52,9 +50,7 @@ export default function SliderGroups(props: Props) {
             <div
               className={clsx(
                 'h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10',
-                getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-                getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-                getCurrentDevice() === 'DESKTOP' ? 'desktop-container ' : ''
+                containerProperClasses
               )}
               style={{
                 backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}${sliderImage.url})`,
@@ -64,12 +60,6 @@ export default function SliderGroups(props: Props) {
           </SwiperSlide>
         );
       })}
-      {/* <div className="z-20 flex justify-center w-full gap-4 -bottom-4 ">
-        <div ref={prevRef} className="color-red">
-          Prev
-        </div>
-        <div ref={nextRef}>Next</div>
-      </div> */}
     </Swiper>
   );
 }

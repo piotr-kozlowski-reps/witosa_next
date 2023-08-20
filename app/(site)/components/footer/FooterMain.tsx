@@ -1,5 +1,6 @@
 'use client';
 import { useNavigationState } from '@/context/navigationState';
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import HorizontalSeparatorLine from '../HorizontalSeparatorLine';
@@ -12,18 +13,12 @@ export default function FooterMain() {
   ////vars
   const { getCurrentDevice, getLinkData, getSocialLinkData } =
     useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
     <Fragment>
-      <div
-        className={clsx(
-          'mt-[192px]',
-          getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-          getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-          getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
-        )}
-      >
+      <div className={clsx('mt-[192px]', containerProperClasses)}>
         <HorizontalSeparatorLine
           additionalClasses={getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''}
         />

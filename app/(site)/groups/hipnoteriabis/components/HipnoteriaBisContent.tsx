@@ -1,36 +1,39 @@
 'use client';
 
 import { useNavigationState } from '@/context/navigationState';
-import clsx from 'clsx';
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 
 export default function HipnoteriaBisContent() {
   ////vars
   const { getCurrentDevice } = useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
-    <div
-      className={clsx(
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container ' : ''
-      )}
-    >
+    <div className={containerProperClasses}>
       <div className="max-w-full prose">
         <h1 className="mt-[57px]">Hipnoteria bis</h1>
         <p className="w-full ">
-          To szereg stylów tańca ulicznego ewolujący jako część kultury
-          hip-hopowej. Zaliczany jest do Street Dance, co czyni go wyjątkowo
-          różnorodnym. <br />
-          Każdy miłośnik tańca znajdzie w nim coś dla siebie np. oldschool,
-          newstyle, freestyle… <br />
-          Styl ten to ekspresja odpowiadająca konkretnym emocjom. Hip - hop był
-          pierwszym tańcem ulicznym i asymiluje wszystkie pozostałe style
-          uliczne :)
+          Grupa ta praktykuje szereg stylów tańca ulicznego, zaliczanych do
+          Street Dance (hip-hop był pierwszym z nich). Każdy miłośnik tańca
+          znajdzie w nim coś dla siebie np. oldschool, newstyle, freestyle… Styl
+          ten to ekspresja odpowiadająca konkretnym emocjom.
         </p>
         <p>
-          <i>„Taniec jest ukrytym językiem duszy”</i>
-          &nbsp;&nbsp;&nbsp;&nbsp;Martha Graham
+          Wystarczy kilka minut tego tańca, aby poczuć polepszenie się naszego
+          samopoczucia - tak właśnie działają endorfiny. Taniec pozwala
+          uporządkować i uspokoić myśli! Modeluje i prostuje sylwetkę (co jest
+          bardzo ważne szczególnie dla współczesnych dzieci i młodzieży),
+          usprawnia stawy i uwalnia nagromadzone w ciele napięcia. Reguluje
+          oddech i sprawia, że dostarczamy komórkom więcej niezbędnego dla
+          każdego organizmu tlenu.
+        </p>
+        <br />
+        <p>
+          Prowadzenie: <b>Milena Karpińska-Garcorz</b>
+        </p>
+        <p>
+          Zajęcia: <b>środa - 18.00-19.30 i piątek - 15.30-17.00</b>
         </p>
       </div>
     </div>

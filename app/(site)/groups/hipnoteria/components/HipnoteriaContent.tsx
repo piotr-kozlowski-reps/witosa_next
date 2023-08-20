@@ -1,36 +1,42 @@
 'use client';
 
 import { useNavigationState } from '@/context/navigationState';
-import clsx from 'clsx';
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 
 export default function HipnoteriaContent() {
   ////vars
   const { getCurrentDevice } = useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
-    <div
-      className={clsx(
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container ' : ''
-      )}
-    >
+    <div className={containerProperClasses}>
       <div className="max-w-full prose">
         <h1 className="mt-[57px]">Hipnoteria</h1>
         <p className="w-full ">
-          To szereg stylów tańca ulicznego ewolujący jako część kultury
-          hip-hopowej. Zaliczany jest do Street Dance, co czyni go wyjątkowo
-          różnorodnym. <br />
-          Każdy miłośnik tańca znajdzie w nim coś dla siebie np. oldschool,
-          newstyle, freestyle… <br />
-          Styl ten to ekspresja odpowiadająca konkretnym emocjom. Hip - hop był
-          pierwszym tańcem ulicznym i asymiluje wszystkie pozostałe style
-          uliczne :)
+          Jest to najstarsza i najbardziej zaawansowana w technice Street Dance
+          grupa młodzieży.
         </p>
         <p>
-          <i>„Taniec jest ukrytym językiem duszy”</i>
-          &nbsp;&nbsp;&nbsp;&nbsp;Martha Graham
+          Każdy miłośnik tańca ulicznego znajdzie w Hipnoterii coś dla siebie
+          np. oldschool, newstyle, freestyle… Styl ten to ekspresja
+          odpowiadająca konkretnym emocjom.{' '}
+        </p>
+        <p>
+          Wystarczy kilka minut tańca, aby poczuć się wolniejszym od wszelkiego
+          napięcia i stresu dnia codziennego, którego młodzieży w naszych
+          czasach niestety nie brakuje... taniec doskonale potrafi uporządkować
+          i uspokoić myśli! Modeluje i prostuje sylwetkę, usprawnia stawy,
+          reguluje oddech i dotlenienie. Jak ważna i niezbędna dla młodzieży
+          jest Hipnoteria, świadczy najlepiej ich wieloletnie uczestniczenie w
+          zajęciach i poszerzanie technik i styli tańca ulicznego.
+        </p>
+        <br />
+        <p>
+          Prowadzenie: <b>Milena Karpińska-Garcorz</b>
+        </p>
+        <p>
+          Zajęcia: <b>środa - 19.30-21.00 i piątek - 17.00-18.45</b>
         </p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useNavigationState } from '@/context/navigationState';
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { getPolishTypeName } from '@/lib/textHelpers';
 import { Slide } from '@prisma/client';
 import clsx from 'clsx';
@@ -15,6 +16,7 @@ export default function SliderView(props: Props) {
   ////vars
   const { sliderData } = props;
   const { getCurrentDevice } = useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////utils
   function createDateText(dataObject: Date) {
@@ -67,13 +69,7 @@ export default function SliderView(props: Props) {
 
   ////tsx
   return (
-    <section
-      className={clsx(
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
-      )}
-    >
+    <section className={containerProperClasses}>
       {/* image */}
       <div className="h-[352px] bg-skin-primary rounded-base"></div>
       {/* description */}

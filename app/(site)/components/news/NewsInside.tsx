@@ -1,6 +1,7 @@
 'use client';
 
 import { useNavigationState } from '@/context/navigationState';
+import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { TEventInNewsSection } from '@/types';
 import clsx from 'clsx';
 import HorizontalSeparatorLine from '../HorizontalSeparatorLine';
@@ -13,18 +14,12 @@ interface Props {
 export default function NewsInside(props: Props) {
   ////vars
   const { getCurrentDevice } = useNavigationState();
+  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const { newsData } = props;
 
   ////tsx
   return (
-    <section
-      className={clsx(
-        'mt-[192px]',
-        getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : '',
-        getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
-        getCurrentDevice() === 'DESKTOP' ? 'desktop-container' : ''
-      )}
-    >
+    <section className={clsx('mt-[192px]', containerProperClasses)}>
       <HorizontalSeparatorLine
         additionalClasses={getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''}
       />

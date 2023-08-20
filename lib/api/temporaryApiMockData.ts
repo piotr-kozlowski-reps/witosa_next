@@ -85,73 +85,73 @@ export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
   marzenieMiniMini: [
     {
       url: 'groups_marzenie_mini_mini_001.jpg',
-      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+      alt: 'Tancerki w kolorowych kostiumach w tańcu arabskim.',
     },
     {
       url: 'groups_marzenie_mini_mini_002.jpg',
-      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+      alt: '7 letnie dziewczynki na plenerowej scenie, w różowych bodach, występują z okazji Dnia Tańca.',
     },
     {
       url: 'groups_marzenie_mini_mini_003.jpg',
-      alt: 'Grupa artystyczna Marzenie Mini Mini.',
+      alt: 'Dziewczynki z grupy artystyczna Marzenie Mini Mini, na plenerowej scenie w kółeczku.',
     },
   ],
   marzenieBis: [
     {
       url: 'groups_marzenie_bis_001.jpg',
-      alt: 'Grupa artystyczna Marzenie bis.',
+      alt: 'Średnio zaawansowane tancerki w choreografii z elementami ludowymi.',
     },
     {
       url: 'groups_marzenie_bis_002.jpg',
-      alt: 'Grupa artystyczna Marzenie bis.',
+      alt: 'Tancerki na scenie, w ludowych spódniczkach i białych bluzkach, ustawione w figurach.',
     },
     {
       url: 'groups_marzenie_bis_003.jpg',
-      alt: 'Grupa artystyczna Marzenie bis.',
+      alt: 'Tańczące dziewczynki w stylu nowoczesnym na Prentacjach Artystycznych.',
     },
     {
       url: 'groups_marzenie_bis_004.jpg',
-      alt: 'Grupa artystyczna Marzenie bis.',
+      alt: 'Młode tancerki na scenie w srebrnych kostiumach, przedstawiają inscenizację taneczną pt. "Początek".',
     },
   ],
   marzenie: [
     {
       url: 'groups_marzenie_001.jpg',
-      alt: 'Grupa artystyczna Marzenie.',
+      alt: 'Najstarsze dziewczyny zespołu "Marzenie" pozują do zdjęcia w ustawieniu litery V.',
     },
     {
       url: 'groups_marzenie_002.jpg',
-      alt: 'Grupa artystyczna Marzenie.',
+      alt: 'Dziewczęta ustawione w klasycznych figurach na scenie Domu Kultury.',
     },
     {
       url: 'groups_marzenie_003.jpg',
-      alt: 'Grupa artystyczna Marzenie.',
+      alt: 'Tańcząca młodzież z rekwizytem, materiałem imitującym ocean.',
     },
     {
       url: 'groups_marzenie_004.jpg',
-      alt: 'Grupa artystyczna Marzenie.',
+      alt: 'Tańcząca młodzież z rekwizytem, materiałem imitującym ocean.',
     },
     {
       url: 'groups_marzenie_005.jpg',
-      alt: 'Grupa artystyczna Marzenie.',
+      alt: 'Tancerki w czasie występu, ukazujące swoje umiejętności techniczne.',
     },
   ],
   hipnoteriaBis: [
     {
       url: 'groups_hipnoteriabis_001.jpg',
-      alt: 'Grupa artystyczna Hipnoteria Bis.',
+      alt: 'Grupa radosnych dziewcząt i chłopców na scenie ze swoją trenerką.',
     },
     {
       url: 'groups_hipnoteriabis_002.jpg',
-      alt: 'Grupa artystyczna Hipnoteria Bis.',
+      alt: 'Grupa dziewcząt i chłopców w katanach jeansowych i koszulach w kratę, pozuje do zdjęcia.',
     },
     {
       url: 'groups_hipnoteriabis_003.jpg',
-      alt: 'Grupa artystyczna Hipnoteria Bis.',
+      alt: 'Dziewczęta w pomarańczowych bluzach i luźnych spodniach, przemieszczają się w różnych kierunkach na scenie.',
     },
     {
       url: 'groups_hipnoteriabis_004.jpg',
-      alt: 'Grupa artystyczna Hipnoteria Bis.',
+      alt: 'Tańczące dziewczynki z okazji Dnia Dziecka, na scenie plenerowej.',
     },
   ],
   hipnoteria: [
