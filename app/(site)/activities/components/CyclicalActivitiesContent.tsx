@@ -18,10 +18,10 @@ export default function CyclicalActivitiesContent(props: Props) {
   const [categories, setCategories] = useState<ActivityType[]>(
     Object.values(ActivityType)
   );
-  const [forWhom, setForWhom] = useState<ActivityForWhom[]>(
+  const [forWhom, _setForWhom] = useState<ActivityForWhom[]>(
     Object.values(ActivityForWhom)
   );
-  const [chosenCyclicalActivities, setChosenCyclicalActivities] = useState<
+  const [chosenCyclicalActivities, _setChosenCyclicalActivities] = useState<
     CyclicalActivityTemporary[]
   >([]);
 
@@ -41,7 +41,7 @@ export default function CyclicalActivitiesContent(props: Props) {
     setCategories(resultCategoryArray);
   };
 
-  const toggleForWhom = (passedForWhom: ActivityForWhom) => {};
+  const toggleForWhom = (_passedForWhom: ActivityForWhom) => {};
 
   ////tsx
   return (
