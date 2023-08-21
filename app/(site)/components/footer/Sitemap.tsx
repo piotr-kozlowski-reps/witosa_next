@@ -26,28 +26,32 @@ export default function Sitemap(props: Props) {
       <ul className="flex flex-col items-start justify-center list-none not-prose mt-[17px]">
         <li className="-ml-[26px]">
           <NavigationLink
-            url={getLinkData('news')?.path!}
+            url={getLinkData('NEWS')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('news')?.nameToBeDisplayed!}
+            isCurrentlyUsed={getLinkData('NEWS')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('NEWS')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
         </li>
         <li className="-ml-[26px] mt-[6px]">
           <NavigationLink
-            url={getLinkData('events')?.path!}
+            url={getLinkData('EVENTS')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('events')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('events')?.nameToBeDisplayed!}
+            isCurrentlyUsed={getLinkData('EVENTS')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('EVENTS')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
         </li>
         <li className="-ml-[26px] mt-[6px]">
           <NavigationLink
-            url={getLinkData('activities')?.path!}
+            url={getLinkData('CYCLICAL_ACTIVITIES')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('activities')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('activities')?.nameToBeDisplayed!}
+            isCurrentlyUsed={
+              getLinkData('CYCLICAL_ACTIVITIES')?.isCurrentlyUsed!
+            }
+            nameToBeDisplayed={
+              getLinkData('CYCLICAL_ACTIVITIES')?.nameToBeDisplayed!
+            }
             isSiteMapLink={true}
           />
         </li>
@@ -57,63 +61,63 @@ export default function Sitemap(props: Props) {
         <ul className="flex flex-col items-start justify-center list-none not-prose">
           <li className="mt-[9px] -ml-[3px]">
             <NavigationLink
-              url={getLinkData('groups_marzenie_mini_mini')?.path!}
+              url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('groups_marzenie_mini_mini')?.isCurrentlyUsed!
+                getLinkData('GROUPS_MARZENIE_MINI_MINI')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('groups_marzenie_mini_mini')?.nameToBeDisplayed!
+                getLinkData('GROUPS_MARZENIE_MINI_MINI')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('groups_marzenie_bis')?.path!}
+              url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                getLinkData('GROUPS_MARZENIE_BIS')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
+                getLinkData('GROUPS_MARZENIE_BIS')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('groups_marzenie')?.path!}
+              url={getLinkData('GROUPS_MARZENIE')?.path!}
               hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('groups_marzenie')?.isCurrentlyUsed!}
+              isCurrentlyUsed={getLinkData('GROUPS_MARZENIE')?.isCurrentlyUsed!}
               nameToBeDisplayed={
-                getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                getLinkData('GROUPS_MARZENIE')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('groups_hipnoteria_bis')?.path!}
+              url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
+                getLinkData('GROUPS_HIPNOTERIA_BIS')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('groups_hipnoteria_bis')?.nameToBeDisplayed!
+                getLinkData('GROUPS_HIPNOTERIA_BIS')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('groups_hipnoteria')?.path!}
+              url={getLinkData('GROUPS_HIPNOTERIA')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                getLinkData('GROUPS_HIPNOTERIA')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                getLinkData('GROUPS_HIPNOTERIA')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
@@ -123,44 +127,44 @@ export default function Sitemap(props: Props) {
         <ul className="flex flex-col items-start justify-center list-none not-prose">
           <li className="mt-[9px] -ml-[3px]">
             <NavigationLink
-              url={getLinkData('about_about')?.path!}
+              url={getLinkData('ABOUT_ABOUT')?.path!}
               hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('about_about')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('about_about')?.nameToBeDisplayed!}
+              isCurrentlyUsed={getLinkData('ABOUT_ABOUT')?.isCurrentlyUsed!}
+              nameToBeDisplayed={getLinkData('ABOUT_ABOUT')?.nameToBeDisplayed!}
               isSiteMapLink={true}
             />
           </li>
-          <li className="-ml-[3px] mt-[6px]">
+          {/* <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('about_rent')?.path!}
+              url={getLinkData('ABOUT_RENT')?.path!}
               hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('about_rent')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('about_rent')?.nameToBeDisplayed!}
+              isCurrentlyUsed={getLinkData('ABOUT_RENT')?.isCurrentlyUsed!}
+              nameToBeDisplayed={getLinkData('ABOUT_RENT')?.nameToBeDisplayed!}
               isSiteMapLink={true}
             />
-          </li>
+          </li> */}
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('about_regulations')?.path!}
+              url={getLinkData('ABOUT_REGULATIONS')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('about_regulations')?.isCurrentlyUsed!
+                getLinkData('ABOUT_REGULATIONS')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('about_regulations')?.nameToBeDisplayed!
+                getLinkData('ABOUT_REGULATIONS')?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
             />
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('about_availability_declarations')?.path!}
+              url={getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')?.path!}
               hideAllSubmenus={() => {}}
               isCurrentlyUsed={
-                getLinkData('about_availability_declarations')?.isCurrentlyUsed!
+                getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')?.isCurrentlyUsed!
               }
               nameToBeDisplayed={
-                getLinkData('about_availability_declarations')
+                getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                   ?.nameToBeDisplayed!
               }
               isSiteMapLink={true}
@@ -168,48 +172,48 @@ export default function Sitemap(props: Props) {
           </li>
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('about_rodo')?.path!}
+              url={getLinkData('ABOUT_RODO')?.path!}
               hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('about_rodo')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('about_rodo')?.nameToBeDisplayed!}
+              isCurrentlyUsed={getLinkData('ABOUT_RODO')?.isCurrentlyUsed!}
+              nameToBeDisplayed={getLinkData('ABOUT_RODO')?.nameToBeDisplayed!}
               isSiteMapLink={true}
             />
           </li>
-          <li className="-ml-[3px] mt-[6px]">
+          {/* <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
-              url={getLinkData('contact')?.path!}
+              url={getLinkData('CONTACT')?.path!}
               hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
+              isCurrentlyUsed={getLinkData('CONTACT')?.isCurrentlyUsed!}
+              nameToBeDisplayed={getLinkData('CONTACT')?.nameToBeDisplayed!}
               isSiteMapLink={true}
             />
-          </li>
+          </li> */}
         </ul>
         <li className="-ml-[26px] mt-[6px]">
           <NavigationLink
-            url={getLinkData('bistro')?.path!}
+            url={getLinkData('BISTRO')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('bistro')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('bistro')?.nameToBeDisplayed!}
+            isCurrentlyUsed={getLinkData('BISTRO')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('BISTRO')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
         </li>
         <li className="-ml-[26px] mt-[6px]">
           <NavigationLink
-            url={getLinkData('contact')?.path!}
+            url={getLinkData('CONTACT')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
+            isCurrentlyUsed={getLinkData('CONTACT')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('CONTACT')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
         </li>
         <div className="-ml-[26px] separator-horizontal mt-[24px] mb-[22px]"></div>
         <li className="-ml-[26px] ">
           <NavigationLink
-            url={getLinkData('login')?.path!}
+            url={getLinkData('LOGIN')?.path!}
             hideAllSubmenus={() => {}}
-            isCurrentlyUsed={getLinkData('login')?.isCurrentlyUsed!}
-            nameToBeDisplayed={getLinkData('login')?.nameToBeDisplayed!}
+            isCurrentlyUsed={getLinkData('LOGIN')?.isCurrentlyUsed!}
+            nameToBeDisplayed={getLinkData('LOGIN')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
         </li>

@@ -125,37 +125,37 @@ export default function NavigationMobileAndTablet(props: Props) {
                   >
                     <li>
                       <NavigationLink
-                        url={getLinkData('news')?.path!}
+                        url={getLinkData('NEWS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
-                        isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
+                        isCurrentlyUsed={getLinkData('NEWS')?.isCurrentlyUsed!}
                         nameToBeDisplayed={
-                          getLinkData('news')?.nameToBeDisplayed!
+                          getLinkData('NEWS')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
                     </li>
                     <li>
                       <NavigationLink
-                        url={getLinkData('events')?.path!}
+                        url={getLinkData('EVENTS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('events')?.isCurrentlyUsed!
+                          getLinkData('EVENTS')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('events')?.nameToBeDisplayed!
+                          getLinkData('EVENTS')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
                     </li>
                     <li>
                       <NavigationLink
-                        url={getLinkData('activities')?.path!}
+                        url={getLinkData('CYCLICAL_ACTIVITIES')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('activities')?.isCurrentlyUsed!
+                          getLinkData('CYCLICAL_ACTIVITIES')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('activities')?.nameToBeDisplayed!
+                          getLinkData('CYCLICAL_ACTIVITIES')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -190,13 +190,13 @@ export default function NavigationMobileAndTablet(props: Props) {
                     </li>
                     <li>
                       <NavigationLink
-                        url={getLinkData('bistro')?.path!}
+                        url={getLinkData('BISTRO')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('bistro')?.isCurrentlyUsed!
+                          getLinkData('BISTRO')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('bistro')?.nameToBeDisplayed!
+                          getLinkData('BISTRO')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -204,13 +204,13 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('contact')?.path!}
+                        url={getLinkData('CONTACT')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('contact')?.isCurrentlyUsed!
+                          getLinkData('CONTACT')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('contact')?.nameToBeDisplayed!
+                          getLinkData('CONTACT')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -282,14 +282,14 @@ export default function NavigationMobileAndTablet(props: Props) {
                   >
                     <li>
                       <NavigationLink
-                        url={getLinkData('groups_marzenie_mini_mini')?.path!}
+                        url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('groups_marzenie_mini_mini')
+                          getLinkData('GROUPS_MARZENIE_MINI_MINI')
                             ?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('groups_marzenie_mini_mini')
+                          getLinkData('GROUPS_MARZENIE_MINI_MINI')
                             ?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
@@ -298,13 +298,13 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('groups_marzenie_bis')?.path!}
+                        url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                          getLinkData('GROUPS_MARZENIE_BIS')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('groups_marzenie_bis')?.nameToBeDisplayed!
+                          getLinkData('GROUPS_MARZENIE_BIS')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -312,13 +312,13 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('groups_marzenie')?.path!}
+                        url={getLinkData('GROUPS_MARZENIE')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('groups_marzenie')?.isCurrentlyUsed!
+                          getLinkData('GROUPS_MARZENIE')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                          getLinkData('GROUPS_MARZENIE')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -326,13 +326,13 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('groups_hipnoteria_bis')?.path!}
+                        url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('groups_hipnoteria_bis')?.isCurrentlyUsed!
+                          getLinkData('GROUPS_HIPNOTERIA_BIS')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('groups_hipnoteria_bis')
+                          getLinkData('GROUPS_HIPNOTERIA_BIS')
                             ?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
@@ -341,13 +341,13 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('groups_hipnoteria')?.path!}
+                        url={getLinkData('GROUPS_HIPNOTERIA')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                          getLinkData('GROUPS_HIPNOTERIA')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                          getLinkData('GROUPS_HIPNOTERIA')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -393,41 +393,41 @@ export default function NavigationMobileAndTablet(props: Props) {
                   >
                     <li>
                       <NavigationLink
-                        url={getLinkData('about_about')?.path!}
+                        url={getLinkData('ABOUT_ABOUT')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('about_about')?.isCurrentlyUsed!
+                          getLinkData('ABOUT_ABOUT')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('about_about')?.nameToBeDisplayed!
+                          getLinkData('ABOUT_ABOUT')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
                     </li>
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
-                        url={getLinkData('about_rent')?.path!}
+                        url={getLinkData('ABOUT_RENT')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('about_rent')?.isCurrentlyUsed!
+                          getLinkData('ABOUT_RENT')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('about_rent')?.nameToBeDisplayed!
+                          getLinkData('ABOUT_RENT')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('about_regulations')?.path!}
+                        url={getLinkData('ABOUT_REGULATIONS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('about_regulations')?.isCurrentlyUsed!
+                          getLinkData('ABOUT_REGULATIONS')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('about_regulations')?.nameToBeDisplayed!
+                          getLinkData('ABOUT_REGULATIONS')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
@@ -436,15 +436,15 @@ export default function NavigationMobileAndTablet(props: Props) {
                     <li>
                       <NavigationLink
                         url={
-                          getLinkData('about_availability_declarations')?.path!
+                          getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')?.path!
                         }
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('about_availability_declarations')
+                          getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                             ?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('about_availability_declarations')
+                          getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                             ?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
@@ -453,31 +453,31 @@ export default function NavigationMobileAndTablet(props: Props) {
 
                     <li>
                       <NavigationLink
-                        url={getLinkData('about_rodo')?.path!}
+                        url={getLinkData('ABOUT_RODO')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('about_rodo')?.isCurrentlyUsed!
+                          getLinkData('ABOUT_RODO')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('about_rodo')?.nameToBeDisplayed!
+                          getLinkData('ABOUT_RODO')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
                     </li>
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
-                        url={getLinkData('contact')?.path!}
+                        url={getLinkData('CONTACT')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
                         isCurrentlyUsed={
-                          getLinkData('contact')?.isCurrentlyUsed!
+                          getLinkData('CONTACT')?.isCurrentlyUsed!
                         }
                         nameToBeDisplayed={
-                          getLinkData('contact')?.nameToBeDisplayed!
+                          getLinkData('CONTACT')?.nameToBeDisplayed!
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
                     <li className="absolute top-[30px]">
                       <PrevIcon
                         alt="Zamknij mobilne menu."

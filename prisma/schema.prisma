@@ -35,7 +35,7 @@ model User{
   updatedAt DateTime @updatedAt
   role UserRole @default(EDITOR)
   events Event[]
-  activities Activity[]
+  activities CyclicalActivity[]
   sliders Slide[]
 }
 
@@ -92,26 +92,44 @@ enum ActivityForWhom {
   WOMEN
 }
 
-model Activity{
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum Place {
+  DANCING_ROOM
+  ART_ROOM
+}
+
+model CyclicalActivityOccurrence {
   id String @id @default(uuid())
+  day Day
+  activityStart DateTime
+  activityEnd DateTime
+  cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
+  cyclicalActivityId String
+
+}
+model CyclicalActivity{
+  id String @id @default(uuid())
+  name String
   activityTypes ActivityType[]
   activitiesForWhom ActivityForWhom[]
+  shortDescription String
+  occurance CyclicalActivityOccurrence[]
+  place Place
+  expiresAt DateTime?
+  isToBePublished Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author User @relation(fields: [authorId], references: [id])
   authorId String
-
-
-  // title String
-  // isToBeInNewsSection Boolean
-  // newsSectionImageUrl String?
-  // shortDescription String
-  // // imageUrl String
-  // // content String
-  // eventStartDate DateTime
-  // eventEndDate DateTime
-
-  // isToBePublished Boolean
 }
 
 

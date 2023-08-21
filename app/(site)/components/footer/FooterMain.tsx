@@ -42,7 +42,7 @@ export default function FooterMain() {
             getSocialLinkData={getSocialLinkData}
             getCurrentDevice={getCurrentDevice}
           />
-          <NewsLetter />
+          <NewsLetter getCurrentDevice={getCurrentDevice} />
         </div>
         <FooterStamp />
       </div>

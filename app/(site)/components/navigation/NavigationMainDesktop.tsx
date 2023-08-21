@@ -78,29 +78,31 @@ export default function NavigationMainDesktop(props: Props) {
           <ul className="flex gap-6">
             <li>
               <NavigationLink
-                url={getLinkData('news')?.path!}
+                url={getLinkData('NEWS')?.path!}
                 hideAllSubmenus={hideAllSubmenus}
-                isCurrentlyUsed={getLinkData('news')?.isCurrentlyUsed!}
-                nameToBeDisplayed={getLinkData('news')?.nameToBeDisplayed!}
+                isCurrentlyUsed={getLinkData('NEWS')?.isCurrentlyUsed!}
+                nameToBeDisplayed={getLinkData('NEWS')?.nameToBeDisplayed!}
               />
             </li>
 
             <li>
               <NavigationLink
-                url={getLinkData('events')?.path!}
+                url={getLinkData('EVENTS')?.path!}
                 hideAllSubmenus={hideAllSubmenus}
-                isCurrentlyUsed={getLinkData('events')?.isCurrentlyUsed!}
-                nameToBeDisplayed={getLinkData('events')?.nameToBeDisplayed!}
+                isCurrentlyUsed={getLinkData('EVENTS')?.isCurrentlyUsed!}
+                nameToBeDisplayed={getLinkData('EVENTS')?.nameToBeDisplayed!}
               />
             </li>
 
             <li>
               <NavigationLink
-                url={getLinkData('activities')?.path!}
+                url={getLinkData('CYCLICAL_ACTIVITIES')?.path!}
                 hideAllSubmenus={hideAllSubmenus}
-                isCurrentlyUsed={getLinkData('activities')?.isCurrentlyUsed!}
+                isCurrentlyUsed={
+                  getLinkData('CYCLICAL_ACTIVITIES')?.isCurrentlyUsed!
+                }
                 nameToBeDisplayed={
-                  getLinkData('activities')?.nameToBeDisplayed!
+                  getLinkData('CYCLICAL_ACTIVITIES')?.nameToBeDisplayed!
                 }
               />
             </li>
@@ -129,14 +131,14 @@ export default function NavigationMainDesktop(props: Props) {
                     >
                       <li>
                         <NavigationLink
-                          url={getLinkData('groups_marzenie_mini_mini')?.path!}
+                          url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('groups_marzenie_mini_mini')
+                            getLinkData('GROUPS_MARZENIE_MINI_MINI')
                               ?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('groups_marzenie_mini_mini')
+                            getLinkData('GROUPS_MARZENIE_MINI_MINI')
                               ?.nameToBeDisplayed!
                           }
                         />
@@ -144,13 +146,13 @@ export default function NavigationMainDesktop(props: Props) {
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('groups_marzenie_bis')?.path!}
+                          url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('groups_marzenie_bis')?.isCurrentlyUsed!
+                            getLinkData('GROUPS_MARZENIE_BIS')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('groups_marzenie_bis')
+                            getLinkData('GROUPS_MARZENIE_BIS')
                               ?.nameToBeDisplayed!
                           }
                         />
@@ -158,27 +160,27 @@ export default function NavigationMainDesktop(props: Props) {
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('groups_marzenie')?.path!}
+                          url={getLinkData('GROUPS_MARZENIE')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('groups_marzenie')?.isCurrentlyUsed!
+                            getLinkData('GROUPS_MARZENIE')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('groups_marzenie')?.nameToBeDisplayed!
+                            getLinkData('GROUPS_MARZENIE')?.nameToBeDisplayed!
                           }
                         />
                       </li>
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('groups_hipnoteria_bis')?.path!}
+                          url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('groups_hipnoteria_bis')
+                            getLinkData('GROUPS_HIPNOTERIA_BIS')
                               ?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('groups_hipnoteria_bis')
+                            getLinkData('GROUPS_HIPNOTERIA_BIS')
                               ?.nameToBeDisplayed!
                           }
                         />
@@ -186,13 +188,13 @@ export default function NavigationMainDesktop(props: Props) {
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('groups_hipnoteria')?.path!}
+                          url={getLinkData('GROUPS_HIPNOTERIA')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('groups_hipnoteria')?.isCurrentlyUsed!
+                            getLinkData('GROUPS_HIPNOTERIA')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('groups_hipnoteria')?.nameToBeDisplayed!
+                            getLinkData('GROUPS_HIPNOTERIA')?.nameToBeDisplayed!
                           }
                         />
                       </li>
@@ -227,39 +229,39 @@ export default function NavigationMainDesktop(props: Props) {
                     >
                       <li>
                         <NavigationLink
-                          url={getLinkData('about_about')?.path!}
+                          url={getLinkData('ABOUT_ABOUT')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('about_about')?.isCurrentlyUsed!
+                            getLinkData('ABOUT_ABOUT')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('about_about')?.nameToBeDisplayed!
+                            getLinkData('ABOUT_ABOUT')?.nameToBeDisplayed!
                           }
                         />
                       </li>
 
-                      <li>
+                      {/* <li>
                         <NavigationLink
-                          url={getLinkData('about_rent')?.path!}
+                          url={getLinkData('ABOUT_RENT')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('about_rent')?.isCurrentlyUsed!
+                            getLinkData('ABOUT_RENT')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('about_rent')?.nameToBeDisplayed!
+                            getLinkData('ABOUT_RENT')?.nameToBeDisplayed!
                           }
                         />
-                      </li>
+                      </li> */}
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('about_regulations')?.path!}
+                          url={getLinkData('ABOUT_REGULATIONS')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('about_regulations')?.isCurrentlyUsed!
+                            getLinkData('ABOUT_REGULATIONS')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('about_regulations')?.nameToBeDisplayed!
+                            getLinkData('ABOUT_REGULATIONS')?.nameToBeDisplayed!
                           }
                         />
                       </li>
@@ -267,16 +269,16 @@ export default function NavigationMainDesktop(props: Props) {
                       <li>
                         <NavigationLink
                           url={
-                            getLinkData('about_availability_declarations')
+                            getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                               ?.path!
                           }
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('about_availability_declarations')
+                            getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                               ?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('about_availability_declarations')
+                            getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')
                               ?.nameToBeDisplayed!
                           }
                         />
@@ -284,26 +286,13 @@ export default function NavigationMainDesktop(props: Props) {
 
                       <li>
                         <NavigationLink
-                          url={getLinkData('about_rodo')?.path!}
+                          url={getLinkData('ABOUT_RODO')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
                           isCurrentlyUsed={
-                            getLinkData('about_rodo')?.isCurrentlyUsed!
+                            getLinkData('ABOUT_RODO')?.isCurrentlyUsed!
                           }
                           nameToBeDisplayed={
-                            getLinkData('about_rodo')?.nameToBeDisplayed!
-                          }
-                        />
-                      </li>
-
-                      <li>
-                        <NavigationLink
-                          url={getLinkData('contact')?.path!}
-                          hideAllSubmenus={hideAllSubmenus}
-                          isCurrentlyUsed={
-                            getLinkData('contact')?.isCurrentlyUsed!
-                          }
-                          nameToBeDisplayed={
-                            getLinkData('contact')?.nameToBeDisplayed!
+                            getLinkData('ABOUT_RODO')?.nameToBeDisplayed!
                           }
                         />
                       </li>
@@ -315,19 +304,19 @@ export default function NavigationMainDesktop(props: Props) {
 
             <li>
               <NavigationLink
-                url={getLinkData('bistro')?.path!}
+                url={getLinkData('BISTRO')?.path!}
                 hideAllSubmenus={hideAllSubmenus}
-                isCurrentlyUsed={getLinkData('bistro')?.isCurrentlyUsed!}
-                nameToBeDisplayed={getLinkData('bistro')?.nameToBeDisplayed!}
+                isCurrentlyUsed={getLinkData('BISTRO')?.isCurrentlyUsed!}
+                nameToBeDisplayed={getLinkData('BISTRO')?.nameToBeDisplayed!}
               />
             </li>
 
             <li>
               <NavigationLink
-                url={getLinkData('contact')?.path!}
+                url={getLinkData('CONTACT')?.path!}
                 hideAllSubmenus={hideAllSubmenus}
-                isCurrentlyUsed={getLinkData('contact')?.isCurrentlyUsed!}
-                nameToBeDisplayed={getLinkData('contact')?.nameToBeDisplayed!}
+                isCurrentlyUsed={getLinkData('CONTACT')?.isCurrentlyUsed!}
+                nameToBeDisplayed={getLinkData('CONTACT')?.nameToBeDisplayed!}
               />
             </li>
             <div className="w-[1px] h-4 mt-[4px] mb-[9px] ml-4 mr-2 bg-skin-primary"></div>

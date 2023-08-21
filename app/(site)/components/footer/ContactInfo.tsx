@@ -13,11 +13,11 @@ interface Props {
 
 export default function ContactInfo(props: Props) {
   ////vars
-  const { getSocialLinkData, getCurrentDevice } = props;
+  const { getSocialLinkData } = props;
 
   ////tsx
   return (
-    <div className="w-full prose">
+    <div id="contact" className="w-full prose">
       <h4>Dane kontaktowe</h4>
       <div className="mt-[17px]">
         <b>ART CK</b>
@@ -73,7 +73,7 @@ export default function ContactInfo(props: Props) {
       </div>
       <div className="mt-[28px] mb-8 separator-horizontal"></div>
       {/* internal socials ul  */}
-      <div className="not-prose -mt-2">
+      <div className="-mt-2 not-prose">
         <ul className="flex items-center justify-start gap-4 mt-4">
           <li>
             <FacebookIcon

@@ -1,4 +1,4 @@
-import { Event, UserRole } from '@prisma/client';
+import { CyclicalActivity, Day, Event, UserRole } from '@prisma/client';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
@@ -43,22 +43,22 @@ export type LogFile = {
 
 //navigation
 export type TLinkName =
-  | 'news'
-  | 'events'
-  | 'activities'
-  | 'about_about'
-  | 'about_rent'
-  | 'about_regulations'
-  | 'about_availability_declarations'
-  | 'about_rodo'
-  | 'groups_marzenie_mini_mini'
-  | 'groups_marzenie_bis'
-  | 'groups_marzenie'
-  | 'groups_hipnoteria'
-  | 'groups_hipnoteria_bis'
-  | 'bistro'
-  | 'contact'
-  | 'login';
+  | 'NEWS'
+  | 'EVENTS'
+  | 'CYCLICAL_ACTIVITIES'
+  | 'ABOUT_ABOUT'
+  | 'ABOUT_RENT'
+  | 'ABOUT_REGULATIONS'
+  | 'ABOUT_AVAILABILITY_DECLARATIONS'
+  | 'ABOUT_RODO'
+  | 'GROUPS_MARZENIE_MINI_MINI'
+  | 'GROUPS_MARZENIE_BIS'
+  | 'GROUPS_MARZENIE'
+  | 'GROUPS_HIPNOTERIA'
+  | 'GROUPS_HIPNOTERIA_BIS'
+  | 'BISTRO'
+  | 'CONTACT'
+  | 'LOGIN';
 export type TsocialLinkName = 'FACEBOOK' | 'INSTAGRAM' | 'YOUTUBE';
 export type TsocialLinks = {
   name: TsocialLinkName;
@@ -115,3 +115,14 @@ export type TGroups =
   | 'MARZENIE'
   | 'HIPNOTERIA_BIS'
   | 'HIPNOTERIA';
+
+export type TCyclicalActivityOccurrenceTemporary = {
+  id: string;
+  day: Day;
+  activityStart: Date;
+  activityEnd: Date;
+};
+
+export type CyclicalActivityTemporary = CyclicalActivity & {
+  occurrence: TCyclicalActivityOccurrenceTemporary[];
+};
