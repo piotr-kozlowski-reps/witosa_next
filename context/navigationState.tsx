@@ -82,8 +82,8 @@ const navigationStateData: TNavigationState = {
     },
     {
       name: 'ABOUT_RODO',
-      nameToBeDisplayed: 'polityka prywatności / RODO',
-      path: '/about/rodo',
+      nameToBeDisplayed: 'polityka prywatności',
+      path: '/about/privacy_policy',
       isCurrentlyUsed: false,
     },
 

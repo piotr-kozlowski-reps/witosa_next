@@ -1,11 +1,9 @@
 'use client';
 
-import { useNavigationState } from '@/context/navigationState';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 
 export default function HipnoteriaContent() {
   ////vars
-  const { getCurrentDevice } = useNavigationState();
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx

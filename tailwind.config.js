@@ -107,6 +107,18 @@ module.exports = {
               'line-height': 'var(--font-size-normal-line-height)',
               color: 'var(--color-foreground-base)',
             },
+            ol: {
+              'font-size': 'var(--font-size-normal)',
+              'font-weight': 400,
+              'line-height': 'var(--font-size-normal-line-height)',
+              color: 'var(--color-foreground-base)',
+            },
+            ul: {
+              'font-size': 'var(--font-size-normal)',
+              'font-weight': 400,
+              'line-height': 'var(--font-size-normal-line-height)',
+              color: 'var(--color-foreground-base)',
+            },
           },
         },
       },

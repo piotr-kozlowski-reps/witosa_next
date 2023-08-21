@@ -18,6 +18,7 @@ export default function IconLinkWrapper({
       aria-label={alt}
       href={url}
       target="_blank"
+      rel="noopener noreferrer"
       className={clsx(
         'relative mt-[5px] icon-active',
         size === 'NORMAL'
