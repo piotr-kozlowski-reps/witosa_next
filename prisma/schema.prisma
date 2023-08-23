@@ -124,6 +124,7 @@ model CyclicalActivity{
   shortDescription String
   occurance CyclicalActivityOccurrence[]
   place Place
+  customLinkToDetails String?
   expiresAt DateTime?
   isToBePublished Boolean
   createdAt DateTime @default(now())

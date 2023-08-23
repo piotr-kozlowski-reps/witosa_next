@@ -20,7 +20,7 @@ export default function CustomLink(props: Props) {
       href={url}
       aria-label={`${descriptionText} - dowiedz się więcej.`}
     >
-      {visibleText}
+      <span aria-hidden>{visibleText}</span>
     </Link>
   );
 }

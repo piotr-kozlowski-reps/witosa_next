@@ -169,6 +169,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: '854e7c17-0uu4-4881-fff5-ce6bgezzh848',
@@ -191,6 +192,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activitiesForWhom: ['TEENS'],
     shortDescription:
       'Próba najstarszej grupy zespołu tańca charakterystycznego. Grupa pokazowa.',
+    customLinkToDetails: '/groups/marzenie',
     occurrence: [
       {
         id: '854e7c17-ruu4-4881-fff5-ce5bgezzh848',
@@ -218,6 +220,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['DANCE', 'RECREATION'],
     activitiesForWhom: ['CHILDREN', 'TEENS'],
     shortDescription: 'Próba grupy zespołu tańca charakterystycznego.',
+    customLinkToDetails: '/groups/marzenie_bis',
     occurrence: [
       {
         id: 'a54d7d17-ruu4-4881-fff5-ce5bbezzh848',
@@ -246,6 +249,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activitiesForWhom: ['CHILDREN'],
     shortDescription:
       'Próba najmłodszej grupy zespołu tańca charakterystycznego.',
+    customLinkToDetails: '/groups/marzenieminimini',
     occurrence: [
       {
         id: 'f54e7d17-ruu4-4881-fff5-ce5bgezzh848',
@@ -273,6 +277,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['DANCE', 'RECREATION'],
     activitiesForWhom: ['TEENS'],
     shortDescription: 'Próba młodszej grupy zespołu tańca Street Dance.',
+    customLinkToDetails: '/groups/hipnoteriabis',
     occurrence: [
       {
         id: 'f54e7d17-r3u4-4881-fff5-ce5bgegzh848',
@@ -300,6 +305,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['DANCE', 'RECREATION'],
     activitiesForWhom: ['TEENS'],
     shortDescription: 'Próba starszej grupy zespołu tańca Street Dance.',
+    customLinkToDetails: '/groups/hipnoteria',
     occurrence: [
       {
         id: 'f54e7d17-z3u4-4881-fff5-ce52gegzh848',
@@ -327,6 +333,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['DANCE', 'RECREATION'],
     activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'Trening w duchu Body Groove dla dorosłych uczestników.',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: 'f54e7aa7-z3u4-4881-fff5-ce52gegz5988',
@@ -348,6 +355,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['TEENS', 'ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'Kurs malarstwa i rysunku dla młodzieży i dorosłych.',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: 'f54wed17-z3u4-ht81-fff5-ce528egzh848',
@@ -369,6 +377,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['CHILDREN'],
     shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: 'f54wed17-z454-ht81-fff5-cefr8egzh148',
@@ -390,6 +399,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['TEENS'],
     shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: 'f54we877-z454-hdd1-fff5-cefr87gzh148',
@@ -411,6 +421,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['TEENS', 'ADULTS'],
     shortDescription: 'Krótki kurs projektowania wnętrz.',
+    customLinkToDetails: '',
     occurrence: [
       {
         id: 'f88we877-z454-89d1-fff5-cefr87g22148',

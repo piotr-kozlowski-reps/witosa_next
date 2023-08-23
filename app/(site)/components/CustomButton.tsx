@@ -6,6 +6,8 @@ interface Props {
   additionalClasses?: string;
   onSubmit?: boolean;
   disabled: boolean;
+  outlined?: boolean;
+  actionFn?: () => void;
   // url: string;
 }
 
@@ -17,6 +19,8 @@ export default function CustomButton(props: Props) {
     additionalClasses,
     onSubmit = false,
     disabled,
+    outlined = false,
+    actionFn = () => {},
   } = props;
 
   ////tsx
@@ -24,11 +28,12 @@ export default function CustomButton(props: Props) {
     <button
       type={onSubmit ? 'submit' : 'button'}
       className={clsx(
-        'standard-button',
+        outlined ? 'outlined-button' : 'standard-button',
         additionalClasses ? additionalClasses : ''
       )}
       aria-label={descriptionText}
       disabled={disabled}
+      onClick={actionFn}
     >
       {text}
     </button>

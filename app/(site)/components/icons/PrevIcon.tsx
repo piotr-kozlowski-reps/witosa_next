@@ -1,5 +1,6 @@
 import { useIconsLogicHandler } from '@/hooks/useIconsLogicHandler';
 import { TIconSize } from '@/types';
+import clsx from 'clsx';
 import IconButtonWrapper from './IconButtonWrapper';
 
 type Props = {
@@ -7,11 +8,20 @@ type Props = {
   size?: TIconSize;
   additionalClasses?: string;
   actionFn: () => void;
+  isToBeRotatedToBeVertical?: boolean;
+  isDefaultStateOrRotatedState?: boolean;
 };
 
 export default function PrevIcon(props: Props) {
   ////vars
-  const { size, alt, additionalClasses, actionFn } = props;
+  const {
+    size,
+    alt,
+    additionalClasses,
+    isToBeRotatedToBeVertical = false,
+    isDefaultStateOrRotatedState,
+    actionFn,
+  } = props;
   const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
 
   ////tsx
@@ -21,7 +31,16 @@ export default function PrevIcon(props: Props) {
       additionalClasses={additionalClasses}
       alt={alt}
     >
-      <div style={{ width: width, height: height }}>
+      <div
+        style={{ width: width, height: height }}
+        className={clsx(
+          isToBeRotatedToBeVertical
+            ? isDefaultStateOrRotatedState
+              ? 'rotate-90'
+              : '-rotate-90'
+            : ''
+        )}
+      >
         <svg
           width={width}
           height={height}

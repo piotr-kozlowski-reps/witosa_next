@@ -12,7 +12,6 @@ export default async function ActivitiesPage() {
   return (
     <section>
       <CyclicalActivitiesContent cyclicalActivities={cyclicalActivities} />
-
       <FooterMain />
     </section>
   );

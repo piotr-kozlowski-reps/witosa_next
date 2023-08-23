@@ -21,6 +21,7 @@ type TNavigationState = {
   isMobileGroupsSubMenuVisible: boolean;
   isMobileAboutSubMenuVisible: boolean;
   isMobileAccessibilitySubMenuVisible: boolean;
+  isCyclicalActivitiesMenuVisible: boolean;
   currentDevice: TCurrentDevice;
 };
 
@@ -140,6 +141,7 @@ const navigationStateData: TNavigationState = {
   isMobileAboutSubMenuVisible: false,
   isMobileGroupsSubMenuVisible: false,
   isMobileAccessibilitySubMenuVisible: false,
+  isCyclicalActivitiesMenuVisible: false,
 };
 
 const navigationState = hookstate(
@@ -182,14 +184,6 @@ export function useNavigationState() {
     state.isMobileMenuFirstLevelVisible.set(true);
   };
 
-  // const setVisibilityOfAlmostAllSubmenusToFalseExcludingMobileFirstLevelToMaintainVisibilityOnMobiles =
-  //   () => {
-  //     allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles.forEach(
-  //       (submenu) => {
-  //         submenu.set(false);
-  //       }
-  //     );
-  //   };
   const setProvidedSubmenuVisibilityToTrue_OtherToFalse = (
     submenuProvided: TSubMenu
   ) => {
@@ -332,6 +326,19 @@ export function useNavigationState() {
     // mobile accessibility submenu
     getIsMobileAccessibilitySubMenuVisible() {
       return state.isMobileAccessibilitySubMenuVisible.get();
+    },
+
+    // cyclical activities menu
+    getIsCyclicalActivitiesMenuVisible() {
+      return state.isCyclicalActivitiesMenuVisible.get();
+    },
+    toggleIsCyclicalActivitiesMenuVisible() {
+      state.isCyclicalActivitiesMenuVisible.set(
+        !state.isCyclicalActivitiesMenuVisible.get()
+      );
+    },
+    setIsCyclicalActivitiesMenuToBeVisible() {
+      state.isCyclicalActivitiesMenuVisible.set(true);
     },
   };
 }

@@ -1,43 +1,154 @@
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
+import { pageVariant } from '@/lib/animations/variants';
+import {
+  getPolishDayName,
+  getPolishPlaceName,
+  getTwoDigitHours,
+  getTwoDigitMinutes,
+} from '@/lib/textHelpers';
 import { CyclicalActivityTemporary } from '@/types';
+import { Day } from '@prisma/client';
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import CustomLink from '../../components/CustomLink';
 
 interface Props {
-  cyclicalActivities: CyclicalActivityTemporary[];
+  chosenCyclicalActivities: CyclicalActivityTemporary[];
+  getCyclicalActivitiesByDayOfTheWeek: (
+    day: Day
+  ) => CyclicalActivityTemporary[];
 }
 
 export default function CyclicalActivitiesList(props: Props) {
   ////vars
-  const { cyclicalActivities } = props;
+  const { chosenCyclicalActivities, getCyclicalActivitiesByDayOfTheWeek } =
+    props;
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
-    <div className={clsx('mt-16', containerProperClasses)}>
-      {cyclicalActivities.length === 0 ? (
-        <div className="text-red-500">Ni ma</div>
-      ) : null}
-      {cyclicalActivities.map((activity) => {
-        return (
-          <div key={activity.id} className="my-8">
-            <div>
-              <b>{activity.name}</b>
-            </div>
-            <div className="text-red-300">
-              {activity.activityTypes.join(' ')}
-            </div>
-            <div className="text-red-400">
-              {activity.activitiesForWhom.join(' ')}
-            </div>
-            <div className="text-red-700">
-              {activity.occurrence.map((occurrence) => (
-                <span key={occurrence.id}>{`${occurrence.day} , `}</span>
-              ))}
-            </div>
-            <div className="font-sm-normal">{activity.shortDescription}</div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        variants={pageVariant}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className={clsx('mt-[57px]', containerProperClasses)}
+      >
+        <div className="prose">
+          <h1>Zajęcia stałe</h1>
+        </div>
+        <AnimatePresence mode="wait">
+          <div className="mt-[50px]">
+            <AnimatePresence mode="wait">
+              {chosenCyclicalActivities.length === 0 ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="font-base-bold text-skin-base"
+                >
+                  Niestety, nie ma zajęć dla wybranych przez Ciebie kategorii.
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {chosenCyclicalActivities.length !== 0 ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {Object.keys(Day).map((day) => {
+                    const activitiesForToday =
+                      getCyclicalActivitiesByDayOfTheWeek(day as Day);
+
+                    return (
+                      <AnimatePresence mode="wait" key={day}>
+                        {activitiesForToday.length !== 0 ? (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            <div className="prose">
+                              <h2>{`${getPolishDayName(day as Day)}:`}</h2>
+                              {activitiesForToday.map((activity, index) => {
+                                // console.log(activity.occurrence);
+
+                                const todaysInfoAsArray =
+                                  activity.occurrence.filter(
+                                    (item) => item.day === day
+                                  );
+                                const todaysInfo = todaysInfoAsArray[0];
+
+                                const isLastActivityToDisplay =
+                                  activitiesForToday.length === index + 1;
+
+                                return (
+                                  <AnimatePresence mode="wait" key={day}>
+                                    <motion.div
+                                      initial={{ opacity: 0, x: 50 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      exit={{ opacity: 0, x: 50 }}
+                                      key={activity.id}
+                                    >
+                                      <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
+                                        <span>{`${getTwoDigitHours(
+                                          todaysInfo.activityStart
+                                        )}:${getTwoDigitMinutes(
+                                          todaysInfo.activityStart
+                                        )}-${getTwoDigitHours(
+                                          todaysInfo.activityEnd
+                                        )}:${getTwoDigitMinutes(
+                                          todaysInfo.activityEnd
+                                        )}`}</span>
+                                      </div>
+                                      <div className="ml-[80px]">
+                                        <div className="prose mt-[13px]">
+                                          <h4>{activity.name}</h4>
+                                        </div>
+                                        <div className="font-base-regular mt-[7px]">
+                                          {activity.shortDescription}
+                                        </div>
+                                        <div className="font-base-regular mt-[7px]">
+                                          {getPolishPlaceName(activity.place)}
+                                        </div>
+                                        <div
+                                          className={clsx(
+                                            'mt-[21px]',
+                                            isLastActivityToDisplay
+                                              ? 'mb-[60px]'
+                                              : 'mb-[44px]'
+                                          )}
+                                        >
+                                          <CustomLink
+                                            url={
+                                              activity.customLinkToDetails
+                                                ? activity.customLinkToDetails
+                                                : `actitities/${activity.id}`
+                                            }
+                                            descriptionText={`${activity.name}`}
+                                            visibleText="dowiedz się więcej ..."
+                                          />
+                                        </div>
+                                      </div>
+                                    </motion.div>
+                                  </AnimatePresence>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    );
+                  })}
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
-        );
-      })}
-    </div>
+        </AnimatePresence>
+      </motion.div>
+    </AnimatePresence>
   );
 }

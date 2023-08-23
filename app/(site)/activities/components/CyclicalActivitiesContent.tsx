@@ -1,9 +1,11 @@
 'use client';
 
-import { Fragment, useState } from 'react';
-
+import { useCategoriesChoosingHandler } from '@/hooks/useCategoriesChoosingHandler';
+import { useChosenCyclicalActivitiesHandler } from '@/hooks/useChosenCyclicalActivitiesHandler';
+import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
 import { CyclicalActivityTemporary } from '@/types';
-import { ActivityForWhom, ActivityType } from '@prisma/client';
+import { Day } from '@prisma/client';
+import { Fragment } from 'react';
 import NavigationCategoriesAndTarget from '../../components/navigation/NavigationCategoriesAndTarget';
 import CyclicalActivitiesList from './CyclicalActivitiesList';
 
@@ -14,40 +16,54 @@ interface Props {
 export default function CyclicalActivitiesContent(props: Props) {
   ////vars
   const { cyclicalActivities } = props;
+  const {
+    categories,
+    toggleCategory,
+    checkButtonCategoryState,
+    checkIfAllCategoriesAreChosen,
+    selectAllOrNoneCategories,
+  } = useCategoriesChoosingHandler();
 
-  const [categories, setCategories] = useState<ActivityType[]>(
-    Object.values(ActivityType)
+  const {
+    forWhom,
+    toggleForWhom,
+    checkButtonForWhomState,
+    checkIfAllForWhomAreChosen,
+    selectAllOrNoneForWhoms,
+  } = useForWhomChoosingHandler();
+
+  const chosenCyclicalActivities = useChosenCyclicalActivitiesHandler(
+    cyclicalActivities,
+    categories,
+    forWhom
   );
-  const [forWhom, _setForWhom] = useState<ActivityForWhom[]>(
-    Object.values(ActivityForWhom)
-  );
-  const [chosenCyclicalActivities, _setChosenCyclicalActivities] = useState<
-    CyclicalActivityTemporary[]
-  >([]);
 
-  // console.log('state categories: ', categories);
-  console.log('state forWhom: ', forWhom);
-
-  ////utils
-  const toggleCategory = (category: ActivityType) => {
-    if (categories.includes(category)) {
-      const resultCategoryArray = categories.filter((categoryIterated) => {
-        return categoryIterated !== category;
-      });
-      setCategories(resultCategoryArray);
-      return;
-    }
-    const resultCategoryArray = [...categories, category];
-    setCategories(resultCategoryArray);
+  const getCyclicalActivitiesByDayOfTheWeek = (day: Day) => {
+    const resultCyclicalActivitiesByDay = chosenCyclicalActivities.filter(
+      (activity) => activity.occurrence.find((item) => item.day === day)
+    );
+    return resultCyclicalActivitiesByDay;
   };
-
-  const toggleForWhom = (_passedForWhom: ActivityForWhom) => {};
 
   ////tsx
   return (
     <Fragment>
-      <NavigationCategoriesAndTarget toggleCategory={toggleCategory} />
-      <CyclicalActivitiesList cyclicalActivities={chosenCyclicalActivities} />
+      <NavigationCategoriesAndTarget
+        toggleCategory={toggleCategory}
+        checkButtonCategoryState={checkButtonCategoryState}
+        toggleForWhom={toggleForWhom}
+        checkButtonForWhomState={checkButtonForWhomState}
+        checkIfAllCategoriesAreChosen={checkIfAllCategoriesAreChosen}
+        selectAllOrNoneCategories={selectAllOrNoneCategories}
+        checkIfAllForWhomAreChosen={checkIfAllForWhomAreChosen}
+        selectAllOrNoneForWhoms={selectAllOrNoneForWhoms}
+      />
+      <CyclicalActivitiesList
+        chosenCyclicalActivities={chosenCyclicalActivities}
+        getCyclicalActivitiesByDayOfTheWeek={
+          getCyclicalActivitiesByDayOfTheWeek
+        }
+      />
     </Fragment>
   );
 }

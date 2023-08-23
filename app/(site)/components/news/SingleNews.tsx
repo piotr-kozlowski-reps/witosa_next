@@ -152,6 +152,7 @@ export default function SingleNews(props: Props) {
   );
 }
 
+////utils
 function getMonthAlwaysInTwoDigits(date: Date) {
   const monthNumber = date.getMonth() + 1;
   return monthNumber <= 10 ? `0${monthNumber}` : monthNumber;

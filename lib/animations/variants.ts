@@ -89,6 +89,24 @@ export const mobileVariant = {
   },
 };
 
-//  initial={{ scale: 0.5, opacity: 0 }}
-//     animate={{ scale: 1, opacity: 1 }}
-//     exit={{ scale: 0.5, opacity: 0 }}
+export const pageVariant = {
+  hidden: {
+    opacity: 0,
+    y: 15,
+    scale: 1,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      bounce: 0.3,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 15,
+    scale: 1,
+  },
+};
