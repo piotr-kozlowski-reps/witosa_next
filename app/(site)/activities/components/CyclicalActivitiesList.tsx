@@ -129,7 +129,7 @@ export default function CyclicalActivitiesList(props: Props) {
                                                 : `actitities/${activity.id}`
                                             }
                                             descriptionText={`${activity.name}`}
-                                            visibleText="dowiedz się więcej ..."
+                                            visibleText="więcej..."
                                           />
                                         </div>
                                       </div>

@@ -52,7 +52,7 @@ export default function NavigationAccessibilityDesktop(props: Props) {
             animate="visible"
             exit="exit"
             whileHover={{ scale: 1.07 }}
-            className="absolute right-0 bg-skin-main-bg rounded-s-base drop-shadow-big"
+            className="absolute right-0 bg-skin-main-bg rounded-s-base drop-shadow-big top-[27px]"
           >
             <HandicapIcon
               size="NORMAL"
