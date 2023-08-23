@@ -13,10 +13,10 @@ import SearchMenuTextButton from '../SearchMenuTextButton';
 import PrevIcon from '../icons/PrevIcon';
 
 interface Props {
-  toggleCategory: (category: ActivityType) => void;
-  checkButtonCategoryState: (category: ActivityType) => boolean;
-  toggleForWhom: (passedForWhom: ActivityForWhom) => void;
-  checkButtonForWhomState: (passedForWhom: ActivityForWhom) => boolean;
+  toggleCategory: (_category: ActivityType) => void;
+  checkButtonCategoryState: (_category: ActivityType) => boolean;
+  toggleForWhom: (_passedForWhom: ActivityForWhom) => void;
+  checkButtonForWhomState: (_passedForWhom: ActivityForWhom) => boolean;
   checkIfAllCategoriesAreChosen: () => boolean;
   selectAllOrNoneCategories: () => void;
   checkIfAllForWhomAreChosen: () => boolean;

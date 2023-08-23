@@ -167,3 +167,9 @@ export function getPolishPlaceName(place: Place) {
 
   return polishPlaceName;
 }
+
+export function createBetweenHoursText(startDate: Date, endDate: Date) {
+  return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
+    startDate
+  )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;
+}

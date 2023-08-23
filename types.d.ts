@@ -125,4 +125,8 @@ export type TCyclicalActivityOccurrenceTemporary = {
 
 export type CyclicalActivityTemporary = CyclicalActivity & {
   occurrence: TCyclicalActivityOccurrenceTemporary[];
+  extendedInfo?: {
+    images: TSliderGroupImage[];
+    description: string;
+  };
 };

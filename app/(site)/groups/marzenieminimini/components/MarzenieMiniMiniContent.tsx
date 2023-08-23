@@ -1,12 +1,12 @@
 'use client';
 
-import { useNavigationState } from '@/context/navigationState';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 
 export default function MarzenieMiniMiniContent() {
   ////vars
-  const { getCurrentDevice } = useNavigationState();
+  // const { getCurrentDevice } = useNavigationState();
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
+
   ////tsx
   return (
     <div className={containerProperClasses}>

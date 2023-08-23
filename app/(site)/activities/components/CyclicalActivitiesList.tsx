@@ -1,10 +1,9 @@
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
 import {
+  createBetweenHoursText,
   getPolishDayName,
   getPolishPlaceName,
-  getTwoDigitHours,
-  getTwoDigitMinutes,
 } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary } from '@/types';
 import { Day } from '@prisma/client';
@@ -15,7 +14,7 @@ import CustomLink from '../../components/CustomLink';
 interface Props {
   chosenCyclicalActivities: CyclicalActivityTemporary[];
   getCyclicalActivitiesByDayOfTheWeek: (
-    day: Day
+    _day: Day
   ) => CyclicalActivityTemporary[];
 }
 
@@ -94,15 +93,10 @@ export default function CyclicalActivitiesList(props: Props) {
                                       key={activity.id}
                                     >
                                       <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
-                                        <span>{`${getTwoDigitHours(
-                                          todaysInfo.activityStart
-                                        )}:${getTwoDigitMinutes(
-                                          todaysInfo.activityStart
-                                        )}-${getTwoDigitHours(
+                                        {createBetweenHoursText(
+                                          todaysInfo.activityStart,
                                           todaysInfo.activityEnd
-                                        )}:${getTwoDigitMinutes(
-                                          todaysInfo.activityEnd
-                                        )}`}</span>
+                                        )}
                                       </div>
                                       <div className="ml-[80px]">
                                         <div className="prose mt-[13px]">
@@ -126,7 +120,7 @@ export default function CyclicalActivitiesList(props: Props) {
                                             url={
                                               activity.customLinkToDetails
                                                 ? activity.customLinkToDetails
-                                                : `actitities/${activity.id}`
+                                                : `activities/${activity.id}`
                                             }
                                             descriptionText={`${activity.name}`}
                                             visibleText="więcej..."

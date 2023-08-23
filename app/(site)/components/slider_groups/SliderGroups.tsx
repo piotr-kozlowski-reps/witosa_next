@@ -1,6 +1,5 @@
 'use client';
 
-import { useNavigationState } from '@/context/navigationState';
 import { TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import {
@@ -25,7 +24,7 @@ type Props = {
 export default function SliderGroups(props: Props) {
   ////vars
   const { sliderImages } = props;
-  const { getCurrentDevice } = useNavigationState();
+  // const { getCurrentDevice } = useNavigationState();
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
