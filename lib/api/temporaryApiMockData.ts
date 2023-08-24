@@ -353,6 +353,16 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'Trening w duchu Body Groove dla dorosłych uczestników.',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        // {
+        //   url: 'activities_image_012.jpg',
+        //   alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        // },
+      ],
+      description:
+        '<p>\r\n            Prowadząca: <b>JOANNA KUSY-SZPOTAŃSKA</b>\r\n          </p>\r\n\r\n          <p>\r\n            Body Groove to super zabawa, która jest przeznaczona dla każdego\r\n            ciała! Poświęcona zdrowiu i dobremu samopoczuciu. Na treningach\r\n            wykonujesz proste ruchy taneczne i czerpiesz z tego wszystkie\r\n            korzyści dla siebie !\r\n          </p>\r\n          <p>\r\n            Do tego mieszanka świetnej muzyki to idealny przepis na dobry\r\n            dance...\r\n          </p>\r\n          <p>\r\n            Taniec poprawi twoją elastyczność i siłę, poprawi skupienie i da Ci\r\n            lepszy sen i nastrój!!!\r\n          </p>\r\n\r\n          <p>\r\n            Każde zajęcia poprzedzone będą gimnastyką ogólnorozwojową zwaną też\r\n            ogólnokondycyjną. To propozycja dla osób w każdym wieku!\r\n          </p>\r\n\r\n          <p>\r\n            Ćwiczenia wzmocnią twój organizm, poprawią koordynację i z pewnością\r\n            pozytywnie wpłyną na samopoczucie. To dobry sposób o zadbanie o\r\n            swoje ciało :)\r\n          </p>\r\n          <p>\r\n            Będzie to miła forma spędzania czasu. Zadbaj o siebie razem z nami,\r\n            poczuj satysfakcję i więcej PEWNOŚCI !!!\r\n          </p>\r\n          <p>\r\n            Zobaczcie jak w duchu Body Groove, bawią się inni:\r\n            <a\r\n              href="https://fb.watch/mAKn3WXt0f/"\r\n              target="_blank"\r\n              rel="noopener noreferrer"\r\n            >\r\n              https://fb.watch/mAKn3WXt0f/\r\n            </a>\r\n          </p>',
+    },
     occurrence: [
       {
         id: 'f54e7aa7-z3u4-4881-fff5-ce52gegz5988',
@@ -510,6 +520,28 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     shortDescription:
       'Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię, poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'artcafe_006.jpg',
+          alt: 'Zdjęcie wnętrza Art Cafe.',
+        },
+        {
+          url: 'artcafe_004.jpg',
+          alt: 'Zbliżenie huśtawki w Art Cafe.',
+        },
+        {
+          url: 'artcafe_007.jpg',
+          alt: 'Zdjęcie wnętrza Art Cafe.',
+        },
+        // {
+        //   url: 'activities_image_015.jpg',
+        //   alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        // },
+      ],
+      description:
+        '<p>\r\n            Prowadząca: <b>AGNIESZKA BALA</b>\r\n          </p>\r\n          <p>\r\n            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,\r\n            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!\r\n          </p>\r\n          <p>Nasze zajęcia obejmują:</p>\r\n          <ul>\r\n            <li>\r\n              wstęp - czym jest projektowanie, czym jest design, krótka historia\r\n              sztuki\r\n            </li>\r\n            <li>proces projektowania</li>\r\n            <li>style w aranżacji wnętrz</li>\r\n            <li>wpływ światła na wnętrze</li>\r\n            <li>nauka obsługi programu do projektowania wnętrz</li>\r\n            <li>wizualizacje</li>\r\n          </ul>\r\n          <p>\r\n            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.\r\n          </p>\r\n          <p>\r\n            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,\r\n            praca z mood boardem (tablica inspiracji) praca w programach (trzeba\r\n            mieć swój laptop).\r\n          </p>',
+    },
     occurrence: [
       {
         id: 'f88we877-z454-89d1-fff5-cefr87g22148',

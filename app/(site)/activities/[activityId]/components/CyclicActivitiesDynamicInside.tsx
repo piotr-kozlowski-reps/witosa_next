@@ -34,77 +34,40 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {activity.name}
           </h1>
-          {activity.extendedInfo?.description ? (
+          {/* {activity.extendedInfo?.description ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: activity.extendedInfo?.description as string,
               }}
             ></div>
-          ) : null}
-          {/* 
+          ) : null} */}
           <p>
-            Prowadząca: <b>AGATA NIŹNIKIEWICZ</b>
+            Prowadząca: <b>AGNIESZKA BALA</b>
           </p>
           <p>
-            Zapraszamy na warsztaty z tradycyjnych technik drukarskich w
-            nowoczesnym wydaniu.
+            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,
+            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!
           </p>
-          <p>
-            Podczas zajęć uczestnicy poznają linoryt, technikę suchej igły czy
-            mezzotintę, a następnie nauczą się wykorzystywać ich potencjał
-            wizualny do tworzenia wyjątkowych grafik.
-          </p>
-          <p>
-            Uczestnicy własnoręcznie wykonują matrycę, pokrywają ją farbą, a za
-            pomocą prasy drukarskiej przenoszą wizerunek z matrycy na papier.
-            Gotowe prace planujemy systematycznie prezentować w formie wystaw
-            stacjonarnych i instalacji multimedialnych. Zajęcia obejmują także
-            podstawy rysunku i kompozycji, aby umożliwić uczestnikom tworzenie
-            własnych świadomych i przemyślanych projektów.
-          </p>
-
-          <p>
-            <b>Agata Niźnikiewicz</b> - artystka, graficzka, fotografka i
-            pedagog.
-          </p>
-          <p>
-            Absolwentka Akademii Sztuk Pięknych w Katowicach (kier. grafika
-            warsztatowa), Akademii Sztuk Pięknych we Wrocławiu (kier. fotografia
-            i multimedia), Instytutu Studiów Podyplomowych Wyższej Szkoły Nauk
-            Pedagogicznych (studia podyplomowe z przygotowania pedagogicznego).
-          </p>
-
-          <p>
-            Jest autorką wielu projektów artystycznych, prezentowanych na
-            licznych wystawach:
-          </p>
+          <p>Nasze zajęcia obejmują:</p>
           <ul>
             <li>
-              WYSTAWY INDYWIDUALNE: ● Connect, Teoria w Katowicach. ● Subtelne
-              Formy, Galeria Sztukateria w Knurowie ● Subtelne Formy, Galeria
-              Tłustym Drukiem w Łodzi
+              wstęp - czym jest projektowanie, czym jest design, krótka historia
+              sztuki
             </li>
-            <li>
-              WYSTAWY ZBIOROWE ● Cyberfoto, Regionalny Ośrodek Kultury w
-              Częstochowie ● Relations/Young Wave, Galeria Foto-Gen we Wrocławiu
-              ● Human / Człowiek, Sztukateria w Knurowie ● Wystaw się w CSW
-              2018, Centrum Sztuki Współczesnej w Toruniu ● Grafika Roku, Rondo
-              Sztuki w Katowicach ● Młoda Sztuka w Starym Mieście, New Era Art w
-              Krakowie ● Prace dyplomowe, Galerii Sztuki Współczesnej BWA w
-              Katowicach ● Wystaw się w CSW 2017, Centrum Sztuki Współczesnej w
-              Toruniu
-            </li>
-            <li>
-              WYSTAWY MIĘDZYNARODOWE ● Unobvious, Suwon Photo Korea Południowa.
-              ● 16. Międzynarodowe Triennale Grafiki Małe Formy, Miejska Galeria
-              Sztuki w Łodzi ● Platform Project, Fronteer Athens School of Fine
-              Arts{' '}
-            </li>
-            <li>
-              NAGRODY ● Honorowy Medal 16. Międzynarodowych Triennale Małe Formy
-              Grafiki, Polska-Łódź
-            </li>
-          </ul> */}
+            <li>proces projektowania</li>
+            <li>style w aranżacji wnętrz</li>
+            <li>wpływ światła na wnętrze</li>
+            <li>nauka obsługi programu do projektowania wnętrz</li>
+            <li>wizualizacje</li>
+          </ul>
+          <p>
+            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.
+          </p>
+          <p>
+            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,
+            praca z mood boardem (tablica inspiracji) praca w programach (trzeba
+            mieć swój laptop).
+          </p>
 
           <div>
             <br />
