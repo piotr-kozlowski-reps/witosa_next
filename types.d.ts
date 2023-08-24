@@ -32,6 +32,10 @@ export type TNewsletterFormValues = {
   email: string;
 };
 
+export type TNewsletterFormValuesSent = {
+  email: string;
+};
+
 export type NOTIFICATION_TYPES = 'ERROR' | 'SUCCESS';
 
 export type FileList = {

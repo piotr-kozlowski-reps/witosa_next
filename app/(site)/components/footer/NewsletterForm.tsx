@@ -1,5 +1,7 @@
 'use client';
 
+import { dbWritingErrorMessage } from '@/lib/api/apiTextResponses';
+import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TNewsletterFormValues } from '@/types';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { Fragment } from 'react';
@@ -26,7 +28,32 @@ export default function NewsletterForm() {
     values: TNewsletterFormValues,
     formikHelpers: FormikHelpers<TNewsletterFormValues>
   ) {
-    console.log('values: ', values);
+    let response: any;
+    try {
+      response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}api/newsletter`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: values.email }),
+        }
+      );
+    } catch (error) {
+      userNotificationHandler('ERROR', dbWritingErrorMessage);
+    }
+
+    const data: { message: string } = await response.json();
+
+    if (!response.ok) {
+      userNotificationHandler('ERROR', data.message);
+      formikHelpers.resetForm();
+      return;
+    }
+
+    userNotificationHandler('SUCCESS', data.message);
     formikHelpers.resetForm();
   }
 
@@ -39,8 +66,6 @@ export default function NewsletterForm() {
         validationSchema={toFormikValidationSchema(newsletterValidationSchema)}
       >
         {(formik) => {
-          // console.log({ formik });
-
           ////tsx
           return (
             <Form>

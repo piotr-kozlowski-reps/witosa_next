@@ -133,5 +133,9 @@ model CyclicalActivity{
   authorId String
 }
 
+model Newsletter {
+  email String @id @unique
+}
+
 
 

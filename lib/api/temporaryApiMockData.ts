@@ -164,12 +164,31 @@ export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
 
 export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
   {
-    id: '854e7c17-0uu4-4881-fff5-ce6bgefdh841',
-    name: 'Kreatywna plastyka dla dorosłych.',
+    id: '843w7w17-0uu4-4jr1-fff5-c36b4endh841',
+    name: 'PRINTMAKING - zajęcia plastyczne dla dorosłych.',
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
-    shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    shortDescription:
+      'Warsztaty ręcznego tworzenia matryc w różnych materiałach i w różnych technikach (m.in. przy pomocy prasy drukarskiej).',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'activities_image_004.jpg',
+          alt: 'Prezentowana wystawa miała formę wizualizacji multimedialnej opartej na filme VR 360 i odtwarzanej za pomocą przeznaczonych do tego celu okularów i słuchawek.',
+        },
+        {
+          url: 'activities_image_005.jpg',
+          alt: 'Cykl dyplomowy “Subtelne Formy”, który przedstawiał ciało, jako abstrakcyjną wyłaniającą się z czerni formę.',
+        },
+        {
+          url: 'activities_image_006.jpg',
+          alt: 'Cykl “Introspekcja” buduje obraz człowieka składającego się nie tylko z fizycznego wyglądu ale także z własnej emocjonalności.',
+        },
+      ],
+      description:
+        '<p>\r\n            Prowadząca: <b>AGATA NIŹNIKIEWICZ</b>\r\n          </p>\r\n          <p>\r\n            Zajęcia, na których absolutnie odpoczniesz od elektroniki i na\r\n            chwilę zwolnisz, zatracając się w pracy manualnej.\r\n          </p>\r\n          <p>\r\n            Nie jest to czas wyłącznie dla osób uzdolnionych plastycznie,\r\n            ponieważ dla uczestników warsztatów przygotowane są szablony i\r\n            wzory.\r\n          </p>\r\n          <p>\r\n            Warsztaty polegają na ręcznym tworzeniu matryc w różnych materiałach\r\n            w zależności od techniki. Wyryte matryce pokrywamy farbą drukarską i\r\n            przy użyciu prasy drukarskiej przenosimy rysunek z matrycy na\r\n            papier, tworząc grafikę.\r\n          </p>\r\n          <p>\r\n            Zajęcia prowadzone w miłej atmosferze sprzyjają odprężeniu i\r\n            twórczym działaniom oraz pozwalają na chwilę relaksu, Prace\r\n            uczestników systematycznie będą prezentowane w formie wystaw.\r\n          </p>',
+    },
     occurrence: [
       {
         id: '854e7c17-0uu4-4881-fff5-ce6bgezzh848',
@@ -179,24 +198,6 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       },
     ],
     place: 'ART_ROOM',
-    extendedInfo: {
-      images: [
-        {
-          url: 'activities_image_001.jpg',
-          alt: 'Malarstwo: Dreamscape. Obraz akrylowy na płótnie. Praca autorstwa Sylwii Lipiny.',
-        },
-        {
-          url: 'activities_image_002.jpg',
-          alt: 'Malarstwo: Submerged no.1. Obraz olejny na płótnie. Praca autorstwa Sylwii Lipiny.',
-        },
-        {
-          url: 'activities_image_003.jpg',
-          alt: 'Grafika: Orbit - malarstwo poddane obróbce graficznej. Praca autorstwa Sylwii Lipiny.',
-        },
-      ],
-      description:
-        '          <p>\r\n            <b>Warsztaty kreatywne „PRZESTRZEŃ SZTUKI” - malarstwo i rysunek</b>\r\n          </p>\r\n          <p>\r\n            Prowadząca: <b>SYLWIA LIPINA</b>\r\n          </p>\r\n          <p>\r\n            Artystka sztuk pięknych, projektantka graficzna, historyczka sztuki.\r\n            Jest abslowentką BA (HONS) Fine Art - University of the Arts London,\r\n            Chelsea College of Art and Design, HNC Diploma in Art and Design -\r\n            Southampton City College oraz Studia Podyplomowe z Historii Sztuki -\r\n            Uniwersytet Śląski w Katowicach.\r\n          </p>\r\n          <p>\r\n            Spotkania oscylujące wokół malarstwa akwarelowego, akrylowego oraz\r\n            rysunku. Zapoznanie z historią sztuki (interpretacja dzieła,\r\n            estetyka dzieła, ikonografia, ikonologia), rozumienia koła kolorów,\r\n            podstawowe zasady perspektywy i kompozycji.\r\n          </p>\r\n          <p>\r\n            Celem warsztatów jest włączenie w kreatywne działania społeczność\r\n            dorosłych i seniorów, oraz dzieci i młodzieży w wieku  13+.\r\n            Działania zorientowane są  wokół hasła „kreatywność przez całe\r\n            życie” i prowokują do rozwoju umiejętności praktycznych,\r\n            interpersonalnych, rozwój umiejętności analitycznych, krytycznego\r\n            myślenia, dyskusji prowadzących do wzajemnego inspirowania  i\r\n            motywowania, terapia sztuką.\r\n          </p>\r\n          <p>Jakie kompetencje zdobędziesz podczas warsztatów:</p>\r\n          <ul>\r\n            <li>\r\n              Zrozumienie wartości twórczego wyrażania i komunikowania idei\r\n              ,znaczeń i emocji.\r\n            </li>\r\n            <li>\r\n              Podnoszenie świadomości kulturowej i chęci uczestnictwa w\r\n              doświadczeniach kulturalnych.\r\n            </li>\r\n            <li>\r\n              Umiejętności praktyczne, praca z materiałem, metodyczna praca,\r\n              proces twórczy.\r\n            </li>\r\n            <li>Umiejętność interpretacji dzieła sztuki.</li>\r\n            <li>\r\n              Wzrost umiejętności interpersonalnych, komunikacji werbalnej i\r\n              niewerbalnej.\r\n            </li>\r\n            <li>Wykorzystanie sztuki jako terapii.</li>\r\n          </ul>',
-    },
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -374,6 +375,24 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     activitiesForWhom: ['TEENS', 'ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'Kurs malarstwa i rysunku dla młodzieży i dorosłych.',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'activities_image_001.jpg',
+          alt: 'Malarstwo: Dreamscape. Obraz akrylowy na płótnie. Praca autorstwa Sylwii Lipiny.',
+        },
+        {
+          url: 'activities_image_002.jpg',
+          alt: 'Malarstwo: Submerged no.1. Obraz olejny na płótnie. Praca autorstwa Sylwii Lipiny.',
+        },
+        {
+          url: 'activities_image_003.jpg',
+          alt: 'Grafika: Orbit - malarstwo poddane obróbce graficznej. Praca autorstwa Sylwii Lipiny.',
+        },
+      ],
+      description:
+        '          <p>\r\n            <b>Warsztaty kreatywne „PRZESTRZEŃ SZTUKI” - malarstwo i rysunek</b>\r\n          </p>\r\n          <p>\r\n            Prowadząca: <b>SYLWIA LIPINA</b>\r\n          </p>\r\n          <p>\r\n            Artystka sztuk pięknych, projektantka graficzna, historyczka sztuki.\r\n            Jest abslowentką BA (HONS) Fine Art - University of the Arts London,\r\n            Chelsea College of Art and Design, HNC Diploma in Art and Design -\r\n            Southampton City College oraz Studia Podyplomowe z Historii Sztuki -\r\n            Uniwersytet Śląski w Katowicach.\r\n          </p>\r\n          <p>\r\n            Spotkania oscylujące wokół malarstwa akwarelowego, akrylowego oraz\r\n            rysunku. Zapoznanie z historią sztuki (interpretacja dzieła,\r\n            estetyka dzieła, ikonografia, ikonologia), rozumienia koła kolorów,\r\n            podstawowe zasady perspektywy i kompozycji.\r\n          </p>\r\n          <p>\r\n            Celem warsztatów jest włączenie w kreatywne działania społeczność\r\n            dorosłych i seniorów, oraz dzieci i młodzieży w wieku  13+.\r\n            Działania zorientowane są  wokół hasła „kreatywność przez całe\r\n            życie” i prowokują do rozwoju umiejętności praktycznych,\r\n            interpersonalnych, rozwój umiejętności analitycznych, krytycznego\r\n            myślenia, dyskusji prowadzących do wzajemnego inspirowania  i\r\n            motywowania, terapia sztuką.\r\n          </p>\r\n          <p>Jakie kompetencje zdobędziesz podczas warsztatów:</p>\r\n          <ul>\r\n            <li>\r\n              Zrozumienie wartości twórczego wyrażania i komunikowania idei\r\n              ,znaczeń i emocji.\r\n            </li>\r\n            <li>\r\n              Podnoszenie świadomości kulturowej i chęci uczestnictwa w\r\n              doświadczeniach kulturalnych.\r\n            </li>\r\n            <li>\r\n              Umiejętności praktyczne, praca z materiałem, metodyczna praca,\r\n              proces twórczy.\r\n            </li>\r\n            <li>Umiejętność interpretacji dzieła sztuki.</li>\r\n            <li>\r\n              Wzrost umiejętności interpersonalnych, komunikacji werbalnej i\r\n              niewerbalnej.\r\n            </li>\r\n            <li>Wykorzystanie sztuki jako terapii.</li>\r\n          </ul>',
+    },
     occurrence: [
       {
         id: 'f54wed17-z3u4-ht81-fff5-ce528egzh848',
@@ -394,8 +413,35 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     name: 'Kreatywna plastyka dla dzieci.',
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['CHILDREN'],
-    shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    shortDescription:
+      'Kreatywne zajęcia plastyczne dla dzieci w wieku 6 - 10 lat',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'activities_image_007.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_008.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_009.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_010.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_011.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+      ],
+      description:
+        "          <p>\r\n            Prowadząca: <b>AGATA NIŹNIKIEWICZ</b>\r\n          </p>\r\n          <p>\r\n            Kreatywne zajęcia plastyczne to warsztaty mające na celu\r\n            wszechstronne rozwinięcie zdolności manualnych dzieci oraz\r\n            zainteresowanie ich sztuką i kulturą. Podczas warsztatów uczestnicy\r\n            poznają różne techniki plastyczne, uczą się łączyć je ze sobą oraz\r\n            twórczo wykorzystywać.\r\n          </p>\r\n          <p>Zajęcia także ćwiczą skupienie i cierpliwość podczas pracy.</p>\r\n          <p>\r\n            Przyjazna atmosfera i małe grupy sprzyjają integracji wśród\r\n            uczestników, pozwalają poczuć się swobodnie na zajęciach i tym samym\r\n            odkryć swoje talenty!\r\n          </p>\r\n          <br />\r\n          <p>\r\n            <b>Agata Niźnikiewicz</b> - artystka, graficzka, fotografka i\r\n            pedagog.\r\n          </p>\r\n          <p>\r\n            Absolwentka Akademii Sztuk Pięknych w Katowicach (kier. grafika\r\n            warsztatowa), Akademii Sztuk Pięknych we Wrocławiu (kier. fotografia\r\n            i multimedia), Instytutu Studiów Podyplomowych Wyższej Szkoły Nauk\r\n            Pedagogicznych (studia podyplomowe z przygotowania pedagogicznego).\r\n          </p>\r\n          <p>\r\n            Jest autorką wielu projektów artystycznych, prezentowanych na\r\n            licznych wystawach:\r\n          </p>\r\n          <ul>\r\n            <li>\r\n              WYSTAWY INDYWIDUALNE: ● Connect, Teoria w Katowicach. ● Subtelne\r\n              Formy, Galeria Sztukateria w Knurowie ● Subtelne Formy, Galeria\r\n              Tłustym Drukiem w Łodzi\r\n            </li>\r\n            <li>\r\n              WYSTAWY ZBIOROWE ● Cyberfoto, Regionalny Ośrodek Kultury w\r\n              Częstochowie ● Relations/Young Wave, Galeria Foto-Gen we Wrocławiu\r\n              ● Human / Człowiek, Sztukateria w Knurowie ● Wystaw się w CSW\r\n              2018, Centrum Sztuki Współczesnej w Toruniu ● Grafika Roku, Rondo\r\n              Sztuki w Katowicach ● Młoda Sztuka w Starym Mieście, New Era Art w\r\n              Krakowie ● Prace dyplomowe, Galerii Sztuki Współczesnej BWA w\r\n              Katowicach ● Wystaw się w CSW 2017, Centrum Sztuki Współczesnej w\r\n              Toruniu\r\n            </li>\r\n            <li>\r\n              WYSTAWY MIĘDZYNARODOWE ● Unobvious, Suwon Photo Korea Południowa.\r\n              ● 16. Międzynarodowe Triennale Grafiki Małe Formy, Miejska Galeria\r\n              Sztuki w Łodzi ● Platform Project, Fronteer Athens School of Fine\r\n              Arts{' '}\r\n            </li>\r\n            <li>\r\n              NAGRODY ● Honorowy Medal 16. Międzynarodowych Triennale Małe Formy\r\n              Grafiki, Polska-Łódź\r\n            </li>\r\n          </ul>",
+    },
     occurrence: [
       {
         id: 'f54wed17-z454-ht81-fff5-cefr8egzh148',
@@ -413,11 +459,34 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
   },
   {
     id: '836727r17-tdu4-4jj1-fff5-c3fb4endh8s1',
-    name: 'Kreatywna plastyka dla młodzieży.',
+    name: 'Grafika warsztatowa dla młodzieży.',
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['TEENS'],
-    shortDescription: 'coś tutaj będzie!!!!!!!!!!!',
+    shortDescription:
+      'Warsztaty z tradycyjnych technik drukarskich w nowoczesnym wydaniu.',
     customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'activities_image_012.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_013.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_014.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+        {
+          url: 'activities_image_015.jpg',
+          alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+        },
+      ],
+      description:
+        " <p>\r\n            Prowadząca: <b>AGATA NIŹNIKIEWICZ</b>\r\n          </p>\r\n          <p>\r\n            Zapraszamy na warsztaty z tradycyjnych technik drukarskich w\r\n            nowoczesnym wydaniu.\r\n          </p>\r\n          <p>\r\n            Podczas zajęć uczestnicy poznają linoryt, technikę suchej igły czy\r\n            mezzotintę, a następnie nauczą się wykorzystywać ich potencjał\r\n            wizualny do tworzenia wyjątkowych grafik.\r\n          </p>\r\n          <p>\r\n            Uczestnicy własnoręcznie wykonują matrycę, pokrywają ją farbą, a za\r\n            pomocą prasy drukarskiej przenoszą wizerunek z matrycy na papier.\r\n            Gotowe prace planujemy systematycznie prezentować w formie wystaw\r\n            stacjonarnych i instalacji multimedialnych. Zajęcia obejmują także\r\n            podstawy rysunku i kompozycji, aby umożliwić uczestnikom tworzenie\r\n            własnych świadomych i przemyślanych projektów.\r\n          </p>\r\n\r\n          <p>\r\n            <b>Agata Niźnikiewicz</b> - artystka, graficzka, fotografka i\r\n            pedagog.\r\n          </p>\r\n          <p>\r\n            Absolwentka Akademii Sztuk Pięknych w Katowicach (kier. grafika\r\n            warsztatowa), Akademii Sztuk Pięknych we Wrocławiu (kier. fotografia\r\n            i multimedia), Instytutu Studiów Podyplomowych Wyższej Szkoły Nauk\r\n            Pedagogicznych (studia podyplomowe z przygotowania pedagogicznego).\r\n          </p>\r\n\r\n          <p>\r\n            Jest autorką wielu projektów artystycznych, prezentowanych na\r\n            licznych wystawach:\r\n          </p>\r\n          <ul>\r\n            <li>\r\n              WYSTAWY INDYWIDUALNE: ● Connect, Teoria w Katowicach. ● Subtelne\r\n              Formy, Galeria Sztukateria w Knurowie ● Subtelne Formy, Galeria\r\n              Tłustym Drukiem w Łodzi\r\n            </li>\r\n            <li>\r\n              WYSTAWY ZBIOROWE ● Cyberfoto, Regionalny Ośrodek Kultury w\r\n              Częstochowie ● Relations/Young Wave, Galeria Foto-Gen we Wrocławiu\r\n              ● Human / Człowiek, Sztukateria w Knurowie ● Wystaw się w CSW\r\n              2018, Centrum Sztuki Współczesnej w Toruniu ● Grafika Roku, Rondo\r\n              Sztuki w Katowicach ● Młoda Sztuka w Starym Mieście, New Era Art w\r\n              Krakowie ● Prace dyplomowe, Galerii Sztuki Współczesnej BWA w\r\n              Katowicach ● Wystaw się w CSW 2017, Centrum Sztuki Współczesnej w\r\n              Toruniu\r\n            </li>\r\n            <li>\r\n              WYSTAWY MIĘDZYNARODOWE ● Unobvious, Suwon Photo Korea Południowa.\r\n              ● 16. Międzynarodowe Triennale Grafiki Małe Formy, Miejska Galeria\r\n              Sztuki w Łodzi ● Platform Project, Fronteer Athens School of Fine\r\n              Arts{' '}\r\n            </li>\r\n            <li>\r\n              NAGRODY ● Honorowy Medal 16. Międzynarodowych Triennale Małe Formy\r\n              Grafiki, Polska-Łódź\r\n            </li>\r\n          </ul>",
+    },
     occurrence: [
       {
         id: 'f54we877-z454-hdd1-fff5-cefr87gzh148',
@@ -438,7 +507,8 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     name: 'Młody projektant wnętrz.',
     activityTypes: ['PLASTICITY'],
     activitiesForWhom: ['TEENS', 'ADULTS'],
-    shortDescription: 'Krótki kurs projektowania wnętrz.',
+    shortDescription:
+      'Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię, poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!',
     customLinkToDetails: '',
     occurrence: [
       {

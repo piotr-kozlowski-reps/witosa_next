@@ -15,8 +15,5 @@ export default async function CyclicActivitiesDynamicPage(props: Props) {
   const cyclicalActivity: CyclicalActivityTemporary | undefined =
     await getSingleCyclicalActivity(id);
 
-  console.log({ id });
-  console.log({ cyclicalActivity });
-
   return <CyclicActivitiesDynamicInside activity={cyclicalActivity!} />;
 }

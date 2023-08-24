@@ -169,6 +169,9 @@ export function getPolishPlaceName(place: Place) {
 }
 
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
+  // console.log(startDate.toString());
+  // console.log(getTwoDigitHours(startDate));
+
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
   )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;
