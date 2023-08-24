@@ -7,5 +7,5 @@ export default async function MainSlider() {
   const sliderData: Slide[] = await getMainSliderData();
 
   ////tsx
-  return <SliderView sliderData={sliderData[0]} />;
+  return <SliderView sliderData={sliderData} />;
 }

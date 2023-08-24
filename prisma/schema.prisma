@@ -63,7 +63,6 @@ model Slide{
   slideUrl String
   slideAlt String
   eventType EventsType[]
-  eventUrl String
   eventDate DateTime
   visibleFrom DateTime
   visibleUntil DateTime

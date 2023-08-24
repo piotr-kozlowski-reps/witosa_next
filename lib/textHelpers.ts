@@ -143,10 +143,18 @@ export function getPolishDayName(day: Day) {
 }
 
 export function getTwoDigitMinutes(date: Date) {
-  return date.getMinutes() <= 9 ? `0${date.getMinutes()}` : date.getMinutes();
+  console.log(date.getMinutes() <= 9);
+
+  return date.getMinutes() <= 9
+    ? `0${date.getMinutes()}`
+    : `${date.getMinutes()}`;
 }
 export function getTwoDigitHours(date: Date) {
-  return date.getHours() <= 9 ? `0${date.getHours()}` : date.getHours();
+  console.log('godzina: ', date.getUTCHours());
+
+  return date.getUTCHours() <= 9
+    ? `0${date.getUTCHours()}`
+    : `${date.getUTCHours()}`;
 }
 
 export function getPolishPlaceName(place: Place) {
@@ -169,10 +177,42 @@ export function getPolishPlaceName(place: Place) {
 }
 
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
-  // console.log(startDate.toString());
-  // console.log(getTwoDigitHours(startDate));
-
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
   )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;
+}
+
+export function getCorrectTwoDigitsMonthNumber(date: Date) {
+  const month = [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+  ];
+  return month[date.getMonth()];
+}
+
+export function getPolishDayFromDateObject(date: Date) {
+  const day = [
+    'niedziela',
+    'poniedziałek',
+    'wtorek',
+    'środa',
+    'czwartek',
+    'piątek',
+    'sobota',
+  ];
+  return day[date.getDay()];
+}
+
+export function getHoursAndMinutesWithGInFrontFromDateObject(date: Date) {
+  return `g. ${getTwoDigitHours(date)}:${getTwoDigitMinutes(date)}`;
 }
