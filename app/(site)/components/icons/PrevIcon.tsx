@@ -9,6 +9,7 @@ type Props = {
   additionalClasses?: string;
   actionFn: () => void;
   isToBeRotatedToBeVertical?: boolean;
+  isToBeFlippedToBeNextButton?: boolean;
   isDefaultStateOrRotatedState?: boolean;
 };
 
@@ -19,6 +20,7 @@ export default function PrevIcon(props: Props) {
     alt,
     additionalClasses,
     isToBeRotatedToBeVertical = false,
+    isToBeFlippedToBeNextButton = false,
     isDefaultStateOrRotatedState,
     actionFn,
   } = props;
@@ -38,6 +40,11 @@ export default function PrevIcon(props: Props) {
             ? isDefaultStateOrRotatedState
               ? 'rotate-90'
               : '-rotate-90'
+            : '',
+          isToBeFlippedToBeNextButton
+            ? isDefaultStateOrRotatedState
+              ? 'rotate-180'
+              : '-rotate-180'
             : ''
         )}
       >

@@ -4,6 +4,7 @@ import {
   getCorrectTwoDigitsMonthNumber,
   getHoursAndMinutesWithGInFrontFromDateObject,
   getPolishDayFromDateObject,
+  getPolishTypeName,
   getTwoDigitHours,
   getTwoDigitMinutes,
 } from './textHelpers';
@@ -175,5 +176,33 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
         new Date('2023-08-21T23:59:00.968Z')
       )
     ).toEqual('g. 23:59');
+  });
+});
+
+describe('getPolishTypeName()', () => {
+  it('returns kabaret', () => {
+    expect(getPolishTypeName('CABARET')).toEqual('kabaret');
+  });
+
+  it('returns koncert', () => {
+    expect(getPolishTypeName('CONCERT')).toEqual('koncert');
+  });
+  it('returns spotkania cykliczne', () => {
+    expect(getPolishTypeName('CYCLIC_MEETING')).toEqual('spotkania cykliczne');
+  });
+  it('returns festiwal', () => {
+    expect(getPolishTypeName('FESTIVAL')).toEqual('festiwal');
+  });
+  it('returns wykłady', () => {
+    expect(getPolishTypeName('LECTURE')).toEqual('wykłady');
+  });
+  it('returns inne', () => {
+    expect(getPolishTypeName('OTHERS')).toEqual('inne');
+  });
+  it('returns spektakl', () => {
+    expect(getPolishTypeName('SPECTACLE')).toEqual('spektakl');
+  });
+  it('returns warsztaty', () => {
+    expect(getPolishTypeName('WORKSHOP')).toEqual('warsztaty');
   });
 });

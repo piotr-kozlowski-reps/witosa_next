@@ -22,6 +22,26 @@ export function getPolishTypeName(type: EventsType) {
       polishTypeName = 'wykłady';
       break;
 
+    case 'CABARET':
+      polishTypeName = 'kabaret';
+      break;
+
+    case 'CYCLIC_MEETING':
+      polishTypeName = 'spotkania cykliczne';
+      break;
+
+    case 'FESTIVAL':
+      polishTypeName = 'festiwal';
+      break;
+
+    case 'OTHERS':
+      polishTypeName = 'inne';
+      break;
+
+    case 'SPECTACLE':
+      polishTypeName = 'spektakl';
+      break;
+
     default:
       throw new Error('getPolishTypeName not defined');
   }
@@ -143,15 +163,11 @@ export function getPolishDayName(day: Day) {
 }
 
 export function getTwoDigitMinutes(date: Date) {
-  console.log(date.getMinutes() <= 9);
-
   return date.getMinutes() <= 9
     ? `0${date.getMinutes()}`
     : `${date.getMinutes()}`;
 }
 export function getTwoDigitHours(date: Date) {
-  console.log('godzina: ', date.getUTCHours());
-
   return date.getUTCHours() <= 9
     ? `0${date.getUTCHours()}`
     : `${date.getUTCHours()}`;
