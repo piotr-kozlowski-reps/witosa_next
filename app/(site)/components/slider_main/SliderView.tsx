@@ -2,7 +2,7 @@
 
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { Slide } from '@prisma/client';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SliderContent from './SliderContent';
 
 type Props = {
@@ -17,7 +17,7 @@ export default function SliderView(props: Props) {
   ////utils
   //left-right
   const [slideIndex, setSlideIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   const prevButtonHandler = () => {
     setDirection(-1);
@@ -29,9 +29,9 @@ export default function SliderView(props: Props) {
   };
 
   const nextButtonHandler = useCallback(() => {
-    console.log({ index: slideIndex });
-    console.log('sliderData.length: ', sliderData.length);
-    console.log('sliderData.length - 1: ', sliderData.length - 1);
+    // console.log({ index: slideIndex });
+    // console.log('sliderData.length: ', sliderData.length);
+    // console.log('sliderData.length - 1: ', sliderData.length - 1);
 
     setDirection(1);
     if (slideIndex === sliderData.length - 1) {
@@ -43,27 +43,28 @@ export default function SliderView(props: Props) {
 
   //pausing slider
   const [isPaused, setIsPaused] = useState(false);
-  // if (!isPaused) {
-  //   const sliderChangeInterval = setInterval(() => {
-  //     nextButtonHandler();
-  //   }, 2000);
-  // }
 
-  // useEffect(() => {
-  //   if (!isPaused) {
-  //     const sliderChangeInterval = setInterval(() => {
-  //       nextButtonHandler();
-  //     }, 2000);
-  //   }
+  let timer: unknown;
+  const runSliderChanges = () => {
+    timer =
+      !timer &&
+      !isPaused &&
+      setInterval(() => {
+        setDirection(1);
+        setSlideIndex((prevValue) => {
+          return prevValue === sliderData.length - 1 ? 0 : prevValue + 1;
+        });
+      }, 6000);
+  };
 
-  //   // return () => {
-  //   //   clearInterval(sliderChangeInterval);
-  //   // };
-  // }, [isPaused, setSlideIndex, slideIndex, nextButtonHandler]);
+  useEffect(() => {
+    runSliderChanges();
+    return () => clearInterval(timer);
+  }, [slideIndex, direction, isPaused]);
 
-  // console.log(slideIndex);
-  // console.log(sliderData[slideIndex]);
-  // console.log(sliderData[slideIndex].id);
+  const toggleSliderPausing = () => {
+    setIsPaused((prevValue) => !prevValue);
+  };
 
   ////tsx
   return (
@@ -74,6 +75,8 @@ export default function SliderView(props: Props) {
         direction={direction}
         prevButtonHandler={prevButtonHandler}
         nextButtonHandler={nextButtonHandler}
+        toggleSliderButtonFn={toggleSliderPausing}
+        isSliderPaused={isPaused}
       />
     </section>
   );

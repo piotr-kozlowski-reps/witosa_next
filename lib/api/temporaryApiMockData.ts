@@ -269,8 +269,8 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'a54d7d17-ruu4-4881-fff5-ce5bbezzh848',
         day: 'TUESDAY',
-        activityStart: new Date('2000-01-01T17:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T18:30:00.968Z'),
+        activityStart: new Date('2000-01-01T16:45:00.968Z'),
+        activityEnd: new Date('2000-01-01T18:15:00.968Z'),
       },
       {
         id: '85je4c17-ruu4-4881-fff5-ce5bge2ah848',
@@ -372,18 +372,18 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
-    id: '83ww7r17-0uu4-4ee1-fff5-c36bvendh841',
-    name: 'Body Groove.',
+    id: '83aw7r17-0uu4-41e1-fff5-c36bvendh878',
+    name: 'Body Groove',
     activityTypes: ['DANCE', 'RECREATION'],
     activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
     shortDescription: 'Trening w duchu Body Groove dla dorosłych uczestników.',
     customLinkToDetails: '',
     extendedInfo: {
       images: [
-        // {
-        //   url: 'activities_image_012.jpg',
-        //   alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
-        // },
+        {
+          url: 'activities_image_016.jpg',
+          alt: 'Kolorowe postacie kobiet, wykonujących ruch taneczny.',
+        },
       ],
       description:
         '<p>\r\n            Prowadząca: <b>JOANNA KUSY-SZPOTAŃSKA</b>\r\n          </p>\r\n\r\n          <p>\r\n            Body Groove to super zabawa, która jest przeznaczona dla każdego\r\n            ciała! Poświęcona zdrowiu i dobremu samopoczuciu. Na treningach\r\n            wykonujesz proste ruchy taneczne i czerpiesz z tego wszystkie\r\n            korzyści dla siebie !\r\n          </p>\r\n          <p>\r\n            Do tego mieszanka świetnej muzyki to idealny przepis na dobry\r\n            dance...\r\n          </p>\r\n          <p>\r\n            Taniec poprawi twoją elastyczność i siłę, poprawi skupienie i da Ci\r\n            lepszy sen i nastrój!!!\r\n          </p>\r\n\r\n          <p>\r\n            Każde zajęcia poprzedzone będą gimnastyką ogólnorozwojową zwaną też\r\n            ogólnokondycyjną. To propozycja dla osób w każdym wieku!\r\n          </p>\r\n\r\n          <p>\r\n            Ćwiczenia wzmocnią twój organizm, poprawią koordynację i z pewnością\r\n            pozytywnie wpłyną na samopoczucie. To dobry sposób o zadbanie o\r\n            swoje ciało :)\r\n          </p>\r\n          <p>\r\n            Będzie to miła forma spędzania czasu. Zadbaj o siebie razem z nami,\r\n            poczuj satysfakcję i więcej PEWNOŚCI !!!\r\n          </p>\r\n          <p>\r\n            Zobaczcie jak w duchu Body Groove, bawią się inni:\r\n            <a\r\n              href="https://fb.watch/mAKn3WXt0f/"\r\n              target="_blank"\r\n              rel="noopener noreferrer"\r\n            >\r\n              https://fb.watch/mAKn3WXt0f/\r\n            </a>\r\n          </p>',

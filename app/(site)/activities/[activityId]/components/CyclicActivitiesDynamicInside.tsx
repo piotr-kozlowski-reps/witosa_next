@@ -34,40 +34,13 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {activity.name}
           </h1>
-          {/* {activity.extendedInfo?.description ? (
+          {activity.extendedInfo?.description ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: activity.extendedInfo?.description as string,
               }}
             ></div>
-          ) : null} */}
-          <p>
-            Prowadząca: <b>AGNIESZKA BALA</b>
-          </p>
-          <p>
-            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,
-            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!
-          </p>
-          <p>Nasze zajęcia obejmują:</p>
-          <ul>
-            <li>
-              wstęp - czym jest projektowanie, czym jest design, krótka historia
-              sztuki
-            </li>
-            <li>proces projektowania</li>
-            <li>style w aranżacji wnętrz</li>
-            <li>wpływ światła na wnętrze</li>
-            <li>nauka obsługi programu do projektowania wnętrz</li>
-            <li>wizualizacje</li>
-          </ul>
-          <p>
-            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.
-          </p>
-          <p>
-            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,
-            praca z mood boardem (tablica inspiracji) praca w programach (trzeba
-            mieć swój laptop).
-          </p>
+          ) : null}
 
           <div>
             <br />

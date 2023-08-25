@@ -10,10 +10,10 @@ export async function getCyclicalActivities() {
 }
 
 export async function getSingleCyclicalActivity(id: string) {
-  console.log(
-    'fetched: ',
-    allCyclicalActivitiesMockData.find((activity) => activity.id === id)
-  );
+  // console.log(
+  //   'fetched: ',
+  //   allCyclicalActivitiesMockData.find((activity) => activity.id === id)
+  // );
 
   return allCyclicalActivitiesMockData.find((activity) => activity.id === id);
 }
