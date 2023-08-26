@@ -96,6 +96,7 @@ export type TEventInNewsSection = Pick<
   | 'eventTypes'
   | 'eventStartDate'
   | 'newsSectionImageUrl'
+  | 'newsSectionImageAlt'
   | 'title'
   | 'shortDescription'
 >;
@@ -133,4 +134,11 @@ export type CyclicalActivityTemporary = CyclicalActivity & {
     images: TSliderGroupImage[];
     description: string;
   };
+};
+
+export type TEventTemporary = Event & {
+  images: {
+    imageUrl: string;
+    imageAlt: string;
+  }[];
 };

@@ -1,5 +1,3 @@
-'use client';
-
 import { motion } from 'framer-motion';
 import FooterMain from './(site)/components/footer/FooterMain';
 import NewsMain from './(site)/components/news/NewsMain';

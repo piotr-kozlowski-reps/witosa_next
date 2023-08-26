@@ -26,52 +26,6 @@ enum UserRole {
   EDITOR
 }
 
-model User{
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  hashedPassword String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role UserRole @default(EDITOR)
-  events Event[]
-  activities CyclicalActivity[]
-  sliders Slide[]
-}
-
-model Event{
-  id String @id @default(uuid())
-  eventTypes EventsType[]
-  title String
-  isToBeInNewsSection Boolean
-  newsSectionImageUrl String?
-  shortDescription String
-  // imageUrl String
-  // content String
-  eventStartDate DateTime
-  eventEndDate DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
-  isToBePublished Boolean
-}
-
-model Slide{
-  id String @id @default(uuid())
-  slideTitle String
-  slideUrl String
-  slideAlt String
-  eventType EventsType[]
-  eventDate DateTime
-  visibleFrom DateTime
-  visibleUntil DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
-}
-
 enum ActivityType {
   DANCE
   PLASTICITY
@@ -104,7 +58,79 @@ enum Day {
 enum Place {
   DANCING_ROOM
   ART_ROOM
+  CONCERT_HALL
 }
+
+model User{
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  hashedPassword String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role UserRole @default(EDITOR)
+  events Event[]
+  activities CyclicalActivity[]
+  sliders Slide[]
+}
+
+model Image {
+  id String @id @default(uuid())
+  imageUrl String
+  imageAlt String
+  event Event @relation(fields: [eventId], references: [id])
+  eventId String
+}
+
+
+
+model Event{
+  id String @id @default(uuid())
+  eventTypes EventsType[]
+  title String
+  place Place?
+  shortDescription String
+  eventStartDate DateTime
+  eventEndDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  //details
+  images Image[]
+  detailedDescription String
+  //paying
+  isPayed Boolean
+  ticketBuyingUrl String?
+
+  //news
+  isToBeInNewsSection Boolean
+  newsSectionImageUrl String?
+  newsSectionImageAlt String?
+
+  //publishing
+  isToBePublished Boolean
+  visibleFrom DateTime
+  visibleTo DateTime
+}
+
+model Slide{
+  id String @id @default(uuid())
+  slideTitle String
+  slideUrl String
+  slideAlt String
+  eventType EventsType[]
+  eventDate DateTime
+  visibleFrom DateTime
+  visibleUntil DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+
 
 model CyclicalActivityOccurrence {
   id String @id @default(uuid())

@@ -6,6 +6,8 @@ async function NewsMain() {
   ////vars
   const newsData: TEventInNewsSection[] = await getNewsDataSorted();
 
+  // console.log('newsData.length: ', newsData.length);
+
   ////tsx
   return <NewsInside newsData={newsData} />;
 }
