@@ -44,21 +44,18 @@ export default function SliderView(props: Props) {
   //pausing slider
   const [isPaused, setIsPaused] = useState(false);
 
-  let timer: unknown;
+  let timer: ReturnType<typeof setInterval>;
   const runSliderChanges = () => {
-    timer =
-      !timer &&
-      !isPaused &&
-      setInterval(() => {
-        setDirection(1);
-        setSlideIndex((prevValue) => {
-          return prevValue === sliderData.length - 1 ? 0 : prevValue + 1;
-        });
-      }, 6000);
+    timer = setInterval(() => {
+      setDirection(1);
+      setSlideIndex((prevValue) => {
+        return prevValue === sliderData.length - 1 ? 0 : prevValue + 1;
+      });
+    }, 6000);
   };
 
   useEffect(() => {
-    runSliderChanges();
+    if (!isPaused) runSliderChanges();
     return () => clearInterval(timer);
   }, [slideIndex, direction, isPaused]);
 
