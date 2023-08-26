@@ -126,7 +126,8 @@
   /*   navigation   */
   /* link-default */
   .link-default {
-    @apply font-light text-size-normal text-skin-base focus:primary-focus;
+    @apply font-base-regular text-size-normal text-skin-base focus:primary-focus;
+    /* @apply font-light text-size-normal text-skin-base focus:primary-focus; */
   }
   .link-mobile-default {
     @apply block font-semibold tracking-tight h-11 text-size-large text-skin-base focus:primary-focus;
@@ -150,7 +151,7 @@
   }
 
   .link-default-sitemap {
-    @apply font-light text-size-normal text-skin-base focus:primary-focus;
+    @apply font-base-regular text-size-normal text-skin-base focus:primary-focus;
   }
   .link-default-sitemap::after {
     content: '';
@@ -169,7 +170,7 @@
   }
 
   .link-default-different-pseudo-after {
-    @apply font-light text-size-normal text-skin-base focus:primary-focus;
+    @apply font-base-regular text-size-normal text-skin-base focus:primary-focus;
   }
   .link-default-different-pseudo-after::after {
     content: '';

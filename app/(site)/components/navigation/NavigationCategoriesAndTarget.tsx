@@ -21,6 +21,7 @@ interface Props {
   selectAllOrNoneCategories: () => void;
   checkIfAllForWhomAreChosen: () => boolean;
   selectAllOrNoneForWhoms: () => void;
+  categoryOfWhatText: string;
 }
 
 export default function NavigationCategoriesAndTarget(props: Props) {
@@ -34,6 +35,7 @@ export default function NavigationCategoriesAndTarget(props: Props) {
     selectAllOrNoneCategories,
     checkIfAllForWhomAreChosen,
     selectAllOrNoneForWhoms,
+    categoryOfWhatText,
   } = props;
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const {
@@ -78,7 +80,7 @@ export default function NavigationCategoriesAndTarget(props: Props) {
           </div>
           <div className="mt-[13px]">
             <PrevIcon
-              alt="Zamknij mobilne menu."
+              alt={getIsCyclicalActivitiesMenuVisible() ? 'Zamknij menu ' : ''}
               actionFn={toggleIsCyclicalActivitiesMenuVisible}
               isToBeRotatedToBeVertical={true}
               isDefaultStateOrRotatedState={getIsCyclicalActivitiesMenuVisible()}
@@ -100,7 +102,7 @@ export default function NavigationCategoriesAndTarget(props: Props) {
               >
                 <div className="">
                   <div className="font-base-bold pt-[10px]">
-                    Kategoria zajęć:
+                    {`${categoryOfWhatText}:`}
                   </div>
                   <div className="flex items-center justify-start gap-4 mt-[11px] flex-wrap">
                     <CustomButton

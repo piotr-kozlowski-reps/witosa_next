@@ -60,7 +60,7 @@ export default function NavigationButton(props: Props) {
       aria-expanded={getIsSubmenuVisible() ? true : false}
     >
       <div className="flex items-center">
-        <span className={clsx(isMobileButton ? '' : '')}>{buttonName}</span>
+        <span>{buttonName}</span>
         <span className="relative pl-1" aria-hidden="true">
           <div
             className={clsx(

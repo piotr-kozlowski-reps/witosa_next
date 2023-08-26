@@ -2,7 +2,10 @@
 // import { CyclicalActivityTemporary } from '@/types';
 // import CyclicActivitiesDynamicInside from './components/CyclicActivitiesDynamicInside';
 
+import { getSingleEvent } from '@/lib/api/eventsUtils';
+import { TEventTemporary } from '@/types';
 import { Fragment } from 'react';
+import EventDynamicInside from './components/EventDynamicInside';
 
 type Props = {
   params: {
@@ -14,13 +17,11 @@ export default async function EventsDynamicPage(props: Props) {
   ////vars
   const id = props.params.eventId;
 
-  // const cyclicalActivity: CyclicalActivityTemporary | undefined =
-  //   await getSingleCyclicalActivity(id);
+  const event: TEventTemporary | undefined = await getSingleEvent(id);
 
   return (
     <Fragment>
-      <div>Event Dynamic Page</div>
-      <div>{id}</div>
+      <EventDynamicInside event={event!} />
     </Fragment>
   );
 }

@@ -1,21 +1,19 @@
 'use client';
 
 import { useCategoriesChoosingHandler } from '@/hooks/useCategoriesChoosingHandler';
-import { useChosenCyclicalActivitiesHandler } from '@/hooks/useChosenCyclicalActivitiesHandler';
 import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
-import { CyclicalActivityTemporary } from '@/types';
-import { Day } from '@prisma/client';
+import { TEventTemporary } from '@/types';
 import { Fragment } from 'react';
 import NavigationCategoriesAndTarget from '../../components/navigation/NavigationCategoriesAndTarget';
-import CyclicalActivitiesList from './CyclicalActivitiesList';
+import EventsList from './EventsList';
 
 interface Props {
-  cyclicalActivities: CyclicalActivityTemporary[];
+  events: TEventTemporary[];
 }
 
-export default function CyclicalActivitiesContent(props: Props) {
+export default function EventsContent(props: Props) {
   ////vars
-  const { cyclicalActivities } = props;
+  const { events } = props;
   const {
     categories,
     toggleCategory,
@@ -32,19 +30,6 @@ export default function CyclicalActivitiesContent(props: Props) {
     selectAllOrNoneForWhoms,
   } = useForWhomChoosingHandler();
 
-  const chosenCyclicalActivities = useChosenCyclicalActivitiesHandler(
-    cyclicalActivities,
-    categories,
-    forWhom
-  );
-
-  const getCyclicalActivitiesByDayOfTheWeek = (day: Day) => {
-    const resultCyclicalActivitiesByDay = chosenCyclicalActivities.filter(
-      (activity) => activity.occurrence.find((item) => item.day === day)
-    );
-    return resultCyclicalActivitiesByDay;
-  };
-
   ////tsx
   return (
     <Fragment>
@@ -57,13 +42,13 @@ export default function CyclicalActivitiesContent(props: Props) {
         selectAllOrNoneCategories={selectAllOrNoneCategories}
         checkIfAllForWhomAreChosen={checkIfAllForWhomAreChosen}
         selectAllOrNoneForWhoms={selectAllOrNoneForWhoms}
-        categoryOfWhatText="Kategoria zajęć"
+        categoryOfWhatText="Kategoria wydarzeń"
       />
-      <CyclicalActivitiesList
-        chosenCyclicalActivities={chosenCyclicalActivities}
-        getCyclicalActivitiesByDayOfTheWeek={
-          getCyclicalActivitiesByDayOfTheWeek
-        }
+      <EventsList
+        chosenEvents={events}
+        // getCyclicalActivitiesByDayOfTheWeek={
+        //   getCyclicalActivitiesByDayOfTheWeek
+        // }
       />
     </Fragment>
   );

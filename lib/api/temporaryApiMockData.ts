@@ -75,6 +75,33 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-03T23:59:00.968Z'),
   },
+  {
+    id: 'de457c17-0b04-ff81-gg56-ce6bfr4de45a',
+    eventTypes: ['CONCERT', 'SPECTACLE'],
+    title: 'Coś dla dzieci',
+    place: 'CONCERT_HALL',
+    shortDescription:
+      'Zapraszamy serdecznie, tutaj bedze jakiś opis dla dzieci.',
+    eventStartDate: new Date('2023-09-02T10:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    //details
+    images: [],
+    detailedDescription: 'detailed description here!!!!!!!!!!!!!',
+    //paying
+    isPayed: false,
+    ticketBuyingUrl: null,
+    //news
+    isToBeInNewsSection: true,
+    newsSectionImageUrl: 'news-img-wyrostek-001.jpg',
+    newsSectionImageAlt: 'Akordeonista stojący na oświetlonej scenie.',
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-03T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {

@@ -185,6 +185,10 @@ export function getPolishPlaceName(place: Place) {
       polishPlaceName = 'Sala plastyczna';
       break;
 
+    case 'CONCERT_HALL':
+      polishPlaceName = 'Sala koncertowa';
+      break;
+
     default:
       throw new Error('getPolishPlaceName not defined');
   }

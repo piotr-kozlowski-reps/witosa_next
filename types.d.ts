@@ -138,7 +138,7 @@ export type CyclicalActivityTemporary = CyclicalActivity & {
 
 export type TEventTemporary = Event & {
   images: {
-    imageUrl: string;
-    imageAlt: string;
+    url: string;
+    alt: string;
   }[];
 };

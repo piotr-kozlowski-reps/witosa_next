@@ -76,19 +76,17 @@ model User{
 
 model Image {
   id String @id @default(uuid())
-  imageUrl String
-  imageAlt String
+  url String
+  alt String
   event Event @relation(fields: [eventId], references: [id])
   eventId String
 }
-
-
 
 model Event{
   id String @id @default(uuid())
   eventTypes EventsType[]
   title String
-  place Place?
+  place Place
   shortDescription String
   eventStartDate DateTime
   eventEndDate DateTime?
