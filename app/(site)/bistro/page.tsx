@@ -13,22 +13,27 @@ export default function BistroPage() {
     {
       url: 'artcafe_001.jpg',
       alt: 'Filiżanka kawy oraz napis - Coffee Time jest zawsze.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_002.jpg',
       alt: 'Zdjęcie wnętrza Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_003.jpg',
       alt: 'Zdjęcie wnętrza Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_004.jpg',
       alt: 'Zbliżenie huśtawki w Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_005.jpg',
       alt: 'Sofa i huśtawki w Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ];
 

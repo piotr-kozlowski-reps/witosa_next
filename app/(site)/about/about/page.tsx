@@ -13,18 +13,22 @@ export default function AboutPage() {
     {
       url: 'artcafe_002.jpg',
       alt: 'Zdjęcie wnętrza Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_003.jpg',
       alt: 'Zdjęcie wnętrza Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_004.jpg',
       alt: 'Zbliżenie huśtawki w Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'artcafe_005.jpg',
       alt: 'Sofa i huśtawki w Art Cafe.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ];
 

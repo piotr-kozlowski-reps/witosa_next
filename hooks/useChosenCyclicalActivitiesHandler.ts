@@ -1,11 +1,11 @@
 import { CyclicalActivityTemporary } from '@/types';
-import { ActivityForWhom, ActivityType } from '@prisma/client';
+import { ActivityType, ForWhom } from '@prisma/client';
 import { useEffect, useState } from 'react';
 
 export function useChosenCyclicalActivitiesHandler(
   cyclicalActivities: CyclicalActivityTemporary[],
   categories: ActivityType[],
-  forWhom: ActivityForWhom[]
+  forWhom: ForWhom[]
 ) {
   const [chosenCyclicalActivities, setChosenCyclicalActivities] = useState<
     CyclicalActivityTemporary[]
