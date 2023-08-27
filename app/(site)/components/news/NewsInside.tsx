@@ -40,6 +40,8 @@ export default function NewsInside(props: Props) {
         )}
       >
         {newsData.map((newsEvent, index) => {
+          console.log({ newsEvent });
+
           return (
             <div key={newsEvent.id} className="w-full">
               <SingleNews
@@ -51,6 +53,9 @@ export default function NewsInside(props: Props) {
                 shortDescription={newsEvent.shortDescription}
                 index={index}
                 currentDevice={getCurrentDevice()}
+                isDateToBeHiddenInNewsSection={
+                  newsEvent.isDateToBeHiddenInNewsSection
+                }
               />
             </div>
           );

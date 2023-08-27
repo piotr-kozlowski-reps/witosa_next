@@ -254,6 +254,16 @@ export default function NavigationCategoriesAndTarget(props: Props) {
                     />
 
                     <CustomButton
+                      text={getPolishForWhomName('SENIORS')}
+                      descriptionText={getPolishForWhomName('SENIORS')}
+                      disabled={false}
+                      outlined={
+                        checkButtonForWhomState('SENIORS') ? false : true
+                      }
+                      actionFn={() => toggleForWhom('SENIORS')}
+                    />
+
+                    <CustomButton
                       text={getPolishForWhomName('WOMEN')}
                       descriptionText={getPolishForWhomName('WOMEN')}
                       disabled={false}

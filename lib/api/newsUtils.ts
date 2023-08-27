@@ -22,6 +22,7 @@ export async function getNewsDataSorted() {
         newsSectionImageAlt: event.newsSectionImageAlt,
         title: event.title,
         shortDescription: event.shortDescription,
+        isDateToBeHiddenInNewsSection: event.isDateToBeHiddenInNewsSection,
       };
     })
     .sort(function (a, b) {

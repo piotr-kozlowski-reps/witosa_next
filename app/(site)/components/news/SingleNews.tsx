@@ -16,6 +16,7 @@ interface Props {
   shortDescription: string;
   index: number;
   currentDevice: TCurrentDevice;
+  isDateToBeHiddenInNewsSection: boolean;
 }
 
 export default function SingleNews(props: Props) {
@@ -29,7 +30,10 @@ export default function SingleNews(props: Props) {
     shortDescription,
     index,
     currentDevice,
+    isDateToBeHiddenInNewsSection,
   } = props;
+
+  console.log({ isDateToBeHiddenInNewsSection });
 
   let isShowingBothSurroundingLines =
     checkIfShouldShowBothSurroundingLines_WhenThreeColumnSelected(
@@ -116,9 +120,11 @@ export default function SingleNews(props: Props) {
               </div>
             ))}
           </div>
-          <div className="absolute prose top-[46px] bg-skin-main-bg py-1 pr-4 rounded-r-base">
-            <h2>{createFormattedDate(eventStartDate)}</h2>
-          </div>
+          {isDateToBeHiddenInNewsSection ? null : (
+            <div className="absolute prose top-[46px] bg-skin-main-bg py-1 pr-4 rounded-r-base">
+              <h2>{createFormattedDate(eventStartDate)}</h2>
+            </div>
+          )}
         </div>
 
         <div className="-mt-[7px]">

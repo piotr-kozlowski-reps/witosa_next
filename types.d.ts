@@ -99,6 +99,7 @@ export type TEventInNewsSection = Pick<
   | 'newsSectionImageAlt'
   | 'title'
   | 'shortDescription'
+  | 'isDateToBeHiddenInNewsSection'
 >;
 
 export type TSliderGroupsImages = {

@@ -30,74 +30,65 @@ export default function EventDynamicInside(props: Props) {
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {event.title}
           </h1>
-          {event.detailedDescription ? (
+          {/* {event.detailedDescription ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: event.detailedDescription as string,
               }}
             ></div>
-          ) : null}
+          ) : null} */}
 
-          {/* <div>
+          <div>
             <p>
-              Akcja Narodowego Czytania została zainicjowana w 2012 roku wspólną
-              lekturą Pana Tadeusza Adama Mickiewicza. W 2013 roku w całej
-              Polsce odbyło się czytanie dzieł Aleksandra Fredry, a w rok
-              później przeczytano Trylogię Henryka Sienkiewicza.
+              Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup
+              tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria
+              Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania
+              organizacyjne do każdej z grup, podczas których opowiemy jak,
+              gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli
+              okazję poznać instruktorów, prowadzących poszczególne grupy.
             </p>
             <p>
-              Nad Niemnem to najbardziej znana powieść Elizy Orzeszkowej.
-              Powstawała w latach 1886-1887, a w formie książka ukazała się w
-              1888 roku. Ze względu na barwne opisy, wyrazistych bohaterów i
-              odwołania historyczne dzieło porównywano do Mickiewiczowskiego
-              &quot;Pana Tadeusza&quot;. Powieścią zainteresowała się również X
-              Muza, pierwszą ekranizację książki ukończono w 1939 roku, ale
-              obraz zaginął w czasie II wojny światowej. Kolejny film nakręcono
-              w połowie lat 80. XX wieku. Nad Niemnem to jeden najważniejszych
-              utworów literatury polskiej podejmujący tematykę Powstania
-              Styczniowego, którego 160-lecie obchodzone jest właśnie w 2023
-              roku.
+              Poniżej harmonogram spotkań organizacyjnych dla poszczególnych
+              grup:
             </p>
-            <p>
-              Centrum Kultury w Knurowie połączyło siły z Zespołem Szkół
-              Zawodowych nr 2 w Knurowie i wspólnie zapraszają do udziału w tym
-              literackim wydarzeniu.
-            </p>
-            <p>
-              W programie poza oczywistym czytaniem fragmentów powieści
-              &quot;Nad Niemnem&quot; Elizy Orzeszkowej odbędą się warsztaty
-              artystyczne dla dzieci, akcja „Wymień Książkę z Biblioteką”,
-              możliwość ostemplowania własnego egzemplarza „Nad Niemnem”
-              dedykowaną pieczątką Narodowego Czytania i oczywiście wśród nas
-              będzie również Moluś Książkow.
-            </p>
-            <p>
-              Każdy otrzyma tematyczny upominek w postaci pamiątkowej widokówki
-              z cytatem.
-            </p>
-            <p>
-              Ponadto uczestnikom spotkania będzie towarzyszył zapach kawy i
-              słodkości pochodzący z naszej Art Cafe!
-            </p>
-            <p>
-              <b>Zapraszamy serdecznie!</b>
-            </p>
-          </div> */}
+            <ul>
+              <li>
+                <b>04.09.2023 r. , godz. 18:00</b> - Spotkanie organizacyjne dla
+                grupy pokazowej Marzenie
+              </li>
+              <li>
+                <b>06.09.2023 r., godz. 17:00</b> - Spotkanie organizacyjne dla
+                zespołów Hipnoteria i Hipnoteria Bis
+              </li>
+              <li>
+                <b>08.09.2023 r. godz. 16.00</b> - Spotkanie organizacyjne dla
+                dzieci początkujących w wieku 6-7 lat
+              </li>
+              <li>
+                <b>08.09.2023 r., godz. 17.30</b> - Spotkanie organizacyjne dla
+                grupy utaneczniającej z roku 2022/2023 oraz zespołu Marzenie
+                Mini Mini
+              </li>
+            </ul>
+          </div>
 
           <div className="not-prose">
             <br />
             {/* data */}
-            <div>
-              <span className="font-base-regular">
-                <b>Kiedy:&nbsp;&nbsp;&nbsp;</b>
-                <span className="!pb-[-10px]">
-                  <SliderDateText
-                    date={event.eventStartDate}
-                    forceToBeInOneLine={true}
-                  />
+            {event.isDateToBeHiddenInNewsSection ? null : (
+              <div>
+                <span className="font-base-regular">
+                  <b>Kiedy:&nbsp;&nbsp;&nbsp;</b>
+                  <span className="!pb-[-10px]">
+                    <SliderDateText
+                      date={event.eventStartDate}
+                      forceToBeInOneLine={true}
+                    />
+                  </span>
                 </span>
-              </span>
-            </div>
+              </div>
+            )}
+
             <div className="-mt-[18px]">
               <span className="font-base-regular">
                 <b>Gdzie:&nbsp;&nbsp;&nbsp;</b>

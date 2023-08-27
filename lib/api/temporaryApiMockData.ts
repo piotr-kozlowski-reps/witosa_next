@@ -88,6 +88,8 @@ export const allEventsMockData: TEventTemporary[] = [
     ticketBuyingUrl: null,
     //news
     isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
     newsSectionImageUrl: 'news-img-wyrostek-001.jpg',
     newsSectionImageAlt: 'Akordeonista stojący na oświetlonej scenie.',
     //publishing
@@ -138,6 +140,8 @@ export const allEventsMockData: TEventTemporary[] = [
 
     //news
     isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
     newsSectionImageUrl: 'news-img-dladzieci-001.jpg',
     newsSectionImageAlt:
       'Zdjęcie kolorowych postaci tworzących grupę teatralną: Lufcik na korbkę.',
@@ -184,7 +188,56 @@ export const allEventsMockData: TEventTemporary[] = [
 
     //news
     isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
     newsSectionImageUrl: 'news-img-nc-001.jpg',
+    newsSectionImageAlt: 'Baner akcji Narodowego czytania.',
+
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+  },
+  {
+    id: 'dwwe27417-0aa4-ff81-g351-ce6bfr4gz5f5',
+    eventTypes: ['OTHERS'],
+    eventForWhom: ['CHILDREN', 'TEENS'],
+    title: 'Rozpoczęcie zajęć grup tanecznych',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania organizacyjne do każdej z grup, podczas których opowiemy jak, gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli okazję poznać instruktorów, prowadzących poszczególne grupy.',
+    eventStartDate: new Date('2023-09-04T18:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      // {
+      //   url: 'events_nc_001.jpg',
+      //   alt: 'Baner akcji Narodowego czytania.',
+      //   additionInfoThatMustBeDisplayed: null,
+      // },
+      // {
+      //   url: 'events_nc_002.jpg',
+      //   alt: 'Program Narodowego Czytania.',
+      //   additionInfoThatMustBeDisplayed: null,
+      // },
+    ],
+
+    /////////////////
+    detailedDescription: 'jakiś opis',
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: true,
+    isToBeOnlyInNewsSection_NotSeenInEvents: true,
+    newsSectionImageUrl: 'news-img-grupytaneczne-001.jpg',
     newsSectionImageAlt: 'Baner akcji Narodowego czytania.',
 
     //publishing
