@@ -97,16 +97,6 @@ export default function AboutPage() {
           <p>
             <b>Zapraszamy!</b>
           </p>
-          {/* 
-    
-            <a
-              href="https://palarniakafar.pl/o-nas/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              palarniakafar.pl/o-nas/
-            </a>
-             */}
         </div>
       </div>
       <FooterMain />

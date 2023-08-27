@@ -40,34 +40,47 @@ export default function EventDynamicInside(props: Props) {
 
           {/* <div>
             <p>
-              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie
-              <b> Art CK!</b>
+              Akcja Narodowego Czytania została zainicjowana w 2012 roku wspólną
+              lekturą Pana Tadeusza Adama Mickiewicza. W 2013 roku w całej
+              Polsce odbyło się czytanie dzieł Aleksandra Fredry, a w rok
+              później przeczytano Trylogię Henryka Sienkiewicza.
             </p>
             <p>
-              Spotykamy się o <b>15.30</b> przy
-              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym
-              korowodem prowadzonym przez fantastycznych artystów z
-              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na
-              powitanie będzie czekała na Was pierwsza niespodzianka!
+              Nad Niemnem to najbardziej znana powieść Elizy Orzeszkowej.
+              Powstawała w latach 1886-1887, a w formie książka ukazała się w
+              1888 roku. Ze względu na barwne opisy, wyrazistych bohaterów i
+              odwołania historyczne dzieło porównywano do Mickiewiczowskiego
+              &quot;Pana Tadeusza&quot;. Powieścią zainteresowała się również X
+              Muza, pierwszą ekranizację książki ukończono w 1939 roku, ale
+              obraz zaginął w czasie II wojny światowej. Kolejny film nakręcono
+              w połowie lat 80. XX wieku. Nad Niemnem to jeden najważniejszych
+              utworów literatury polskiej podejmujący tematykę Powstania
+              Styczniowego, którego 160-lecie obchodzone jest właśnie w 2023
+              roku.
             </p>
             <p>
-              W dalszej kolejności na naszej scenie pojawi się artysta, który
-              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.
+              Centrum Kultury w Knurowie połączyło siły z Zespołem Szkół
+              Zawodowych nr 2 w Knurowie i wspólnie zapraszają do udziału w tym
+              literackim wydarzeniu.
             </p>
             <p>
-              Po pokazie świateł będziecie mogli wziąć udział w grach
-              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,
-              które nasze cudowne instruktorki tańca przygotują je specjalnie
-              dla Was w sali tanecznej oraz zabawach plastycznych,
-              przygotowanych przez nasze instruktorki działań twórczych w
-              pracowni plastycznej.
+              W programie poza oczywistym czytaniem fragmentów powieści
+              &quot;Nad Niemnem&quot; Elizy Orzeszkowej odbędą się warsztaty
+              artystyczne dla dzieci, akcja „Wymień Książkę z Biblioteką”,
+              możliwość ostemplowania własnego egzemplarza „Nad Niemnem”
+              dedykowaną pieczątką Narodowego Czytania i oczywiście wśród nas
+              będzie również Moluś Książkow.
             </p>
             <p>
-              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>
-              , którą się tego dnia pożegnamy i będziemy czekać na Was z
-              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do
-              zajęć tanecznych i na realizowanych już od 4 września zajęć
-              plastycznych!
+              Każdy otrzyma tematyczny upominek w postaci pamiątkowej widokówki
+              z cytatem.
+            </p>
+            <p>
+              Ponadto uczestnikom spotkania będzie towarzyszył zapach kawy i
+              słodkości pochodzący z naszej Art Cafe!
+            </p>
+            <p>
+              <b>Zapraszamy serdecznie!</b>
             </p>
           </div> */}
 

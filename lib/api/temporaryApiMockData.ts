@@ -147,6 +147,51 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-02T23:59:00.968Z'),
   },
+  {
+    id: 'dre27c17-0aa4-ff81-g356-ce6bfr4gz54v',
+    eventTypes: ['OTHERS'],
+    eventForWhom: ['TEENS', 'ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'Narodowe Czytanie 2023 - „Nad Niemnem” Elizy Orzeszkowej',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy na 12. edycję Narodowego Czytania, w tym roku bohaterką literacką będzie powieść Elizy Orzeszkowej  „NAD NIEMNEM”.',
+    eventStartDate: new Date('2023-09-08T17:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_nc_001.jpg',
+        alt: 'Baner akcji Narodowego czytania.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_nc_002.jpg',
+        alt: 'Program Narodowego Czytania.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+
+    detailedDescription:
+      '          <div>\r\n            <p>\r\n              Akcja Narodowego Czytania została zainicjowana w 2012 roku wspólną\r\n              lekturą Pana Tadeusza Adama Mickiewicza. W 2013 roku w całej\r\n              Polsce odbyło się czytanie dzieł Aleksandra Fredry, a w rok\r\n              później przeczytano Trylogię Henryka Sienkiewicza.\r\n            </p>\r\n            <p>\r\n              Nad Niemnem to najbardziej znana powieść Elizy Orzeszkowej.\r\n              Powstawała w latach 1886-1887, a w formie książka ukazała się w\r\n              1888 roku. Ze względu na barwne opisy, wyrazistych bohaterów i\r\n              odwołania historyczne dzieło porównywano do Mickiewiczowskiego\r\n              &quot;Pana Tadeusza&quot;. Powieścią zainteresowała się również X\r\n              Muza, pierwszą ekranizację książki ukończono w 1939 roku, ale\r\n              obraz zaginął w czasie II wojny światowej. Kolejny film nakręcono\r\n              w połowie lat 80. XX wieku. Nad Niemnem to jeden najważniejszych\r\n              utworów literatury polskiej podejmujący tematykę Powstania\r\n              Styczniowego, którego 160-lecie obchodzone jest właśnie w 2023\r\n              roku.\r\n            </p>\r\n            <p>\r\n              Centrum Kultury w Knurowie połączyło siły z Zespołem Szkół\r\n              Zawodowych nr 2 w Knurowie i wspólnie zapraszają do udziału w tym\r\n              literackim wydarzeniu.\r\n            </p>\r\n            <p>\r\n              W programie poza oczywistym czytaniem fragmentów powieści\r\n              &quot;Nad Niemnem&quot; Elizy Orzeszkowej odbędą się warsztaty\r\n              artystyczne dla dzieci, akcja „Wymień Książkę z Biblioteką”,\r\n              możliwość ostemplowania własnego egzemplarza „Nad Niemnem”\r\n              dedykowaną pieczątką Narodowego Czytania i oczywiście wśród nas\r\n              będzie również Moluś Książkow.\r\n            </p>\r\n            <p>\r\n              Każdy otrzyma tematyczny upominek w postaci pamiątkowej widokówki\r\n              z cytatem.\r\n            </p>\r\n            <p>\r\n              Ponadto uczestnikom spotkania będzie towarzyszył zapach kawy i\r\n              słodkości pochodzący z naszej Art Cafe!\r\n            </p>\r\n            <p>\r\n              <b>Zapraszamy serdecznie!</b>\r\n            </p>\r\n          </div>',
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    newsSectionImageUrl: 'news-img-nc-001.jpg',
+    newsSectionImageAlt: 'Baner akcji Narodowego czytania.',
+
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
