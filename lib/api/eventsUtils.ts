@@ -1,8 +1,10 @@
 import { TEventTemporary } from '@/types';
 import { allEventsMockData } from './temporaryApiMockData';
 
-export async function getAllEvents() {
-  const allEvents: TEventTemporary[] = allEventsMockData;
+export async function getAllEventsSorted() {
+  const allEvents: TEventTemporary[] = allEventsMockData.sort(function (a, b) {
+    return a.eventStartDate.getTime() - b.eventStartDate.getTime();
+  });
   return allEvents;
 }
 

@@ -40,28 +40,34 @@ export default function EventDynamicInside(props: Props) {
 
           {/* <div>
             <p>
-              <b>Marcin Wyrostek</b> - wirtuoz akordeonu, kompozytor i aranżer,
-              absolwent i obecnie wykładowca Akademii Muzycznej w Katowicach na
-              Wydziale Instrumentalnym oraz Wydziale Jazzu i Muzyki Rozrywkowej.{' '}
+              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie
+              <b> Art CK!</b>
             </p>
             <p>
-              Zwycięzca polskiej edycji programu Mam Talent TVN. Zdobywca 7
-              Platynowych Płyt, nagroda Prezydenta RP 2010, Nagroda Ministra
-              Kultury 2004, Bestseller Empiku 2012, Statuetka Top Trendy 2011,
-              Promotor Polski 2017 - to tylko nieliczne sukcesy i tytuły jakie
-              Marcin Wyrostek zdobył na polskiej scenie muzycznej. Ponadto jest
-              laureatem i zwycięzcą wielu Międzynarodowych Konkursów
-              Akordeonowych: AAA Festival Detroit (USA), Coupe Mondiale
-              (Słowacja, Węgry), Reinach AG (Szwajcaria), Rzym (Włochy).
+              Spotykamy się o <b>15.30</b> przy
+              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym
+              korowodem prowadzonym przez fantastycznych artystów z
+              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na
+              powitanie będzie czekała na Was pierwsza niespodzianka!
             </p>
             <p>
-              Podczas Festiwalu Otwarcia Art. CK, artysta wystąpi z recitalem
-              solowym opartym na muzyce baroku, romantyzmu (transkrypcje utworów
-              organowych, orkiestrowych, fortepianowych), muzyce współczesnej
-              oraz własnych kompozycjach, w których wyraźnie słychać inspiracje
-              muzyką ilustracyjną, popularną, filmową, argentyńską, hiszpańską,
-              bałkańską, francuską, polskąi żydowską. Usłyszymy tu akordeon
-              zarówno w wersji akustycznej jak i elektronicznej.
+              W dalszej kolejności na naszej scenie pojawi się artysta, który
+              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.
+            </p>
+            <p>
+              Po pokazie świateł będziecie mogli wziąć udział w grach
+              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,
+              które nasze cudowne instruktorki tańca przygotują je specjalnie
+              dla Was w sali tanecznej oraz zabawach plastycznych,
+              przygotowanych przez nasze instruktorki działań twórczych w
+              pracowni plastycznej.
+            </p>
+            <p>
+              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>
+              , którą się tego dnia pożegnamy i będziemy czekać na Was z
+              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do
+              zajęć tanecznych i na realizowanych już od 4 września zajęć
+              plastycznych!
             </p>
           </div> */}
 

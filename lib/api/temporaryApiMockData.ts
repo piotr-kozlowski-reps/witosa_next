@@ -100,31 +100,52 @@ export const allEventsMockData: TEventTemporary[] = [
     eventTypes: ['WORKSHOP', 'OTHERS'],
     eventForWhom: ['CHILDREN', 'TEENS'],
     title: 'Festiwal Otwarcia Art. CK dla dzieci i młodzieży',
-
-    ///////////////
     places: ['CONCERT_HALL', 'ART_ROOM', 'DANCING_ROOM'],
     shortDescription:
-      'Zapraszamy serdecznie, tutaj bedze jakiś opis dla dzieci.',
-    eventStartDate: new Date('2023-09-02T10:00:00.968Z'),
-    eventEndDate: null,
-    createdAt: new Date('2023-08-26T15:20:24.968Z'),
-    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+      'Zapraszamy naszych MŁODYCH GOŚCI na uroczyste otwarcie Art CK! Przygotowaliśmy specjalnie dla WAS troszkę atrakcji i niespodzianek. Będziecie mieli okazję po raz pierwszy zwiedzić nową przestrzeń Centrum Kultury, przy okazji świetnie się bawiąc…',
+    eventStartDate: new Date('2023-09-02T15:30:00.968Z'),
+    eventEndDate: new Date('2023-09-02T19:30:00.968Z'),
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
     //details
-    images: [],
-    detailedDescription: 'detailed description here!!!!!!!!!!!!!',
+    images: [
+      {
+        url: 'events_dladzieci_001.jpg',
+        alt: 'Zdjęcie kolorowych postaci tworzących grupę o nazwie: Lufcik na korbkę.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_dladzieci_002.jpg',
+        alt: 'Abstrakcyjny kształt uzyskany na pokazie magicznych świateł LED SHOW.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_dladzieci_003.jpg',
+        alt: 'Plakat Dobranocka Filmowa dla dzieci.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+
+    detailedDescription:
+      '<div>\r\n            <p>\r\n              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie\r\n              <b> Art CK!</b>\r\n            </p>\r\n            <p>\r\n              Spotykamy się o <b>15.30</b> przy\r\n              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym\r\n              korowodem prowadzonym przez fantastycznych artystów z\r\n              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na\r\n              powitanie będzie czekała na Was pierwsza niespodzianka!\r\n            </p>\r\n            <p>\r\n              W dalszej kolejności na naszej scenie pojawi się artysta, który\r\n              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.\r\n            </p>\r\n            <p>\r\n              Po pokazie świateł będziecie mogli wziąć udział w grach\r\n              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,\r\n              które nasze cudowne instruktorki tańca przygotują je specjalnie\r\n              dla Was w sali tanecznej oraz zabawach plastycznych,\r\n              przygotowanych przez nasze instruktorki działań twórczych w\r\n              pracowni plastycznej.\r\n            </p>\r\n            <p>\r\n              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>\r\n              , którą się tego dnia pożegnamy i będziemy czekać na Was z\r\n              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do\r\n              zajęć tanecznych i na realizowanych już od 4 września zajęć\r\n              plastycznych!\r\n            </p>\r\n          </div>',
     //paying
     isPayed: false,
-    kindOfEnterInfo: 'fgbdfgbdf',
+    kindOfEnterInfo:
+      'Wstęp bezpłatny, aby wziąć udział w zajęciach tanecznych i plastycznych należy w dniu imprezy zapisać się i pobrać imienną wejściówkę.',
     ticketBuyingUrl: null,
+
     //news
     isToBeInNewsSection: true,
-    newsSectionImageUrl: 'news-img-wyrostek-001.jpg',
-    newsSectionImageAlt: 'Akordeonista stojący na oświetlonej scenie.',
+    newsSectionImageUrl: 'news-img-dladzieci-001.jpg',
+    newsSectionImageAlt:
+      'Zdjęcie kolorowych postaci tworzących grupę teatralną: Lufcik na korbkę.',
+
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleTo: new Date('2023-09-03T23:59:00.968Z'),
+    visibleTo: new Date('2023-09-02T23:59:00.968Z'),
   },
 ];
 

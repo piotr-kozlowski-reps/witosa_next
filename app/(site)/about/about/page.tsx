@@ -55,7 +55,7 @@ export default function AboutPage() {
           <p>
             Pragniemy, by nasze miasto stało się centrum artystycznych przeżyć i
             niezapomnianych doświadczeń. ART CK to przestrzeń, w której kultura
-            ma wymiar niecodzienny - odbiór wielu dziedzin sztuki łączy się z
+            ma wymiar niecodzienny - odbiór wielu dziedzin sztuki przenika się z
             zapachem świeżo parzonej kawy najwyższej jakości.
           </p>
           <p>
@@ -71,10 +71,10 @@ export default function AboutPage() {
             fotelu słuchać będzie można sączącej się muzyki.
           </p>
           <p>
-            Sale plastyczna stworzona została z myślą o kreatywnym rozwijaniu
+            Sala plastyczna stworzona została z myślą o kreatywnym rozwijaniu
             zainteresowań osób w każdym wieku, a serwowane w Art Cafe pyszności
             towarzyszyć będą tym twórczym działaniom, uszczęśliwiając nie tylko
-            ducha ale i ciało!
+            ducha, ale i ciało!
           </p>
           <p>
             Na naszą kameralną scenę zapraszać będziemy fantastycznych i

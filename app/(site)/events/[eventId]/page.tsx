@@ -1,7 +1,3 @@
-// import { getSingleCyclicalActivity } from '@/lib/api/cyclicalActivitiesUtils';
-// import { CyclicalActivityTemporary } from '@/types';
-// import CyclicActivitiesDynamicInside from './components/CyclicActivitiesDynamicInside';
-
 import { getSingleEvent } from '@/lib/api/eventsUtils';
 import { TEventTemporary } from '@/types';
 import { Fragment } from 'react';
