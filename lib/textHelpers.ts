@@ -1,10 +1,4 @@
-import {
-  ActivityForWhom,
-  ActivityType,
-  Day,
-  EventsType,
-  Place,
-} from '@prisma/client';
+import { ActivityType, Day, EventsType, ForWhom, Place } from '@prisma/client';
 
 export function getPolishTypeName(type: EventsType) {
   let polishTypeName = '';
@@ -92,7 +86,7 @@ export function getPolishCategoryName(category: ActivityType) {
   return polishCategoryName;
 }
 
-export function getPolishForWhomName(forWhom: ActivityForWhom) {
+export function getPolishForWhomName(forWhom: ForWhom) {
   let polishForWhomName = '';
 
   switch (forWhom) {
@@ -190,7 +184,7 @@ export function getPolishPlaceName(place: Place) {
       break;
 
     default:
-      throw new Error('getPolishPlaceName not defined');
+      throw new Error(`getPolishPlaceName not defined: entered ${place}`);
   }
 
   return polishPlaceName;
@@ -235,4 +229,18 @@ export function getPolishDayFromDateObject(date: Date) {
 
 export function getHoursAndMinutesWithGInFrontFromDateObject(date: Date) {
   return `g. ${getTwoDigitHours(date)}:${getTwoDigitMinutes(date)}`;
+}
+
+export function createListingOfAllPlacesSeparatedWithCommas(places: Place[]) {
+  let resultString = '';
+
+  places.forEach((place, index) => {
+    if (index === places.length - 1) {
+      resultString += getPolishPlaceName(place);
+      return;
+    }
+    resultString += `${getPolishPlaceName(place)}, `;
+  });
+
+  return resultString;
 }

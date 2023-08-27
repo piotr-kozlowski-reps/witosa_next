@@ -51,8 +51,9 @@ export const allEventsMockData: TEventTemporary[] = [
   {
     id: 'de4e7c17-0b04-ff81-8456-ce6bf7fde45a',
     eventTypes: ['CONCERT'],
+    eventForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
     title: 'Marcin Wyrostek Solo',
-    place: 'CONCERT_HALL',
+    places: ['CONCERT_HALL'],
     shortDescription:
       'Zapraszamy serdecznie, w ramach Festiwalu Otwarcia Art CK, na koncert genialnego akordeonisty Marcina Wyrostka. Założyciel i lider projektów: Tango Corazon, Coloriage, Music and Dance Show. Producent i wydawca własnych albumów, producent tras koncertowych oraz koncertów galowych (m.in. Filharmonia Narodowa, NOSPR). Koncertował na całym świecie, a tym razem wystąpi u nas.',
     eventStartDate: new Date('2023-09-03T19:00:00.968Z'),
@@ -61,10 +62,29 @@ export const allEventsMockData: TEventTemporary[] = [
     updatedAt: new Date('2023-08-26T15:20:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
     //details
-    images: [],
-    detailedDescription: 'detailed description here!!!!!!!!!!!!!',
+    images: [
+      {
+        url: 'events_wyrostek_003.jpg',
+        alt: 'Zdjęcie Marcina Wyrostka z akordeonem.',
+        additionInfoThatMustBeDisplayed: 'foto: Nicolas Dominic Talvola.',
+      },
+      {
+        url: 'events_wyrostek_001.jpg',
+        alt: 'Zdjęcie Marcina Wyrostka z akordeonem.',
+        additionInfoThatMustBeDisplayed: 'foto: Konrad Wrona.',
+      },
+      {
+        url: 'events_wyrostek_002.jpg',
+        alt: 'Akordeonista Marcin Wyrostek grający na scenie.',
+        additionInfoThatMustBeDisplayed: 'foto: Konrad Wrona.',
+      },
+    ],
+    detailedDescription:
+      "          <div>\r\n            <p>\r\n              <b>Marcin Wyrostek</b> - wirtuoz akordeonu, kompozytor i aranżer,\r\n              absolwent i obecnie wykładowca Akademii Muzycznej w Katowicach na\r\n              Wydziale Instrumentalnym oraz Wydziale Jazzu i Muzyki Rozrywkowej.{' '}\r\n            </p>\r\n            <p>\r\n              Zwycięzca polskiej edycji programu Mam Talent TVN. Zdobywca 7\r\n              Platynowych Płyt, nagroda Prezydenta RP 2010, Nagroda Ministra\r\n              Kultury 2004, Bestseller Empiku 2012, Statuetka Top Trendy 2011,\r\n              Promotor Polski 2017 - to tylko nieliczne sukcesy i tytuły jakie\r\n              Marcin Wyrostek zdobył na polskiej scenie muzycznej. Ponadto jest\r\n              laureatem i zwycięzcą wielu Międzynarodowych Konkursów\r\n              Akordeonowych: AAA Festival Detroit (USA), Coupe Mondiale\r\n              (Słowacja, Węgry), Reinach AG (Szwajcaria), Rzym (Włochy).\r\n            </p>\r\n            <p>\r\n              Podczas Festiwalu Otwarcia Art. CK, artysta wystąpi z recitalem\r\n              solowym opartym na muzyce baroku, romantyzmu (transkrypcje utworów\r\n              organowych, orkiestrowych, fortepianowych), muzyce współczesnej\r\n              oraz własnych kompozycjach, w których wyraźnie słychać inspiracje\r\n              muzyką ilustracyjną, popularną, filmową, argentyńską, hiszpańską,\r\n              bałkańską, francuską, polskąi żydowską. Usłyszymy tu akordeon\r\n              zarówno w wersji akustycznej jak i elektronicznej.\r\n            </p>\r\n          </div>",
     //paying
     isPayed: false,
+    kindOfEnterInfo:
+      'Wstęp bezpłatny za okazaniem imiennej wejściówki, wydawanej na godzinę przed koncertem w Art CK, ilość miejsc jest ograniczona.',
     ticketBuyingUrl: null,
     //news
     isToBeInNewsSection: true,
@@ -76,10 +96,13 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleTo: new Date('2023-09-03T23:59:00.968Z'),
   },
   {
-    id: 'de457c17-0b04-ff81-gg56-ce6bfr4de45a',
-    eventTypes: ['CONCERT', 'SPECTACLE'],
-    title: 'Coś dla dzieci',
-    place: 'CONCERT_HALL',
+    id: 'de827c17-0b04-ff81-gg56-ce6bfr4gz45a',
+    eventTypes: ['WORKSHOP', 'OTHERS'],
+    eventForWhom: ['CHILDREN', 'TEENS'],
+    title: 'Festiwal Otwarcia Art. CK dla dzieci i młodzieży',
+
+    ///////////////
+    places: ['CONCERT_HALL', 'ART_ROOM', 'DANCING_ROOM'],
     shortDescription:
       'Zapraszamy serdecznie, tutaj bedze jakiś opis dla dzieci.',
     eventStartDate: new Date('2023-09-02T10:00:00.968Z'),
@@ -92,6 +115,7 @@ export const allEventsMockData: TEventTemporary[] = [
     detailedDescription: 'detailed description here!!!!!!!!!!!!!',
     //paying
     isPayed: false,
+    kindOfEnterInfo: 'fgbdfgbdf',
     ticketBuyingUrl: null,
     //news
     isToBeInNewsSection: true,
@@ -109,78 +133,95 @@ export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
     {
       url: 'groups_marzenie_mini_mini_001.jpg',
       alt: 'Tancerki w kolorowych kostiumach w tańcu arabskim.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_mini_mini_002.jpg',
       alt: '7 letnie dziewczynki na plenerowej scenie, w różowych bodach, występują z okazji Dnia Tańca.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_mini_mini_003.jpg',
       alt: 'Dziewczynki z grupy artystyczna Marzenie Mini Mini, na plenerowej scenie w kółeczku.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ],
   marzenieBis: [
     {
       url: 'groups_marzenie_bis_001.jpg',
       alt: 'Średnio zaawansowane tancerki w choreografii z elementami ludowymi.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_bis_002.jpg',
       alt: 'Tancerki na scenie, w ludowych spódniczkach i białych bluzkach, ustawione w figurach.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_bis_003.jpg',
       alt: 'Tańczące dziewczynki w stylu nowoczesnym na Prentacjach Artystycznych.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_bis_004.jpg',
       alt: 'Młode tancerki na scenie w srebrnych kostiumach, przedstawiają inscenizację taneczną pt. "Początek".',
+      additionInfoThatMustBeDisplayed: null,
     },
   ],
   marzenie: [
     {
       url: 'groups_marzenie_001.jpg',
       alt: 'Najstarsze dziewczyny zespołu "Marzenie" pozują do zdjęcia w ustawieniu litery V.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_002.jpg',
       alt: 'Dziewczęta ustawione w klasycznych figurach na scenie Domu Kultury.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_003.jpg',
       alt: 'Tańcząca młodzież z rekwizytem, materiałem imitującym ocean.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_004.jpg',
       alt: 'Tańcząca młodzież z rekwizytem, materiałem imitującym ocean.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_marzenie_005.jpg',
       alt: 'Tancerki w czasie występu, ukazujące swoje umiejętności techniczne.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ],
   hipnoteriaBis: [
     {
       url: 'groups_hipnoteriabis_001.jpg',
       alt: 'Grupa radosnych dziewcząt i chłopców na scenie ze swoją trenerką.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_hipnoteriabis_002.jpg',
       alt: 'Grupa dziewcząt i chłopców w katanach jeansowych i koszulach w kratę, pozuje do zdjęcia.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_hipnoteriabis_003.jpg',
       alt: 'Dziewczęta w pomarańczowych bluzach i luźnych spodniach, przemieszczają się w różnych kierunkach na scenie.',
+      additionInfoThatMustBeDisplayed: null,
     },
     {
       url: 'groups_hipnoteriabis_004.jpg',
       alt: 'Tańczące dziewczynki z okazji Dnia Dziecka, na scenie plenerowej.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ],
   hipnoteria: [
     {
       url: 'groups_hipnoteria_001.jpg',
       alt: 'Grupa dziewcząt i chłopców w katanach jeansowych i koszulach w kratę, pozuje do zdjęcia.',
+      additionInfoThatMustBeDisplayed: null,
     },
   ],
 };
@@ -199,14 +240,17 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'activities_image_004.jpg',
           alt: 'Prezentowana wystawa miała formę wizualizacji multimedialnej opartej na filme VR 360 i odtwarzanej za pomocą przeznaczonych do tego celu okularów i słuchawek.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_005.jpg',
           alt: 'Cykl dyplomowy “Subtelne Formy”, który przedstawiał ciało, jako abstrakcyjną wyłaniającą się z czerni formę.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_006.jpg',
           alt: 'Cykl “Introspekcja” buduje obraz człowieka składającego się nie tylko z fizycznego wyglądu ale także z własnej emocjonalności.',
+          additionInfoThatMustBeDisplayed: null,
         },
       ],
       description:
@@ -220,7 +264,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T20:00:00.968Z'),
       },
     ],
-    place: 'ART_ROOM',
+    places: ['ART_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -249,7 +293,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T17:30:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -277,7 +321,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T18:15:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -306,7 +350,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T16:30:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -334,7 +378,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T17:00:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -362,7 +406,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T18:45:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -381,6 +425,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'activities_image_016.jpg',
           alt: 'Kolorowe postacie kobiet, wykonujących ruch taneczny.',
+          additionInfoThatMustBeDisplayed: null,
         },
       ],
       description:
@@ -394,7 +439,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T20:00:00.968Z'),
       },
     ],
-    place: 'DANCING_ROOM',
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -413,14 +458,17 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'activities_image_001.jpg',
           alt: 'Malarstwo: Dreamscape. Obraz akrylowy na płótnie. Praca autorstwa Sylwii Lipiny.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_002.jpg',
           alt: 'Malarstwo: Submerged no.1. Obraz olejny na płótnie. Praca autorstwa Sylwii Lipiny.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_003.jpg',
           alt: 'Grafika: Orbit - malarstwo poddane obróbce graficznej. Praca autorstwa Sylwii Lipiny.',
+          additionInfoThatMustBeDisplayed: null,
         },
       ],
       description:
@@ -434,7 +482,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T20:00:00.968Z'),
       },
     ],
-    place: 'ART_ROOM',
+    places: ['ART_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -454,22 +502,27 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'activities_image_007.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_008.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_009.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_010.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_011.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
       ],
       description:
@@ -483,7 +536,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T17:30:00.968Z'),
       },
     ],
-    place: 'ART_ROOM',
+    places: ['ART_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -503,18 +556,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'activities_image_012.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_013.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_014.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'activities_image_015.jpg',
           alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
+          additionInfoThatMustBeDisplayed: null,
         },
       ],
       description:
@@ -528,7 +585,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T19:45:00.968Z'),
       },
     ],
-    place: 'ART_ROOM',
+    places: ['ART_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
@@ -548,19 +605,18 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         {
           url: 'artcafe_006.jpg',
           alt: 'Zdjęcie wnętrza Art Cafe.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'artcafe_004.jpg',
           alt: 'Zbliżenie huśtawki w Art Cafe.',
+          additionInfoThatMustBeDisplayed: null,
         },
         {
           url: 'artcafe_007.jpg',
           alt: 'Zdjęcie wnętrza Art Cafe.',
+          additionInfoThatMustBeDisplayed: null,
         },
-        // {
-        //   url: 'activities_image_015.jpg',
-        //   alt: 'Wybrane prace dzieci, które powstawały pod kierunkiem Agaty Niźnikiewicz.',
-        // },
       ],
       description:
         '<p>\r\n            Prowadząca: <b>AGNIESZKA BALA</b>\r\n          </p>\r\n          <p>\r\n            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,\r\n            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!\r\n          </p>\r\n          <p>Nasze zajęcia obejmują:</p>\r\n          <ul>\r\n            <li>\r\n              wstęp - czym jest projektowanie, czym jest design, krótka historia\r\n              sztuki\r\n            </li>\r\n            <li>proces projektowania</li>\r\n            <li>style w aranżacji wnętrz</li>\r\n            <li>wpływ światła na wnętrze</li>\r\n            <li>nauka obsługi programu do projektowania wnętrz</li>\r\n            <li>wizualizacje</li>\r\n          </ul>\r\n          <p>\r\n            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.\r\n          </p>\r\n          <p>\r\n            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,\r\n            praca z mood boardem (tablica inspiracji) praca w programach (trzeba\r\n            mieć swój laptop).\r\n          </p>',
@@ -573,7 +629,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         activityEnd: new Date('2000-01-01T20:00:00.968Z'),
       },
     ],
-    place: 'ART_ROOM',
+    places: ['ART_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),

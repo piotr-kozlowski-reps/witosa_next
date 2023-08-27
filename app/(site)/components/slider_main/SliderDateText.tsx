@@ -7,11 +7,12 @@ import {
 import { Fragment } from 'react';
 type Props = {
   date: Date;
+  forceToBeInOneLine?: boolean;
 };
 
 export default function SliderDateText(props: Props) {
   ////vars
-  const { date } = props;
+  const { date, forceToBeInOneLine = false } = props;
   const { getCurrentDevice } = useNavigationState();
 
   ////tsx
@@ -19,7 +20,7 @@ export default function SliderDateText(props: Props) {
     <Fragment>
       <span>{`${date.getDate()}.${getCorrectTwoDigitsMonthNumber(date)}`}</span>
       <span className="text-skin-gray">{`.${date.getFullYear()}`}</span>
-      {getCurrentDevice() !== 'MOBILE' ? (
+      {getCurrentDevice() !== 'MOBILE' || forceToBeInOneLine ? (
         <Fragment>
           <div className="inline-block px-4 mb-[20px] scale-y-[0.6] scale-x-75 text-skin-gray">
             |
@@ -33,7 +34,7 @@ export default function SliderDateText(props: Props) {
           <span>{getHoursAndMinutesWithGInFrontFromDateObject(date)}</span>
         </Fragment>
       ) : null}
-      {getCurrentDevice() === 'MOBILE' ? (
+      {getCurrentDevice() === 'MOBILE' && !forceToBeInOneLine ? (
         <Fragment>
           <div>
             <span>{getHoursAndMinutesWithGInFrontFromDateObject(date)}</span>

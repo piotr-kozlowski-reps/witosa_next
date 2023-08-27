@@ -112,6 +112,7 @@ export type TSliderGroupsImages = {
 export type TSliderGroupImage = {
   url: string;
   alt: string;
+  additionInfoThatMustBeDisplayed: string | null;
 };
 
 export type TGroups =
@@ -140,5 +141,6 @@ export type TEventTemporary = Event & {
   images: {
     url: string;
     alt: string;
+    additionInfoThatMustBeDisplayed: string | null;
   }[];
 };

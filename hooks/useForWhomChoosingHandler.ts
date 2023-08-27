@@ -1,13 +1,11 @@
 import { checkIfArrayContainTheSameValues } from '@/lib/arrayHelpers';
-import { ActivityForWhom } from '@prisma/client';
+import { ForWhom } from '@prisma/client';
 import { useState } from 'react';
 
 export function useForWhomChoosingHandler() {
-  const [forWhom, setForWhom] = useState<ActivityForWhom[]>(
-    Object.values(ActivityForWhom)
-  );
+  const [forWhom, setForWhom] = useState<ForWhom[]>(Object.values(ForWhom));
 
-  const toggleForWhom = (passedForWhom: ActivityForWhom) => {
+  const toggleForWhom = (passedForWhom: ForWhom) => {
     if (forWhom.includes(passedForWhom)) {
       const resultForWhomArray = forWhom.filter(
         (forWhomIterated) => forWhomIterated !== passedForWhom
@@ -21,20 +19,17 @@ export function useForWhomChoosingHandler() {
   };
 
   const checkIfAllForWhomAreChosen = () => {
-    return checkIfArrayContainTheSameValues(
-      forWhom,
-      Object.values(ActivityForWhom)
-    );
+    return checkIfArrayContainTheSameValues(forWhom, Object.values(ForWhom));
   };
 
-  const checkButtonForWhomState = (passedForWhom: ActivityForWhom) => {
+  const checkButtonForWhomState = (passedForWhom: ForWhom) => {
     return forWhom.includes(passedForWhom);
   };
 
   const selectAllOrNoneForWhoms = () => {
     const isAllForWhomsChosen = checkIfArrayContainTheSameValues(
       forWhom,
-      Object.values(ActivityForWhom)
+      Object.values(ForWhom)
     );
 
     if (isAllForWhomsChosen) {
@@ -42,7 +37,7 @@ export function useForWhomChoosingHandler() {
       return;
     }
 
-    setForWhom(Object.values(ActivityForWhom));
+    setForWhom(Object.values(ForWhom));
   };
 
   return {

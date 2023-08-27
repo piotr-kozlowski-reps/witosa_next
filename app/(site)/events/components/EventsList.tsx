@@ -1,6 +1,6 @@
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
-import { getPolishPlaceName } from '@/lib/textHelpers';
+import { createListingOfAllPlacesSeparatedWithCommas } from '@/lib/textHelpers';
 import { TEventTemporary } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -80,7 +80,9 @@ export default function EventsList(props: Props) {
                               </div>
 
                               <div className="font-base-regular mt-[7px]">
-                                {getPolishPlaceName(event.place)}
+                                {createListingOfAllPlacesSeparatedWithCommas(
+                                  event.places
+                                )}
                               </div>
                               <div
                                 className={clsx(

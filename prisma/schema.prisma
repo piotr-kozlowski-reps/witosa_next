@@ -37,7 +37,7 @@ enum ActivityType {
   OTHERS
 }
 
-enum ActivityForWhom {
+enum ForWhom {
   CHILDREN
   TEENS
   ADULTS
@@ -78,6 +78,7 @@ model Image {
   id String @id @default(uuid())
   url String
   alt String
+  additionInfoThatMustBeDisplayed String?
   event Event @relation(fields: [eventId], references: [id])
   eventId String
 }
@@ -85,8 +86,9 @@ model Image {
 model Event{
   id String @id @default(uuid())
   eventTypes EventsType[]
+  eventForWhom ForWhom[]
   title String
-  place Place
+  places Place[]
   shortDescription String
   eventStartDate DateTime
   eventEndDate DateTime?
@@ -98,8 +100,10 @@ model Event{
   //details
   images Image[]
   detailedDescription String
+
   //paying
   isPayed Boolean
+  kindOfEnterInfo String
   ticketBuyingUrl String?
 
   //news
@@ -143,10 +147,10 @@ model CyclicalActivity{
   id String @id @default(uuid())
   name String
   activityTypes ActivityType[]
-  activitiesForWhom ActivityForWhom[]
+  activitiesForWhom ForWhom[]
   shortDescription String
   occurance CyclicalActivityOccurrence[]
-  place Place
+  places Place[]
   customLinkToDetails String?
   expiresAt DateTime?
   isToBePublished Boolean

@@ -372,4 +372,18 @@
     height: 376px;
     opacity: 0.3;
   }
+
+  /* .text-background::before {
+    content: '';
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+  } */
+  .text-background {
+    display: inline;
+    background-color: var(--color-background-base);
+    /* color: #fff; */
+    padding: 4px;
+  }
 }

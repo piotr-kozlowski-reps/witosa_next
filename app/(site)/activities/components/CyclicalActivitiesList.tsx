@@ -2,8 +2,8 @@ import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWI
 import { pageVariant } from '@/lib/animations/variants';
 import {
   createBetweenHoursText,
+  createListingOfAllPlacesSeparatedWithCommas,
   getPolishDayName,
-  getPolishPlaceName,
 } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary } from '@/types';
 import { Day } from '@prisma/client';
@@ -106,7 +106,9 @@ export default function CyclicalActivitiesList(props: Props) {
                                           {activity.shortDescription}
                                         </div>
                                         <div className="font-base-regular mt-[7px]">
-                                          {getPolishPlaceName(activity.place)}
+                                          {createListingOfAllPlacesSeparatedWithCommas(
+                                            activity.places
+                                          )}
                                         </div>
                                         <div
                                           className={clsx(

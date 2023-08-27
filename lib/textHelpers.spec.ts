@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   createBetweenHoursText,
+  createListingOfAllPlacesSeparatedWithCommas,
   getCorrectTwoDigitsMonthNumber,
   getHoursAndMinutesWithGInFrontFromDateObject,
   getPolishDayFromDateObject,
@@ -204,5 +205,29 @@ describe('getPolishTypeName()', () => {
   });
   it('returns warsztaty', () => {
     expect(getPolishTypeName('WORKSHOP')).toEqual('warsztaty');
+  });
+});
+
+describe('createListingOfAllPlacesSeparatedWithCommas()', () => {
+  it('returns only one place with no comma in the end', () => {
+    expect(createListingOfAllPlacesSeparatedWithCommas(['ART_ROOM'])).toEqual(
+      'Sala plastyczna'
+    );
+  });
+
+  it('returns 2 places with no comma in the end', () => {
+    expect(
+      createListingOfAllPlacesSeparatedWithCommas(['ART_ROOM', 'CONCERT_HALL'])
+    ).toEqual('Sala plastyczna, Sala koncertowa');
+  });
+
+  it('returns all places with no comma in the end', () => {
+    expect(
+      createListingOfAllPlacesSeparatedWithCommas([
+        'ART_ROOM',
+        'CONCERT_HALL',
+        'DANCING_ROOM',
+      ])
+    ).toEqual('Sala plastyczna, Sala koncertowa, Sala taneczna');
   });
 });

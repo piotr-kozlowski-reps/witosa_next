@@ -5,8 +5,8 @@ import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import {
   createBetweenHoursText,
+  createListingOfAllPlacesSeparatedWithCommas,
   getPolishDayName,
-  getPolishPlaceName,
 } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
@@ -60,7 +60,11 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
                       </span>
                       <span>&nbsp;&nbsp;&nbsp;</span>
                       <span>-&nbsp;&nbsp;&nbsp;</span>
-                      <span>{`${getPolishPlaceName(activity.place)}`}</span>
+                      <span>
+                        {createListingOfAllPlacesSeparatedWithCommas(
+                          activity.places
+                        )}
+                      </span>
                     </li>
                   );
                 })}

@@ -2,6 +2,7 @@
 
 import { TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
+import { Fragment } from 'react';
 import {
   HashNavigation,
   Keyboard,
@@ -12,6 +13,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
+import { useNavigationState } from '@/context/navigationState';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -24,7 +26,7 @@ type Props = {
 export default function SliderGroups(props: Props) {
   ////vars
   const { sliderImages } = props;
-  // const { getCurrentDevice } = useNavigationState();
+  const { getCurrentDevice } = useNavigationState();
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
@@ -45,18 +47,33 @@ export default function SliderGroups(props: Props) {
     >
       {sliderImages.map((sliderImage, index) => {
         return (
-          <SwiperSlide key={index}>
-            <div
-              className={clsx(
-                'h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10',
-                containerProperClasses
-              )}
-              style={{
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}${sliderImage.url})`,
-              }}
-              aria-label={`${sliderImage.alt}`}
-            ></div>
-          </SwiperSlide>
+          <Fragment key={index}>
+            <div className="relative">
+              <SwiperSlide>
+                <div
+                  className={clsx(
+                    'h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10',
+                    containerProperClasses
+                  )}
+                  style={{
+                    backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}${sliderImage.url})`,
+                  }}
+                  aria-label={`${sliderImage.alt}`}
+                ></div>
+                {sliderImage.additionInfoThatMustBeDisplayed ? (
+                  <div
+                    className={clsx(
+                      'absolute bottom-2 right-4 font-sm-normal text-background',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
+                      getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : ''
+                    )}
+                  >
+                    {sliderImage.additionInfoThatMustBeDisplayed}
+                  </div>
+                ) : null}
+              </SwiperSlide>
+            </div>
+          </Fragment>
         );
       })}
     </Swiper>
