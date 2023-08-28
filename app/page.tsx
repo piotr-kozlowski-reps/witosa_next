@@ -1,6 +1,6 @@
 import MainPage from './(site)/components/MainPage';
 
-export default async function Home() {
+export default function Home() {
   ////tsx
   return (
     <main>
