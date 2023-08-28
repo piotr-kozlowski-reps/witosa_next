@@ -134,15 +134,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          {/* <li className="-ml-[3px] mt-[6px]">
-            <NavigationLink
-              url={getLinkData('ABOUT_RENT')?.path!}
-              hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('ABOUT_RENT')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('ABOUT_RENT')?.nameToBeDisplayed!}
-              isSiteMapLink={true}
-            />
-          </li> */}
+
           <li className="-ml-[3px] mt-[6px]">
             <NavigationLink
               url={getLinkData('ABOUT_REGULATIONS')?.path!}
@@ -179,15 +171,6 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          {/* <li className="-ml-[3px] mt-[6px]">
-            <NavigationLink
-              url={getLinkData('CONTACT')?.path!}
-              hideAllSubmenus={() => {}}
-              isCurrentlyUsed={getLinkData('CONTACT')?.isCurrentlyUsed!}
-              nameToBeDisplayed={getLinkData('CONTACT')?.nameToBeDisplayed!}
-              isSiteMapLink={true}
-            />
-          </li> */}
         </ul>
         <li className="-ml-[26px] mt-[6px]">
           <NavigationLink
