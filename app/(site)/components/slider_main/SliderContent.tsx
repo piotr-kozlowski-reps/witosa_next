@@ -135,7 +135,10 @@ export default function SliderContent(props: Props) {
           </div>
 
           <div className="relative" style={{ height: descriptionHeight }}>
-            <div ref={descriptionRef} className="absolute mt-8 prose">
+            <div
+              ref={descriptionRef}
+              className="absolute !max-w-full mt-8 prose"
+            >
               <motion.div
                 variants={textsVariant}
                 initial="initial"

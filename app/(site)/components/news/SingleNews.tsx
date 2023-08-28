@@ -33,8 +33,6 @@ export default function SingleNews(props: Props) {
     isDateToBeHiddenInNewsSection,
   } = props;
 
-  console.log({ isDateToBeHiddenInNewsSection });
-
   let isShowingBothSurroundingLines =
     checkIfShouldShowBothSurroundingLines_WhenThreeColumnSelected(
       index,
