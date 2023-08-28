@@ -1,6 +1,6 @@
 import { getPolishTypeName } from '@/lib/textHelpers';
 import { TCurrentDevice } from '@/types';
-import { EventsType } from '@prisma/client';
+import { EventType } from '@prisma/client';
 import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import CustomLink from '../CustomLink';
 
 interface Props {
   id: string;
-  eventTypes: EventsType[];
+  eventTypes: EventType[];
   eventStartDate: Date;
   newsSectionImageUrl: string | null; //TODO: create some image dummy if there's no image
   title: string;
