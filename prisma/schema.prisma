@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum EventsType {
+enum EventType {
   FESTIVAL
   CONCERT
   CABARET
@@ -85,7 +85,7 @@ model Image {
 
 model Event{
   id String @id @default(uuid())
-  eventTypes EventsType[]
+  eventTypes EventType[]
   eventForWhom ForWhom[]
   title String
   places Place[]

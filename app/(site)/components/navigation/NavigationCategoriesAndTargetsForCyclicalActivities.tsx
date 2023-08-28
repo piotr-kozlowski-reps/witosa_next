@@ -24,7 +24,9 @@ interface Props {
   categoryOfWhatText: string;
 }
 
-export default function NavigationCategoriesAndTarget(props: Props) {
+export default function NavigationCategoriesAndTargetsForCyclicalActivities(
+  props: Props
+) {
   ////vars
   const {
     toggleCategory,

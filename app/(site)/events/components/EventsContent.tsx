@@ -1,10 +1,11 @@
 'use client';
 
-import { useCategoriesChoosingHandler } from '@/hooks/useCategoriesChoosingHandler';
+import { useChosenEventsHandler } from '@/hooks/useChosenEventsHandler';
+import { useEventsCategoriesChoosingHandler } from '@/hooks/useEventsCategoriesChoosingHandler';
 import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
 import { TEventTemporary } from '@/types';
 import { Fragment } from 'react';
-import NavigationCategoriesAndTarget from '../../components/navigation/NavigationCategoriesAndTarget';
+import NavigationCategoriesAndTargetsForEvents from '../../components/navigation/NavigationCategoriesAndTargetsForEvents';
 import EventsList from './EventsList';
 
 interface Props {
@@ -14,13 +15,14 @@ interface Props {
 export default function EventsContent(props: Props) {
   ////vars
   const { events } = props;
+
   const {
     categories,
-    toggleCategory,
-    checkButtonCategoryState,
     checkIfAllCategoriesAreChosen,
     selectAllOrNoneCategories,
-  } = useCategoriesChoosingHandler();
+    checkButtonCategoryState,
+    toggleCategory,
+  } = useEventsCategoriesChoosingHandler();
 
   const {
     forWhom,
@@ -30,26 +32,22 @@ export default function EventsContent(props: Props) {
     selectAllOrNoneForWhoms,
   } = useForWhomChoosingHandler();
 
+  const chosenEvents = useChosenEventsHandler(events, categories, forWhom);
+
   ////tsx
   return (
     <Fragment>
-      <NavigationCategoriesAndTarget
-        toggleCategory={toggleCategory}
-        checkButtonCategoryState={checkButtonCategoryState}
+      <NavigationCategoriesAndTargetsForEvents
         toggleForWhom={toggleForWhom}
         checkButtonForWhomState={checkButtonForWhomState}
-        checkIfAllCategoriesAreChosen={checkIfAllCategoriesAreChosen}
-        selectAllOrNoneCategories={selectAllOrNoneCategories}
         checkIfAllForWhomAreChosen={checkIfAllForWhomAreChosen}
         selectAllOrNoneForWhoms={selectAllOrNoneForWhoms}
-        categoryOfWhatText="Kategoria wydarzeń"
+        checkIfAllCategoriesAreChosen={checkIfAllCategoriesAreChosen}
+        selectAllOrNoneCategories={selectAllOrNoneCategories}
+        checkButtonCategoryState={checkButtonCategoryState}
+        toggleCategory={toggleCategory}
       />
-      <EventsList
-        chosenEvents={events}
-        // getCyclicalActivitiesByDayOfTheWeek={
-        //   getCyclicalActivitiesByDayOfTheWeek
-        // }
-      />
+      <EventsList chosenEvents={chosenEvents} />
     </Fragment>
   );
 }

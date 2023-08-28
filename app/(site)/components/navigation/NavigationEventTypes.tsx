@@ -1,29 +1,27 @@
-import { getPolishCategoryOfActivitiesName } from '@/lib/textHelpers';
-import { ActivityType } from '@prisma/client';
+import { getPolishCategoryOfEventsName } from '@/lib/textHelpers';
+import { EventType } from '@prisma/client';
 import CustomButton from '../CustomButton';
 
 interface Props {
-  toggleCategory: (_category: ActivityType) => void;
-  checkButtonCategoryState: (_category: ActivityType) => boolean;
+  toggleCategory: (_category: EventType) => void;
+  checkButtonCategoryState: (_category: EventType) => boolean;
   checkIfAllCategoriesAreChosen: () => boolean;
   selectAllOrNoneCategories: () => void;
-  categoryOfWhatText: string;
 }
 
-export default function NavigationActivityTypes(props: Props) {
+export default function NavigationEventTypes(props: Props) {
   ////vars
   const {
     toggleCategory,
     checkButtonCategoryState,
     checkIfAllCategoriesAreChosen,
     selectAllOrNoneCategories,
-    categoryOfWhatText,
   } = props;
 
   ////tsx
   return (
     <div className="">
-      <div className="font-base-bold pt-[10px]">{`${categoryOfWhatText}:`}</div>
+      <div className="font-base-bold pt-[10px]">Kategoria wydarzeń:</div>
       <div className="flex items-center justify-start gap-4 mt-[11px] flex-wrap">
         <CustomButton
           text={
@@ -43,18 +41,16 @@ export default function NavigationActivityTypes(props: Props) {
 
         <div className="-mx-0 separator-vertical"></div>
 
-        {(Object.keys(ActivityType) as Array<ActivityType>).map(
-          (activityType) => (
-            <CustomButton
-              key={activityType}
-              text={getPolishCategoryOfActivitiesName(activityType)}
-              descriptionText={getPolishCategoryOfActivitiesName(activityType)}
-              disabled={false}
-              outlined={checkButtonCategoryState(activityType) ? false : true}
-              actionFn={() => toggleCategory(activityType)}
-            />
-          )
-        )}
+        {(Object.keys(EventType) as Array<EventType>).map((eventType) => (
+          <CustomButton
+            key={eventType}
+            text={getPolishCategoryOfEventsName(eventType)}
+            descriptionText={getPolishCategoryOfEventsName(eventType)}
+            disabled={false}
+            outlined={checkButtonCategoryState(eventType) ? false : true}
+            actionFn={() => toggleCategory(eventType)}
+          />
+        ))}
       </div>
     </div>
   );

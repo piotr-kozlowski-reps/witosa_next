@@ -2,7 +2,7 @@ import { checkIfArrayContainTheSameValues } from '@/lib/arrayHelpers';
 import { ActivityType } from '@prisma/client';
 import { useState } from 'react';
 
-export function useCategoriesChoosingHandler() {
+export function useActivitiesCategoriesChoosingHandler() {
   const [categories, setCategories] = useState<ActivityType[]>(
     Object.values(ActivityType)
   );

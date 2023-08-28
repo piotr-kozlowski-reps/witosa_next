@@ -1,12 +1,12 @@
 'use client';
 
-import { useCategoriesChoosingHandler } from '@/hooks/useCategoriesChoosingHandler';
+import { useActivitiesCategoriesChoosingHandler } from '@/hooks/useActivitiesCategoriesChoosingHandler';
 import { useChosenCyclicalActivitiesHandler } from '@/hooks/useChosenCyclicalActivitiesHandler';
 import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
 import { CyclicalActivityTemporary } from '@/types';
 import { Day } from '@prisma/client';
 import { Fragment } from 'react';
-import NavigationCategoriesAndTarget from '../../components/navigation/NavigationCategoriesAndTarget';
+import NavigationCategoriesAndTargetsForCyclicalActivities from '../../components/navigation/NavigationCategoriesAndTargetsForCyclicalActivities';
 import CyclicalActivitiesList from './CyclicalActivitiesList';
 
 interface Props {
@@ -22,7 +22,7 @@ export default function CyclicalActivitiesContent(props: Props) {
     checkButtonCategoryState,
     checkIfAllCategoriesAreChosen,
     selectAllOrNoneCategories,
-  } = useCategoriesChoosingHandler();
+  } = useActivitiesCategoriesChoosingHandler();
 
   const {
     forWhom,
@@ -48,7 +48,7 @@ export default function CyclicalActivitiesContent(props: Props) {
   ////tsx
   return (
     <Fragment>
-      <NavigationCategoriesAndTarget
+      <NavigationCategoriesAndTargetsForCyclicalActivities
         toggleCategory={toggleCategory}
         checkButtonCategoryState={checkButtonCategoryState}
         toggleForWhom={toggleForWhom}

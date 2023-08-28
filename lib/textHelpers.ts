@@ -1,6 +1,6 @@
-import { ActivityType, Day, EventsType, ForWhom, Place } from '@prisma/client';
+import { ActivityType, Day, EventType, ForWhom, Place } from '@prisma/client';
 
-export function getPolishTypeName(type: EventsType) {
+export function getPolishTypeName(type: EventType) {
   let polishTypeName = '';
 
   switch (type) {
@@ -43,7 +43,7 @@ export function getPolishTypeName(type: EventsType) {
   return polishTypeName;
 }
 
-export function getPolishCategoryName(category: ActivityType) {
+export function getPolishCategoryOfActivitiesName(category: ActivityType) {
   let polishCategoryName = '';
 
   switch (category) {
@@ -81,6 +81,49 @@ export function getPolishCategoryName(category: ActivityType) {
 
     default:
       throw new Error('getPolishCategoryName not defined');
+  }
+
+  return polishCategoryName;
+}
+
+export function getPolishCategoryOfEventsName(category: EventType) {
+  let polishCategoryName = '';
+
+  switch (category) {
+    case 'CABARET':
+      polishCategoryName = 'kabaret';
+      break;
+
+    case 'CONCERT':
+      polishCategoryName = 'koncert';
+      break;
+
+    case 'CYCLIC_MEETING':
+      polishCategoryName = 'wydarzenia cykliczne';
+      break;
+
+    case 'FESTIVAL':
+      polishCategoryName = 'festiwal';
+      break;
+
+    case 'LECTURE':
+      polishCategoryName = 'wykład';
+      break;
+
+    case 'SPECTACLE':
+      polishCategoryName = 'spektakl';
+      break;
+
+    case 'WORKSHOP':
+      polishCategoryName = 'warsztaty';
+      break;
+
+    case 'OTHERS':
+      polishCategoryName = 'inne';
+      break;
+
+    default:
+      throw new Error(`getPolishCategoryOfEvents - ${category} not defined`);
   }
 
   return polishCategoryName;
