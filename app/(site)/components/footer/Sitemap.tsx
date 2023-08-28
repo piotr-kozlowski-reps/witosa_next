@@ -190,6 +190,7 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
+        {/* 
         <div className="-ml-[26px] separator-horizontal mt-[24px] mb-[22px]"></div>
         <li className="-ml-[26px] ">
           <NavigationLink
@@ -199,7 +200,7 @@ export default function Sitemap(props: Props) {
             nameToBeDisplayed={getLinkData('LOGIN')?.nameToBeDisplayed!}
             isSiteMapLink={true}
           />
-        </li>
+        </li> */}
       </ul>
     </div>
   );
