@@ -1,7 +1,7 @@
 'use client';
 
 const Error = ({ error, reset }: { error: Error; reset: () => {} }) => {
-  window.location.replace('http://localhost:3000/');
+  window.location.replace(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
   return <div>loading...</div>;
 };
