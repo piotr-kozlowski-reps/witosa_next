@@ -220,7 +220,7 @@
     transition: all ease-out 100ms;
   }
   .submenu-name-sitemap {
-    @apply font-light text-size-normal text-skin-gray focus:primary-focus;
+    @apply font-base-regular text-size-normal text-skin-gray;
   }
 
   .link-active--different-pseudo-after {

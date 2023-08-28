@@ -55,11 +55,11 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
-        <div className="-ml-[26px] submenu-name-sitemap mt-[12px]">
+        <div className="-ml-[26px] submenu-name-sitemap mt-[6px]">
           grupy artystyczne
         </div>
         <ul className="flex flex-col items-start justify-center list-none not-prose">
-          <li className="mt-[9px] -ml-[3px]">
+          <li className="mt-[5px] -ml-[3px]">
             <NavigationLink
               url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
               hideAllSubmenus={() => {}}
@@ -123,9 +123,9 @@ export default function Sitemap(props: Props) {
             />
           </li>
         </ul>
-        <div className="-ml-[26px] submenu-name-sitemap mt-[12px]">o nas</div>
+        <div className="-ml-[26px] submenu-name-sitemap mt-[6px]">o nas</div>
         <ul className="flex flex-col items-start justify-center list-none not-prose">
-          <li className="mt-[9px] -ml-[3px]">
+          <li className="mt-[5px] -ml-[3px]">
             <NavigationLink
               url={getLinkData('ABOUT_ABOUT')?.path!}
               hideAllSubmenus={() => {}}
