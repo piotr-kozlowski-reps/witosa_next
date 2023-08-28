@@ -3,49 +3,48 @@ import {
   TEventTemporary,
   TSliderGroupsImages,
 } from '@/types';
-import { Slide } from '@prisma/client';
 
-export const mainSliderMockData: Slide[] = [
-  {
-    id: '2f4e7c17-0b04-4881-8456-ce6bf7fde841',
-    eventType: ['CONCERT'],
-    slideTitle: 'Pink Floyd - Dark side of the moon.',
-    slideAlt: 'Koncert zespołu Pink Floyd, z płytą: Dark side of the moon.',
-    eventDate: new Date('2023-09-13T19:30:00'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    slideUrl: `news-img-002.jpg`,
-    visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-    visibleUntil: new Date('2023-09-10T11:00:24.968Z'),
-  },
-  {
-    id: '2f422c17-0b04-4881-de56-ce6457fde84l',
-    eventType: ['CABARET', 'SPECTACLE'],
-    slideTitle: 'Kabaret Starszych Panów',
-    slideAlt: 'Kabaret Starszych Panów.',
-    eventDate: new Date('2023-09-03T20:00:00'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    slideUrl: `artcafe_007.jpg`,
-    visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-    visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
-  },
-  {
-    id: 'as422c17-0b04-4881-de56-ce6457fde34r',
-    eventType: ['FESTIVAL'],
-    slideTitle: 'Festiwal moździeży',
-    slideAlt: 'Festiwal moździeży.',
-    eventDate: new Date('2023-09-09T15:15:00'),
-    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-    createdAt: new Date('2023-08-10T11:00:24.968Z'),
-    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-    slideUrl: `activities_image_004.jpg`,
-    visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-    visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
-  },
-];
+// export const mainSliderMockData: Slide[] = [
+//   {
+//     id: '2f4e7c17-0b04-4881-8456-ce6bf7fde841',
+//     eventType: ['CONCERT'],
+//     slideTitle: 'Pink Floyd - Dark side of the moon.',
+//     slideAlt: 'Koncert zespołu Pink Floyd, z płytą: Dark side of the moon.',
+//     eventDate: new Date('2023-09-13T19:30:00'),
+//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
+//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
+//     slideUrl: `news-img-002.jpg`,
+//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
+//     visibleUntil: new Date('2023-09-10T11:00:24.968Z'),
+//   },
+//   {
+//     id: '2f422c17-0b04-4881-de56-ce6457fde84l',
+//     eventType: ['CABARET', 'SPECTACLE'],
+//     slideTitle: 'Kabaret Starszych Panów',
+//     slideAlt: 'Kabaret Starszych Panów.',
+//     eventDate: new Date('2023-09-03T20:00:00'),
+//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
+//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
+//     slideUrl: `artcafe_007.jpg`,
+//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
+//     visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
+//   },
+//   {
+//     id: 'as422c17-0b04-4881-de56-ce6457fde34r',
+//     eventType: ['FESTIVAL'],
+//     slideTitle: 'Festiwal moździeży',
+//     slideAlt: 'Festiwal moździeży.',
+//     eventDate: new Date('2023-09-09T15:15:00'),
+//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
+//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
+//     slideUrl: `activities_image_004.jpg`,
+//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
+//     visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
+//   },
+// ];
 
 export const allEventsMockData: TEventTemporary[] = [
   {
@@ -61,6 +60,7 @@ export const allEventsMockData: TEventTemporary[] = [
     createdAt: new Date('2023-08-26T15:20:24.968Z'),
     updatedAt: new Date('2023-08-26T15:20:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
     //details
     images: [
       {
@@ -81,6 +81,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       "          <div>\r\n            <p>\r\n              <b>Marcin Wyrostek</b> - wirtuoz akordeonu, kompozytor i aranżer,\r\n              absolwent i obecnie wykładowca Akademii Muzycznej w Katowicach na\r\n              Wydziale Instrumentalnym oraz Wydziale Jazzu i Muzyki Rozrywkowej.{' '}\r\n            </p>\r\n            <p>\r\n              Zwycięzca polskiej edycji programu Mam Talent TVN. Zdobywca 7\r\n              Platynowych Płyt, nagroda Prezydenta RP 2010, Nagroda Ministra\r\n              Kultury 2004, Bestseller Empiku 2012, Statuetka Top Trendy 2011,\r\n              Promotor Polski 2017 - to tylko nieliczne sukcesy i tytuły jakie\r\n              Marcin Wyrostek zdobył na polskiej scenie muzycznej. Ponadto jest\r\n              laureatem i zwycięzcą wielu Międzynarodowych Konkursów\r\n              Akordeonowych: AAA Festival Detroit (USA), Coupe Mondiale\r\n              (Słowacja, Węgry), Reinach AG (Szwajcaria), Rzym (Włochy).\r\n            </p>\r\n            <p>\r\n              Podczas Festiwalu Otwarcia Art. CK, artysta wystąpi z recitalem\r\n              solowym opartym na muzyce baroku, romantyzmu (transkrypcje utworów\r\n              organowych, orkiestrowych, fortepianowych), muzyce współczesnej\r\n              oraz własnych kompozycjach, w których wyraźnie słychać inspiracje\r\n              muzyką ilustracyjną, popularną, filmową, argentyńską, hiszpańską,\r\n              bałkańską, francuską, polskąi żydowską. Usłyszymy tu akordeon\r\n              zarówno w wersji akustycznej jak i elektronicznej.\r\n            </p>\r\n          </div>",
+
     //paying
     isPayed: false,
     kindOfEnterInfo:
@@ -92,6 +93,12 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBeOnlyInNewsSection_NotSeenInEvents: false,
     newsSectionImageUrl: 'news-img-wyrostek-001.jpg',
     newsSectionImageAlt: 'Akordeonista stojący na oświetlonej scenie.',
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_wyrostek_001.jpg',
+    sliderImageAlt: 'Zdjęcie Marcina Wyrostka z akordeonem.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-03T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -129,7 +136,6 @@ export const allEventsMockData: TEventTemporary[] = [
         additionInfoThatMustBeDisplayed: null,
       },
     ],
-
     detailedDescription:
       '<div>\r\n            <p>\r\n              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie\r\n              <b> Art CK!</b>\r\n            </p>\r\n            <p>\r\n              Spotykamy się o <b>15.30</b> przy\r\n              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym\r\n              korowodem prowadzonym przez fantastycznych artystów z\r\n              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na\r\n              powitanie będzie czekała na Was pierwsza niespodzianka!\r\n            </p>\r\n            <p>\r\n              W dalszej kolejności na naszej scenie pojawi się artysta, który\r\n              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.\r\n            </p>\r\n            <p>\r\n              Po pokazie świateł będziecie mogli wziąć udział w grach\r\n              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,\r\n              które nasze cudowne instruktorki tańca przygotują je specjalnie\r\n              dla Was w sali tanecznej oraz zabawach plastycznych,\r\n              przygotowanych przez nasze instruktorki działań twórczych w\r\n              pracowni plastycznej.\r\n            </p>\r\n            <p>\r\n              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>\r\n              , którą się tego dnia pożegnamy i będziemy czekać na Was z\r\n              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do\r\n              zajęć tanecznych i na realizowanych już od 4 września zajęć\r\n              plastycznych!\r\n            </p>\r\n          </div>',
     //paying
@@ -137,7 +143,6 @@ export const allEventsMockData: TEventTemporary[] = [
     kindOfEnterInfo:
       'Wstęp bezpłatny, aby wziąć udział w zajęciach tanecznych i plastycznych należy w dniu imprezy zapisać się i pobrać imienną wejściówkę.',
     ticketBuyingUrl: null,
-
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -145,7 +150,13 @@ export const allEventsMockData: TEventTemporary[] = [
     newsSectionImageUrl: 'news-img-dladzieci-001.jpg',
     newsSectionImageAlt:
       'Zdjęcie kolorowych postaci tworzących grupę teatralną: Lufcik na korbkę.',
-
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_dladzieci_001.jpg',
+    sliderImageAlt:
+      'Zdjęcie kolorowych postaci tworzących grupę o nazwie: Lufcik na korbkę.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-02T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -185,14 +196,18 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
     ticketBuyingUrl: null,
-
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
     isToBeOnlyInNewsSection_NotSeenInEvents: false,
     newsSectionImageUrl: 'news-img-nc-001.jpg',
     newsSectionImageAlt: 'Baner akcji Narodowego czytania.',
-
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_nc_001.jpg',
+    sliderImageAlt: 'Baner akcji Narodowego czytania.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-08T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -225,9 +240,8 @@ export const allEventsMockData: TEventTemporary[] = [
       //   additionInfoThatMustBeDisplayed: null,
       // },
     ],
-
-    /////////////////
-    detailedDescription: 'jakiś opis',
+    detailedDescription:
+      '          <div>\r\n            <p>\r\n              Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup\r\n              tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria\r\n              Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania\r\n              organizacyjne do każdej z grup, podczas których opowiemy jak,\r\n              gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli\r\n              okazję poznać instruktorów, prowadzących poszczególne grupy.\r\n            </p>\r\n            <p>\r\n              Poniżej harmonogram spotkań organizacyjnych dla poszczególnych\r\n              grup:\r\n            </p>\r\n            <ul>\r\n              <li>\r\n                <b>04.09.2023 r., godz. 18:00</b> - Spotkanie organizacyjne dla\r\n                grupy pokazowej Marzenie\r\n              </li>\r\n              <li>\r\n                <b>06.09.2023 r., godz. 17:00</b> - Spotkanie organizacyjne dla\r\n                zespołów Hipnoteria i Hipnoteria Bis\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 16.00</b> - Spotkanie organizacyjne dla\r\n                dzieci początkujących w wieku 6-7 lat\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 17.30</b> - Spotkanie organizacyjne dla\r\n                grupy utaneczniającej z roku 2022/2023 oraz zespołu Marzenie\r\n                Mini Mini\r\n              </li>\r\n            </ul>\r\n          </div>',
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
@@ -239,7 +253,12 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBeOnlyInNewsSection_NotSeenInEvents: true,
     newsSectionImageUrl: 'news-img-grupytaneczne-001.jpg',
     newsSectionImageAlt: 'Baner akcji Narodowego czytania.',
-
+    //slider
+    isToBeInSlider: false,
+    sliderImageUrl: null,
+    sliderImageAlt: null,
+    visibleInSliderFrom: null,
+    visibleInSLiderTo: null,
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),

@@ -145,3 +145,13 @@ export type TEventTemporary = Event & {
     additionInfoThatMustBeDisplayed: string | null;
   }[];
 };
+
+export type TSlide = Pick<
+  Event,
+  | 'id'
+  | 'eventTypes'
+  | 'title'
+  | 'eventStartDate'
+  | 'sliderImageUrl'
+  | 'sliderImageAlt'
+>;

@@ -1,12 +1,12 @@
 'use client';
 
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
-import { Slide } from '@prisma/client';
+import { TSlide } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 import SliderContent from './SliderContent';
 
 type Props = {
-  sliderData: Slide[];
+  sliderData: TSlide[];
 };
 
 export default function SliderView(props: Props) {
@@ -29,10 +29,6 @@ export default function SliderView(props: Props) {
   };
 
   const nextButtonHandler = useCallback(() => {
-    // console.log({ index: slideIndex });
-    // console.log('sliderData.length: ', sliderData.length);
-    // console.log('sliderData.length - 1: ', sliderData.length - 1);
-
     setDirection(1);
     if (slideIndex === sliderData.length - 1) {
       setSlideIndex(0);

@@ -1,10 +1,10 @@
-import { getMainSliderData } from '@/lib/api/sliderUtils';
-import { Slide } from '@prisma/client';
+import { getEventsMappedToMainSliderData } from '@/lib/api/sliderUtils';
+import { TSlide } from '@/types';
 import SliderView from './SliderView';
 
 export default async function MainSlider() {
   ////vars
-  const sliderData: Slide[] = await getMainSliderData();
+  const sliderData: TSlide[] = await getEventsMappedToMainSliderData();
 
   ////tsx
   return <SliderView sliderData={sliderData} />;

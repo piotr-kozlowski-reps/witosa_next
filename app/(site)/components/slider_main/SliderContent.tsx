@@ -2,7 +2,7 @@
 
 import { useObserveElementHeight } from '@/hooks/useObserveElementHeight';
 import { getPolishTypeName } from '@/lib/textHelpers';
-import { Slide } from '@prisma/client';
+import { TSlide } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
@@ -13,7 +13,7 @@ import PrevIcon from '../icons/PrevIcon';
 import SliderDateText from './SliderDateText';
 
 type Props = {
-  slide: Slide;
+  slide: TSlide;
   eventId: string;
   direction: number;
   prevButtonHandler: () => void;
@@ -92,10 +92,10 @@ export default function SliderContent(props: Props) {
                 className="absolute object-cover object-center w-full h-full"
               >
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.slideUrl}`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
                   width={1140}
                   height={900}
-                  alt={slide.slideAlt}
+                  alt={slide.sliderImageAlt || ''}
                   className="object-cover object-center w-full h-full"
                 />
               </motion.div>
@@ -146,7 +146,7 @@ export default function SliderContent(props: Props) {
               >
                 {/* <div ref={descriptionRef} className="absolute mt-8 prose"> */}
                 <div className="text-size-normal">
-                  {slide.eventType.map((type, index) => (
+                  {slide.eventTypes.map((type, index) => (
                     <div key={index} className="inline font-base-regular">
                       <span>{index !== 0 ? '|' : ''}</span>
                       <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
@@ -155,15 +155,15 @@ export default function SliderContent(props: Props) {
                     </div>
                   ))}
                 </div>
-                <h1 className="mt-[18px]">{slide.slideTitle}</h1>
+                <h1 className="mt-[18px]">{slide.title}</h1>
                 <h2 className="-mt-[15px]">
-                  <SliderDateText date={slide.eventDate} />
+                  <SliderDateText date={slide.eventStartDate} />
                 </h2>
                 <div className="mt-[41px]">
                   <CustomLink
                     visibleText="dowiedz się więcej..."
                     url={`events/${eventId}`}
-                    descriptionText={slide.slideTitle}
+                    descriptionText={slide.title}
                   />
                 </div>
               </motion.div>

@@ -30,15 +30,15 @@ export default function EventDynamicInside(props: Props) {
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {event.title}
           </h1>
-          {/* {event.detailedDescription ? (
+          {event.detailedDescription ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: event.detailedDescription as string,
               }}
             ></div>
-          ) : null} */}
+          ) : null}
 
-          <div>
+          {/* <div>
             <p>
               Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup
               tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria
@@ -70,7 +70,7 @@ export default function EventDynamicInside(props: Props) {
                 Mini Mini
               </li>
             </ul>
-          </div>
+          </div> */}
 
           <div className="not-prose">
             <br />

@@ -1,14 +1,34 @@
-import { TGroups, TSliderGroupImage } from '@/types';
-import { Slide } from '@prisma/client';
+import { TGroups, TSlide, TSliderGroupImage } from '@/types';
 import {
-  mainSliderMockData,
+  allEventsMockData,
   sliderGroupsHipnoteriaBisImages,
 } from './temporaryApiMockData';
 
-export async function getMainSliderData() {
-  //TODO: finally api call - open to everyone
-  const sliderData: Slide[] = mainSliderMockData;
-  return sliderData;
+// export async function getMainSliderData() {
+//   //TODO: finally api call - open to everyone
+//   const sliderData: Slide[] = mainSliderMockData;
+//   return sliderData;
+// }
+
+export async function getEventsMappedToMainSliderData() {
+  const eventsToBeSeenInSlider = allEventsMockData.filter(
+    (event) => event.isToBeInSlider
+  );
+
+  const mappedEventsForSlider: TSlide[] = eventsToBeSeenInSlider.map(
+    (event) => {
+      return {
+        id: event.id,
+        eventTypes: event.eventTypes,
+        eventStartDate: event.eventStartDate,
+        title: event.title,
+        sliderImageUrl: event.sliderImageUrl,
+        sliderImageAlt: event.sliderImageAlt,
+      };
+    }
+  );
+
+  return mappedEventsForSlider;
 }
 
 export async function getGroupsSliderData(group: TGroups) {

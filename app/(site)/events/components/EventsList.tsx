@@ -1,3 +1,4 @@
+import { useNavigationState } from '@/context/navigationState';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
 import { createListingOfAllPlacesSeparatedWithCommas } from '@/lib/textHelpers';
@@ -15,6 +16,7 @@ export default function EventsList(props: Props) {
   ////vars
   const { chosenEvents } = props;
   const containerProperClasses = useAdjustContainerWIdthsAndMargins();
+  const { getCurrentDevice } = useNavigationState();
 
   ////tsx
   return (
@@ -70,7 +72,14 @@ export default function EventsList(props: Props) {
                               </h2>
                             </div>
 
-                            <div className="font-large-bold ml-12 -mt-[15px] text-skin-base  ">
+                            <div
+                              className={clsx(
+                                'font-large-bold ml-12 -mt-[13px] text-skin-base',
+                                getCurrentDevice() === 'MOBILE'
+                                  ? 'pt-[20px]'
+                                  : ''
+                              )}
+                            >
                               <div className="prose mt-[13px] w-full">
                                 <h4>{event.title}</h4>
                               </div>
