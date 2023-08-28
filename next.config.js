@@ -10,6 +10,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'witosanext-production.up.railway.app',
       },
+      {
+        protocol: 'https',
+        hostname: 'witosaproductionmainbranch-production.up.railway.app/',
+      },
+      {
+        protocol: 'http',
+        hostname: 'art-ck.pl/',
+      },
     ],
   },
 };
