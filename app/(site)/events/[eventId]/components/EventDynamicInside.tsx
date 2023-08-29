@@ -85,10 +85,6 @@ export default function EventDynamicInside(props: Props) {
                     {createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
                       event.eventStartDate
                     )}
-                    {/* <SliderDateText
-                      date={event.eventStartDate}
-                      forceToBeInOneLine={true}
-                    /> */}
                   </span>
                 </span>
               </div>

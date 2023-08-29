@@ -1,22 +1,17 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
+import { Metadata } from 'next';
 import { Fragment } from 'react';
 import FooterMain from '../../components/footer/FooterMain';
+import AvailabilityDeclarationsContent from './components/AvailabilityDeclarationsContent';
+
+export const metadata: Metadata = {
+  title: 'Deklaracje dostępności | Art CK',
+};
 
 export default function AvailabilityDeclarationsPage() {
-  ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
-
   ////tsx
   return (
     <Fragment>
-      <section className={containerProperClasses}>
-        <div className="max-w-full prose">
-          <h1>Deklaracje dostępności</h1>
-          <p>Strona w przygotowaniu</p>
-        </div>
-      </section>
+      <AvailabilityDeclarationsContent />
       <FooterMain />
     </Fragment>
   );
