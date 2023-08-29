@@ -16,7 +16,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*.art-ck.pl',
+        hostname: 'art-ck.pl',
       },
     ],
   },
