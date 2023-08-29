@@ -3,7 +3,6 @@ import { TCurrentDevice } from '@/types';
 import { EventType } from '@prisma/client';
 import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
 import { Fragment, useRef } from 'react';
 import CustomLink from '../CustomLink';
 
@@ -128,13 +127,18 @@ export default function SingleNews(props: Props) {
         <div className="-mt-[7px]">
           <div className="pt-[57px]">
             <div className="max-w-[271px] max-h-[271px] mx-auto">
-              <Image
+              <img
+                alt={title}
+                src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
+                className="rounded-full"
+              />
+              {/* <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
                 width={271}
                 height={271}
                 alt={title}
                 className="rounded-full"
-              />
+              /> */}
             </div>
           </div>
           <div className="mt-12 prose">
