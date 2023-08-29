@@ -78,32 +78,34 @@ export default function SliderContent(props: Props) {
     <Fragment>
       <div className="relative w-full" style={{ height: overallHeight }}>
         <div ref={overallRef} className="absolute top-0 w-full">
-          {/* image */}
-          <div className="h-[352px] bg-skin-primary rounded-base overflow-hidden relative">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                variants={slideSlidingVariant}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                key={slide.id}
-                custom={direction}
-                className="absolute object-cover object-center w-full h-full"
-              >
-                <img
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
-                  alt={slide.sliderImageAlt || ''}
-                  className="object-cover object-center w-full h-full"
-                />
-                {/* <Image
+          {/* image + icons -> start */}
+          <div className="relative bg-skin-main-bg">
+            <div className="h-[352px] rounded-base overflow-hidden">
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.div
+                  variants={slideSlidingVariant}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  key={slide.id}
+                  custom={direction}
+                  className="absolute object-cover object-center w-full h-full rounded-base"
+                >
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
+                    alt={slide.sliderImageAlt || ''}
+                    className="object-cover object-center w-full h-full rounded-base"
+                  />
+                  {/* <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
                   width={1140}
                   height={900}
                   alt={slide.sliderImageAlt || ''}
                   className="object-cover object-center w-full h-full"
                 /> */}
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             <div className="absolute left-0 z-[1] bottom-2 bg-skin-main-bg rounded-r-base">
               <div className="h-[44px]">
@@ -125,6 +127,7 @@ export default function SliderContent(props: Props) {
               </div>
             </div>
           </div>
+          {/* image + icons -> end */}
 
           {/* pause slider */}
           <div className="absolute right-0 z-[1] top-[350px]">
