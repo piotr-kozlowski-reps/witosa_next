@@ -3,7 +3,7 @@ export const badEmailFormatMessage =
 export const emailAlreadyExistsMessage =
   'Podany e-mail już jest zapisany w naszym newsletterze.';
 export const dbWritingErrorMessage =
-  'Błąd w trakcie zapisywania danych. Spóbuj ponownie.';
+  'Błąd w trakcie zapisywania danych. Spróbuj ponownie.';
 
 //
 export const newsletterDbWritingSuccessMessage =
