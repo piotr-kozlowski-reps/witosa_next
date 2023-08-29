@@ -2,6 +2,7 @@
 
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { TSliderGroupImage } from '@/types';
+import clsx from 'clsx';
 import { Fragment } from 'react';
 import FooterMain from '../components/footer/FooterMain';
 import SliderGroups from '../components/slider_groups/SliderGroups';
@@ -40,15 +41,17 @@ export default function BistroPage() {
   ////tsx
   return (
     <Fragment>
-      <div className={containerProperClasses}>
-        <div className="relative">
-          <SliderGroups sliderImages={sliderImages} />
+      <div>
+        <SliderGroups sliderImages={sliderImages} />
+        <div className={clsx('relative', containerProperClasses)}>
           <div className="absolute right-0">
             <span className="font-sm-normal">
-              fotografie autorstwa Anny Laskowskiej, http://www.dekorialove.pl
+              foto: Anna Laskowska, http://www.dekorialove.pl
             </span>
           </div>
         </div>
+      </div>
+      <div className={containerProperClasses}>
         <div className="max-w-full prose">
           <h1 className="mt-[57px]">Art Cafe</h1>
           <p>
