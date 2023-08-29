@@ -49,7 +49,7 @@ export default function BistroContent() {
         <div className="max-w-full prose">
           <h1 className="mt-[57px]">Art Cafe</h1>
           <p>
-            <b>Art Cafe </b>
+            <b>Art Cafe</b>
             to kawiarnia mieszcząca się przy ul. Wincentego Witosa 6 w Knurowie,
             w nowo otwartym miejscu, należącym do knurowskiego Centrum Kultury.
           </p>
