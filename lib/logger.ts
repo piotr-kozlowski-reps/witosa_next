@@ -2,13 +2,13 @@ import { createLogger, format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
 const getLogger = (fileName = 'witosa') => {
-  const fileLogTransport = new transports.DailyRotateFile({
-    filename: `logs/${fileName}-%DATE%.log`,
-    datePattern: 'YYYY-MM-DD',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '30d',
-  });
+  // const fileLogTransport = new transports.DailyRotateFile({
+  //   filename: `logs/${fileName}-%DATE%.log`,
+  //   datePattern: 'YYYY-MM-DD',
+  //   zippedArchive: true,
+  //   maxSize: '20m',
+  //   maxFiles: '30d',
+  // });
 
   const consoleTransport = new transports.Console({
     level: process.env.LOG_LEVEL,
@@ -37,7 +37,7 @@ const getLogger = (fileName = 'witosa') => {
   //   logger.add(fileLogTransport);
   // }
 
-  logger.add(fileLogTransport);
+  // logger.add(fileLogTransport);
   logger.add(consoleTransport);
 
   return logger;
