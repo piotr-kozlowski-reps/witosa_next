@@ -108,7 +108,7 @@ export const allEventsMockData: TEventTemporary[] = [
     id: 'de827c17-0b04-ff81-gg56-ce6bfr4gz45a',
     eventTypes: ['WORKSHOP', 'OTHERS'],
     eventForWhom: ['CHILDREN', 'TEENS'],
-    title: 'Festiwal Otwarcia Art. CK dla dzieci i młodzieży',
+    title: 'Festiwal Otwarcia Art CK dla dzieci i młodzieży',
     places: ['CONCERT_HALL', 'ART_ROOM', 'DANCING_ROOM'],
     shortDescription:
       'Zapraszamy naszych MŁODYCH GOŚCI na uroczyste otwarcie Art CK! Przygotowaliśmy specjalnie dla WAS troszkę atrakcji i niespodzianek. Będziecie mieli okazję po raz pierwszy zwiedzić nową przestrzeń Centrum Kultury, przy okazji świetnie się bawiąc…',

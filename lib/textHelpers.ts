@@ -160,6 +160,7 @@ export function getPolishForWhomName(forWhom: ForWhom) {
   return polishForWhomName;
 }
 
+//time
 export function getPolishDayName(day: Day) {
   let polishDayName = '';
 
@@ -198,7 +199,6 @@ export function getPolishDayName(day: Day) {
 
   return polishDayName;
 }
-
 export function getTwoDigitMinutes(date: Date) {
   return date.getMinutes() <= 9
     ? `0${date.getMinutes()}`
@@ -208,6 +208,23 @@ export function getTwoDigitHours(date: Date) {
   return date.getUTCHours() <= 9
     ? `0${date.getUTCHours()}`
     : `${date.getUTCHours()}`;
+}
+export function getCorrectTwoDigitsMonthNumber(date: Date) {
+  const month = [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+  ];
+  return month[date.getMonth()];
 }
 
 export function getPolishPlaceName(place: Place) {
@@ -237,24 +254,6 @@ export function createBetweenHoursText(startDate: Date, endDate: Date) {
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
   )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;
-}
-
-export function getCorrectTwoDigitsMonthNumber(date: Date) {
-  const month = [
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-  ];
-  return month[date.getMonth()];
 }
 
 export function getPolishDayFromDateObject(date: Date) {
