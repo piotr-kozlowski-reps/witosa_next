@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   createBetweenHoursText,
+  createDateInFormat_DateSeparatorFullDayNameSeparatorTime,
   createListingOfAllPlacesSeparatedWithCommas,
   getCorrectTwoDigitsMonthNumber,
   getHoursAndMinutesWithGInFrontFromDateObject,
@@ -229,5 +230,15 @@ describe('createListingOfAllPlacesSeparatedWithCommas()', () => {
         'DANCING_ROOM',
       ])
     ).toEqual('Sala plastyczna, Sala koncertowa, Sala taneczna');
+  });
+});
+
+describe('createDateInFormat_DateSeparatorFullDayNameSeparatorTime()', () => {
+  it('returns only one place with no comma in the end', () => {
+    expect(
+      createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
+        new Date('2023-08-29T10:45:00.968Z')
+      )
+    ).toEqual('29.08.2023 | wtorek | g. 10:45');
   });
 });

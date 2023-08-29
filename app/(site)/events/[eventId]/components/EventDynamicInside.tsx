@@ -2,9 +2,11 @@
 
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import SliderDateText from '@/app/(site)/components/slider_main/SliderDateText';
 import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
-import { getPolishPlaceName } from '@/lib/textHelpers';
+import {
+  createDateInFormat_DateSeparatorFullDayNameSeparatorTime,
+  getPolishPlaceName,
+} from '@/lib/textHelpers';
 import { TEventTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
@@ -76,14 +78,17 @@ export default function EventDynamicInside(props: Props) {
             <br />
             {/* data */}
             {event.isDateToBeHiddenInNewsSection ? null : (
-              <div>
+              <div className="mb-4">
                 <span className="font-base-regular">
                   <b>Kiedy:&nbsp;&nbsp;&nbsp;</b>
-                  <span className="!pb-[-10px]">
-                    <SliderDateText
+                  <span className="">
+                    {createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
+                      event.eventStartDate
+                    )}
+                    {/* <SliderDateText
                       date={event.eventStartDate}
                       forceToBeInOneLine={true}
-                    />
+                    /> */}
                   </span>
                 </span>
               </div>

@@ -159,6 +159,19 @@ export function getPolishForWhomName(forWhom: ForWhom) {
 
   return polishForWhomName;
 }
+export function createListingOfAllPlacesSeparatedWithCommas(places: Place[]) {
+  let resultString = '';
+
+  places.forEach((place, index) => {
+    if (index === places.length - 1) {
+      resultString += getPolishPlaceName(place);
+      return;
+    }
+    resultString += `${getPolishPlaceName(place)}, `;
+  });
+
+  return resultString;
+}
 
 //time
 export function getPolishDayName(day: Day) {
@@ -226,7 +239,6 @@ export function getCorrectTwoDigitsMonthNumber(date: Date) {
   ];
   return month[date.getMonth()];
 }
-
 export function getPolishPlaceName(place: Place) {
   let polishPlaceName = '';
 
@@ -249,13 +261,11 @@ export function getPolishPlaceName(place: Place) {
 
   return polishPlaceName;
 }
-
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
   )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;
 }
-
 export function getPolishDayFromDateObject(date: Date) {
   const day = [
     'niedziela',
@@ -268,21 +278,15 @@ export function getPolishDayFromDateObject(date: Date) {
   ];
   return day[date.getDay()];
 }
-
 export function getHoursAndMinutesWithGInFrontFromDateObject(date: Date) {
   return `g. ${getTwoDigitHours(date)}:${getTwoDigitMinutes(date)}`;
 }
-
-export function createListingOfAllPlacesSeparatedWithCommas(places: Place[]) {
-  let resultString = '';
-
-  places.forEach((place, index) => {
-    if (index === places.length - 1) {
-      resultString += getPolishPlaceName(place);
-      return;
-    }
-    resultString += `${getPolishPlaceName(place)}, `;
-  });
-
-  return resultString;
+export function createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
+  date: Date
+) {
+  return `${date.getDate()}.${getCorrectTwoDigitsMonthNumber(
+    date
+  )}.${date.getFullYear()} | ${getPolishDayFromDateObject(
+    date
+  )} | g. ${getTwoDigitHours(date)}:${getTwoDigitMinutes(date)}`;
 }
