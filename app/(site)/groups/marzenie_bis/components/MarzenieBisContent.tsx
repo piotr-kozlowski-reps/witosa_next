@@ -1,15 +1,7 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
-
 export default function MarzenieBisContent() {
-  ////vars
-  // const { getCurrentDevice } = useNavigationState();
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
-
   ////tsx
   return (
-    <div className={containerProperClasses}>
+    <div className="proper-container-classes">
       <div className="max-w-full prose">
         <h1 className="mt-[57px]">Marzenie bis</h1>
         <p className="w-full ">

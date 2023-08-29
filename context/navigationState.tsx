@@ -161,7 +161,6 @@ export function useNavigationState() {
   );
 
   /** handler to change visibility of other submenus despite one currently clicked */
-
   const allSubmenusExcludingMobileFirstLevelToMaintainVisibilityOnMobiles = [
     state.isAboutSubmenuVisible,
     state.isGroupsSubmenuVisible,

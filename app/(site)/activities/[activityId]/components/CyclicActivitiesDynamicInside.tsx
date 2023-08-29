@@ -1,8 +1,5 @@
-'use client';
-
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import {
   createBetweenHoursText,
   createListingOfAllPlacesSeparatedWithCommas,
@@ -18,7 +15,6 @@ type Props = {
 
 export default function CyclicActivitiesDynamicInside(props: Props) {
   ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const { activity } = props;
   const sliderImages: TSliderGroupImage[] | undefined =
     activity.extendedInfo?.images || [];
@@ -29,7 +25,7 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
     <Fragment>
       {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages} /> : null}
 
-      <div className={containerProperClasses}>
+      <div className="proper-container-classes">
         <div className="max-w-full prose">
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {activity.name}

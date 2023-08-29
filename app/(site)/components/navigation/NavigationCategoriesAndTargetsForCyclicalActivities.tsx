@@ -1,10 +1,6 @@
-'use client';
-
 import { useNavigationState } from '@/context/navigationState';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
 import { ActivityType, ForWhom } from '@prisma/client';
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import SearchMenuTextButton from '../SearchMenuTextButton';
@@ -39,7 +35,6 @@ export default function NavigationCategoriesAndTargetsForCyclicalActivities(
     selectAllOrNoneForWhoms,
     categoryOfWhatText,
   } = props;
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const {
     getIsCyclicalActivitiesMenuVisible,
     toggleIsCyclicalActivitiesMenuVisible,
@@ -67,10 +62,7 @@ export default function NavigationCategoriesAndTargetsForCyclicalActivities(
           initial={{ scale: 1 }}
           animate={{ scale: 1 }}
           exit={{ scale: 1 }}
-          className={clsx(
-            'flex justify-between pb-[14px]',
-            containerProperClasses
-          )}
+          className="flex justify-between pb-[14px] proper-container-classes"
         >
           <div>
             <SearchMenuTextButton
@@ -92,7 +84,7 @@ export default function NavigationCategoriesAndTargetsForCyclicalActivities(
 
         <div
           id="cyclical-activities-choose-navigation"
-          className={containerProperClasses}
+          className="proper-container-classes"
         >
           <AnimatePresence mode="wait">
             {getIsCyclicalActivitiesMenuVisible() ? (

@@ -1,5 +1,4 @@
 import { useNavigationState } from '@/context/navigationState';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
 import { createListingOfAllPlacesSeparatedWithCommas } from '@/lib/textHelpers';
 import { TEventTemporary } from '@/types';
@@ -15,7 +14,6 @@ interface Props {
 export default function EventsList(props: Props) {
   ////vars
   const { chosenEvents } = props;
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const { getCurrentDevice } = useNavigationState();
 
   ////tsx
@@ -26,7 +24,7 @@ export default function EventsList(props: Props) {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className={clsx('mt-[57px] ', containerProperClasses)}
+        className="mt-[57px] proper-container-classes"
       >
         <div className="prose">
           <h1>Wydarzenia</h1>

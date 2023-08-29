@@ -1,6 +1,3 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { TSlide } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 import SliderContent from './SliderContent';
@@ -12,7 +9,6 @@ type Props = {
 export default function SliderView(props: Props) {
   ////vars
   const { sliderData } = props;
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////utils
   //left-right
@@ -61,7 +57,7 @@ export default function SliderView(props: Props) {
 
   ////tsx
   return (
-    <section className={containerProperClasses}>
+    <section className="proper-container-classes">
       <SliderContent
         slide={sliderData[slideIndex]}
         eventId={sliderData[slideIndex].id}

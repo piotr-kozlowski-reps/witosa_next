@@ -277,10 +277,6 @@
     @apply px-6 py-2 font-light no-underline lowercase transition-all bg-skin-main-bg outline outline-2 outline-cta-primary rounded-base text-size-normal text-skin-base hover:bg-skin-cta-secondary hover:outline-cta-secondary disabled:cursor-auto disabled:bg-skin-gray hover:text-skin-inverted;
   }
 
-  .desktop-container {
-    @apply w-[1140px] mx-auto;
-  }
-
   .submenu-container {
     @apply py-4 rounded-b-base rounded-r-base bg-skin-main-bg drop-shadow-big;
   }
@@ -385,5 +381,13 @@
     background-color: var(--color-background-base);
     /* color: #fff; */
     padding: 4px;
+  }
+
+  /* containers */
+  .desktop-container {
+    @apply w-[1140px] mx-auto;
+  }
+  .proper-container-classes {
+    @apply mx-mobile-margin tablet:mx-tablet-margin desktop:mx-auto desktop:w-[1140px];
   }
 }

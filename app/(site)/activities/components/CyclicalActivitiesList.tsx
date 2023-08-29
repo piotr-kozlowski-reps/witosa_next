@@ -1,4 +1,3 @@
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { pageVariant } from '@/lib/animations/variants';
 import {
   createBetweenHoursText,
@@ -22,7 +21,6 @@ export default function CyclicalActivitiesList(props: Props) {
   ////vars
   const { chosenCyclicalActivities, getCyclicalActivitiesByDayOfTheWeek } =
     props;
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
@@ -32,7 +30,7 @@ export default function CyclicalActivitiesList(props: Props) {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className={clsx('mt-[57px]', containerProperClasses)}
+        className="mt-[57px] proper-container-classes"
       >
         <div className="prose">
           <h1>Zajęcia stałe</h1>
@@ -73,8 +71,6 @@ export default function CyclicalActivitiesList(props: Props) {
                             <div className="prose">
                               <h2>{`${getPolishDayName(day as Day)}:`}</h2>
                               {activitiesForToday.map((activity, index) => {
-                                // console.log(activity.occurrence);
-
                                 const todaysInfoAsArray =
                                   activity.occurrence.filter(
                                     (item) => item.day === day

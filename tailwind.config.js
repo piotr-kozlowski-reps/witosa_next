@@ -5,6 +5,10 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      tablet: '520px',
+      desktop: '1280px',
+    },
     extend: {
       textColor: {
         skin: {

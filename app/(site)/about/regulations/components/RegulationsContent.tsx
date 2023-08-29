@@ -1,16 +1,10 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { Fragment } from 'react';
 
 export default function RegulationsContent() {
-  ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
-
   ////tsx
   return (
     <Fragment>
-      <section className={containerProperClasses}>
+      <section className="proper-container-classes">
         <div className="max-w-full prose">
           <h1>Regulaminy</h1>
           <h3>Regulamin sprzedaży biletów on-line w Art CK w Knurowie</h3>

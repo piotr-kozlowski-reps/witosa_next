@@ -1,8 +1,5 @@
-'use client';
-
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import {
   createDateInFormat_DateSeparatorFullDayNameSeparatorTime,
   getPolishPlaceName,
@@ -17,7 +14,6 @@ type Props = {
 
 export default function EventDynamicInside(props: Props) {
   ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const { event } = props;
   const sliderImages: TSliderGroupImage[] = event.images || [];
 
@@ -27,7 +23,7 @@ export default function EventDynamicInside(props: Props) {
     <Fragment>
       {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages!} /> : null}
 
-      <div className={containerProperClasses}>
+      <div className="proper-container-classes">
         <div className="max-w-full prose">
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {event.title}

@@ -1,14 +1,7 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
-
 export default function PrivacyPolicyContent() {
-  ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
-
   ////tsx
   return (
-    <section className={containerProperClasses}>
+    <section className="proper-container-classes">
       <div className="max-w-full prose">
         <h1>Polityka prywatności</h1>
         <p>

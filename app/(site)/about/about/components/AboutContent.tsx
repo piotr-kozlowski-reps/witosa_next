@@ -1,13 +1,9 @@
-'use client';
-
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { TSliderGroupImage } from '@/types';
 import { Fragment } from 'react';
 
 export default function AboutContent() {
   ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const sliderImages: TSliderGroupImage[] = [
     {
       url: 'artcafe_002.jpg',
@@ -42,7 +38,8 @@ export default function AboutContent() {
             </span>
           </div> */}
       </div>
-      <div className={containerProperClasses}>
+      {/* //TODO: here */}
+      <div className="proper-container-classes">
         <div className="max-w-full prose">
           <h1 className="mt-[57px]">O nas</h1>
           <p>

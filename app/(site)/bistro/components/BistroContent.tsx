@@ -1,14 +1,9 @@
-'use client';
-
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import { TSliderGroupImage } from '@/types';
-import clsx from 'clsx';
 import { Fragment } from 'react';
 import SliderGroups from '../../components/slider_groups/SliderGroups';
 
 export default function BistroContent() {
   ////vars
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
   const sliderImages: TSliderGroupImage[] = [
     {
       url: 'artcafe_001.jpg',
@@ -42,7 +37,7 @@ export default function BistroContent() {
     <Fragment>
       <div>
         <SliderGroups sliderImages={sliderImages} />
-        <div className={clsx('relative', containerProperClasses)}>
+        <div className="relative proper-container-classes">
           <div className="absolute right-0">
             <span className="font-sm-normal">
               foto: Anna Laskowska, http://www.dekorialove.pl
@@ -50,7 +45,7 @@ export default function BistroContent() {
           </div>
         </div>
       </div>
-      <div className={containerProperClasses}>
+      <div className="proper-container-classes">
         <div className="max-w-full prose">
           <h1 className="mt-[57px]">Art Cafe</h1>
           <p>

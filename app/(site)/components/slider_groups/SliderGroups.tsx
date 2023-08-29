@@ -14,7 +14,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import { useNavigationState } from '@/context/navigationState';
-import { useAdjustContainerWIdthsAndMargins } from '@/hooks/useAdjustContainerWIdthsAndMargins';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -27,7 +26,6 @@ export default function SliderGroups(props: Props) {
   ////vars
   const { sliderImages } = props;
   const { getCurrentDevice } = useNavigationState();
-  const containerProperClasses = useAdjustContainerWIdthsAndMargins();
 
   ////tsx
   return (
@@ -43,7 +41,7 @@ export default function SliderGroups(props: Props) {
         watchState: true,
       }}
       modules={[Navigation, Pagination, Mousewheel, Keyboard, HashNavigation]}
-      className={containerProperClasses}
+      className="proper-container-classes"
     >
       {sliderImages.map((sliderImage, index) => {
         return (
@@ -51,10 +49,7 @@ export default function SliderGroups(props: Props) {
             <div className="relative">
               <SwiperSlide>
                 <div
-                  className={clsx(
-                    'h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10',
-                    containerProperClasses
-                  )}
+                  className="h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10 proper-container-classes"
                   style={{
                     backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}${sliderImage.url})`,
                   }}
