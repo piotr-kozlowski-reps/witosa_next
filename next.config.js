@@ -15,12 +15,8 @@ const nextConfig = {
         hostname: 'witosaproductionmainbranch-production.up.railway.app/',
       },
       {
-        protocol: 'http',
-        hostname: 'www.art-ck.pl',
-      },
-      {
         protocol: 'https',
-        hostname: 'www.art-ck.pl',
+        hostname: '*.art-ck.pl',
       },
     ],
   },
