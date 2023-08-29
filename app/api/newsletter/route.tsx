@@ -63,3 +63,9 @@ export async function POST(req: NextRequest, _res: NextResponse) {
     { status: 201 }
   );
 }
+
+export async function GET(req: NextRequest, _res: NextResponse) {
+  return new NextResponse(JSON.stringify({ message: 'text message' }), {
+    status: 200,
+  });
+}
