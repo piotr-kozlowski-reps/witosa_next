@@ -29,7 +29,7 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://art-ck.pl',
+            value: 'https://www.art-ck.pl',
           },
           {
             key: 'Access-Control-Allow-Methods',
