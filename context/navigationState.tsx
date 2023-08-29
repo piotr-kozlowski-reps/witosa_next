@@ -47,7 +47,7 @@ const navigationStateData: TNavigationState = {
     },
     {
       name: 'BISTRO',
-      nameToBeDisplayed: 'strefa bistro',
+      nameToBeDisplayed: 'art cafe',
       path: '/bistro',
       isCurrentlyUsed: false,
     },
