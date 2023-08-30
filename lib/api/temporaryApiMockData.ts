@@ -264,6 +264,108 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-08T23:59:00.968Z'),
   },
+  {
+    id: 'd44e7r47-0b04-ff81-8456-ce6bf7fd87yq',
+    eventTypes: ['CONCERT'],
+    eventForWhom: ['ADULTS', 'SENIORS', 'WOMEN', 'TEENS'],
+    title: 'Duo Flamenco',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Ekspresyjny taniec i wirtuozeria gitary flamenco w wykonaniu najlepszych artystów tego gatunku w Polsce - Anny Mendak oraz Michała Czachowskiego.',
+    eventStartDate: new Date('2023-09-09T19:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_duoflamenco_001.jpg',
+        alt: 'Tańcząca tancerka flamenco oraz dwóch gitarzystów.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_duoflamenco_002.jpg',
+        alt: 'Tańcząca tancerka flamenco oraz dwóch gitarzystów.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '        <div>\r\n            <p>\r\n              Zapraszamy serdecznie na pełen energii, pasji i niesamowitości\r\n              koncert Duo Flamenco w wykonaniu Michała Czachowskiego i Anny\r\n              Mendak.\r\n            </p>\r\n            <p>\r\n              Flamenco jest najpopularniejszą muzyką etniczną na świecie,\r\n              powstała w Andaluzji, regionie południowej Hiszpanii, gdzie\r\n              przewijały się kultury różnych nacji. W wyniku wzajemnych wpływów,\r\n              na początku XIX wieku powstała niezwykle ekspresyjna muzyka, którą\r\n              znamy pod nazwą Flamenco.\r\n            </p>\r\n            <p>\r\n              <b>Michał Czachowski</b> - gitarzysta flamenco, kompozytor,\r\n              producent muzyczny. Swe umiejętności muzyczne rozwijał u boku\r\n              takich gitarzystów flamenco jak: Rafael Cortés, Gerardo Núñez i\r\n              Salva del Real. Dwukrotnie został uznany za najlepszego gitarzystę\r\n              Flamenco w Polsce. Założyciel zespołu muzyki flamenco Viva\r\n              Flamenco oraz międzynarodowego projektu Indialucia, za który był\r\n              nominowany do Fryderyków 2006.\r\n            </p>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka Flamenco w Polsce,\r\n              choreograf, pedagog, tancerka brzucha, psycholog. Przez ponad 10\r\n              lat była czołową tancerką polskich grup flamenco. Wraz z zespołami\r\n              występowała na wielu festiwalach tanecznych, gitarowych i\r\n              folkowych. W 2004 roku zajęła I miejsce w konkursie na najlepszą\r\n              polską tancerkę flamenco.\r\n            </p>\r\n          </div>',
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo: 'Bilet w cenie 50 pln.',
+    ticketBuyingUrl: null,
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-duoflamenco-001.jpg',
+    newsSectionImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_duoflamenco_002.jpg',
+    sliderImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-09T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-09T23:59:00.968Z'),
+  },
+  {
+    id: 'aa4e7r47-7804-ff81-8456-ce6bf7fd83wq',
+    eventTypes: ['WORKSHOP'],
+    eventForWhom: ['CHILDREN', 'TEENS'],
+    title: 'Warsztaty flamenco dla dzieci',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Tańczący wachlarz flamenco - warsztaty taneczne, plastyczne w wykonaniu Anny Mendak i z muzyką na żywo wykonywaną przez czołowego gitarzystę flamenco w Polsce - Michała Czachowskiego.',
+    eventStartDate: new Date('2023-09-10T10:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_duoflamenco_001.jpg',
+        alt: 'Tańcząca tancerka flamenco oraz dwóch gitarzystów.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_duoflamenco_002.jpg',
+        alt: 'Tańcząca tancerka flamenco oraz dwóch gitarzystów.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '          <div>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi\r\n              warsztaty tańca dla dzieci w wieku 7-14 lat.\r\n            </p>\r\n            <p>\r\n              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,\r\n              zapoznają z się z podstawowymi technikami i krokami tańca\r\n              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał\r\n              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego\r\n              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami\r\n              na scenie Art CK.\r\n            </p>\r\n            <p>\r\n              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00\r\n              -20.00.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Zapraszamy!</b>\r\n            </p>\r\n          </div>',
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo: 'Bilet w cenie 30 pln.',
+    ticketBuyingUrl: null,
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-duoflamenco-002.jpg',
+    newsSectionImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_duoflamenco_001.jpg',
+    sliderImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-10T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-10T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {

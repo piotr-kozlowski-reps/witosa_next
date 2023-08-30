@@ -38,36 +38,25 @@ export default function EventDynamicInside(props: Props) {
 
           {/* <div>
             <p>
-              Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup
-              tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria
-              Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania
-              organizacyjne do każdej z grup, podczas których opowiemy jak,
-              gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli
-              okazję poznać instruktorów, prowadzących poszczególne grupy.
+              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi
+              warsztaty tańca dla dzieci w wieku 7-14 lat.
             </p>
             <p>
-              Poniżej harmonogram spotkań organizacyjnych dla poszczególnych
-              grup:
+              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,
+              zapoznają z się z podstawowymi technikami i krokami tańca
+              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał
+              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego
+              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami
+              na scenie Art CK.
             </p>
-            <ul>
-              <li>
-                <b>04.09.2023 r. , godz. 18:00</b> - Spotkanie organizacyjne dla
-                grupy pokazowej Marzenie
-              </li>
-              <li>
-                <b>06.09.2023 r., godz. 17:00</b> - Spotkanie organizacyjne dla
-                zespołów Hipnoteria i Hipnoteria Bis
-              </li>
-              <li>
-                <b>08.09.2023 r. godz. 16.00</b> - Spotkanie organizacyjne dla
-                dzieci początkujących w wieku 6-7 lat
-              </li>
-              <li>
-                <b>08.09.2023 r., godz. 17.30</b> - Spotkanie organizacyjne dla
-                grupy utaneczniającej z roku 2022/2023 oraz zespołu Marzenie
-                Mini Mini
-              </li>
-            </ul>
+            <p>
+              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00
+              -20.00.
+            </p>
+
+            <p>
+              <b>Zapraszamy!</b>
+            </p>
           </div> */}
 
           <div className="not-prose">

@@ -167,7 +167,7 @@ function getMonthAlwaysInTwoDigits(date: Date) {
 }
 function getDayAlwaysInTwoDigits(date: Date) {
   const dayNumber = date.getDate();
-  return dayNumber <= 10 ? `0${dayNumber}` : dayNumber;
+  return dayNumber <= 9 ? `0${dayNumber}` : dayNumber;
 }
 function createFormattedDate(date: Date) {
   return `${getDayAlwaysInTwoDigits(date)}.${getMonthAlwaysInTwoDigits(date)}`;
