@@ -20,10 +20,6 @@ export function middleware(request: Request) {
     });
   }
 
-  console.log('Middleware');
-  console.log(request.method);
-  console.log(request.url);
-
   return NextResponse.next();
 }
 
