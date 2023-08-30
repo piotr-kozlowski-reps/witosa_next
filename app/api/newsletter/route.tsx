@@ -29,6 +29,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest, _res: NextResponse) {
   ////vars
+  const origin = req.headers.get('origin');
   const body: TNewsletterFormValuesSent = await req.json();
   const { email } = body;
 
@@ -57,7 +58,13 @@ export async function POST(req: NextRequest, _res: NextResponse) {
     logger.warn(emailAlreadyExistsMessage);
     return new NextResponse(
       JSON.stringify({ message: emailAlreadyExistsMessage }),
-      { status: 400 }
+      {
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': origin || '*', //TODO:  make it for Postman and such: origin || '*'
+          'Content-Type': 'application/json',
+        },
+      }
     );
   }
 
@@ -74,7 +81,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
 
   /* final success response */
   logger.info(newsletterDbWritingSuccessMessage);
-  const origin = req.headers.get('origin');
+
   return new NextResponse(
     JSON.stringify({ message: newsletterDbWritingSuccessMessage }),
     {
