@@ -11,21 +11,22 @@ import logger from '@/lib/logger';
 import { TNewsletterFormValuesSent } from '@/types';
 import { NextRequest, NextResponse } from 'next/server';
 
-// export async function OPTIONS(request: Request) {
-//   const allowedOrigin = 'https://www.art-ck.pl';
-//   const response = new NextResponse(null, {
-//     status: 200,
-//     headers: {
-//       'Access-Control-Allow-Origin': allowedOrigin,
-//       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-//       'Access-Control-Allow-Headers':
-//         'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
-//       'Access-Control-Max-Age': '86400',
-//     },
-//   });
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  // const allowedOrigin = 'https://www.art-ck.pl';
+  const response = new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': origin || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
 
-//   return response;
-// }
+  return response;
+}
 
 export async function POST(req: NextRequest, _res: NextResponse) {
   ////vars
