@@ -11,21 +11,21 @@ import logger from '@/lib/logger';
 import { TNewsletterFormValuesSent } from '@/types';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function OPTIONS(request: Request) {
-  const allowedOrigin = 'https://www.art-ck.pl';
-  const response = new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': allowedOrigin,
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
-      'Access-Control-Max-Age': '86400',
-    },
-  });
+// export async function OPTIONS(request: Request) {
+//   const allowedOrigin = 'https://www.art-ck.pl';
+//   const response = new NextResponse(null, {
+//     status: 200,
+//     headers: {
+//       'Access-Control-Allow-Origin': allowedOrigin,
+//       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+//       'Access-Control-Allow-Headers':
+//         'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+//       'Access-Control-Max-Age': '86400',
+//     },
+//   });
 
-  return response;
-}
+//   return response;
+// }
 
 export async function POST(req: NextRequest, _res: NextResponse) {
   ////vars
@@ -74,14 +74,27 @@ export async function POST(req: NextRequest, _res: NextResponse) {
 
   /* final success response */
   logger.info(newsletterDbWritingSuccessMessage);
+  const origin = req.headers.get('origin');
   return new NextResponse(
     JSON.stringify({ message: newsletterDbWritingSuccessMessage }),
-    { status: 201 }
+    {
+      status: 201,
+      headers: {
+        'Access-Control-Allow-Origin': origin || '', //TODO:  make it for Postman and such: origin || '*'
+        'Content-Type': 'application/json',
+      },
+    }
   );
 }
 
 export async function GET(req: NextRequest, _res: NextResponse) {
+  const origin = req.headers.get('origin');
+
   return new NextResponse(JSON.stringify({ message: 'text message' }), {
     status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': origin || '', //TODO:  make it for Postman and such: origin || '*'
+      'Content-Type': 'application/json',
+    },
   });
 }
