@@ -1,11 +1,5 @@
-'use client';
-
 import AuthProvider from '@/context/AuthContext';
 import ToasterContext from '@/context/ToasterContext';
-import { useLayoutState } from '@/context/layoutState';
-import { useNavigationState } from '@/context/navigationState';
-import { clsx } from 'clsx';
-import { AnimatePresence } from 'framer-motion';
 import { Rubik } from 'next/font/google';
 import Navigation from './(site)/components/navigation/Navigation';
 import './globals.css';
@@ -16,55 +10,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  ////logic
-  const currentMode = useLayoutState().getLayoutMode();
-  const currentFontSize = useLayoutState().getFontSize();
-  const {
-    setIsAccessibilitySubmenuVisible_ToTrue:
-      setIsAccessibilitySubmenuVisible_ToTrue,
-  } = useNavigationState();
-
-  const gotoAccessibilityTools = () => {
-    setIsAccessibilitySubmenuVisible_ToTrue();
-    const timeout = setTimeout(() => {
-      window.location.replace('#accessibility_navigation');
-    }, 400);
-    clearTimeout(timeout);
-  };
-
   ////tsx
   return (
     <html lang="pl">
-      <body
-        style={rubik.style}
-        className={clsx(
-          'bg-skin-main-bg overflow-x-hidden',
-
-          // layout modes
-          currentMode === 'LIGHT'
-            ? null
-            : currentMode === 'DARK'
-            ? 'theme-dark'
-            : 'theme-contrast',
-
-          // font sizes
-          currentFontSize === 'NORMAL'
-            ? null
-            : currentFontSize === 'BIGGER'
-            ? 'theme-font-size-bigger'
-            : 'theme-font-size-biggest'
-        )}
-      >
-        <a href="#main_content" className="skip-link">
-          Przejdź do treści
-        </a>
-        <a href="#" className="skip-link" onClick={gotoAccessibilityTools}>
-          Przejdź do narzędzi ułatwiających dostępność treści
-        </a>
+      <body style={rubik.style} className="overflow-x-hidden bg-skin-main-bg">
         <Navigation />
         <AuthProvider>
           <ToasterContext />
-          <AnimatePresence mode="wait">{children}</AnimatePresence>
+          {children}
         </AuthProvider>
       </body>
     </html>
