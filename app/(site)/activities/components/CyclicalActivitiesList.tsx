@@ -12,15 +12,17 @@ import CustomLink from '../../components/CustomLink';
 
 interface Props {
   chosenCyclicalActivities: CyclicalActivityTemporary[];
-  getCyclicalActivitiesByDayOfTheWeek: (
+  getCyclicalActivitiesByDayOfTheWeekSortedByDate: (
     _day: Day
   ) => CyclicalActivityTemporary[];
 }
 
 export default function CyclicalActivitiesList(props: Props) {
   ////vars
-  const { chosenCyclicalActivities, getCyclicalActivitiesByDayOfTheWeek } =
-    props;
+  const {
+    chosenCyclicalActivities,
+    getCyclicalActivitiesByDayOfTheWeekSortedByDate,
+  } = props;
 
   ////tsx
   return (
@@ -58,7 +60,9 @@ export default function CyclicalActivitiesList(props: Props) {
                 >
                   {Object.keys(Day).map((day) => {
                     const activitiesForToday =
-                      getCyclicalActivitiesByDayOfTheWeek(day as Day);
+                      getCyclicalActivitiesByDayOfTheWeekSortedByDate(
+                        day as Day
+                      );
 
                     return (
                       <AnimatePresence mode="wait" key={day}>

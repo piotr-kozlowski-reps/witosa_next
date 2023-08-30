@@ -38,10 +38,21 @@ export default function CyclicalActivitiesContent(props: Props) {
     forWhom
   );
 
-  const getCyclicalActivitiesByDayOfTheWeek = (day: Day) => {
-    const resultCyclicalActivitiesByDay = chosenCyclicalActivities.filter(
-      (activity) => activity.occurrence.find((item) => item.day === day)
-    );
+  const getCyclicalActivitiesByDayOfTheWeekSortedByDate = (day: Day) => {
+    const resultCyclicalActivitiesByDay = chosenCyclicalActivities
+      .filter((activity) =>
+        activity.occurrence.find((item) => item.day === day)
+      )
+      .sort((a, b) => {
+        const aStartDate = a.occurrence
+          .find((item) => item.day === day)!
+          .activityStart.getTime();
+        const bStartDate = b.occurrence
+          .find((item) => item.day === day)!
+          .activityStart.getTime();
+        return aStartDate - bStartDate;
+      });
+
     return resultCyclicalActivitiesByDay;
   };
 
@@ -61,8 +72,8 @@ export default function CyclicalActivitiesContent(props: Props) {
       />
       <CyclicalActivitiesList
         chosenCyclicalActivities={chosenCyclicalActivities}
-        getCyclicalActivitiesByDayOfTheWeek={
-          getCyclicalActivitiesByDayOfTheWeek
+        getCyclicalActivitiesByDayOfTheWeekSortedByDate={
+          getCyclicalActivitiesByDayOfTheWeekSortedByDate
         }
       />
     </Fragment>
