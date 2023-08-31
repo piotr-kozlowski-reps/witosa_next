@@ -7,7 +7,7 @@ export default function TestPageContent() {
       <div>test_page_for images</div>
       <div>
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}events_wyrostek_003.jpg`}
+          src={`${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}events_wyrostek_003.jpg`}
           width={1140}
           height={900}
           alt="some alt"
