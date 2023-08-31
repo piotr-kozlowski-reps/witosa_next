@@ -5,6 +5,7 @@ import { getPolishTypeName } from '@/lib/textHelpers';
 import { TSlide } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { Fragment } from 'react';
 import CustomLink from '../CustomLink';
 import TextButton from '../TextButton';
@@ -91,18 +92,18 @@ export default function SliderContent(props: Props) {
                   custom={direction}
                   className="absolute object-cover object-center w-full h-full rounded-base"
                 >
-                  <img
+                  {/* <img
                     src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
                     alt={slide.sliderImageAlt || ''}
                     className="object-cover object-center w-full h-full rounded-base"
+                  /> */}
+                  <Image
+                    src={`${slide.sliderImageUrl}`}
+                    width={1140}
+                    height={900}
+                    alt={slide.sliderImageAlt || ''}
+                    className="object-cover object-center w-full h-full"
                   />
-                  {/* <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
-                  width={1140}
-                  height={900}
-                  alt={slide.sliderImageAlt || ''}
-                  className="object-cover object-center w-full h-full"
-                /> */}
                 </motion.div>
               </AnimatePresence>
             </div>
