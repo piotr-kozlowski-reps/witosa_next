@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Art Cafe | Art CK',
 };
 
-export default function BistroPage() {
+export default async function BistroPage() {
   ////tsx
   return (
     <Fragment>
