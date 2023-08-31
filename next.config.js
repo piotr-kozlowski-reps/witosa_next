@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'art-ck.pl',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.art-ck.pl',
+      },
     ],
   },
   // async headers() {
