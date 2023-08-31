@@ -1,3 +1,6 @@
+import { getNewsDataSorted } from '@/lib/api/newsUtils';
+import { getEventsMappedToMainSliderData } from '@/lib/api/sliderUtils';
+import { TEventInNewsSection, TSlide } from '@/types';
 import { Metadata } from 'next';
 import MainPage from './(site)/components/MainPage';
 
@@ -10,11 +13,15 @@ export const metadata: Metadata = {
     'Art CK to miejsce, które zostało stworzone z myślą nie tylko o pasjonatach szeroko pojętej kultury i sztuki, ale o wszystkich, którzy marzą o swobodnym spędzaniu czasu w przyjaznej, pełnej ciepła atmosferze.',
 };
 
-export default function Home() {
+export default async function Home() {
+  ////vars
+  const sliderData: TSlide[] = await getEventsMappedToMainSliderData();
+  const newsData: TEventInNewsSection[] = await getNewsDataSorted();
+
   ////tsx
   return (
     <main>
-      <MainPage />
+      <MainPage sliderData={sliderData} newsData={newsData} />
     </main>
   );
 }

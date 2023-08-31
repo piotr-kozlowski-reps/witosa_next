@@ -1,11 +1,20 @@
 'use client';
 
+import { TEventInNewsSection, TSlide } from '@/types';
 import { motion } from 'framer-motion';
 import FooterMain from './footer/FooterMain';
 import NewsMain from './news/NewsMain';
 import MainSlider from './slider_main/MainSlider';
 
-export default function MainPage() {
+type Props = {
+  sliderData: TSlide[];
+  newsData: TEventInNewsSection[];
+};
+
+export default function MainPage(props: Props) {
+  ////vars
+  const { sliderData, newsData } = props;
+
   ////tsx
   return (
     <motion.div
@@ -13,8 +22,8 @@ export default function MainPage() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 15 }}
     >
-      <MainSlider />
-      <NewsMain />
+      <MainSlider sliderData={sliderData} />
+      <NewsMain newsData={newsData} />
       {/* <Test /> */}
       {/* <TestServerSession />
       <TestClientSession /> */}

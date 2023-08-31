@@ -1,16 +1,14 @@
-import { getNewsDataSorted } from '@/lib/api/newsUtils';
 import { TEventInNewsSection } from '@/types';
 import NewsInside from './NewsInside';
 
-async function NewsMain() {
-  ////vars
-  const newsData: TEventInNewsSection[] = await getNewsDataSorted();
+type Props = {
+  newsData: TEventInNewsSection[];
+};
 
-  // console.log('newsData.length: ', newsData.length);
-  // console.log({ newsData });
+export default function NewsMain(props: Props) {
+  ////vars
+  const { newsData } = props;
 
   ////tsx
   return <NewsInside newsData={newsData} />;
 }
-
-export default NewsMain;
