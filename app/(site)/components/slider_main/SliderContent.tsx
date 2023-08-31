@@ -92,17 +92,12 @@ export default function SliderContent(props: Props) {
                   custom={direction}
                   className="absolute object-cover object-center w-full h-full rounded-base"
                 >
-                  {/* <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.sliderImageUrl}`}
-                    alt={slide.sliderImageAlt || ''}
-                    className="object-cover object-center w-full h-full rounded-base"
-                  /> */}
                   <Image
                     src={`${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}${slide.sliderImageUrl}`}
                     width={1140}
                     height={900}
                     alt={slide.sliderImageAlt || ''}
-                    className="object-cover object-center w-full h-full"
+                    className="object-cover object-center w-full h-full rounded-base"
                   />
                 </motion.div>
               </AnimatePresence>
