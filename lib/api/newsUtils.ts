@@ -6,7 +6,7 @@ import {
 import { allEventsMockData } from './temporaryApiMockData';
 
 export async function getNewsDataSorted() {
-  //TODO: finally api call - open to everyone
+  //TODO: finally api call - open to everyone - with fetch and tag
   const eventsData: TEventTemporary[] = allEventsMockData;
 
   const eventsMappedForNewsSection: TEventInNewsSection[] = eventsData
