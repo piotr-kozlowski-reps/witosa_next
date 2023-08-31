@@ -31,7 +31,7 @@ export default function NewsletterForm() {
     let response: any;
     try {
       response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}api/newsletter`,
+        `${process.env.NEXT_PUBLIC_API_URL}api/newsletter`,
         {
           method: 'POST',
           headers: {
