@@ -1,6 +1,6 @@
 import { checkIfUserIsAnAdmin } from '@/lib/sessionHelpers';
 import { Fragment } from 'react';
-import NotAnAdminError from '../components/NotAnAdminError';
+import NotAnAdminError from '../../(site)/components/NotAnAdminError';
 import LogsList from './components/LogsList';
 
 export default async function Logs() {

@@ -128,11 +128,6 @@ export default function SingleNews(props: Props) {
         <div className="-mt-[7px]">
           <div className="pt-[57px]">
             <div className="max-w-[271px] max-h-[271px] mx-auto">
-              {/* <img
-                alt={title}
-                src={`${process.env.NEXT_PUBLIC_BASE_URL}${newsSectionImageUrl}`}
-                className="rounded-full"
-              /> */}
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}${newsSectionImageUrl}`}
                 width={271}

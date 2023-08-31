@@ -4,7 +4,7 @@ import { useIsUserAuthenticated } from '@/hooks/useIsUserAuthenticated';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import NotAuthenticatedError from '../components/NotAuthenticatedError';
+import NotAuthenticatedError from '../../(site)/components/NotAuthenticatedError';
 
 export default function Dashboard() {
   ////vars
