@@ -296,7 +296,8 @@ export const allEventsMockData: TEventTemporary[] = [
 
     //paying
     isPayed: true,
-    kindOfEnterInfo: 'Bilet w cenie 50 pln.',
+    kindOfEnterInfo:
+      'Bilet w cenie 50 pln. Bilety można rezerwować dzwoniąc pod numer 32 332 63 81, codziennie od 15.00 do 20.00.',
     ticketBuyingUrl: null,
     //news
     isToBeInNewsSection: true,
@@ -343,11 +344,12 @@ export const allEventsMockData: TEventTemporary[] = [
       },
     ],
     detailedDescription:
-      '          <div>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi\r\n              warsztaty tańca dla dzieci w wieku 7-14 lat.\r\n            </p>\r\n            <p>\r\n              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,\r\n              zapoznają z się z podstawowymi technikami i krokami tańca\r\n              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał\r\n              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego\r\n              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami\r\n              na scenie Art CK.\r\n            </p>\r\n            <p>\r\n              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00\r\n              -20.00.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Zapraszamy!</b>\r\n            </p>\r\n          </div>',
+      '<div>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi\r\n              warsztaty tańca dla dzieci w wieku 7-14 lat.\r\n            </p>\r\n            <p>\r\n              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,\r\n              zapoznają z się z podstawowymi technikami i krokami tańca\r\n              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał\r\n              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego\r\n              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami\r\n              na scenie Art CK.\r\n            </p>\r\n            <p>\r\n              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00\r\n              -20.00.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Zapraszamy!</b>\r\n            </p>\r\n          </div>',
 
     //paying
     isPayed: true,
-    kindOfEnterInfo: 'Bilet w cenie 30 pln.',
+    kindOfEnterInfo:
+      'Bilet w cenie 30 pln. Bilety można rezerwować dzwoniąc pod numer 32 332 63 81, codziennie od 15.00 do 20.00.',
     ticketBuyingUrl: null,
     //news
     isToBeInNewsSection: true,
@@ -500,8 +502,12 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: '854e7c17-0uu4-4881-fff5-ce6bgezzh848',
         day: 'MONDAY',
-        activityStart: new Date('2000-01-01T18:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T18:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['ART_ROOM'],
@@ -523,14 +529,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: '854e7c17-ruu4-4881-fff5-ce5bgezzh848',
         day: 'MONDAY',
-        activityStart: new Date('2000-01-01T18:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T18:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+          },
+        ],
       },
       {
         id: '85ee4c17-ruu4-4881-fff5-ce5bgezzh848',
         day: 'WEDNESDAY',
-        activityStart: new Date('2000-01-01T16:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T17:30:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T16:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:30:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -551,14 +565,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'a54d7d17-ruu4-4881-fff5-ce5bbezzh848',
         day: 'TUESDAY',
-        activityStart: new Date('2000-01-01T16:45:00.968Z'),
-        activityEnd: new Date('2000-01-01T18:15:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T16:45:00.968Z'),
+            activityEnd: new Date('2000-01-01T18:15:00.968Z'),
+          },
+        ],
       },
       {
         id: '85je4c17-ruu4-4881-fff5-ce5bge2ah848',
         day: 'THURSDAY',
-        activityStart: new Date('2000-01-01T16:45:00.968Z'),
-        activityEnd: new Date('2000-01-01T18:15:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T16:45:00.968Z'),
+            activityEnd: new Date('2000-01-01T18:15:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -580,14 +602,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54e7d17-ruu4-4881-fff5-ce5bgezzh848',
         day: 'TUESDAY',
-        activityStart: new Date('2000-01-01T15:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T16:30:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T15:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T16:30:00.968Z'),
+          },
+        ],
       },
       {
         id: '85je4c17-ruu4-4881-fff5-ce5bge2ah848',
         day: 'THURSDAY',
-        activityStart: new Date('2000-01-01T15:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T16:30:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T15:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T16:30:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -608,14 +638,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54e7d17-r3u4-4881-fff5-ce5bgegzh848',
         day: 'WEDNESDAY',
-        activityStart: new Date('2000-01-01T18:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T19:30:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T18:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T19:30:00.968Z'),
+          },
+        ],
       },
       {
         id: '85je4237-ruu4-4881-fff5-ce5bhy2ah848',
         day: 'FRIDAY',
-        activityStart: new Date('2000-01-01T15:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T17:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T15:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:00:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -636,14 +674,22 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54e7d17-z3u4-4881-fff5-ce52gegzh848',
         day: 'WEDNESDAY',
-        activityStart: new Date('2000-01-01T19:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T21:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T19:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T21:00:00.968Z'),
+          },
+        ],
       },
       {
         id: '85456237-ruu4-4881-ffr5-ce5bhy2ah848',
         day: 'FRIDAY',
-        activityStart: new Date('2000-01-01T17:15:00.968Z'),
-        activityEnd: new Date('2000-01-01T18:45:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T17:15:00.968Z'),
+            activityEnd: new Date('2000-01-01T18:45:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -675,8 +721,12 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54e7aa7-z3u4-4881-fff5-ce52gegz5988',
         day: 'THURSDAY',
-        activityStart: new Date('2000-01-01T18:30:00.968Z'),
-        activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T18:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['DANCING_ROOM'],
@@ -718,8 +768,12 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54wed17-z3u4-ht81-fff5-ce528egzh848',
         day: 'TUESDAY',
-        activityStart: new Date('2000-01-01T17:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T17:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['ART_ROOM'],
@@ -772,8 +826,12 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54wed17-z454-ht81-fff5-cefr8egzh148',
         day: 'WEDNESDAY',
-        activityStart: new Date('2000-01-01T16:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T17:30:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T16:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:30:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['ART_ROOM'],
@@ -821,8 +879,12 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f54we877-z454-hdd1-fff5-cefr87gzh148',
         day: 'WEDNESDAY',
-        activityStart: new Date('2000-01-01T17:45:00.968Z'),
-        activityEnd: new Date('2000-01-01T19:45:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T17:45:00.968Z'),
+            activityEnd: new Date('2000-01-01T19:45:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['ART_ROOM'],
@@ -865,8 +927,72 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
       {
         id: 'f88we877-z454-89d1-fff5-cefr87g22148',
         day: 'THURSDAY',
-        activityStart: new Date('2000-01-01T18:00:00.968Z'),
-        activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T18:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T20:00:00.968Z'),
+          },
+        ],
+      },
+    ],
+    places: ['ART_ROOM'],
+    isToBePublished: true,
+    createdAt: new Date('2023-08-10T11:00:24.968Z'),
+    updatedAt: new Date('2023-08-10T11:00:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    expiresAt: new Date('2025-08-10T11:00:24.968Z'),
+  },
+  {
+    id: 'aa6723r17-4du4-7uj1-fff5-c3fb4endg9fr',
+    name: 'Akrobatyka dla dzieci i młodzieży.',
+    activityTypes: ['RECREATION', 'EDUCATION', 'DANCE', 'OTHERS'],
+    activitiesForWhom: ['CHILDREN', 'TEENS'],
+    shortDescription:
+      'Treningi akrobatyczne dla lepszego rozwoju Twojego dziecka.',
+    customLinkToDetails: '',
+    extendedInfo: {
+      images: [
+        {
+          url: 'activities_image_017.jpg',
+          alt: 'Instruktorka akrobatyki w trakcie ćwiczeń z dziećmi na sali gimnastycznej.',
+          additionInfoThatMustBeDisplayed: null,
+        },
+        {
+          url: 'activities_image_018.jpg',
+          alt: 'Instruktorka akrobatyki w trakcie ćwiczeń z dziećmi na sali gimnastycznej.',
+          additionInfoThatMustBeDisplayed: null,
+        },
+        {
+          url: 'activities_image_019.jpg',
+          alt: 'Instruktorka akrobatyki w trakcie ćwiczeń z dziećmi na sali gimnastycznej.',
+          additionInfoThatMustBeDisplayed: 'lagowski.foto.pl',
+        },
+      ],
+      description:
+        '          <div>\r\n            <p>\r\n              Zapraszamy na absolutną nowość w ofercie naszej instytucji, jaką\r\n              są treningi akrobatyczne.\r\n            </p>\r\n            <p>\r\n              Zajęcia poprowadzi doświadczona instruktorka akrobatyki:\r\n              <b> Kimi Łagowska</b>.\r\n            </p>\r\n            <p>\r\n              Treningi akrobatyczne pomagają pokonywać własne lęki i słabości,\r\n              kształtują charakter i są wspaniałą nauką dyscypliny oraz\r\n              skupienia. Kolejne udane elementy (przewroty, gwiazdy, stanie na\r\n              głowie czy rękach, mostki, przejścia, fliki) budują samoocenę i\r\n              dodają pewności siebie. Dziecko staje się bardziej zwinne,\r\n              silniejsze, nabiera większej świadomości ciała i szybciej opanuje\r\n              różne zadania koordynacyjne w sporcie, w tańcu i życiu codziennym.\r\n            </p>\r\n            <p>\r\n              Zajęcia rozpoczynają się <b>30.09</b> i odbywać się będą w każdą\r\n              sobotę w czterech odrębnych grupach.\r\n            </p>\r\n            <p>\r\n              Dla bezpieczeństwa i komfortu dzieci, grupy nie będą przekraczały\r\n              14 osób.\r\n            </p>\r\n            <p>\r\n              Koszt: 70 pln za miesiąc. Pierwsze zajęcia <b>30.09</b> są\r\n              zajęciami <b>bezpłatnymi</b>.\r\n            </p>\r\n          </div>',
+    },
+    occurrence: [
+      {
+        id: 'aaawe877-z4rt-89d1-fff5-cefr87g22wed',
+        day: 'SATURDAY',
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T11:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T12:30:00.968Z'),
+          },
+          {
+            activityStart: new Date('2000-01-01T12:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T14:00:00.968Z'),
+          },
+          {
+            activityStart: new Date('2000-01-01T14:15:00.968Z'),
+            activityEnd: new Date('2000-01-01T15:45:00.968Z'),
+          },
+          {
+            activityStart: new Date('2000-01-01T15:45:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:15:00.968Z'),
+          },
+        ],
       },
     ],
     places: ['ART_ROOM'],

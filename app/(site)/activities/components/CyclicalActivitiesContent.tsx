@@ -46,10 +46,10 @@ export default function CyclicalActivitiesContent(props: Props) {
       .sort((a, b) => {
         const aStartDate = a.occurrence
           .find((item) => item.day === day)!
-          .activityStart.getTime();
+          .duration[0].activityStart.getTime();
         const bStartDate = b.occurrence
           .find((item) => item.day === day)!
-          .activityStart.getTime();
+          .duration[0].activityStart.getTime();
         return aStartDate - bStartDate;
       });
 

@@ -123,11 +123,15 @@ export type TGroups =
   | 'HIPNOTERIA_BIS'
   | 'HIPNOTERIA';
 
+export type TDuration = {
+  activityStart: Date;
+  activityEnd: Date;
+};
+
 export type TCyclicalActivityOccurrenceTemporary = {
   id: string;
   day: Day;
-  activityStart: Date;
-  activityEnd: Date;
+  duration: TDuration[];
 };
 
 export type CyclicalActivityTemporary = CyclicalActivity & {

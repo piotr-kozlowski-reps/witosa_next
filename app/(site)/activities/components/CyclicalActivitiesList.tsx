@@ -94,8 +94,10 @@ export default function CyclicalActivitiesList(props: Props) {
                                     >
                                       <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
                                         {createBetweenHoursText(
-                                          todaysInfo.activityStart,
-                                          todaysInfo.activityEnd
+                                          todaysInfo.duration[0].activityStart,
+                                          todaysInfo.duration[
+                                            todaysInfo.duration.length - 1
+                                          ].activityEnd
                                         )}
                                       </div>
                                       <div className="ml-[80px]">

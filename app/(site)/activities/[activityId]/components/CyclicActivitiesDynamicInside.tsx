@@ -38,6 +38,38 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
             ></div>
           ) : null}
 
+          {/* <div>
+            <p>
+              Zapraszamy na absolutną nowość w ofercie naszej instytucji, jaką
+              są treningi akrobatyczne.
+            </p>
+            <p>
+              Zajęcia poprowadzi doświadczona instruktorka akrobatyki:
+              <b> Kimi Łagowska</b>.
+            </p>
+            <p>
+              Treningi akrobatyczne pomagają pokonywać własne lęki i słabości,
+              kształtują charakter i są wspaniałą nauką dyscypliny oraz
+              skupienia. Kolejne udane elementy (przewroty, gwiazdy, stanie na
+              głowie czy rękach, mostki, przejścia, fliki) budują samoocenę i
+              dodają pewności siebie. Dziecko staje się bardziej zwinne,
+              silniejsze, nabiera większej świadomości ciała i szybciej opanuje
+              różne zadania koordynacyjne w sporcie, w tańcu i życiu codziennym.
+            </p>
+            <p>
+              Zajęcia rozpoczynają się <b>30.09</b> i odbywać się będą w każdą
+              sobotę w czterech odrębnych grupach.
+            </p>
+            <p>
+              Dla bezpieczeństwa i komfortu dzieci, grupy nie będą przekraczały
+              14 osób.
+            </p>
+            <p>
+              Koszt: 70 pln za miesiąc. Pierwsze zajęcia <b>30.09</b> są
+              zajęciami <b>bezpłatnymi</b>.
+            </p>
+          </div> */}
+
           <div>
             <br />
             <p>
@@ -48,19 +80,42 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
                     <li key={item.id}>
                       <span>{getPolishDayName(item.day)}</span>
                       <span>: </span>
-                      <span>
-                        {createBetweenHoursText(
-                          item.activityStart,
-                          item.activityEnd
-                        )}
-                      </span>
-                      <span>&nbsp;&nbsp;&nbsp;</span>
-                      <span>-&nbsp;&nbsp;&nbsp;</span>
-                      <span>
-                        {createListingOfAllPlacesSeparatedWithCommas(
-                          activity.places
-                        )}
-                      </span>
+                      {item.duration.length === 1 ? (
+                        <Fragment>
+                          <span>
+                            {createBetweenHoursText(
+                              item.duration[0].activityStart,
+                              item.duration[0].activityEnd
+                            )}
+                          </span>
+                          <span>&nbsp;&nbsp;&nbsp;</span>
+                          <span>-&nbsp;&nbsp;&nbsp;</span>
+                          <span>
+                            {createListingOfAllPlacesSeparatedWithCommas(
+                              activity.places
+                            )}
+                          </span>
+                        </Fragment>
+                      ) : null}
+                      {item.duration.length > 1 ? (
+                        <ul>
+                          {item.duration.map((durationItem, index) => (
+                            <li key={index}>
+                              {createBetweenHoursText(
+                                durationItem.activityStart,
+                                durationItem.activityEnd
+                              )}
+                              <span>&nbsp;&nbsp;&nbsp;</span>
+                              <span>-&nbsp;&nbsp;&nbsp;</span>
+                              <span>
+                                {createListingOfAllPlacesSeparatedWithCommas(
+                                  activity.places
+                                )}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </li>
                   );
                 })}
