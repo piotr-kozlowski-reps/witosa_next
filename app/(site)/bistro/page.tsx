@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function BistroPage() {
   // throw new Error('fgbdfgb');
-  //tsx
+  ////tsx
   return (
     <Fragment>
       <BistroContent />

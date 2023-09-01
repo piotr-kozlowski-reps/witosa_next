@@ -14,7 +14,7 @@ export default function CustomLink(props: Props) {
   return (
     <Link
       className={clsx(
-        'standard-button',
+        'standard-button py-[9px]',
         additionalCssClasses ? additionalCssClasses : ''
       )}
       href={url}

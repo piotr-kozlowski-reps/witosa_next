@@ -70,10 +70,7 @@ export default function NavigationAccessibilityDesktop(props: Props) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={clsx(
-              'absolute z-40 ',
-              'w-full h-[352px] top-[128px] right-0 left-0'
-            )}
+            className="absolute z-40 w-full h-[352px] top-[128px] right-0 left-0"
             id="accessibility_navigation"
           >
             <nav
