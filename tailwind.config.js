@@ -92,6 +92,13 @@ module.exports = {
               color: 'var(--color-foreground-base)',
               'letter-spacing': '-1px',
             },
+            h3: {
+              'font-size': 'var(--font-size-large)',
+              'font-weight': 700,
+              'line-height': 'var(--font-size-large-line-height)',
+              color: 'var(--color-foreground-base)',
+              'letter-spacing': '-1px',
+            },
             h4: {
               'font-size': 'var(--font-size-normal)',
               'font-weight': 900,
