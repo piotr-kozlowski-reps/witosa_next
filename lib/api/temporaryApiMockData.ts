@@ -995,7 +995,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         ],
       },
     ],
-    places: ['ART_ROOM'],
+    places: ['DANCING_ROOM'],
     isToBePublished: true,
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
