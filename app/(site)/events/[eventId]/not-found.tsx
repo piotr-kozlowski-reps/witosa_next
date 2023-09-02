@@ -4,10 +4,9 @@ import { useLayoutState } from '@/context/layoutState';
 import { subMenuVariant } from '@/lib/animations/variants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import CustomButton from './(site)/components/CustomButton';
-import CustomLink from './(site)/components/CustomLink';
+import CustomLink from '../../components/CustomLink';
 
-export default function NotFound() {
+export default function EventsNotFound() {
   ////vars
   const { getCurrentForegroundColor } = useLayoutState();
   const currentForegroundColor = getCurrentForegroundColor();
@@ -52,17 +51,16 @@ export default function NotFound() {
             <div className="flex flex-col items-start justify-center">
               <div className="prose">
                 <h3>
-                  Hmm, podana strona nie istnieje. <br />
+                  Hmm, podane wydarzenie nie istnieje. <br />
                   Proponujemy:
                 </h3>
               </div>
               <div className="flex flex-col tablet:flex-row justify-center items-start tablet:items-center gap-4 tablet:gap-8 mt-[25px]">
                 <div>
-                  <CustomButton
-                    text="wróć do strony poprzedniej"
-                    descriptionText="Wróć do strony poprzedniej."
-                    disabled={false}
-                    actionFn={() => router.back()}
+                  <CustomLink
+                    visibleText="powrót do wydarzeń"
+                    url={`/events`}
+                    descriptionText="Wróć do wszytskich wydarzeń."
                   />
                 </div>
                 <div className="prose">
@@ -78,50 +76,6 @@ export default function NotFound() {
               </div>
             </div>
           </div>
-
-          {/* <div className="grid grid-cols-1 gap-y-[58px] gap-x-mobile-margin mt-[51px] items-end tablet:grid-cols-2 tablet:gap-y-[58px] tablet:gap-x-tablet-margin desktop:grid-cols-3 desktop:gap-y-0 desktop:gap-x-4"> */}
-          {/* <div className="flex flex-col justify-between h-full">
-              <div className="text-skin-base">
-                Jeżeli jest to chwilowy błąd, może się okazać, że naciśnięcie
-                przycisku &quot;odśwież&quot; (poniżej) rozwiąże problem.
-              </div>
-              <div className="mt-[25px]">
-                <CustomButton
-                  text="odśwież"
-                  descriptionText="Odśwież stronę."
-                  disabled={false}
-                  actionFn={reset}
-                />
-              </div>
-            </div> */}
-
-          {/* <div className="flex flex-col justify-between h-full">
-              <div className="text-skin-base">
-                Aby wrócić do strony poprzedniej, naciśnij przycisk poniżej.
-              </div>
-              <div className="mt-[25px] -pb-[5px]">
-                <CustomButton
-                  text="wróć do strony poprzedniej"
-                  descriptionText="Wróć do strony poprzedniej."
-                  disabled={false}
-                  actionFn={() => router.back()}
-                />
-              </div>
-            </div> */}
-
-          {/* <div className="flex flex-col justify-between pb-[6px] h-full">
-              <div className="text-skin-base">
-                Aby wrócić do strony głównej, naciśnij przycisk poniżej.
-              </div>
-              <div className="mt-[25px]">
-                <CustomLink
-                  visibleText="powrót do strony głównej"
-                  url={`/`}
-                  descriptionText="Powrót do strony głównej."
-                />
-              </div>
-            </div> */}
-          {/* </div> */}
         </div>
       </motion.div>
     </AnimatePresence>
