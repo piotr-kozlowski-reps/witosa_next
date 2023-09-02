@@ -1,6 +1,7 @@
 import { getSingleCyclicalActivity } from '@/lib/api/cyclicalActivitiesUtils';
 import { CyclicalActivityTemporary } from '@/types';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import CyclicActivitiesDynamicInside from './components/CyclicActivitiesDynamicInside';
 
 type Props = {
@@ -29,6 +30,10 @@ export default async function CyclicActivitiesDynamicPage(props: Props) {
 
   const cyclicalActivity: CyclicalActivityTemporary | undefined =
     await getSingleCyclicalActivity(id);
+
+  if (!cyclicalActivity) {
+    notFound();
+  }
 
   return <CyclicActivitiesDynamicInside activity={cyclicalActivity!} />;
 }

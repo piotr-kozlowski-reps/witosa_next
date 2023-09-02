@@ -1,6 +1,7 @@
 import { getSingleEvent } from '@/lib/api/eventsUtils';
 import { TEventTemporary } from '@/types';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 import EventDynamicInside from './components/EventDynamicInside';
 
@@ -28,6 +29,12 @@ export default async function EventsDynamicPage(props: Props) {
   const id = props.params.eventId;
 
   const event: TEventTemporary | undefined = await getSingleEvent(id);
+
+  console.log('przeszedłem dalej');
+
+  if (!event) {
+    notFound();
+  }
 
   return (
     <Fragment>
