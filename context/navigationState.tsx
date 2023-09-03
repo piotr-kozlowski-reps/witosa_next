@@ -121,7 +121,7 @@ const navigationStateData: TNavigationState = {
     {
       name: 'LOGIN',
       nameToBeDisplayed: 'panel administracyjny',
-      path: '/dashboard',
+      path: '/login',
       isCurrentlyUsed: false,
     },
   ],

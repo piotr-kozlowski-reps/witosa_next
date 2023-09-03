@@ -2,11 +2,14 @@
 import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
 import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TLoginFormValues } from '@/types';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { signIn } from 'next-auth/react';
 import { Fragment } from 'react';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
+import CustomButton from '../../components/CustomButton';
+import CustomLink from '../../components/CustomLink';
+import InputFormik from '../../components/forms/InputFormik';
 
 const LoginForm = () => {
   ////formik
@@ -29,7 +32,13 @@ const LoginForm = () => {
     signIn('credentials', { ...valuesToBeSent, redirect: false }).then(
       (callback) => {
         if (callback?.error) {
-          userNotificationHandler('ERROR', 'Nie udało się zalogować');
+          console.log(callback.error);
+
+          const errorText = callback.error.includes('No user found')
+            ? 'Nie znaleziono użytkownika.'
+            : 'Nie udało się zalogować';
+
+          userNotificationHandler('ERROR', errorText);
         }
         if (callback?.ok && !callback?.error) {
           userNotificationHandler('SUCCESS', 'Jesteś zalogowany');
@@ -50,39 +59,63 @@ const LoginForm = () => {
       >
         {(formik) => {
           return (
-            <Form>
-              <div>LoginForm - po zalogowaniu przejście do części admin</div>
+            <div className="absolute top-0 left-0 z-30 w-screen h-screen">
+              <div className="flex flex-col items-center justify-center h-full bg-skin-main-bg">
+                <div className="mx-mobile-margin tablet:mx-tablet-margin desktop:mx-0">
+                  <div className="p-16 bg-skin-main-bg drop-shadow-big rounded-base">
+                    <Form>
+                      <div className="prose">
+                        <h1>Zaloguj się,</h1>
+                      </div>
+                      <div className="prose">
+                        <h2>by przejść do części administracyjnej.</h2>
+                      </div>
 
-              <div className="">
-                <label htmlFor="name">Email: </label>
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="wpisz swój email"
-                ></Field>
-              </div>
-              <div className="">
-                <label htmlFor="name">Hasło: </label>
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="hasło"
-                ></Field>
-              </div>
+                      <div className="mt-[20px]">
+                        <InputFormik
+                          name="email"
+                          type="email"
+                          label="podaj adres e-mail:"
+                          placeholder="Twój e-mail"
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <InputFormik
+                          name="password"
+                          type="password"
+                          label="podaj hasło:"
+                          placeholder="Twoje hasło"
+                        />
+                      </div>
 
-              <button
-                type="submit"
-                className="p-2 cursor-pointer bg-skin-fill-inverted text-skin-inverted hover:bg-red-300 disabled:bg-gray-300 disabled:cursor-auto"
-                disabled={
-                  !formik.dirty ||
-                  (formik.dirty && Object.keys(formik.errors).length !== 0)
-                    ? true
-                    : false
-                }
-              >
-                Submit
-              </button>
-            </Form>
+                      <div className="mt-6">
+                        <CustomButton
+                          text="zaloguj"
+                          descriptionText="Zaloguj się."
+                          onSubmit={true}
+                          disabled={
+                            !formik.dirty ||
+                            (formik.dirty &&
+                              Object.keys(formik.errors).length !== 0)
+                              ? true
+                              : false
+                          }
+                          actionFn={() => {}}
+                        />
+                      </div>
+                    </Form>
+                    <div className="h-[1px] w-11 bg-skin-gray mt-11"></div>
+                    <div className="mt-11">
+                      <CustomLink
+                        visibleText="powrót do strony głównej"
+                        url={`/`}
+                        descriptionText="Powrót do strony głównej."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         }}
       </Formik>
