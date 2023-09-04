@@ -96,6 +96,11 @@ export default function BistroContent() {
             jednocześnie informować Was o wszelkich zmianach i innowacjach
             dotyczących naszej działalności.
           </p>
+          <p>
+            Zapraszamy Was codziennie od g. 12:00 do 20:00. (z wyjątkiem dni,
+            gdy odbywać się będą wydarzenia kulturalne).
+          </p>
+
           <br />
           <p>
             <b>DO ZOBACZENIA!!!</b>
