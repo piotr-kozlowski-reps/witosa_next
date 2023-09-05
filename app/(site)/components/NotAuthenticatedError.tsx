@@ -13,14 +13,14 @@ export default function NotAuthenticaterError() {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="absolute z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[25px] pb-[32px]"
+        className="absolute z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[89px] pb-[99px]"
       >
         <div className="proper-container-classes">
           <div className="max-w-full prose">
             <h1 className="text-error">
               Ta część aplikacji wymaga, abyś był zalogowany.
             </h1>
-            <h2 className="-mt-[18px]">Proponujemy:</h2>
+            <h2 className="mt-[32px]">Proponujemy:</h2>
           </div>
 
           <div className="flex flex-col tablet:flex-row justify-start items-start gap-4 tablet:gap-8 mt-[25px]">

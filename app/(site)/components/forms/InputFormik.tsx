@@ -26,11 +26,12 @@ export default function InputFormik(props: Props) {
       <Field id={name} name="name">
         {(formik: any) => {
           ////vars
-          const { field, form } = formik;
+          const { field, form, touched } = formik;
           const { onChange, onBlur } = field;
           const { errors } = form;
 
-          const isErrorPresent: undefined | string = errors[name];
+          const isErrorPresentAndFieldWasTouched: undefined | string =
+            errors[name] && form.touched[name];
 
           return (
             <Fragment>
@@ -38,7 +39,7 @@ export default function InputFormik(props: Props) {
                 htmlFor={name}
                 className={clsx(
                   'font-base-regular',
-                  isErrorPresent ? 'text-skin-error' : ''
+                  isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
                 )}
               >
                 {label}
@@ -54,11 +55,15 @@ export default function InputFormik(props: Props) {
                 className={clsx(
                   'py-[12px] px-8 font-base-regular rounded-base drop-shadow-big mt-[3px] transition-all duration-50 ease-out bg-skin-main-bg outline-none focus:border-2 focus:border-cta-secondary',
                   !width ? 'w-full' : '',
-                  isErrorPresent ? 'border-2 border-error' : ''
+                  isErrorPresentAndFieldWasTouched
+                    ? 'border-2 border-error'
+                    : ''
                 )}
                 style={width ? { width: `${width}px` } : {}}
               />
-              <p className="mt-[4px] text-skin-error">{errors[name]}</p>
+              {isErrorPresentAndFieldWasTouched ? (
+                <p className="mt-[4px] text-skin-error">{errors[name]}</p>
+              ) : null}
             </Fragment>
           );
         }}
