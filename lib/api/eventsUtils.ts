@@ -8,8 +8,9 @@ export async function getAllEventsSorted() {
   return allEvents;
 }
 
-export async function getEventsExcludingThoseNotToBeSeenInEventsSectionSorted() {
+export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_AndThoseNotToBePublished_Sorted() {
   const allEvents: TEventTemporary[] = allEventsMockData
+    .filter((event) => event.isToBePublished)
     .filter((event) => event.isToBeOnlyInNewsSection_NotSeenInEvents !== true)
     .sort(function (a, b) {
       return a.eventStartDate.getTime() - b.eventStartDate.getTime();
