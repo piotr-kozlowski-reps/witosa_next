@@ -158,4 +158,6 @@ export type TSlide = Pick<
   | 'eventStartDate'
   | 'sliderImageUrl'
   | 'sliderImageAlt'
+  | 'visibleInSliderFrom'
+  | 'visibleInSLiderTo'
 >;

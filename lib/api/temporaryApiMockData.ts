@@ -4,48 +4,6 @@ import {
   TSliderGroupsImages,
 } from '@/types';
 
-// export const mainSliderMockData: Slide[] = [
-//   {
-//     id: '2f4e7c17-0b04-4881-8456-ce6bf7fde841',
-//     eventType: ['CONCERT'],
-//     slideTitle: 'Pink Floyd - Dark side of the moon.',
-//     slideAlt: 'Koncert zespołu Pink Floyd, z płytą: Dark side of the moon.',
-//     eventDate: new Date('2023-09-13T19:30:00'),
-//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
-//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-//     slideUrl: `news-img-002.jpg`,
-//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-//     visibleUntil: new Date('2023-09-10T11:00:24.968Z'),
-//   },
-//   {
-//     id: '2f422c17-0b04-4881-de56-ce6457fde84l',
-//     eventType: ['CABARET', 'SPECTACLE'],
-//     slideTitle: 'Kabaret Starszych Panów',
-//     slideAlt: 'Kabaret Starszych Panów.',
-//     eventDate: new Date('2023-09-03T20:00:00'),
-//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
-//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-//     slideUrl: `artcafe_007.jpg`,
-//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-//     visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
-//   },
-//   {
-//     id: 'as422c17-0b04-4881-de56-ce6457fde34r',
-//     eventType: ['FESTIVAL'],
-//     slideTitle: 'Festiwal moździeży',
-//     slideAlt: 'Festiwal moździeży.',
-//     eventDate: new Date('2023-09-09T15:15:00'),
-//     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
-//     createdAt: new Date('2023-08-10T11:00:24.968Z'),
-//     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
-//     slideUrl: `activities_image_004.jpg`,
-//     visibleFrom: new Date('2023-08-10T11:00:24.968Z'),
-//     visibleUntil: new Date('2023-09-20T11:00:24.968Z'),
-//   },
-// ];
-
 export const allEventsMockData: TEventTemporary[] = [
   {
     id: 'de4e7c17-0b04-ff81-8456-ce6bf7fde45a',
@@ -921,7 +879,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         },
       ],
       description:
-        '<p>\r\n            Prowadząca: <b>AGNIESZKA BALA</b>\r\n          </p>\r\n          <p>\r\n            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,\r\n            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!\r\n          </p>\r\n          <p>Nasze zajęcia obejmują:</p>\r\n          <ul>\r\n            <li>\r\n              wstęp - czym jest projektowanie, czym jest design, krótka historia\r\n              sztuki\r\n            </li>\r\n            <li>proces projektowania</li>\r\n            <li>style w aranżacji wnętrz</li>\r\n            <li>wpływ światła na wnętrze</li>\r\n            <li>nauka obsługi programu do projektowania wnętrz</li>\r\n            <li>wizualizacje</li>\r\n          </ul>\r\n          <p>\r\n            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.\r\n          </p>\r\n          <p>\r\n            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,\r\n            praca z mood boardem (tablica inspiracji) praca w programach (trzeba\r\n            mieć swój laptop).\r\n          </p>',
+        '<p>\r\n            Prowadząca: <b>AGNIESZKA BALA</b>\r\n          </p>\r\n          <p>\r\n            Młody projektant wnętrz - rozwijaj swoją kreatywność, wyobraźnię,\r\n            poznaj modelowanie 3D i stwórz swój pierwszy projekt wnętrza!\r\n          </p>\r\n          <p>Nasze zajęcia obejmują:</p>\r\n          <ul>\r\n            <li>\r\n              wstęp - czym jest projektowanie, czym jest design, krótka historia\r\n              sztuki\r\n            </li>\r\n            <li>proces projektowania</li>\r\n            <li>style w aranżacji wnętrz</li>\r\n            <li>wpływ światła na wnętrze</li>\r\n            <li>nauka obsługi programu do projektowania wnętrz</li>\r\n            <li>wizualizacje</li>\r\n          </ul>\r\n          <p>\r\n            Zajęcia w formie prezentacji, pracy w grupie, pracy indywidualnej.\r\n          </p>\r\n          <p>\r\n            Praca na makiecie, praca z &quot;kartką i ołówkiem&quot; szkice,\r\n            praca z mood boardem (tablica inspiracji) praca w programach (trzeba\r\n            mieć swój laptop).\r\n          </p><p ><b>Początek zajęć w październiku.</b></p>',
     },
     occurrence: [
       {

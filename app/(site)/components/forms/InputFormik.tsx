@@ -19,7 +19,7 @@ interface Props {
 
 export default function InputFormik(props: Props) {
   ///vars
-  const { name, placeholder, label, width } = props;
+  const { name, placeholder, label, width, type } = props;
 
   return (
     <div className="flex flex-col items-start justify-start">
@@ -46,6 +46,7 @@ export default function InputFormik(props: Props) {
               <input
                 id={name}
                 name={name}
+                type={type}
                 placeholder={placeholder}
                 value={form.values[name]}
                 onChange={(val) => onChange(val)}

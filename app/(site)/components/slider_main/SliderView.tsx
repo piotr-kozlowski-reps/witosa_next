@@ -1,3 +1,5 @@
+'use client';
+
 import { TSlide } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 import SliderContent from './SliderContent';
@@ -9,6 +11,19 @@ type Props = {
 export default function SliderView(props: Props) {
   ////vars
   const { sliderData } = props;
+
+  // const [currentSliderData, setCurrentSliderData] = useState(sliderData);
+  // useEffect(() => {
+  //   const currentArray = currentSliderData.filter((sliderData) => {
+  //     console.log(sliderData);
+  //     return isFirstDateBeforeSecond(
+  //       sliderData.visibleInSliderFrom!,
+  //       new Date(Date.now())
+  //     );
+  //   });
+
+  //   setCurrentSliderData(currentArray);
+  // }, [sliderData]);
 
   ////utils
   //left-right
