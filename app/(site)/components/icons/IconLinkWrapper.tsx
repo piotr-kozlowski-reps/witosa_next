@@ -19,6 +19,7 @@ export default function IconLinkWrapper({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      title="Otwiera się w nowej zakładce."
       className={clsx(
         'relative mt-[5px] icon-active',
         size === 'NORMAL'

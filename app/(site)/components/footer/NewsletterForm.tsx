@@ -75,13 +75,16 @@ export default function NewsletterForm() {
                 label="podaj adres e-mail:"
                 placeholder="Twój e-mail"
               />
-              <CustomButton
-                text="subskrybuj"
-                descriptionText="Subskrybuj newsletter."
-                additionalClasses="mt-[4px]"
-                onSubmit={true}
-                disabled={!formik.dirty || !formik.isValid}
-              />
+              <div className="mt-[20px]">
+                {/* <div> */}
+                <CustomButton
+                  text="subskrybuj"
+                  descriptionText="Subskrybuj newsletter."
+                  additionalClasses="mt-[4px]"
+                  onSubmit={true}
+                  disabled={!formik.dirty || !formik.isValid}
+                />
+              </div>
             </Form>
           );
         }}

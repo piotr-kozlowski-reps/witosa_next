@@ -105,6 +105,7 @@ export default function IconButton({
         )}
         target="_blank"
         rel="noopener noreferrer"
+        title="Otwiera się w nowej zakładce."
       >
         <div
           className="absolute top-0 bottom-0 left-0 right-0 opacity-100 hover:opacity-0 focus:opacity-0 drop-shadow-small"

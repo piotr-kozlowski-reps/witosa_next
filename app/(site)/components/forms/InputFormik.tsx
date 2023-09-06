@@ -62,7 +62,7 @@ export default function InputFormik(props: Props) {
                 style={width ? { width: `${width}px` } : {}}
               />
               {isErrorPresentAndFieldWasTouched ? (
-                <p className="mt-[4px] text-skin-error">{errors[name]}</p>
+                <p className="mt-[4px] text-skin-error mb-0">{errors[name]}</p>
               ) : null}
             </Fragment>
           );

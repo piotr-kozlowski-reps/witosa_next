@@ -69,6 +69,7 @@ export default function PrivacyPolicyContent() {
                     href="http://centrum-kultury.pl/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     centrum-kultury.pl
                   </a>
@@ -79,6 +80,7 @@ export default function PrivacyPolicyContent() {
                     href="https://kinoscenakultura.pl/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     kinoscenakultura.pl
                   </a>
@@ -89,6 +91,7 @@ export default function PrivacyPolicyContent() {
                     href="https://kulturalnyknurow.pl/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     kulturalnyknurow.pl
                   </a>
@@ -99,6 +102,7 @@ export default function PrivacyPolicyContent() {
                     href="http://klubsztukateria.pl/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     klubsztukateria.pl
                   </a>
@@ -109,6 +113,7 @@ export default function PrivacyPolicyContent() {
                     href="https://przegladlokalny.eu/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     przegladlokalny.eu
                   </a>
@@ -119,6 +124,7 @@ export default function PrivacyPolicyContent() {
                     href="https://art-ck.pl/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Otwiera się w nowej zakładce."
                   >
                     art-ck.pl
                   </a>

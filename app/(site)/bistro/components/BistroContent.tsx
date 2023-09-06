@@ -66,6 +66,7 @@ export default function BistroContent() {
               href="https://palarniakafar.pl/o-nas/"
               target="_blank"
               rel="noopener noreferrer"
+              title="Otwiera się w nowej zakładce."
             >
               palarniakafar.pl/o-nas/
             </a>
@@ -75,6 +76,7 @@ export default function BistroContent() {
               href="https://restauracjaorso.pl/o-nas/"
               target="_blank"
               rel="noopener noreferrer"
+              title="Otwiera się w nowej zakładce."
             >
               restauracjaorso.pl/o-nas/
             </a>
