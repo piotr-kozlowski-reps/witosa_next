@@ -1,11 +1,14 @@
 'use client';
 
 import CustomButton from '@/app/(site)/components/CustomButton';
+import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
 import { signOut, useSession } from 'next-auth/react';
 
 export default function DashboardContent() {
   ////vars
   const session = useSession();
+  const { getAdminLink, setAdminLinkToBeActive, getAllAdminLinks } =
+    useNavigationStateAdmin();
 
   ////tsx
   return (
@@ -24,34 +27,34 @@ export default function DashboardContent() {
       <div className="mt-[37px] relative">
         <div className="absolute top-0 pt-[34px] left-0 pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base  pb-[66px] right-0">
           <div className="flex flex-col items-start justify-start gap-[20px] ">
-            <CustomButton
-              text="wydarzenia"
-              descriptionText="wydarzenia"
-              outlined={true}
-              disabled={false}
-              actionFn={() => {}}
-            />
-            <CustomButton
-              text="zajęcia stałe"
-              descriptionText="zajęcia stałe"
-              outlined={true}
-              disabled={false}
-              actionFn={() => {}}
-            />
-            <CustomButton
-              text="użytkownicy"
-              descriptionText="użytkownicy"
-              outlined={true}
-              disabled={false}
-              actionFn={() => {}}
-            />
-            <CustomButton
-              text="logi"
-              descriptionText="logi"
-              outlined={true}
-              disabled={false}
-              actionFn={() => {}}
-            />
+            {getAllAdminLinks().map((link) => {
+              if (link.name === 'USERS' || link.name === 'LOGS') {
+                return (
+                  <CustomButton
+                    key={link.name}
+                    text={getAdminLink(link.name)!.nameToBeDisplayed}
+                    descriptionText={getAdminLink(link.name)!.nameToBeDisplayed}
+                    outlined={session.data?.user?.role === 'ADMIN'}
+                    currentlyActive={getAdminLink(link.name)!.isCurrentlyUsed}
+                    disabled={session.data?.user?.role !== 'ADMIN'}
+                    actionFn={() => setAdminLinkToBeActive(link.name)}
+                    additionalClasses="opacity-30"
+                  />
+                );
+              }
+
+              return (
+                <CustomButton
+                  key={link.name}
+                  text={getAdminLink(link.name)!.nameToBeDisplayed}
+                  descriptionText={getAdminLink(link.name)!.nameToBeDisplayed}
+                  outlined={true}
+                  currentlyActive={getAdminLink(link.name)!.isCurrentlyUsed}
+                  disabled={false}
+                  actionFn={() => setAdminLinkToBeActive(link.name)}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 outline outline-[1px] outline-cta-secondary">

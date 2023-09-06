@@ -77,6 +77,18 @@ export type TLink = {
 };
 export type TSubMenu = 'ABOUT' | 'GROUPS' | 'ACCESSIBILITY';
 
+export type TLinkAdminName =
+  | 'EVENTS'
+  | 'CYCLICAL_ACTIVITY'
+  | 'NEWSLETTER'
+  | 'USERS'
+  | 'LOGS';
+export type TAdminLink = {
+  name: TLinkAdminName;
+  nameToBeDisplayed: string;
+  isCurrentlyUsed: boolean;
+};
+
 //slider
 export type TEventType = 'concert' | 'workshop';
 export type TMainSliderData = {
