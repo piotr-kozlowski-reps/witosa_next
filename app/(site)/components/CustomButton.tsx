@@ -1,4 +1,3 @@
-import { TLinkAdminName } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 
@@ -10,7 +9,8 @@ interface Props {
   disabled: boolean;
   outlined?: boolean;
   currentlyActive?: boolean;
-  actionFn?: (() => void) | ((adminLinkName: TLinkAdminName) => void) | void;
+  actionFn?: () => void;
+  // actionFn?: (() => void) | ((adminLinkName: TLinkAdminName) => void) | void;
   // url: string;
 }
 
