@@ -171,6 +171,8 @@ model CyclicalActivity{
 
 model Newsletter {
   email String @id @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 

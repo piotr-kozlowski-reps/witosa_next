@@ -1,8 +1,10 @@
+'use client';
+
 import { subMenuVariant } from '@/lib/animations/variants';
 import { AnimatePresence, motion } from 'framer-motion';
 import CustomLink from './CustomLink';
 
-export default function NotAuthenticaterError() {
+export default function NotAuthenticatedError() {
   //TODO: add showing what site it is
   //TODO: button to login
   //TODO: button to main

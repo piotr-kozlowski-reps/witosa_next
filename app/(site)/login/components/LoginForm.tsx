@@ -3,7 +3,8 @@ import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
 import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TLoginFormValues } from '@/types';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
@@ -12,6 +13,10 @@ import CustomLink from '../../components/CustomLink';
 import InputFormik from '../../components/forms/InputFormik';
 
 const LoginForm = () => {
+  ////vars
+  const router = useRouter();
+  const { update: sessionUpdate } = useSession();
+
   ////formik
   type loginFormInputs = z.TypeOf<typeof loginValidationSchema>;
 
@@ -42,6 +47,8 @@ const LoginForm = () => {
         }
         if (callback?.ok && !callback?.error) {
           userNotificationHandler('SUCCESS', 'Jesteś zalogowany');
+          sessionUpdate();
+          router.replace('/dashboard');
         }
       }
     );

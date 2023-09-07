@@ -2,14 +2,22 @@ import prisma from '@/prisma/client';
 // import bcryptjs from 'bcryptjs';
 import {
   badEmailFormatMessage,
+  dbReadingErrorMessage,
   dbWritingErrorMessage,
   emailAlreadyExistsMessage,
   newsletterDbWritingSuccessMessage,
 } from '@/lib/api/apiTextResponses';
+import {
+  addStatusAndAllowOriginContent,
+  stringifyObject,
+} from '@/lib/api/responsesUtils';
 import { loginEmailSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
 import { TNewsletterFormValuesSent } from '@/types';
+import { Newsletter } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
+import { authOptions } from '../auth/[...nextauth]/route';
 
 // export async function OPTIONS(req: NextRequest) {
 //   const origin = req.headers.get('origin');
@@ -48,24 +56,27 @@ export async function POST(req: NextRequest, _res: NextResponse) {
   } catch (error) {
     logger.warn(badEmailFormatMessage);
     return new NextResponse(
-      JSON.stringify({ message: badEmailFormatMessage }),
-      { status: 400 }
+      stringifyObject({ message: badEmailFormatMessage }),
+      addStatusAndAllowOriginContent(400, origin)
     );
   }
 
   /* validation if email already exists in db */
-  const exists = await prisma.newsletter.findUnique({ where: { email } });
+  let exists: unknown;
+  try {
+    exists = await prisma.newsletter.findUnique({ where: { email } });
+  } catch (error) {
+    logger.warn(dbReadingErrorMessage);
+    return new NextResponse(
+      JSON.stringify({ message: dbReadingErrorMessage }),
+      { status: 500 }
+    );
+  }
   if (exists) {
     logger.warn(emailAlreadyExistsMessage);
     return new NextResponse(
-      JSON.stringify({ message: emailAlreadyExistsMessage }),
-      {
-        status: 400,
-        headers: {
-          'Access-Control-Allow-Origin': origin || '*', //TODO:  make it for Postman and such: origin || '*'
-          'Content-Type': 'application/json',
-        },
-      }
+      stringifyObject({ message: emailAlreadyExistsMessage }),
+      addStatusAndAllowOriginContent(400, origin)
     );
   }
 
@@ -82,27 +93,38 @@ export async function POST(req: NextRequest, _res: NextResponse) {
 
   /* final success response */
   logger.info(newsletterDbWritingSuccessMessage);
-
   return new NextResponse(
-    JSON.stringify({ message: newsletterDbWritingSuccessMessage }),
-    {
-      status: 201,
-      headers: {
-        'Access-Control-Allow-Origin': origin || '*', //TODO:  make it for Postman and such: origin || '*'
-        'Content-Type': 'application/json',
-      },
-    }
+    stringifyObject({
+      message: newsletterDbWritingSuccessMessage,
+    }),
+    addStatusAndAllowOriginContent(201, origin)
   );
 }
 
 export async function GET(req: NextRequest, _res: NextResponse) {
+  /** checking session */
+  const session = await getServerSession(authOptions);
+
   const origin = req.headers.get('origin');
 
-  return new NextResponse(JSON.stringify({ message: 'text message' }), {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': origin || '*', //TODO:  make it for Postman and such: origin || '*'
-      'Content-Type': 'application/json',
-    },
-  });
+  let emailsInNewsletter: Newsletter[] = [];
+  try {
+    emailsInNewsletter = await prisma.newsletter.findMany();
+  } catch (error) {
+    logger.warn(dbReadingErrorMessage);
+    return new NextResponse(
+      JSON.stringify({
+        message: dbReadingErrorMessage,
+      }),
+      { status: 500 }
+    );
+  }
+
+  return new NextResponse(
+    stringifyObject({
+      emailsInNewsletter,
+      session: session?.user?.name || 'no session',
+    }),
+    addStatusAndAllowOriginContent(200, origin)
+  );
 }

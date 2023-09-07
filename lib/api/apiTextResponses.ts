@@ -4,6 +4,8 @@ export const emailAlreadyExistsMessage =
   'Podany e-mail już jest zapisany w naszym newsletterze.';
 export const dbWritingErrorMessage =
   'Błąd w trakcie zapisywania danych. Spróbuj ponownie.';
+export const dbReadingErrorMessage =
+  'Błąd podczas łączenia się z bazą danych. Spróbuj ponownie.';
 
 //
 export const newsletterDbWritingSuccessMessage =
