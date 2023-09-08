@@ -173,3 +173,9 @@ export type TSlide = Pick<
   | 'visibleInSliderFrom'
   | 'visibleInSLiderTo'
 >;
+
+export type TNewsletterTemporary = {
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

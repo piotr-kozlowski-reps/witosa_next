@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
-import DashboardNewsletter from './DashboardNewsletter';
+import DashboardNewsletter from './newsletter/DashboardNewsletter';
 import DashboardUsers from './DashboardUsers';
 
 export default function DashboardInsidePages() {

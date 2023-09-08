@@ -1,8 +1,48 @@
 import {
   CyclicalActivityTemporary,
   TEventTemporary,
+  TNewsletterTemporary,
   TSliderGroupsImages,
 } from '@/types';
+import { Newsletter } from '@prisma/client';
+
+export const newsletterMockData: TNewsletterTemporary[] = [
+  {
+    email: 'test@test.pl',
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
+  },
+  {
+    email: 'test2@test2.pl',
+    createdAt: new Date('2023-09-03T14:20:00.968Z'),
+    updatedAt: new Date('2023-09-03T14:20:00.968Z'),
+  },
+  {
+    email: 'test3@test3.pl',
+    createdAt: new Date('2023-09-05T14:20:00.968Z'),
+    updatedAt: new Date('2023-09-05T14:20:00.968Z'),
+  },
+  {
+    email: 'cokolwie@test4.pl',
+    createdAt: new Date('2023-09-05T14:21:00.968Z'),
+    updatedAt: new Date('2023-09-05T14:21:00.968Z'),
+  },
+  {
+    email: 'test55@test.pl',
+    createdAt: new Date('2023-09-05T14:25:00.968Z'),
+    updatedAt: new Date('2023-09-05T14:25:00.968Z'),
+  },
+  {
+    email: 'test6@test.pl',
+    createdAt: new Date('2023-09-06T14:20:00.968Z'),
+    updatedAt: new Date('2023-09-06T14:20:00.968Z'),
+  },
+  {
+    email: 'test7@test.pl',
+    createdAt: new Date('2023-09-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-09-27T14:20:00.968Z'),
+  },
+];
 
 export const allEventsMockData: TEventTemporary[] = [
   {
