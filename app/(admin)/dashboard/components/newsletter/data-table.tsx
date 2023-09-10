@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ColumnDef,
   useReactTable,
   getCoreRowModel,
   flexRender,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+  ColumnFiltersState,
+  VisibilityState,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 
 interface DataTableProps<TData, TValue> {
@@ -17,16 +22,43 @@ export default function NewsletterDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   ////vars
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState({});
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      sorting,
+      columnFilters,
+      rowSelection,
+    },
   });
+
+  console.log({ rowSelection });
 
   ////tsx
   return (
     <div>
+      <div>
+        <input
+          placeholder="filter by emails"
+          value={(table.getColumn('email')?.getFilterValue() as string) || ''}
+          onChange={(e) => {
+            table.getColumn('email')?.setFilterValue(e.target.value);
+          }}
+        ></input>
+      </div>
+
       <div>
         <table>
           <thead>
@@ -89,6 +121,11 @@ export default function NewsletterDataTable<TData, TValue>({
         >
           next
         </button>
+      </div>
+
+      <div className="bg-red-400">
+        {table.getFilteredSelectedRowModel().rows.length} z{' '}
+        {table.getFilteredRowModel().rows.length} wybrane
       </div>
     </div>
   );

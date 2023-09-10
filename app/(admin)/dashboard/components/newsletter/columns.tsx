@@ -2,9 +2,57 @@ import { TNewsletterTemporary } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<TNewsletterTemporary>[] = [
-  { header: 'email', accessorKey: 'email' },
   {
-    header: 'data utworzenia',
+    id: 'select',
+    header: ({ table }) => {
+      return (
+        <input
+          type="checkbox"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(event) => {
+            table.toggleAllPageRowsSelected(event.target.checked);
+          }}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <input
+          type="checkbox"
+          checked={row.getIsSelected()}
+          onChange={(event) => {
+            row.toggleSelected(event.target.checked);
+          }}
+        />
+      );
+    },
+  },
+  {
+    header: ({ column }) => {
+      return (
+        <button
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          email (+ ikonka)
+        </button>
+      );
+    },
+    accessorKey: 'email',
+  },
+  {
+    header: ({ column }) => {
+      return (
+        <button
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          data utworzenia (+ ikonka)
+        </button>
+      );
+    },
     accessorKey: 'updatedAt',
     cell: ({ row }) => {
       const creationDate = row.getValue('updatedAt');
