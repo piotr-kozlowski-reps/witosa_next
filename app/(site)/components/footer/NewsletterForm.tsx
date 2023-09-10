@@ -4,13 +4,17 @@ import { dbWritingErrorMessage } from '@/lib/api/apiTextResponses';
 import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TNewsletterFormValues } from '@/types';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import CustomButton from '../CustomButton';
 import InputFormik from '../forms/InputFormik';
+import { revalidatePath } from 'next/cache';
+import prisma from '@/prisma/client';
+import { addNewsletterAddress } from '@/actions/newsletterActions';
 
 export default function NewsletterForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   ////formik
   type NewsletterFormInputs = z.TypeOf<typeof newsletterValidationSchema>;
 
@@ -24,51 +28,60 @@ export default function NewsletterForm() {
     }
   );
 
-  async function submitFormHandler(
-    values: TNewsletterFormValues,
-    formikHelpers: FormikHelpers<TNewsletterFormValues>
-  ) {
-    let response: any;
-    try {
-      response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}api/newsletter`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: values.email }),
-        }
-      );
-    } catch (error) {
-      userNotificationHandler('ERROR', dbWritingErrorMessage);
-    }
+  function submitFormHandler() {
+    console.log('submit handler');
 
-    const data: { message: string } = await response.json();
-
-    if (!response.ok) {
-      userNotificationHandler('ERROR', data.message);
-      formikHelpers.resetForm();
-      return;
-    }
-
-    userNotificationHandler('SUCCESS', data.message);
-    formikHelpers.resetForm();
+    formRef!.current!.submit();
   }
+
+  // async function submitFormHandler(
+  //   values: TNewsletterFormValues,
+  //   formikHelpers: FormikHelpers<TNewsletterFormValues>
+  // ) {
+  //   await addNewsletterAddress(values, formikHelpers);
+  // let response: any;
+  // try {
+  //   response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}api/newsletter`,
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ email: values.email }),
+  //     }
+  //   );
+  // } catch (error) {
+  //   userNotificationHandler('ERROR', dbWritingErrorMessage);
+  // }
+
+  // const data: { message: string } = await response.json();
+
+  // if (!response.ok) {
+  //   userNotificationHandler('ERROR', data.message);
+  //   formikHelpers.resetForm();
+  //   return;
+  // }
+
+  // userNotificationHandler('SUCCESS', data.message);
+  // formikHelpers.resetForm();
+  // }
 
   ////tsx
   return (
     <Fragment>
       <Formik<NewsletterFormInputs>
         initialValues={{ email: '' }}
-        onSubmit={submitFormHandler}
+        // onSubmit={submitFormHandler}
+        onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(newsletterValidationSchema)}
       >
         {(formik) => {
           ////tsx
           return (
-            <Form>
+            <form action={addNewsletterAddress} ref={formRef}>
+              {/* <Form> */}
               <InputFormik
                 name="email"
                 type="email"
@@ -85,7 +98,7 @@ export default function NewsletterForm() {
                   disabled={!formik.dirty || !formik.isValid}
                 />
               </div>
-            </Form>
+            </form>
           );
         }}
       </Formik>
