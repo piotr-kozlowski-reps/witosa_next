@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Fragment } from 'react';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 interface Props {
   text: string;
@@ -16,6 +17,7 @@ interface Props {
 
 export default function CustomButton(props: Props) {
   ////vars
+  const { pending } = useFormStatus();
   const {
     text,
     descriptionText,
@@ -40,10 +42,10 @@ export default function CustomButton(props: Props) {
             additionalClasses ? additionalClasses : ''
           )}
           aria-label={descriptionText}
-          disabled={disabled}
+          disabled={disabled || pending}
           onClick={actionFn}
         >
-          {text}
+          {pending ? `${text} ...` : text}
         </button>
       )}
     </Fragment>

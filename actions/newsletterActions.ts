@@ -1,48 +1,65 @@
 'use server';
 
+import {
+  badEmailFormatMessage,
+  dbReadingErrorMessage,
+  dbWritingErrorMessage,
+  emailAlreadyExistsMessage,
+  newsletterDbWritingSuccessMessage,
+} from '@/lib/api/apiTextResponses';
+import { loginEmailSchema } from '@/lib/errors/zodSchemas';
+import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
-import { TNewsletterFormValues } from '@/types';
-import { FormikHelpers } from 'formik';
+import { TActionResponse, TNewsletterFormValues } from '@/types';
+import { Newsletter } from '@prisma/client';
 
-export const addNewsletterAddress = async (formData: FormData) => {
-  console.log('addNewsletterAddress server action');
-  console.log({ ...formData });
+export async function addNewsletterAddress(
+  formData: FormData
+): Promise<TActionResponse> {
+  const email = formData.get('email') as string;
 
-  const email = formData.get('email');
-  console.log({ email });
-  // await prisma.newsletter.create({ data: { email: email as string } });
-};
+  /** checking values eXistenZ */
+  if (!email) {
+    logger.warn(badEmailFormatMessage);
+    return { status: 'ERROR', response: badEmailFormatMessage };
+  }
 
-// async function submitFormHandler(
-//   values: TNewsletterFormValues,
-//   formikHelpers: FormikHelpers<TNewsletterFormValues>
-// ) {
-//   await addNewsletterAddress(values, formikHelpers);
-// let response: any;
-// try {
-//   response = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}api/newsletter`,
-//     {
-//       method: 'POST',
-//       headers: {
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ email: values.email }),
-//     }
-//   );
-// } catch (error) {
-//   userNotificationHandler('ERROR', dbWritingErrorMessage);
-// }
+  /* format validation */
+  try {
+    loginEmailSchema.parse(email);
+  } catch (error) {
+    logger.warn(badEmailFormatMessage);
+    return { status: 'ERROR', response: badEmailFormatMessage };
+  }
 
-// const data: { message: string } = await response.json();
+  /* validation if email already exists in db */
+  let exists: unknown;
+  try {
+    exists = await prisma.newsletter.findUnique({ where: { email } });
+  } catch (error) {
+    logger.warn(dbReadingErrorMessage);
+  }
+  if (exists) {
+    logger.warn(emailAlreadyExistsMessage);
+    return { status: 'ERROR', response: emailAlreadyExistsMessage };
+  }
 
-// if (!response.ok) {
-//   userNotificationHandler('ERROR', data.message);
-//   formikHelpers.resetForm();
-//   return;
-// }
+  /* sending email to db */
+  try {
+    await prisma.newsletter.create({ data: { email } });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-// userNotificationHandler('SUCCESS', data.message);
-// formikHelpers.resetForm();
+  /* final success response */
+  ////TODO: dodaj email wyslany właśnie jeszcze do response i loggera
+  logger.info(newsletterDbWritingSuccessMessage);
+  return { status: 'SUCCESS', response: newsletterDbWritingSuccessMessage };
+}
+
+// export async function getAllNewsletterAddresses(): Promise<Newsletter>{
+
+//   const
+
 // }

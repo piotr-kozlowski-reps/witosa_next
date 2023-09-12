@@ -179,3 +179,8 @@ export type TNewsletterTemporary = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TActionResponse = {
+  status: 'ERROR' | 'SUCCESS';
+  response: string;
+};
