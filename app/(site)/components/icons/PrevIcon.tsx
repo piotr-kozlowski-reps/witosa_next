@@ -2,6 +2,7 @@ import { useIconsLogicHandler } from '@/hooks/useIconsLogicHandler';
 import { TIconSize } from '@/types';
 import clsx from 'clsx';
 import IconButtonWrapper from './IconButtonWrapper';
+import { boolean } from 'zod';
 
 type Props = {
   alt: string;
@@ -11,6 +12,7 @@ type Props = {
   isToBeRotatedToBeVertical?: boolean;
   isToBeFlippedToBeNextButton?: boolean;
   isDefaultStateOrRotatedState?: boolean;
+  disabled?: boolean;
 };
 
 export default function PrevIcon(props: Props) {
@@ -23,6 +25,7 @@ export default function PrevIcon(props: Props) {
     isToBeFlippedToBeNextButton = false,
     isDefaultStateOrRotatedState,
     actionFn,
+    disabled = false,
   } = props;
   const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
 
@@ -32,6 +35,7 @@ export default function PrevIcon(props: Props) {
       actionFn={actionFn}
       additionalClasses={additionalClasses}
       alt={alt}
+      disabled={disabled}
     >
       <div
         style={{ width: width, height: height }}

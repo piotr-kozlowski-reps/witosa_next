@@ -11,6 +11,7 @@ import {
   VisibilityState,
   getFilteredRowModel,
 } from '@tanstack/react-table';
+import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,14 +61,14 @@ export default function NewsletterDataTable<TData, TValue>({
       </div>
 
       <div>
-        <table>
-          <thead>
+        <table className="rounded-base">
+          <thead className="bg-skin-cta-secondary text-skin-inverted rounded-md">
             {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <tr key={headerGroup.id}>
+                <tr key={headerGroup.id} style={{ borderRadius: '20px' }}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <td key={header.id}>
+                      <td key={header.id} className="px-4 py-2">
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
@@ -86,7 +87,7 @@ export default function NewsletterDataTable<TData, TValue>({
                 return (
                   <tr key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id}>
+                      <td key={cell.id} className="px-4 py-2">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -105,22 +106,23 @@ export default function NewsletterDataTable<TData, TValue>({
         </table>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 flex justify-start items-center">
         {/* TODO: dodać schowanie obu buttonów jeżeli nie ma sensu paginacja */}
-        <button
-          className="disabled:text-skin-gray"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          prev
-        </button>
-        <button
-          className="disabled:text-skin-gray ml-4"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          next
-        </button>
+        <div>
+          <PrevIcon
+            actionFn={() => table.previousPage()}
+            alt="Poprzednia strona."
+            disabled={!table.getCanPreviousPage()}
+          />
+        </div>
+        <div>
+          <PrevIcon
+            actionFn={() => table.nextPage()}
+            alt="Następna strona."
+            disabled={!table.getCanNextPage()}
+            isToBeFlippedToBeNextButton={true}
+          />
+        </div>
       </div>
 
       <div className="bg-red-400">

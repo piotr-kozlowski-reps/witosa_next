@@ -1,4 +1,11 @@
-import { CyclicalActivity, Day, Event, UserRole } from '@prisma/client';
+import {
+  CyclicalActivity,
+  Day,
+  Event,
+  Newsletter,
+  UserRole,
+} from '@prisma/client';
+import { type } from 'os';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
@@ -180,7 +187,14 @@ export type TNewsletterTemporary = {
   updatedAt: Date;
 };
 
+export type TStatus = 'ERROR' | 'SUCCESS';
+
 export type TActionResponse = {
-  status: 'ERROR' | 'SUCCESS';
+  status: TStatus;
   response: string;
+};
+
+export type TGetAllNewsletterAddressesResponse = {
+  status: TStatus;
+  response: string | Newsletter[];
 };

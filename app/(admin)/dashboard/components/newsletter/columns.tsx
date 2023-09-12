@@ -1,3 +1,6 @@
+import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
+import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import { TNewsletterTemporary } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -72,10 +75,27 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
           <button
             onClick={() => navigator.clipboard.writeText(newsletterEmail)}
           >
-            copy email
+            <CopyIcon
+              actionFn={() => navigator.clipboard.writeText(newsletterEmail)}
+              alt="Kopiuj adres e-mail."
+            />
           </button>
-          <button className="ml-4">edit</button>
-          <button className="ml-4">delete</button>
+          <button className="ml-4">
+            <EditIcon
+              actionFn={() => {
+                alert('not implemented');
+              }}
+              alt="Edytuj email Newslettera."
+            />
+          </button>
+          <button className="ml-4">
+            <CloseIcon
+              actionFn={() => {
+                alert('not implemented');
+              }}
+              alt="Wykasuj email z Newslettera."
+            />
+          </button>
         </div>
       );
     },

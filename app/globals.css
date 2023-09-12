@@ -239,6 +239,7 @@
   }
 
   /* icons*/
+
   .icon-active {
     @apply font-normal;
   }
@@ -268,7 +269,9 @@
     height: 1px;
     margin-top: 8px;
   }
-
+  .icon-disabled {
+    @apply font-normal;
+  }
   /* buttons */
   .standard-button {
     @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-size-normal text-skin-inverted hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray;
