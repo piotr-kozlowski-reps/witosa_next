@@ -4,7 +4,6 @@ import {
   TNewsletterTemporary,
   TSliderGroupsImages,
 } from '@/types';
-import { Newsletter } from '@prisma/client';
 
 export const newsletterMockData: TNewsletterTemporary[] = [
   {
@@ -365,6 +364,112 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-10T23:59:00.968Z'),
+  },
+  {
+    id: 'dr4e8847-7gg4-ff81-8456-ce6bf7fd86gq',
+    eventTypes: ['CONCERT', 'DANCE'],
+    eventForWhom: ['TEENS', 'ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'CUMBANCHEROS - koncert muzyki kubańskiej',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy serdecznie na pełen gorących rytmów koncert muzyki kubańskiej w wykonaniu Zespołu CUMBANCHEROS.',
+    eventStartDate: new Date('2023-09-23T19:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_kuba_001.jpg',
+        alt: 'Postaci członków zespołu CUMBANCHEROS.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '          <div>\r\n            <p>\r\n              Zapraszamy na wieczór z kubańską muzyką w wykonaniu zespołu\r\n              Cumbancheros w składzie:\r\n            </p>\r\n            <p>\r\n              <b>Edi Sánchez</b> jest Kolumbijczykiem, który od kilku lat\r\n              mieszka w Polsce. Razem z zespołem zaprezentuje szeroki repertuar\r\n              muzyki latynoskiej, wywodzącej się z rejonu Morza Karaibskiego. W\r\n              jego repertuarze znajdują się utwory w stylu rumba, cha-cha,\r\n              mambo, salsa i inne. Ciągłe eksperymentowanie i łączenie różnych\r\n              gatunków salsowych jest oryginalną i emocjonującą propozycją dla\r\n              publiczności. Lider zespołu jest nie tylko wielkim orędownikiem\r\n              muzyki wywodzącej się z jego rodzinnych stron, ale także\r\n              prawdziwym showmanem, który z charakterystyczną dla kolumbijczyków\r\n              energią i pasją prezentuje latynoskie standardy, czym zaraża\r\n              publiczność, skłania do uśmiechu i tańca w gorących rytmach salsy.\r\n              Jego ideą jest przekazanie pozytywnych wibracji, które muzyka ta\r\n              stwarza i przenosi, oraz ukazanie jej niezwykle towarzyskiego\r\n              charakteru.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Paul Chapman</b>, Wenezuelski muzyk, muzycznie kształcił się w\r\n              swojej rodzimej Wenezueli. Od kilku lat mieszka i koncertuje w\r\n              Polsce i dzieli się z polskimi muzykami i słuchaczami muzyką\r\n              Ameryki Łacińskiej.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Alberto Suazo Sanchez</b>, urodził się w Coscomatepec stan\r\n              Veracruz Meksyk. Swoja przygodę z muzyką rozpoczął w wieku 10 lat.\r\n              Gra na instrumentach strunowych (gitara,charango, jarama vihuela ,\r\n              guitarron, cuatro venezolano, tiple colombiano). Wielokorotnie\r\n              uczestniczył w festiwalach w Meksyku i Europie, zdobywając na nich\r\n              liczne nagrody. Występuje zarówno solowo jak i z zespołami (np.\r\n              Orizaba, Grupo Colibri, Grupo Tlahuiskalli ). Obecnie mieszka w\r\n              Polsce i zajmuje się programami artystycznymi związanymi z muzyka\r\n              latynoamerykañską.\r\n            </p>\r\n          </div>',
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo:
+      'Bilet w cenie 30 zł. Rezerwacja miejsc pod numerem telefonu 32 332 63 79 w godzinach 12.00 - 20.00.',
+    ticketBuyingUrl: null,
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-kubanski-001.jpg',
+    newsSectionImageAlt: 'Postaci członków zespołu CUMBANCHEROS.',
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_kuba_001.jpg',
+    sliderImageAlt: 'Postaci członków zespołu CUMBANCHEROS.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-23T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-23T23:59:00.968Z'),
+  },
+  {
+    id: 'dale8847-d3g4-ff81-8116-ce6rr7fd8656',
+    eventTypes: ['SPECTACLE'],
+    eventForWhom: ['CHILDREN'],
+    title: 'WALIZKI Z RÓŻNYCH STRON ŚWIATA - Teatr Lalek Marka Żyły',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy do spędzenia rodzinnie niedzieli w towarzystwie Teatru Lalek.',
+    eventStartDate: new Date('2023-09-24T16:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_walizki_001.jpg',
+        alt: 'Twórca Teatru Lalek oraz kilka postaci z jego spektakli.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_walizki_002.jpg',
+        alt: 'Aktor rozmawiający z postacią ze spektaklu.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_walizki_003.jpg',
+        alt: 'Aktor animujący dwie kukiełki podczas spektaklu.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '  <div>\r\n            <p>\r\n              Spektakl pełen walizek, a walizki pełne lalek, bajek, historii i\r\n              opowieści - z różnych krajów, czasów i miejsc (nawet takich, które\r\n              w ogóle nie istnieją!) Pojawiają się bardzo różne lalki a historie\r\n              są raz śmieszne innym razem trochę straszne! Spektakl nie ma\r\n              końca, gdyż nowe historie w nowych walizkach pojawiają się cały\r\n              czas! Aktualnie można spotkać się z: Najsmaczniejszą walizką - a w\r\n              niej aromatyczna historia z Krainy Sera, Walizką pełną\r\n              krasnoludków - historia o krasnoludku, który nauczył się latać.\r\n              Tajemnicza walizka, w której mieści się chyba z tysiąc historii,\r\n              ale lubi ona płatać figle… Walizka z czasów jaskiniowców - z\r\n              jedynym na świecie… a niech to będzie niespodzianką!\r\n            </p>\r\n\r\n            <p>\r\n              Teatr Lalek Marka Żyły powstał w 2016 r. z pasji i miłości do\r\n              lalek i rozśmieszania. Każdy temat starają się okrasić sporą dawką\r\n              dobrego humoru. Ideą tego teatru jest teatr wędrowny, jarmarczny,\r\n              który gra wszędzie tam, gdzie tylko można ustawić niewielką scenę,\r\n              pełną lalek!\r\n            </p>\r\n          </div>',
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo:
+      'Bilet w cenie 35 zł. Rezerwacja miejsc pod numerem telefonu 32 332 63 79 w godzinach 12.00 - 20.00.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-walizki-001.jpg',
+    newsSectionImageAlt: 'Aktor animujący dwie kukiełki podczas spektaklu.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_walizki_001.jpg',
+    sliderImageAlt: 'Twórca Teatru Lalek oraz kilka postaci z jego spektakli.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-24T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-24T23:59:00.968Z'),
   },
 ];
 

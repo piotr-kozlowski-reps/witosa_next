@@ -13,11 +13,7 @@ import {
 import { loginEmailSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
-import {
-  TActionResponse,
-  TGetAllNewsletterAddressesResponse,
-  TNewsletterFormValues,
-} from '@/types';
+import { TActionResponse, TGetAllNewsletterAddressesResponse } from '@/types';
 import { Newsletter } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 

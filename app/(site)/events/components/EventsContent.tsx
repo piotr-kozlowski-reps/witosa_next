@@ -47,7 +47,10 @@ export default function EventsContent(props: Props) {
         checkButtonCategoryState={checkButtonCategoryState}
         toggleCategory={toggleCategory}
       />
-      <EventsList chosenEvents={chosenEvents} />
+      <EventsList
+        chosenEvents={chosenEvents}
+        isEventsArrayEmpty={events.length === 0}
+      />
     </Fragment>
   );
 }

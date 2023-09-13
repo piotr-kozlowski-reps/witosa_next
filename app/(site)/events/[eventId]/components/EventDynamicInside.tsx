@@ -38,24 +38,25 @@ export default function EventDynamicInside(props: Props) {
 
           {/* <div>
             <p>
-              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi
-              warsztaty tańca dla dzieci w wieku 7-14 lat.
-            </p>
-            <p>
-              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,
-              zapoznają z się z podstawowymi technikami i krokami tańca
-              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał
-              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego
-              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami
-              na scenie Art CK.
-            </p>
-            <p>
-              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00
-              -20.00.
+              Spektakl pełen walizek, a walizki pełne lalek, bajek, historii i
+              opowieści - z różnych krajów, czasów i miejsc (nawet takich, które
+              w ogóle nie istnieją!) Pojawiają się bardzo różne lalki a historie
+              są raz śmieszne innym razem trochę straszne! Spektakl nie ma
+              końca, gdyż nowe historie w nowych walizkach pojawiają się cały
+              czas! Aktualnie można spotkać się z: Najsmaczniejszą walizką - a w
+              niej aromatyczna historia z Krainy Sera, Walizką pełną
+              krasnoludków - historia o krasnoludku, który nauczył się latać.
+              Tajemnicza walizka, w której mieści się chyba z tysiąc historii,
+              ale lubi ona płatać figle… Walizka z czasów jaskiniowców - z
+              jedynym na świecie… a niech to będzie niespodzianką!
             </p>
 
             <p>
-              <b>Zapraszamy!</b>
+              Teatr Lalek Marka Żyły powstał w 2016 r. z pasji i miłości do
+              lalek i rozśmieszania. Każdy temat starają się okrasić sporą dawką
+              dobrego humoru. Ideą tego teatru jest teatr wędrowny, jarmarczny,
+              który gra wszędzie tam, gdzie tylko można ustawić niewielką scenę,
+              pełną lalek!
             </p>
           </div> */}
 

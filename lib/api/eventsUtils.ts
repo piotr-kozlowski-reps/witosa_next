@@ -1,4 +1,8 @@
 import { TEventTemporary } from '@/types';
+import {
+  isFirstDateAfterSecond,
+  isFirstDateBeforeSecond,
+} from '../dateHelpers';
 import { allEventsMockData } from './temporaryApiMockData';
 
 export async function getAllEventsSorted() {
@@ -8,10 +12,16 @@ export async function getAllEventsSorted() {
   return allEvents;
 }
 
-export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_AndThoseNotToBePublished_Sorted() {
+export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_NotCurrent_AndThoseNotToBePublished_Sorted() {
   const allEvents: TEventTemporary[] = allEventsMockData
     .filter((event) => event.isToBePublished)
     .filter((event) => event.isToBeOnlyInNewsSection_NotSeenInEvents !== true)
+    .filter((event) =>
+      isFirstDateBeforeSecond(event.visibleFrom, new Date(Date.now()))
+    )
+    .filter((event) =>
+      isFirstDateAfterSecond(event.visibleTo, new Date(Date.now()))
+    )
     .sort(function (a, b) {
       return a.eventStartDate.getTime() - b.eventStartDate.getTime();
     });
