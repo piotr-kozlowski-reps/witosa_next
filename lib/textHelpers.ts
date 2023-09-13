@@ -8,6 +8,10 @@ export function getPolishTypeName(type: EventType) {
       polishTypeName = 'koncert';
       break;
 
+    case 'DANCE':
+      polishTypeName = 'taniec';
+      break;
+
     case 'WORKSHOP':
       polishTypeName = 'warsztaty';
       break;
