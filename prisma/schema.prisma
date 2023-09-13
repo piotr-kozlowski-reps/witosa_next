@@ -13,6 +13,7 @@ datasource db {
 enum EventType {
   FESTIVAL
   CONCERT
+  DANCE
   CABARET
   SPECTACLE
   CYCLIC_MEETING
