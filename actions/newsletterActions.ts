@@ -7,7 +7,7 @@ import {
   dbWritingErrorMessage,
   emailAlreadyExistsMessage,
   emailNotExistsMessage,
-  newsletterDbWritingSuccessMessage,
+  generateNewsletterDbWritingSuccessMessageWithCurrentEmail,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import { loginEmailSchema } from '@/lib/errors/zodSchemas';
@@ -53,14 +53,18 @@ export async function addNewsletterAddress(
   try {
     await prisma.newsletter.create({ data: { email } });
   } catch (error) {
+    console.log({ error });
+
     logger.warn(dbWritingErrorMessage);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
   /* final success response */
-  ////TODO: dodaj email wyslany właśnie jeszcze do response i loggera
-  logger.info(newsletterDbWritingSuccessMessage);
-  return { status: 'SUCCESS', response: newsletterDbWritingSuccessMessage };
+  logger.info(generateNewsletterDbWritingSuccessMessageWithCurrentEmail(email));
+  return {
+    status: 'SUCCESS',
+    response: generateNewsletterDbWritingSuccessMessageWithCurrentEmail(email),
+  };
 }
 
 export async function getAllNewsletterAddresses(): Promise<TGetAllNewsletterAddressesResponse> {
@@ -115,8 +119,8 @@ export async function deleteNewsletterAddress(
 
   return {
     status: 'SUCCESS',
-    response: `E-mail: ${email}, został skasowany z Newslettera.`,
-  }; ////TODO: check ortograf
+    response: `E-mail: ${email} został skasowany z Newslettera.`,
+  };
 }
 
 export async function updateNewsletterAddress(
@@ -163,8 +167,8 @@ export async function updateNewsletterAddress(
   /** send success response */
   return {
     status: 'SUCCESS',
-    response: `E-mail: ${oldAddress}, został zmieniony na: ${updatedAddress}.`,
-  }; ////TODO: check ortograf
+    response: `E-mail: ${oldAddress} został zmieniony na: ${updatedAddress}.`,
+  };
 }
 
 ////utils

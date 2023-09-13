@@ -53,7 +53,7 @@ export default function InputFormik(props: Props) {
                 onChange={(val) => onChange(val)}
                 onBlur={onBlur}
                 className={clsx(
-                  'py-[12px] px-8 font-base-regular rounded-base drop-shadow-big mt-[3px] transition-all duration-50 ease-out bg-skin-main-bg outline-none focus:border-2 focus:border-cta-secondary',
+                  'form-input',
                   !width ? 'w-full' : '',
                   isErrorPresentAndFieldWasTouched
                     ? 'border-2 border-error'

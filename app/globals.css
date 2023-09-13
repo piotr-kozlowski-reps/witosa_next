@@ -396,4 +396,14 @@
   .proper-container-classes {
     @apply mx-mobile-margin tablet:mx-tablet-margin desktop:mx-auto desktop:w-[1140px];
   }
+
+  .form-input {
+    @apply py-[12px] px-8 font-base-regular rounded-base drop-shadow-big mt-[3px] transition-all ease-out bg-skin-main-bg outline-none focus:border-2 focus:border-cta-secondary;
+    transition-duration: 50ms;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
 }

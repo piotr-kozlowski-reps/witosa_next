@@ -3,6 +3,9 @@ import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import { TNewsletterTemporary } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { Fragment } from 'react';
 
 export const columns: ColumnDef<TNewsletterTemporary>[] = [
   {
@@ -37,8 +40,24 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
+          className="float-left"
         >
-          email (+ ikonka)
+          <span
+            className={clsx(
+              'text-skin-inverted',
+              column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
+            )}
+          >
+            email
+          </span>
+
+          <Image
+            alt="ikonka sortowania."
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}sort-icon.svg`}
+            width={14}
+            height={14}
+            className="inline-block ml-[7px] mb-[2px]"
+          />
         </button>
       );
     },
@@ -51,8 +70,25 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
+          className="ml-6"
         >
-          data utworzenia (+ ikonka)
+          <Fragment>
+            <span
+              className={clsx(
+                'text-skin-inverted',
+                column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
+              )}
+            >
+              data utworzenia
+            </span>
+            <Image
+              alt="ikonka sortowania."
+              src={`${process.env.NEXT_PUBLIC_BASE_URL}sort-icon.svg`}
+              width={14}
+              height={14}
+              className="inline-block ml-[7px] mb-[2px]"
+            />
+          </Fragment>
         </button>
       );
     },
@@ -62,16 +98,30 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
       const formattedDate = new Date(creationDate as string).toLocaleDateString(
         'pl'
       );
-      return <div className="">{formattedDate}</div>;
+      return <div className="ml-6">{formattedDate}</div>;
     },
   },
   {
     id: 'actions',
+    header: ({ table }) => {
+      return (
+        <div className="float-right mr-8">
+          <input
+            placeholder="wyszukaj e-mail"
+            value={(table.getColumn('email')?.getFilterValue() as string) || ''}
+            onChange={(e) => {
+              table.getColumn('email')?.setFilterValue(e.target.value);
+            }}
+            className="mt-0 form-input"
+          ></input>
+        </div>
+      );
+    },
     cell: ({ row }) => {
       const newsletterRowData = row.original;
       const newsletterEmail = newsletterRowData.email;
       return (
-        <div>
+        <div className="float-right mr-8 h-[42px]">
           <button
             onClick={() => navigator.clipboard.writeText(newsletterEmail)}
           >
@@ -80,7 +130,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
               alt="Kopiuj adres e-mail."
             />
           </button>
-          <button className="ml-4">
+          <button>
             <EditIcon
               actionFn={() => {
                 alert('not implemented');
@@ -88,7 +138,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
               alt="Edytuj email Newslettera."
             />
           </button>
-          <button className="ml-4">
+          <button>
             <CloseIcon
               actionFn={() => {
                 alert('not implemented');

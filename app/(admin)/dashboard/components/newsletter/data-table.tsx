@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
 import {
   ColumnDef,
-  useReactTable,
-  getCoreRowModel,
+  ColumnFiltersState,
+  SortingState,
   flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
-  ColumnFiltersState,
-  VisibilityState,
-  getFilteredRowModel,
+  useReactTable,
 } from '@tanstack/react-table';
-import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,35 +44,30 @@ export default function NewsletterDataTable<TData, TValue>({
     },
   });
 
-  console.log({ rowSelection });
-
   ////tsx
   return (
     <div>
       <div>
-        <input
-          placeholder="filter by emails"
-          value={(table.getColumn('email')?.getFilterValue() as string) || ''}
-          onChange={(e) => {
-            table.getColumn('email')?.setFilterValue(e.target.value);
-          }}
-        ></input>
-      </div>
-
-      <div>
-        <table className="rounded-base">
-          <thead className="bg-skin-cta-secondary text-skin-inverted rounded-md">
+        <table className="mr-8 table-spacing-in-y">
+          <thead className="bg-skin-cta-secondary text-skin-inverted ">
             {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <tr key={headerGroup.id} style={{ borderRadius: '20px' }}>
+                <tr key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => {
                     return (
-                      <td key={header.id} className="px-4 py-2">
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </td>
+                      <th
+                        key={header.id}
+                        className="py-2 mr-8 first:rounded-s-base last:rounded-r-base last:w-full whitespace-nowrap first:px-6 "
+                      >
+                        <div>
+                          <span className="font-base-regular text-skin-inverted">
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                          </span>
+                        </div>
+                      </th>
                     );
                   })}
                 </tr>
@@ -81,17 +75,25 @@ export default function NewsletterDataTable<TData, TValue>({
             })}
           </thead>
 
-          <tbody>
+          <tbody className="">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 return (
-                  <tr key={row.id}>
+                  <tr
+                    key={row.id}
+                    className="p-8 h-11 bg-skin-main-bg drop-shadow-big"
+                  >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-2">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
+                      <td
+                        key={cell.id}
+                        className="first:rounded-s-base last:rounded-r-base first:px-6 last:w-full"
+                      >
+                        <div>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </div>
                       </td>
                     ))}
                   </tr>
@@ -106,7 +108,7 @@ export default function NewsletterDataTable<TData, TValue>({
         </table>
       </div>
 
-      <div className="mt-4 flex justify-start items-center">
+      <div className="flex items-center justify-start mt-4">
         {/* TODO: dodać schowanie obu buttonów jeżeli nie ma sensu paginacja */}
         <div>
           <PrevIcon

@@ -15,3 +15,9 @@ export const newsletterDbWritingSuccessMessage =
 
 //
 export const notLoggedIn = 'Nie jesteś zalogowany.';
+
+export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
+  email: string
+) {
+  return `E-mail: ${email} - został zapisany w naszym newsletterze.`;
+}
