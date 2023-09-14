@@ -471,6 +471,56 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-24T23:59:00.968Z'),
   },
+  {
+    id: '12we27417-9875-ff81-g351-ce6bfr4ghta5',
+    eventTypes: ['OTHERS'],
+    eventForWhom: ['CHILDREN', 'TEENS'],
+    title: 'Rozpoczęliśmy zapisy dzieci na zajęcia akrobatyki.',
+    places: ['DANCING_ROOM'],
+    shortDescription: 'Zapraszamy na zajęcia akrobatyki. Rozpoczęliśmy zapisy.',
+    eventStartDate: new Date('2023-09-13T18:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_akrobatyka_001.jpg',
+        alt: 'Baner akcji Narodowego czytania.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      // {
+      //   url: 'events_nc_002.jpg',
+      //   alt: 'Program Narodowego Czytania.',
+      //   additionInfoThatMustBeDisplayed: null,
+      // },
+    ],
+    detailedDescription:
+      '          <div><p>Zapraszamy na zajęcia akrobatyki. Rozpoczęliśmy zapisy.</p><p>Dzwońcie w godzinach popołudniowych na numery <b>32 332 63 97</b> lub <b>32 332 63 79.</b></p><p>Pierwsze zajęcia odbędą się w sobotę, <b>30 września</b>.</p></div>',
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: true,
+    isToBeOnlyInNewsSection_NotSeenInEvents: true,
+    newsSectionImageUrl: 'news-img-akrobatyka-001.jpg',
+    newsSectionImageAlt: 'Akrobatyka dla dzieci.',
+    //slider
+    isToBeInSlider: false,
+    sliderImageUrl: null,
+    sliderImageAlt: null,
+    visibleInSliderFrom: null,
+    visibleInSLiderTo: null,
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2025-09-08T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
