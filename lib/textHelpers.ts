@@ -102,6 +102,10 @@ export function getPolishCategoryOfEventsName(category: EventType) {
       polishCategoryName = 'koncert';
       break;
 
+    case 'DANCE':
+      polishCategoryName = 'taniec';
+      break;
+
     case 'CYCLIC_MEETING':
       polishCategoryName = 'wydarzenia cykliczne';
       break;
