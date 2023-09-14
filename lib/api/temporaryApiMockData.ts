@@ -521,6 +521,58 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2025-09-08T23:59:00.968Z'),
   },
+  {
+    id: 'dadd8847-d3g1-ff81-8116-676rr7fd8aa3',
+    eventTypes: ['OTHERS'],
+    eventForWhom: ['TEENS', 'ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'Spotkanie autorskie z Justyną Wydrą',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Serdecznie zapraszamy w piątek, 15 września o godz. 18:00 na spotkania autorskie z Justyną Wydrą w ramach projektu NCK - NIEPODLEGŁA.',
+
+    eventStartDate: new Date('2023-09-15T18:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_autorskie_001.jpg',
+        alt: 'Twarz autorki - młoda kobieta w okularach i długich, prostych włosach.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '<div><p>Serdecznie zapraszamy w piątek, <b>15 września o godz. 18:00</b> na <b>spotkania autorskie z Justyną Wydrą</b> do nowo otwartego Art CK w Knurowie, przy ul. Witosa 6.</p><p>Prowadzenie: <b>Szymon Szwajger</b>.</p><p><b>Justyna Wydra</b> - od zawsze kocha się w słowach. Szczególnie tych pisanych, śpiewanych i wypowiadanych na kinowym ekranie. Pracuje z nimi jako copywriter i autorka artykułów dla prasy drukowanej oraz internetowej. Pochodzi z Gliwic, gdzie dorastała i mieszka do dziś. Z rodzinnym miastem i Śląskiem czuje się silnie związana, co znajduje odzwierciedlenie także w jej twórczości. Współtwórczyni Klubu Książki Kobiecej. Justyna Wydra książki zaczęła wydawać w połowie zeszłej dekady i od tego czasu publikuje regularnie. Najnowsza powieść jej autorstwa pt. Ja matką? Ratunku! do księgarń trafiła pod koniec zeszłego roku. Po godzinach czyta książki, prowadzi bloga, słucha muzyki i stara się nadrobić filmowe zaległości. Gdy ma już naprawdę serdecznie dosyć słów, zamyka za sobą drzwi i udaje się tam, dokąd pokieruje ją instynkt Włóczykija - najczęściej ląduje na górskim szlaku, bądź w północnych Włoszech.</p><p>Autorka powieści „Esesman i Żydówka”, ”Zaniemówienie”, "Ponieważ wróciłam”, „Warkoczyk”, „Ja matką? Ratunku!”.</p></div>',
+
+    //paying
+    isPayed: false,
+    kindOfEnterInfo:
+      'Wstęp wolny. Dofinansowano ze środków Biura „Niepodległa” w ramach Programu Dotacyjnego „Symbole Narodowe RP"',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-autorskie-001.jpg',
+    newsSectionImageAlt:
+      'Twarz autorki - młoda kobieta w okularach i długich, prostych włosach.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_autorskie_001.jpg',
+    sliderImageAlt:
+      'Twarz autorki - młoda kobieta w okularach i długich, prostych włosach.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-15T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-15T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {

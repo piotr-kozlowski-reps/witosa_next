@@ -12,24 +12,32 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
     id: 'select',
     header: ({ table }) => {
       return (
-        <input
-          type="checkbox"
-          checked={table.getIsAllPageRowsSelected()}
-          onChange={(event) => {
-            table.toggleAllPageRowsSelected(event.target.checked);
-          }}
-        />
+        <div className="checkbox-rect">
+          <input
+            type="checkbox"
+            id="checkbox-rect1"
+            checked={table.getIsAllPageRowsSelected()}
+            onChange={(event) => {
+              table.toggleAllPageRowsSelected(event.target.checked);
+            }}
+          />
+          <label htmlFor="checkbox-rect1"></label>
+        </div>
       );
     },
     cell: ({ row }) => {
       return (
-        <input
-          type="checkbox"
-          checked={row.getIsSelected()}
-          onChange={(event) => {
-            row.toggleSelected(event.target.checked);
-          }}
-        />
+        <div className="checkbox-rect">
+          <input
+            type="checkbox"
+            checked={row.getIsSelected()}
+            id={row.id}
+            onChange={(event) => {
+              row.toggleSelected(event.target.checked);
+            }}
+          />
+          <label htmlFor={row.id}></label>
+        </div>
       );
     },
   },

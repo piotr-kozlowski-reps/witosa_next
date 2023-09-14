@@ -1,7 +1,10 @@
+import CustomButton from '@/app/(site)/components/CustomButton';
+import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
 import {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -10,7 +13,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -25,6 +30,17 @@ export default function NewsletterDataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const pagination = useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize]
+  );
 
   const table = useReactTable({
     data,
@@ -37,22 +53,26 @@ export default function NewsletterDataTable<TData, TValue>({
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       rowSelection,
+      pagination,
     },
   });
+
+  console.log('page count: ', table.getPageCount());
 
   ////tsx
   return (
     <div>
       <div>
         <table className="mr-8 table-spacing-in-y">
-          <thead className="bg-skin-cta-secondary text-skin-inverted ">
+          <thead className="bg-skin-cta-secondary text-skin-inverted">
             {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <tr key={headerGroup.id} className="">
+                <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
                       <th
@@ -75,61 +95,123 @@ export default function NewsletterDataTable<TData, TValue>({
             })}
           </thead>
 
-          <tbody className="">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => {
-                return (
-                  <tr
-                    key={row.id}
-                    className="p-8 h-11 bg-skin-main-bg drop-shadow-big"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td
-                        key={cell.id}
-                        className="first:rounded-s-base last:rounded-r-base first:px-6 last:w-full"
+          <tbody>
+            <AnimatePresence mode="wait">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => {
+                  return (
+                    <AnimatePresence mode="wait" key={row.id}>
+                      <motion.tr
+                        key={row.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="p-8 h-11 bg-skin-main-bg drop-shadow-big hover:drop-shadow-lg"
+                        whileHover={{ scale: 1.01 }}
                       >
-                        <div>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td>Brak rezultatów.</td>
-              </tr>
-            )}
+                        {row.getVisibleCells().map((cell) => (
+                          <td
+                            key={cell.id}
+                            className="first:rounded-s-base last:rounded-r-base first:px-6 last:w-full"
+                          >
+                            <div>
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </div>
+                          </td>
+                        ))}
+                      </motion.tr>
+                    </AnimatePresence>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>Brak rezultatów.</td>
+                </tr>
+              )}
+            </AnimatePresence>
           </tbody>
         </table>
       </div>
 
-      <div className="flex items-center justify-start mt-4">
-        {/* TODO: dodać schowanie obu buttonów jeżeli nie ma sensu paginacja */}
-        <div>
-          <PrevIcon
-            actionFn={() => table.previousPage()}
-            alt="Poprzednia strona."
-            disabled={!table.getCanPreviousPage()}
-          />
-        </div>
-        <div>
-          <PrevIcon
-            actionFn={() => table.nextPage()}
-            alt="Następna strona."
-            disabled={!table.getCanNextPage()}
-            isToBeFlippedToBeNextButton={true}
-          />
-        </div>
-      </div>
+      <div
+        className={clsx(
+          'flex items-center ',
+          table.getFilteredSelectedRowModel().rows.length === 0
+            ? 'justify-end'
+            : 'justify-between'
+        )}
+      >
+        {/* delete selected - start */}
+        {table.getFilteredSelectedRowModel().rows.length !== 0 ? (
+          <div
+            className={clsx(
+              ' ml-6 font-base-regular',
+              table.getPageCount() < 2 ? 'mt-[7px]' : '-mt-[4px]'
+            )}
+          >
+            wybrano{' '}
+            <strong>{table.getFilteredSelectedRowModel().rows.length}</strong> z{' '}
+            <strong>{table.getFilteredRowModel().rows.length}</strong>
+            <div className="inline-block ml-2">
+              <CustomButton
+                actionFn={() => alert('not implemented')}
+                text="skasuj elementy"
+                descriptionText="Skasuj wszytskie wybrane elementy."
+                disabled={false}
+              />
+            </div>
+          </div>
+        ) : null}
+        {/* delete selected - end */}
 
-      <div className="bg-red-400">
-        {table.getFilteredSelectedRowModel().rows.length} z{' '}
-        {table.getFilteredRowModel().rows.length} wybrane
+        {/* pagination start */}
+        {table.getPageCount() > 2 ? (
+          <div className="flex items-center justify-end mr-8 mt-[2px]">
+            <div>
+              <GoToStartIcon
+                actionFn={() => table.setPageIndex(0)}
+                alt="Pierwsza strona."
+                disabled={!table.getCanPreviousPage()}
+              />
+            </div>
+            <div>
+              <PrevIcon
+                actionFn={() => table.previousPage()}
+                alt="Poprzednia strona."
+                disabled={!table.getCanPreviousPage()}
+              />
+            </div>
+            <div>
+              <span className="flex items-center gap-1 mx-6 font-base-regular -mt-[6px]">
+                <div>Strona</div>
+                <strong>
+                  {table.getState().pagination.pageIndex + 1}
+                </strong> z <strong>{table.getPageCount()}</strong>
+              </span>
+            </div>
+            <div>
+              <PrevIcon
+                actionFn={() => table.nextPage()}
+                alt="Następna strona."
+                disabled={!table.getCanNextPage()}
+                isToBeFlippedToBeNextButton={true}
+              />
+            </div>
+
+            <div>
+              <GoToStartIcon
+                actionFn={() => table.setPageIndex(table.getPageCount() - 1)}
+                alt="Ostatnia strona."
+                disabled={!table.getCanNextPage()}
+                isToBeFlippedToBeNextButton={true}
+              />
+            </div>
+          </div>
+        ) : null}
+        {/* pagination end */}
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export default function DashboardNewsletter() {
           />
         </div>
       </div>
-      <NewsletterDataTable columns={columns} data={newsletterMockData} />;
+      <NewsletterDataTable columns={columns} data={newsletterMockData} />
     </Fragment>
   );
 }

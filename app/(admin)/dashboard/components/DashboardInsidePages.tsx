@@ -3,8 +3,8 @@ import { useSession } from 'next-auth/react';
 import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
-import DashboardNewsletter from './newsletter/DashboardNewsletter';
 import DashboardUsers from './DashboardUsers';
+import DashboardNewsletter from './newsletter/DashboardNewsletter';
 
 export default function DashboardInsidePages() {
   ////vars
@@ -21,7 +21,7 @@ export default function DashboardInsidePages() {
 
   ////tsx
   return (
-    <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 outline outline-[1px] outline-cta-secondary">
+    <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 ">
       {isToShowEvents ? <DashboardEvents /> : null}
       {isToShowCyclicalActivities ? <DashboardCyclicalActivities /> : null}
       {isToShowNewsletter ? <DashboardNewsletter /> : null}
