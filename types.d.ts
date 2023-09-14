@@ -5,7 +5,6 @@ import {
   Newsletter,
   UserRole,
 } from '@prisma/client';
-import { type } from 'os';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
 export type TFontSize = 'NORMAL' | 'BIGGER' | 'BIGGEST';
