@@ -1,5 +1,13 @@
 'use server';
 
+// export const revalidate = 3600; // revalidate the data at most every hour
+
+// export const getItem = cache(async (id: string) => {
+//   const item = await db.item.findUnique({ id });
+//   return item;
+// });
+import { revalidatePath } from 'next/cache';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badEmailFormatMessage,
@@ -12,6 +20,7 @@ import {
 } from '@/lib/api/apiTextResponses';
 import { loginEmailSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
+import { createEmailsListInOneLineInSquareBrackets } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllNewsletterAddressesResponse } from '@/types';
 import { Newsletter } from '@prisma/client';
@@ -67,27 +76,49 @@ export async function addNewsletterAddress(
   };
 }
 
-export async function getAllNewsletterAddresses(): Promise<TGetAllNewsletterAddressesResponse> {
-  /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
-    return { status: 'ERROR', response: notLoggedIn };
-  }
+// export const getAllNewsletterAddresses = cache(
+//   async (): Promise<TGetAllNewsletterAddressesResponse> => {
+//     /** checking session */
+//     const session = await getServerSession(authOptions);
+//     if (!session) {
+//       logger.warn(notLoggedIn);
+//       return { status: 'ERROR', response: notLoggedIn };
+//     }
 
-  let emailsInNewsletter: Newsletter[] = [];
-  try {
-    emailsInNewsletter = await prisma.newsletter.findMany();
-  } catch (error) {
-    logger.warn(dbReadingErrorMessage);
-    return { status: 'ERROR', response: dbReadingErrorMessage };
-  }
+//     let emailsInNewsletter: Newsletter[] = [];
+//     try {
+//       emailsInNewsletter = await prisma.newsletter.findMany();
+//     } catch (error) {
+//       logger.warn(dbReadingErrorMessage);
+//       return { status: 'ERROR', response: dbReadingErrorMessage };
+//     }
 
-  return { status: 'SUCCESS', response: emailsInNewsletter };
-}
+//     return { status: 'SUCCESS', response: emailsInNewsletter };
+//   }
+// );
+
+export const getAllNewsletterAddresses =
+  async (): Promise<TGetAllNewsletterAddressesResponse> => {
+    /** checking session */
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      logger.warn(notLoggedIn);
+      return { status: 'ERROR', response: notLoggedIn };
+    }
+
+    let emailsInNewsletter: Newsletter[] = [];
+    try {
+      emailsInNewsletter = await prisma.newsletter.findMany();
+    } catch (error) {
+      logger.warn(dbReadingErrorMessage);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
+
+    return { status: 'SUCCESS', response: emailsInNewsletter };
+  };
 
 export async function deleteNewsletterAddress(
-  email: string
+  emailsArray: string[]
 ): Promise<TActionResponse> {
   /** checking session */
   const session = await getServerSession(authOptions);
@@ -97,29 +128,54 @@ export async function deleteNewsletterAddress(
   }
 
   /** checking values eXistenZ */
-  if (!email) {
+  if (!emailsArray) {
     logger.warn(badEmailFormatMessage);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
-  /* validation if email already exists in db */
-  let exists: unknown;
-  try {
-    exists = await checkIfEmailExists(email);
-  } catch (error) {
-    logger.warn(dbReadingErrorMessage);
-    return { status: 'ERROR', response: dbReadingErrorMessage };
-  }
-  if (!exists) {
-    logger.warn(emailNotExistsMessage);
-    return { status: 'ERROR', response: emailNotExistsMessage };
+  /* validation if emails already exist in db */
+  for (let i = 0; i < emailsArray.length; i++) {
+    let exists: unknown;
+    try {
+      exists = await checkIfEmailExists(emailsArray[i]);
+    } catch (error) {
+      logger.warn(dbReadingErrorMessage);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
+
+    if (!exists) {
+      logger.warn(emailNotExistsMessage);
+      return { status: 'ERROR', response: emailNotExistsMessage };
+    }
   }
 
-  //TODO: delete email from DB if problem - send error
+  try {
+    await prisma.newsletter.deleteMany({
+      where: {
+        email: {
+          in: emailsArray,
+        },
+      },
+    });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
+
+  revalidatePath('/dashboard');
+
+  const responseText =
+    emailsArray.length === 1
+      ? `E-mail: ${createEmailsListInOneLineInSquareBrackets(
+          emailsArray
+        )} - został skasowany z Newslettera.`
+      : `E-maile: ${createEmailsListInOneLineInSquareBrackets(
+          emailsArray
+        )} - zostały skasowane z Newslettera.`;
 
   return {
     status: 'SUCCESS',
-    response: `E-mail: ${email} został skasowany z Newslettera.`,
+    response: responseText,
   };
 }
 

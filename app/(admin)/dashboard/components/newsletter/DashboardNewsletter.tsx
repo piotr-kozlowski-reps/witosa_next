@@ -1,22 +1,17 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
-import { newsletterMockData } from '@/lib/api/temporaryApiMockData';
+import { TNewsletterDataCombo } from '@/types';
 import { Fragment } from 'react';
 import { columns } from './columns';
 import NewsletterDataTable from './data-table';
 
-export default function DashboardNewsletter() {
-  // const [newsletterAddresses, setNewsletterAddresses] = useState<Newsletter[]>(
-  //   []
-  // );
+type Props = {
+  newsletterDataCombo: TNewsletterDataCombo;
+};
 
-  // useEffect(async () => {
-  //   async function getData() {
-  //     return await getAllNewsletterAddresses();
-  //   }
+export default function DashboardNewsletter(props: Props) {
+  const { newsletterDataCombo } = props;
 
-  //   const fetchedNewsletterAddresses = getData();
-  //   setNewsletterAddresses(fetchedNewsletterAddresses)
-  // }, []);
+  const newsletterPreparedDataArray = prepareDataArray(newsletterDataCombo);
 
   return (
     <Fragment>
@@ -33,7 +28,23 @@ export default function DashboardNewsletter() {
           />
         </div>
       </div>
-      <NewsletterDataTable columns={columns} data={newsletterMockData} />
+      <NewsletterDataTable
+        columns={columns}
+        data={newsletterPreparedDataArray}
+      />
     </Fragment>
   );
+}
+
+///utils
+function prepareDataArray(newsletterAllData: TNewsletterDataCombo) {
+  const status = newsletterAllData.allNewsletterAddresses.status;
+  const response = newsletterAllData.allNewsletterAddresses.response;
+  const isResponseAnArray = Array.isArray(response);
+
+  if (status !== 'SUCCESS' || !isResponseAnArray) {
+    return [];
+  }
+
+  return response;
 }

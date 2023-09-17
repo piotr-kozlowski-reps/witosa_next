@@ -298,3 +298,20 @@ export function createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
     date
   )} | g. ${getTwoDigitHours(date)}:${getTwoDigitMinutes(date)}`;
 }
+
+//arrays
+export function createEmailsListInOneLineInSquareBrackets(
+  emailsList: string[]
+) {
+  let result = '';
+
+  emailsList.forEach((email, index) => {
+    if (index !== emailsList.length - 1) {
+      result += `${email}, `;
+      return;
+    }
+    result += `${email}`;
+  });
+
+  return result;
+}

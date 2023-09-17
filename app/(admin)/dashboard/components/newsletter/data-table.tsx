@@ -1,6 +1,8 @@
+import { deleteNewsletterAddress } from '@/actions/newsletterActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
+import { Newsletter } from '@prisma/client';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -62,7 +64,7 @@ export default function NewsletterDataTable<TData, TValue>({
     },
   });
 
-  console.log('page count: ', table.getPageCount());
+  // console.log('page count: ', table.getPageCount());
 
   ////tsx
   return (
@@ -96,7 +98,7 @@ export default function NewsletterDataTable<TData, TValue>({
           </thead>
 
           <tbody>
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => {
                   return (
@@ -157,7 +159,21 @@ export default function NewsletterDataTable<TData, TValue>({
             <strong>{table.getFilteredRowModel().rows.length}</strong>
             <div className="inline-block ml-2">
               <CustomButton
-                actionFn={() => alert('not implemented')}
+                actionFn={async () => {
+                  const filteredEmails = table
+                    .getFilteredSelectedRowModel()
+                    .rows.map((row) => {
+                      return row.original;
+                    })
+                    .map(
+                      (originalObject) => (originalObject as Newsletter).email
+                    );
+
+                  const dataResponse = await deleteNewsletterAddress(
+                    filteredEmails
+                  );
+                  console.log({ dataResponse });
+                }}
                 text="skasuj elementy"
                 descriptionText="Skasuj wszytskie wybrane elementy."
                 disabled={false}

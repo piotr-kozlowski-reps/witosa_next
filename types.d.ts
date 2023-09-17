@@ -197,3 +197,7 @@ export type TGetAllNewsletterAddressesResponse = {
   status: TStatus;
   response: string | Newsletter[];
 };
+
+export type TNewsletterDataCombo = {
+  allNewsletterAddresses: TGetAllNewsletterAddressesResponse;
+};

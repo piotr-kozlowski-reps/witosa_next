@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   createBetweenHoursText,
   createDateInFormat_DateSeparatorFullDayNameSeparatorTime,
+  createEmailsListInOneLineInSquareBrackets,
   createListingOfAllPlacesSeparatedWithCommas,
   getCorrectTwoDigitsMonthNumber,
   getHoursAndMinutesWithGInFrontFromDateObject,
@@ -240,5 +241,16 @@ describe('createDateInFormat_DateSeparatorFullDayNameSeparatorTime()', () => {
         new Date('2023-08-29T10:45:00.968Z')
       )
     ).toEqual('29.08.2023 | wtorek | g. 10:45');
+  });
+});
+
+describe('createEmailsListInOneLineInSquareBrackets()', () => {
+  it('returns only one place with no comma in the end', () => {
+    expect(
+      createEmailsListInOneLineInSquareBrackets([
+        'test@test.pl',
+        'test2@test.pl',
+      ])
+    ).toEqual(`test@test.pl, test2@test.pl`);
   });
 });

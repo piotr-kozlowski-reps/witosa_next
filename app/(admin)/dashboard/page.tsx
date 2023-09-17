@@ -1,23 +1,15 @@
-'use client';
-
-import NotAuthenticatedError from '@/app/(site)/components/NotAuthenticatedError';
-import { useSession } from 'next-auth/react';
-import { Fragment } from 'react';
+import { getAllNewsletterAddresses } from '@/actions/newsletterActions';
+import { TNewsletterDataCombo } from '@/types';
 import DashboardContent from './components/DashboardContent';
 
-export default function Dashboard() {
+export default async function Dashboard() {
   ////vars
-  const session = useSession();
-  // const isAdmin = session?.data?.user?.role === 'ADMIN';
-  // const session = await getServerSession(authOptions);
+  const newsletterData = await getAllNewsletterAddresses();
 
-  console.log({ session });
+  const newsletterDataCombo: TNewsletterDataCombo = {
+    allNewsletterAddresses: newsletterData,
+  };
 
   ////tsx
-  return (
-    <Fragment>
-      {session?.status === 'unauthenticated' ? <NotAuthenticatedError /> : null}
-      {session && session?.data?.user ? <DashboardContent /> : null}
-    </Fragment>
-  );
+  return <DashboardContent newsletterDataCombo={newsletterDataCombo} />;
 }

@@ -1,4 +1,5 @@
 import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
+import { TNewsletterDataCombo } from '@/types';
 import { useSession } from 'next-auth/react';
 import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
@@ -6,7 +7,11 @@ import DashboardLogs from './DashboardLogs';
 import DashboardUsers from './DashboardUsers';
 import DashboardNewsletter from './newsletter/DashboardNewsletter';
 
-export default function DashboardInsidePages() {
+type Props = {
+  newsletterDataCombo: TNewsletterDataCombo;
+};
+
+export default function DashboardInsidePages(props: Props) {
   ////vars
   const session = useSession();
   const isAdmin = session?.data?.user?.role === 'ADMIN';
@@ -24,7 +29,9 @@ export default function DashboardInsidePages() {
     <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 ">
       {isToShowEvents ? <DashboardEvents /> : null}
       {isToShowCyclicalActivities ? <DashboardCyclicalActivities /> : null}
-      {isToShowNewsletter ? <DashboardNewsletter /> : null}
+      {isToShowNewsletter ? (
+        <DashboardNewsletter newsletterDataCombo={props.newsletterDataCombo} />
+      ) : null}
       {isToShowUsers ? <DashboardUsers /> : null}
       {isToShowLogs ? <DashboardLogs /> : null}
     </div>

@@ -1,3 +1,4 @@
+import { deleteNewsletterAddress } from '@/actions/newsletterActions';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
@@ -129,31 +130,37 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
       const newsletterRowData = row.original;
       const newsletterEmail = newsletterRowData.email;
       return (
-        <div className="float-right mr-8 h-[42px]">
-          <button
-            onClick={() => navigator.clipboard.writeText(newsletterEmail)}
-          >
+        <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
+          <div>
             <CopyIcon
               actionFn={() => navigator.clipboard.writeText(newsletterEmail)}
               alt="Kopiuj adres e-mail."
             />
-          </button>
-          <button>
+          </div>
+
+          <div>
             <EditIcon
               actionFn={() => {
                 alert('not implemented');
               }}
               alt="Edytuj email Newslettera."
             />
-          </button>
-          <button>
+          </div>
+
+          <div>
             <CloseIcon
-              actionFn={() => {
-                alert('not implemented');
+              actionFn={async () => {
+                const dataResponse = await deleteNewsletterAddress([
+                  row.original.email,
+                ]);
+
+                console.log({ dataResponse });
+
+                // revalidatePath('/dashboard');
               }}
               alt="Wykasuj email z Newslettera."
             />
-          </button>
+          </div>
         </div>
       );
     },
