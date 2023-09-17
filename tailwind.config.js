@@ -65,6 +65,7 @@ module.exports = {
         'primary-color': 'var(--color-foreground-base)',
         'cta-primary': 'var(--cta-primary)',
         'cta-secondary': 'var(--cta-secondary)',
+        'gray-color': 'var(--color-gray)',
         error: 'var(--color-error)',
       },
       spacing: {

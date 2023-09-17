@@ -1,11 +1,13 @@
 'use client';
 
 import { useLayoutState } from '@/context/layoutState';
+import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
 import { useGetCurrentDevice } from '@/hooks/useGetCurrentDevice';
 import { TFontSize, TMode } from '@/types';
 import { Fragment, useEffect } from 'react';
 import FirstLinksToAccessContentOrAccessibilityMenuForHandicapped from '../FirstLinksToAccessContentOrAccessibilityMenuForHandicapped';
+import Modal from '../modal/Modal';
 import NavigationDesktop from './NavigationDesktop';
 import NavigationMobileAndTablet from './NavigationMobileAndTablet';
 
@@ -15,6 +17,7 @@ export default function Navigation() {
   const currentMode = useLayoutState().getLayoutMode();
   const currentFontSize = useLayoutState().getFontSize();
   const { getCurrentDevice } = useNavigationState();
+  const { getIsShowModal } = useModalState();
 
   useEffect(() => {
     const bodyElementClassesList = document.body.classList;
@@ -29,6 +32,10 @@ export default function Navigation() {
 
   return (
     <Fragment>
+      {/* modal - start */}
+      {getIsShowModal() ? <Modal /> : null}
+      {/* modal - end */}
+
       <FirstLinksToAccessContentOrAccessibilityMenuForHandicapped />
 
       {getCurrentDevice() === 'MOBILE' || getCurrentDevice() === 'TABLET' ? (

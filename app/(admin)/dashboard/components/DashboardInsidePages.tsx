@@ -1,3 +1,4 @@
+import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
 import { TNewsletterDataCombo } from '@/types';
 import { useSession } from 'next-auth/react';
@@ -27,13 +28,29 @@ export default function DashboardInsidePages(props: Props) {
   ////tsx
   return (
     <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 ">
-      {isToShowEvents ? <DashboardEvents /> : null}
-      {isToShowCyclicalActivities ? <DashboardCyclicalActivities /> : null}
-      {isToShowNewsletter ? (
-        <DashboardNewsletter newsletterDataCombo={props.newsletterDataCombo} />
-      ) : null}
-      {isToShowUsers ? <DashboardUsers /> : null}
-      {isToShowLogs ? <DashboardLogs /> : null}
+      <ComponentTransitionFromRightToLeft>
+        {isToShowEvents ? <DashboardEvents /> : null}
+      </ComponentTransitionFromRightToLeft>
+
+      <ComponentTransitionFromRightToLeft>
+        {isToShowCyclicalActivities ? <DashboardCyclicalActivities /> : null}
+      </ComponentTransitionFromRightToLeft>
+
+      <ComponentTransitionFromRightToLeft>
+        {isToShowNewsletter ? (
+          <DashboardNewsletter
+            newsletterDataCombo={props.newsletterDataCombo}
+          />
+        ) : null}
+      </ComponentTransitionFromRightToLeft>
+
+      <ComponentTransitionFromRightToLeft>
+        {isToShowUsers ? <DashboardUsers /> : null}
+      </ComponentTransitionFromRightToLeft>
+
+      <ComponentTransitionFromRightToLeft>
+        {isToShowLogs ? <DashboardLogs /> : null}
+      </ComponentTransitionFromRightToLeft>
     </div>
   );
 }

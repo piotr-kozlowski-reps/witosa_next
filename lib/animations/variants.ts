@@ -27,6 +27,7 @@ export const subMenuVariant = {
     transition: {
       type: 'spring',
       bounce: 0.3,
+      duration: 0.2,
     },
   },
   exit: {
@@ -42,7 +43,11 @@ export const overlaySubMenuVariant = {
   },
   visible: {
     scale: 1,
-    opacity: 0.4,
+    opacity: 0.7,
+    transition: {
+      bounce: 0.3,
+      duration: 0.1,
+    },
   },
   exit: {
     scale: 0,
@@ -73,19 +78,20 @@ export const accessibilityVariant = {
 export const mobileVariant = {
   hidden: {
     opacity: 0,
-    x: '100%',
+    x: '50%',
   },
   visible: {
     x: 0,
     opacity: 1,
     transition: {
       type: 'spring',
-      bounce: 0.3,
+      bounce: 0.2,
+      duration: 0.2,
     },
   },
   exit: {
     opacity: 0,
-    x: '100%',
+    x: '50%',
   },
 };
 

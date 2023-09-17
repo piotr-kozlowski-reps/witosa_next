@@ -1,12 +1,9 @@
-import { deleteNewsletterAddress } from '@/actions/newsletterActions';
-import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
-import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
-import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import { TNewsletterTemporary } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment } from 'react';
+import NewsletterColumnWithActions from './NewsletterColumnWithActions';
 
 export const columns: ColumnDef<TNewsletterTemporary>[] = [
   {
@@ -129,40 +126,48 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
     cell: ({ row }) => {
       const newsletterRowData = row.original;
       const newsletterEmail = newsletterRowData.email;
-      return (
-        <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
-          <div>
-            <CopyIcon
-              actionFn={() => navigator.clipboard.writeText(newsletterEmail)}
-              alt="Kopiuj adres e-mail."
-            />
-          </div>
+      return <NewsletterColumnWithActions newsletterEmail={newsletterEmail} />;
+      // return (
+      //   <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
+      //     <div>
+      //       <CopyIcon
+      //         actionFn={() => navigator.clipboard.writeText(newsletterEmail)}
+      //         alt="Kopiuj adres e-mail."
+      //       />
+      //     </div>
 
-          <div>
-            <EditIcon
-              actionFn={() => {
-                alert('not implemented');
-              }}
-              alt="Edytuj email Newslettera."
-            />
-          </div>
+      //     <div>
+      //       <EditIcon
+      //         actionFn={() => {
+      //           alert('not implemented');
+      //         }}
+      //         alt="Edytuj email Newslettera."
+      //       />
+      //     </div>
 
-          <div>
-            <CloseIcon
-              actionFn={async () => {
-                const dataResponse = await deleteNewsletterAddress([
-                  row.original.email,
-                ]);
+      //     <div>
+      //       <CloseIcon
+      //         actionFn={() => {
+      //           const { setIsShowModal } = useModalState();
+      //           setIsShowModal(true);
+      //         }}
+      //         alt="Wykasuj email z Newslettera."
+      //       />
+      //       {/* <CloseIcon
+      //         actionFn={async () => {
+      //           const dataResponse = await deleteNewsletterAddress([
+      //             row.original.email,
+      //           ]);
 
-                console.log({ dataResponse });
+      //           console.log({ dataResponse });
 
-                // revalidatePath('/dashboard');
-              }}
-              alt="Wykasuj email z Newslettera."
-            />
-          </div>
-        </div>
-      );
+      //           // revalidatePath('/dashboard');
+      //         }}
+      //         alt="Wykasuj email z Newslettera."
+      //       /> */}
+      //     </div>
+      //   </div>
+      // );
     },
   },
 ];

@@ -117,7 +117,7 @@ export const getAllNewsletterAddresses =
     return { status: 'SUCCESS', response: emailsInNewsletter };
   };
 
-export async function deleteNewsletterAddress(
+export async function deleteNewsletterAddresses(
   emailsArray: string[]
 ): Promise<TActionResponse> {
   /** checking session */

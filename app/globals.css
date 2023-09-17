@@ -280,7 +280,7 @@
     @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-size-normal text-skin-inverted disabled:cursor-auto disabled:bg-skin-gray;
   }
   .outlined-button {
-    @apply px-6 py-2 font-light no-underline lowercase transition-all bg-skin-main-bg outline outline-2 outline-cta-primary rounded-base text-size-normal text-skin-base hover:bg-skin-cta-secondary hover:outline-cta-secondary disabled:cursor-auto disabled:bg-skin-gray hover:text-skin-inverted;
+    @apply px-6 py-2 font-light no-underline lowercase transition-all bg-skin-main-bg outline outline-2 outline-cta-primary rounded-base text-size-normal text-skin-base hover:bg-skin-cta-secondary hover:outline-cta-secondary disabled:cursor-auto disabled:bg-skin-gray disabled:outline-gray-color hover:text-skin-inverted;
   }
 
   .submenu-container {

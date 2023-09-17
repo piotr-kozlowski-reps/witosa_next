@@ -1,7 +1,8 @@
-import { deleteNewsletterAddress } from '@/actions/newsletterActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
+import ModalDeleteNewsletterContent from '@/app/(site)/components/modal/ModalDeleteNewsletterContent';
+import { useModalState } from '@/context/modalState';
 import { Newsletter } from '@prisma/client';
 import {
   ColumnDef,
@@ -29,6 +30,7 @@ export default function NewsletterDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   ////vars
+  const { setShowModal } = useModalState();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -63,8 +65,6 @@ export default function NewsletterDataTable<TData, TValue>({
       pagination,
     },
   });
-
-  // console.log('page count: ', table.getPageCount());
 
   ////tsx
   return (
@@ -159,7 +159,7 @@ export default function NewsletterDataTable<TData, TValue>({
             <strong>{table.getFilteredRowModel().rows.length}</strong>
             <div className="inline-block ml-2">
               <CustomButton
-                actionFn={async () => {
+                actionFn={() => {
                   const filteredEmails = table
                     .getFilteredSelectedRowModel()
                     .rows.map((row) => {
@@ -168,11 +168,12 @@ export default function NewsletterDataTable<TData, TValue>({
                     .map(
                       (originalObject) => (originalObject as Newsletter).email
                     );
-
-                  const dataResponse = await deleteNewsletterAddress(
-                    filteredEmails
+                  setShowModal(
+                    true,
+                    <ModalDeleteNewsletterContent
+                      newsletterEmails={filteredEmails}
+                    />
                   );
-                  console.log({ dataResponse });
                 }}
                 text="skasuj elementy"
                 descriptionText="Skasuj wszytskie wybrane elementy."

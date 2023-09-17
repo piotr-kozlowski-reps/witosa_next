@@ -201,3 +201,8 @@ export type TGetAllNewsletterAddressesResponse = {
 export type TNewsletterDataCombo = {
   allNewsletterAddresses: TGetAllNewsletterAddressesResponse;
 };
+
+export type TModalState = {
+  isShowModal: boolean;
+  modalContent: JSX.Element;
+};

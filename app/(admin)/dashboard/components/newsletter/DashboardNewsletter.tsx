@@ -9,10 +9,12 @@ type Props = {
 };
 
 export default function DashboardNewsletter(props: Props) {
+  ////vars
   const { newsletterDataCombo } = props;
 
   const newsletterPreparedDataArray = prepareDataArray(newsletterDataCombo);
 
+  ////tsx
   return (
     <Fragment>
       <div className="flex items-center justify-between mb-4 mr-8 -mt-[10px]">
