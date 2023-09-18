@@ -19,8 +19,11 @@ export function useNotificationState() {
   const state = useHookstate(notificationState);
 
   ////utils
+  let timer: ReturnType<typeof setTimeout>;
   function closeNotification() {
-    console.log('closeNotification');
+    timer = setTimeout(() => {
+      state.isShowNotification.set(false);
+    }, 2300);
   }
 
   ////
@@ -43,6 +46,7 @@ export function useNotificationState() {
       timeoutInMilliseconds?: number
     ) {
       state.isShowNotification.set(true);
+      state.notificationType.set(notificationType_Passed);
       state.notificationContent.set(notificationContent_Passed);
       if (timeoutInMilliseconds) {
         state.timeoutInMilliseconds.set(timeoutInMilliseconds);

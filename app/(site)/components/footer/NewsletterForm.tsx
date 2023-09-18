@@ -1,24 +1,21 @@
 'use client';
 
-import {
-  dbReadingErrorMessage,
-  dbWritingErrorMessage,
-} from '@/lib/api/apiTextResponses';
-import userNotificationHandler from '@/lib/userNotifications/userNotifications';
+import { addNewsletterAddress } from '@/actions/newsletterActions';
+import { useNotificationState } from '@/context/notificationState';
+import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import { TActionResponse, TNewsletterFormValues } from '@/types';
-import { Form, Formik, FormikHelpers, FormikProps, FormikState } from 'formik';
-import { FormEventHandler, Fragment, useRef } from 'react';
+import { Formik, FormikProps } from 'formik';
+import { Fragment, useRef } from 'react';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import CustomButton from '../CustomButton';
 import InputFormik from '../forms/InputFormik';
-import { revalidatePath } from 'next/cache';
-import prisma from '@/prisma/client';
-import { addNewsletterAddress } from '@/actions/newsletterActions';
-import logger from '@/lib/logger';
 
 export default function NewsletterForm() {
+  ////vars
+  const { setShowNotification } = useNotificationState();
   const formRef = useRef<HTMLFormElement>(null);
+
   ////formik
   type NewsletterFormInputs = z.TypeOf<typeof newsletterValidationSchema>;
 
@@ -40,20 +37,20 @@ export default function NewsletterForm() {
     try {
       response = await addNewsletterAddress(formData);
     } catch (error) {
-      userNotificationHandler('ERROR', dbReadingErrorMessage);
+      setShowNotification('ERROR', dbReadingErrorMessage);
     }
 
     if (!response || !response.status || !response.response) {
-      userNotificationHandler('ERROR', dbReadingErrorMessage);
+      setShowNotification('ERROR', dbReadingErrorMessage);
       return;
     }
 
     if (response.status === 'ERROR') {
-      userNotificationHandler('ERROR', response.response);
+      setShowNotification('ERROR', response.response);
       return;
     }
 
-    userNotificationHandler('SUCCESS', response.response);
+    setShowNotification('SUCCESS', response.response);
     formik.resetForm();
   }
 

@@ -35,8 +35,6 @@ export default function SingleNews(props: Props) {
     customLinkToDetails = '',
   } = props;
 
-  console.log(title, 'customlink: ', customLinkToDetails);
-
   let isShowingBothSurroundingLines =
     checkIfShouldShowBothSurroundingLines_WhenThreeColumnSelected(
       index,

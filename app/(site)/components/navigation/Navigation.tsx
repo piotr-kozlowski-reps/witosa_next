@@ -9,8 +9,8 @@ import { TFontSize, TMode } from '@/types';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment, useEffect } from 'react';
 import FirstLinksToAccessContentOrAccessibilityMenuForHandicapped from '../FirstLinksToAccessContentOrAccessibilityMenuForHandicapped';
-import NotificationContent from '../custom_notification/NotificationContent';
 import Modal from '../modal/Modal';
+import NotificationContent from '../notification/NotificationContent';
 import NavigationDesktop from './NavigationDesktop';
 import NavigationMobileAndTablet from './NavigationMobileAndTablet';
 
@@ -42,7 +42,7 @@ export default function Navigation() {
       {/* modal - end */}
 
       {/* notification - start */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {getIsShowNotification() ? <NotificationContent /> : null}
       </AnimatePresence>
       {/* notification - end */}

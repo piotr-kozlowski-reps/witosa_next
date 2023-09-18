@@ -1,7 +1,9 @@
+'use client';
+
 import { deleteNewsletterAddresses } from '@/actions/newsletterActions';
 import { useModalState } from '@/context/modalState';
+import { useNotificationState } from '@/context/notificationState';
 import { createEmailsListInOneLineInSquareBrackets } from '@/lib/textHelpers';
-import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { useState } from 'react';
 import CustomButton from '../CustomButton';
 
@@ -13,6 +15,7 @@ export default function ModalDeleteNewsletterContent(props: Props) {
   ////vars
   const { newsletterEmails } = props;
   const { setHideModal } = useModalState();
+  const { setShowNotification } = useNotificationState();
   const [pending, setPending] = useState(false);
 
   const isOnlyOneEmailInArray = newsletterEmails.length === 1;
@@ -48,12 +51,12 @@ export default function ModalDeleteNewsletterContent(props: Props) {
               );
 
               if (dataResponse.status === 'ERROR') {
-                userNotificationHandler('ERROR', dataResponse.response);
+                setShowNotification('ERROR', dataResponse.response);
                 setHideModal();
                 setPending(false);
                 return;
               }
-              userNotificationHandler('SUCCESS', dataResponse.response);
+              setShowNotification('SUCCESS', dataResponse.response);
               setHideModal();
               setPending(false);
             }}

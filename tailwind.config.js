@@ -76,6 +76,9 @@ module.exports = {
         'mobile-for-absolute-margin': '32px',
         'tablet-for-absolute-margin': '32px',
       },
+      zIndex: {
+        60: '60',
+      },
       typography: {
         DEFAULT: {
           css: {

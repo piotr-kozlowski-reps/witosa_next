@@ -95,6 +95,26 @@ export const mobileVariant = {
   },
 };
 
+export const notificationVariant = {
+  hidden: {
+    opacity: 0,
+    x: '50%',
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      bounce: 0.2,
+      duration: 0.2,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: '-50%',
+  },
+};
+
 export const pageVariant = {
   hidden: {
     opacity: 0,

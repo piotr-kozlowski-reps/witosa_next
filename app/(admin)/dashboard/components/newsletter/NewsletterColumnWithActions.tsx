@@ -28,10 +28,6 @@ export default function NewsletterColumnWithActions(props: Props) {
               'SUCCESS',
               `E-mail: ${newsletterEmail} został skopiowany do schowka.`
             );
-            // userNotificationHandler(
-            //   'SUCCESS',
-            //   `Skopiowałem e-mail: ${newsletterEmail} do schowka.`
-            // );
           }}
           alt="Kopiuj adres e-mail."
         />

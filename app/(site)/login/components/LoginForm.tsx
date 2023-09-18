@@ -1,6 +1,7 @@
 'use client';
+import { useNotificationState } from '@/context/notificationState';
+import { loggedIn } from '@/lib/api/apiTextResponses';
 import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
-import userNotificationHandler from '@/lib/userNotifications/userNotifications';
 import { TLoginFormValues } from '@/types';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
@@ -15,6 +16,7 @@ import InputFormik from '../../components/forms/InputFormik';
 const LoginForm = () => {
   ////vars
   const router = useRouter();
+  const { setShowNotification } = useNotificationState();
   const { update: sessionUpdate } = useSession();
 
   ////formik
@@ -43,10 +45,10 @@ const LoginForm = () => {
             ? 'Nie znaleziono użytkownika.'
             : 'Nie udało się zalogować';
 
-          userNotificationHandler('ERROR', errorText);
+          setShowNotification('ERROR', errorText);
         }
         if (callback?.ok && !callback?.error) {
-          userNotificationHandler('SUCCESS', 'Jesteś zalogowany');
+          setShowNotification('SUCCESS', loggedIn);
           sessionUpdate();
           router.replace('/dashboard');
         }
