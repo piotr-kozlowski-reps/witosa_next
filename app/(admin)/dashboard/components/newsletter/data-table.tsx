@@ -116,7 +116,7 @@ export default function NewsletterDataTable<TData, TValue>({
                             key={cell.id}
                             className="first:rounded-s-base last:rounded-r-base first:px-6 last:w-full"
                           >
-                            <div>
+                            <div className="text-skin-base font-base-regular">
                               {flexRender(
                                 cell.column.columnDef.cell,
                                 cell.getContext()

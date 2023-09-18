@@ -3,10 +3,13 @@
 import { useLayoutState } from '@/context/layoutState';
 import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
+import { useNotificationState } from '@/context/notificationState';
 import { useGetCurrentDevice } from '@/hooks/useGetCurrentDevice';
 import { TFontSize, TMode } from '@/types';
+import { AnimatePresence } from 'framer-motion';
 import { Fragment, useEffect } from 'react';
 import FirstLinksToAccessContentOrAccessibilityMenuForHandicapped from '../FirstLinksToAccessContentOrAccessibilityMenuForHandicapped';
+import NotificationContent from '../custom_notification/NotificationContent';
 import Modal from '../modal/Modal';
 import NavigationDesktop from './NavigationDesktop';
 import NavigationMobileAndTablet from './NavigationMobileAndTablet';
@@ -18,6 +21,7 @@ export default function Navigation() {
   const currentFontSize = useLayoutState().getFontSize();
   const { getCurrentDevice } = useNavigationState();
   const { getIsShowModal } = useModalState();
+  const { getIsShowNotification } = useNotificationState();
 
   useEffect(() => {
     const bodyElementClassesList = document.body.classList;
@@ -30,11 +34,18 @@ export default function Navigation() {
   //   signOut();
   // };
 
+  ////tsx
   return (
     <Fragment>
       {/* modal - start */}
       {getIsShowModal() ? <Modal /> : null}
       {/* modal - end */}
+
+      {/* notification - start */}
+      <AnimatePresence>
+        {getIsShowNotification() ? <NotificationContent /> : null}
+      </AnimatePresence>
+      {/* notification - end */}
 
       <FirstLinksToAccessContentOrAccessibilityMenuForHandicapped />
 

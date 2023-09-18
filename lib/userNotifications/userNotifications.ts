@@ -1,8 +1,8 @@
-import { NOTIFICATION_TYPES } from '@/types';
+import { TNotificationType } from '@/types';
 import { toast } from 'react-hot-toast';
 
 export default function userNotificationHandler(
-  type: NOTIFICATION_TYPES,
+  type: TNotificationType,
   message: string
 ) {
   switch (type) {

@@ -42,7 +42,7 @@ export type TNewsletterFormValuesSent = {
   email: string;
 };
 
-export type NOTIFICATION_TYPES = 'ERROR' | 'SUCCESS';
+export type TNotificationType = 'ERROR' | 'SUCCESS';
 
 export type FileList = {
   logFilesList: string;
@@ -205,4 +205,11 @@ export type TNewsletterDataCombo = {
 export type TModalState = {
   isShowModal: boolean;
   modalContent: JSX.Element;
+};
+
+export type TNotificationState = {
+  isShowNotification: boolean;
+  notificationContent: string;
+  notificationType: TNotificationType;
+  timeoutInMilliseconds?: number;
 };

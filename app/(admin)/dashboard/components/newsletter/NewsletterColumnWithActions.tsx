@@ -5,7 +5,7 @@ import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteNewsletterContent from '@/app/(site)/components/modal/ModalDeleteNewsletterContent';
 import { useModalState } from '@/context/modalState';
-import userNotificationHandler from '@/lib/userNotifications/userNotifications';
+import { useNotificationState } from '@/context/notificationState';
 
 type Props = {
   newsletterEmail: string;
@@ -15,6 +15,7 @@ export default function NewsletterColumnWithActions(props: Props) {
   ////vars
   const { newsletterEmail } = props;
   const { setShowModal } = useModalState();
+  const { setShowNotification } = useNotificationState();
 
   ////tsx
   return (
@@ -23,10 +24,14 @@ export default function NewsletterColumnWithActions(props: Props) {
         <CopyIcon
           actionFn={() => {
             navigator.clipboard.writeText(newsletterEmail);
-            userNotificationHandler(
+            setShowNotification(
               'SUCCESS',
-              `Skopiowałem e-mail: ${newsletterEmail} do schowka.`
+              `E-mail: ${newsletterEmail} został skopiowany do schowka.`
             );
+            // userNotificationHandler(
+            //   'SUCCESS',
+            //   `Skopiowałem e-mail: ${newsletterEmail} do schowka.`
+            // );
           }}
           alt="Kopiuj adres e-mail."
         />
