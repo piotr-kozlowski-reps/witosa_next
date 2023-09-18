@@ -185,7 +185,7 @@ export default function NewsletterDataTable<TData, TValue>({
         {/* delete selected - end */}
 
         {/* pagination start */}
-        {table.getPageCount() > 2 ? (
+        {table.getPageCount() >= 2 ? (
           <div className="flex items-center justify-end mr-8 mt-[2px]">
             <div>
               <GoToStartIcon
