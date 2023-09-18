@@ -78,6 +78,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              <b>Marcin Wyrostek</b> - wirtuoz akordeonu, kompozytor i aranżer,\r\n              absolwent i obecnie wykładowca Akademii Muzycznej w Katowicach na\r\n              Wydziale Instrumentalnym oraz Wydziale Jazzu i Muzyki Rozrywkowej.\r\n            </p>\r\n            <p>\r\n              Zwycięzca polskiej edycji programu Mam Talent TVN. Zdobywca 7\r\n              Platynowych Płyt, nagroda Prezydenta RP 2010, Nagroda Ministra\r\n              Kultury 2004, Bestseller Empiku 2012, Statuetka Top Trendy 2011,\r\n              Promotor Polski 2017 - to tylko nieliczne sukcesy i tytuły jakie\r\n              Marcin Wyrostek zdobył na polskiej scenie muzycznej. Ponadto jest\r\n              laureatem i zwycięzcą wielu Międzynarodowych Konkursów\r\n              Akordeonowych: AAA Festival Detroit (USA), Coupe Mondiale\r\n              (Słowacja, Węgry), Reinach AG (Szwajcaria), Rzym (Włochy).\r\n            </p>\r\n            <p>\r\n              Podczas Festiwalu Otwarcia Art. CK, artysta wystąpi z recitalem\r\n              solowym opartym na muzyce baroku, romantyzmu (transkrypcje utworów\r\n              organowych, orkiestrowych, fortepianowych), muzyce współczesnej\r\n              oraz własnych kompozycjach, w których wyraźnie słychać inspiracje\r\n              muzyką ilustracyjną, popularną, filmową, argentyńską, hiszpańską,\r\n              bałkańską, francuską, polską i żydowską. Usłyszymy tu akordeon\r\n              zarówno w wersji akustycznej jak i elektronicznej.\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: false,
@@ -135,6 +136,8 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div>\r\n            <p>\r\n              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie\r\n              <b> Art CK!</b>\r\n            </p>\r\n            <p>\r\n              Spotykamy się o <b>15.30</b> przy\r\n              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym\r\n              korowodem prowadzonym przez fantastycznych artystów z\r\n              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na\r\n              powitanie będzie czekała na Was pierwsza niespodzianka!\r\n            </p>\r\n            <p>\r\n              W dalszej kolejności na naszej scenie pojawi się artysta, który\r\n              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.\r\n            </p>\r\n            <p>\r\n              Po pokazie świateł będziecie mogli wziąć udział w grach\r\n              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,\r\n              które nasze cudowne instruktorki tańca przygotują je specjalnie\r\n              dla Was w sali tanecznej oraz zabawach plastycznych,\r\n              przygotowanych przez nasze instruktorki działań twórczych w\r\n              pracowni plastycznej.\r\n            </p>\r\n            <p>\r\n              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>\r\n              , którą się tego dnia pożegnamy i będziemy czekać na Was z\r\n              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do\r\n              zajęć tanecznych i na realizowanych już od 4 września zajęć\r\n              plastycznych!\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
+
     //paying
     isPayed: false,
     kindOfEnterInfo:
@@ -189,6 +192,8 @@ export const allEventsMockData: TEventTemporary[] = [
 
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Akcja Narodowego Czytania została zainicjowana w 2012 roku wspólną\r\n              lekturą Pana Tadeusza Adama Mickiewicza. W 2013 roku w całej\r\n              Polsce odbyło się czytanie dzieł Aleksandra Fredry, a w rok\r\n              później przeczytano Trylogię Henryka Sienkiewicza.\r\n            </p>\r\n            <p>\r\n              Nad Niemnem to najbardziej znana powieść Elizy Orzeszkowej.\r\n              Powstawała w latach 1886-1887, a w formie książka ukazała się w\r\n              1888 roku. Ze względu na barwne opisy, wyrazistych bohaterów i\r\n              odwołania historyczne dzieło porównywano do Mickiewiczowskiego\r\n              &quot;Pana Tadeusza&quot;. Powieścią zainteresowała się również X\r\n              Muza, pierwszą ekranizację książki ukończono w 1939 roku, ale\r\n              obraz zaginął w czasie II wojny światowej. Kolejny film nakręcono\r\n              w połowie lat 80. XX wieku. Nad Niemnem to jeden najważniejszych\r\n              utworów literatury polskiej podejmujący tematykę Powstania\r\n              Styczniowego, którego 160-lecie obchodzone jest właśnie w 2023\r\n              roku.\r\n            </p>\r\n            <p>\r\n              Centrum Kultury w Knurowie połączyło siły z Zespołem Szkół\r\n              Zawodowych nr 2 w Knurowie i wspólnie zapraszają do udziału w tym\r\n              literackim wydarzeniu.\r\n            </p>\r\n            <p>\r\n              W programie poza oczywistym czytaniem fragmentów powieści\r\n              &quot;Nad Niemnem&quot; Elizy Orzeszkowej odbędą się warsztaty\r\n              artystyczne dla dzieci, akcja „Wymień Książkę z Biblioteką”,\r\n              możliwość ostemplowania własnego egzemplarza „Nad Niemnem”\r\n              dedykowaną pieczątką Narodowego Czytania i oczywiście wśród nas\r\n              będzie również Moluś Książkow.\r\n            </p>\r\n            <p>\r\n              Każdy otrzyma tematyczny upominek w postaci pamiątkowej widokówki\r\n              z cytatem.\r\n            </p>\r\n            <p>\r\n              Ponadto uczestnikom spotkania będzie towarzyszył zapach kawy i\r\n              słodkości pochodzący z naszej Art Cafe!\r\n            </p>\r\n            <p>\r\n              <b>Zapraszamy serdecznie!</b>\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
+
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
@@ -239,6 +244,8 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup\r\n              tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria\r\n              Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania\r\n              organizacyjne do każdej z grup, podczas których opowiemy jak,\r\n              gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli\r\n              okazję poznać instruktorów, prowadzących poszczególne grupy.\r\n            </p>\r\n            <p>\r\n              Poniżej harmonogram spotkań organizacyjnych dla poszczególnych\r\n              grup:\r\n            </p>\r\n            <ul>\r\n              <li>\r\n                <b>04.09.2023 r., godz. 18:00</b> - Spotkanie organizacyjne dla\r\n                grupy pokazowej Marzenie\r\n              </li>\r\n              <li>\r\n                <b>06.09.2023 r., godz. 17:00</b> - Spotkanie organizacyjne dla\r\n                zespołów Hipnoteria i Hipnoteria Bis\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 16.00</b> - Spotkanie organizacyjne dla\r\n                dzieci początkujących w wieku 6-7 lat\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 17.30</b> - Spotkanie organizacyjne dla\r\n                grupy utaneczniającej z roku 2022/2023 oraz zespołu Marzenie\r\n                Mini Mini\r\n              </li>\r\n            </ul>\r\n          </div>',
+    customLinkToDetails: null,
+
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
@@ -290,6 +297,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '        <div>\r\n            <p>\r\n              Zapraszamy serdecznie na pełen energii, pasji i niesamowitości\r\n              koncert Duo Flamenco w wykonaniu Michała Czachowskiego i Anny\r\n              Mendak.\r\n            </p>\r\n            <p>\r\n              Flamenco jest najpopularniejszą muzyką etniczną na świecie,\r\n              powstała w Andaluzji, regionie południowej Hiszpanii, gdzie\r\n              przewijały się kultury różnych nacji. W wyniku wzajemnych wpływów,\r\n              na początku XIX wieku powstała niezwykle ekspresyjna muzyka, którą\r\n              znamy pod nazwą Flamenco.\r\n            </p>\r\n            <p>\r\n              <b>Michał Czachowski</b> - gitarzysta flamenco, kompozytor,\r\n              producent muzyczny. Swe umiejętności muzyczne rozwijał u boku\r\n              takich gitarzystów flamenco jak: Rafael Cortés, Gerardo Núñez i\r\n              Salva del Real. Dwukrotnie został uznany za najlepszego gitarzystę\r\n              Flamenco w Polsce. Założyciel zespołu muzyki flamenco Viva\r\n              Flamenco oraz międzynarodowego projektu Indialucia, za który był\r\n              nominowany do Fryderyków 2006.\r\n            </p>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka Flamenco w Polsce,\r\n              choreograf, pedagog, tancerka brzucha, psycholog. Przez ponad 10\r\n              lat była czołową tancerką polskich grup flamenco. Wraz z zespołami\r\n              występowała na wielu festiwalach tanecznych, gitarowych i\r\n              folkowych. W 2004 roku zajęła I miejsce w konkursie na najlepszą\r\n              polską tancerkę flamenco.\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: true,
@@ -342,6 +350,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi\r\n              warsztaty tańca dla dzieci w wieku 7-14 lat.\r\n            </p>\r\n            <p>\r\n              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,\r\n              zapoznają z się z podstawowymi technikami i krokami tańca\r\n              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał\r\n              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego\r\n              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami\r\n              na scenie Art CK.\r\n            </p>\r\n            <p>\r\n              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00\r\n              -20.00.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Zapraszamy!</b>\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: true,
@@ -389,6 +398,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Zapraszamy na wieczór z kubańską muzyką w wykonaniu zespołu\r\n              Cumbancheros w składzie:\r\n            </p>\r\n            <p>\r\n              <b>Edi Sánchez</b> jest Kolumbijczykiem, który od kilku lat\r\n              mieszka w Polsce. Razem z zespołem zaprezentuje szeroki repertuar\r\n              muzyki latynoskiej, wywodzącej się z rejonu Morza Karaibskiego. W\r\n              jego repertuarze znajdują się utwory w stylu rumba, cha-cha,\r\n              mambo, salsa i inne. Ciągłe eksperymentowanie i łączenie różnych\r\n              gatunków salsowych jest oryginalną i emocjonującą propozycją dla\r\n              publiczności. Lider zespołu jest nie tylko wielkim orędownikiem\r\n              muzyki wywodzącej się z jego rodzinnych stron, ale także\r\n              prawdziwym showmanem, który z charakterystyczną dla kolumbijczyków\r\n              energią i pasją prezentuje latynoskie standardy, czym zaraża\r\n              publiczność, skłania do uśmiechu i tańca w gorących rytmach salsy.\r\n              Jego ideą jest przekazanie pozytywnych wibracji, które muzyka ta\r\n              stwarza i przenosi, oraz ukazanie jej niezwykle towarzyskiego\r\n              charakteru.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Paul Chapman</b>, Wenezuelski muzyk, muzycznie kształcił się w\r\n              swojej rodzimej Wenezueli. Od kilku lat mieszka i koncertuje w\r\n              Polsce i dzieli się z polskimi muzykami i słuchaczami muzyką\r\n              Ameryki Łacińskiej.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Alberto Suazo Sanchez</b>, urodził się w Coscomatepec stan\r\n              Veracruz Meksyk. Swoja przygodę z muzyką rozpoczął w wieku 10 lat.\r\n              Gra na instrumentach strunowych (gitara,charango, jarama vihuela ,\r\n              guitarron, cuatro venezolano, tiple colombiano). Wielokorotnie\r\n              uczestniczył w festiwalach w Meksyku i Europie, zdobywając na nich\r\n              liczne nagrody. Występuje zarówno solowo jak i z zespołami (np.\r\n              Orizaba, Grupo Colibri, Grupo Tlahuiskalli ). Obecnie mieszka w\r\n              Polsce i zajmuje się programami artystycznymi związanymi z muzyka\r\n              latynoamerykañską.\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: true,
@@ -446,6 +456,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '  <div>\r\n            <p>\r\n              Spektakl pełen walizek, a walizki pełne lalek, bajek, historii i\r\n              opowieści - z różnych krajów, czasów i miejsc (nawet takich, które\r\n              w ogóle nie istnieją!) Pojawiają się bardzo różne lalki a historie\r\n              są raz śmieszne innym razem trochę straszne! Spektakl nie ma\r\n              końca, gdyż nowe historie w nowych walizkach pojawiają się cały\r\n              czas! Aktualnie można spotkać się z: Najsmaczniejszą walizką - a w\r\n              niej aromatyczna historia z Krainy Sera, Walizką pełną\r\n              krasnoludków - historia o krasnoludku, który nauczył się latać.\r\n              Tajemnicza walizka, w której mieści się chyba z tysiąc historii,\r\n              ale lubi ona płatać figle… Walizka z czasów jaskiniowców - z\r\n              jedynym na świecie… a niech to będzie niespodzianką!\r\n            </p>\r\n\r\n            <p>\r\n              Teatr Lalek Marka Żyły powstał w 2016 r. z pasji i miłości do\r\n              lalek i rozśmieszania. Każdy temat starają się okrasić sporą dawką\r\n              dobrego humoru. Ideą tego teatru jest teatr wędrowny, jarmarczny,\r\n              który gra wszędzie tam, gdzie tylko można ustawić niewielką scenę,\r\n              pełną lalek!\r\n            </p>\r\n          </div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: true,
@@ -499,6 +510,8 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div><p>Zapraszamy na zajęcia akrobatyki. Rozpoczęliśmy zapisy.</p><p>Dzwońcie w godzinach popołudniowych na numery <b>32 332 63 97</b> lub <b>32 332 63 79.</b></p><p>Pierwsze zajęcia odbędą się w sobotę, <b>30 września</b>.</p></div>',
+    customLinkToDetails: null,
+
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
@@ -546,6 +559,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p>Serdecznie zapraszamy w piątek, <b>15 września o godz. 18:00</b> na <b>spotkania autorskie z Justyną Wydrą</b> do nowo otwartego Art CK w Knurowie, przy ul. Witosa 6.</p><p>Prowadzenie: <b>Szymon Szwajger</b>.</p><p><b>Justyna Wydra</b> - od zawsze kocha się w słowach. Szczególnie tych pisanych, śpiewanych i wypowiadanych na kinowym ekranie. Pracuje z nimi jako copywriter i autorka artykułów dla prasy drukowanej oraz internetowej. Pochodzi z Gliwic, gdzie dorastała i mieszka do dziś. Z rodzinnym miastem i Śląskiem czuje się silnie związana, co znajduje odzwierciedlenie także w jej twórczości. Współtwórczyni Klubu Książki Kobiecej. Justyna Wydra książki zaczęła wydawać w połowie zeszłej dekady i od tego czasu publikuje regularnie. Najnowsza powieść jej autorstwa pt. Ja matką? Ratunku! do księgarń trafiła pod koniec zeszłego roku. Po godzinach czyta książki, prowadzi bloga, słucha muzyki i stara się nadrobić filmowe zaległości. Gdy ma już naprawdę serdecznie dosyć słów, zamyka za sobą drzwi i udaje się tam, dokąd pokieruje ją instynkt Włóczykija - najczęściej ląduje na górskim szlaku, bądź w północnych Włoszech.</p><p>Autorka powieści „Esesman i Żydówka”, ”Zaniemówienie”, "Ponieważ wróciłam”, „Warkoczyk”, „Ja matką? Ratunku!”.</p></div>',
+    customLinkToDetails: null,
 
     //paying
     isPayed: false,
@@ -572,6 +586,59 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-15T23:59:00.968Z'),
+  },
+
+  {
+    id: '1ase27417-9875-ffhy-g351-ce6bfr4gh3aa',
+    eventTypes: ['DANCE', 'OTHERS'],
+    eventForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'Rozpoczynamy zajęcia Body Groove.',
+    places: ['DANCING_ROOM'],
+    shortDescription:
+      'Zapraszamy wszystkich zainteresowanych zajęciami Body Groove, na pierwsze otwarte zajęcia, które odbędą się 5 października od godz. 18.30.',
+    eventStartDate: new Date('2023-09-13T18:00:00.968Z'),
+    eventEndDate: null,
+    createdAt: new Date('2023-08-27T14:20:00.968Z'),
+    updatedAt: new Date('2023-08-27T14:20:00.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      // {
+      //   url: 'events_akrobatyka_001.jpg',
+      //   alt: 'Baner akcji Narodowego czytania.',
+      //   additionInfoThatMustBeDisplayed: null,
+      // },
+      // {
+      //   url: 'events_nc_002.jpg',
+      //   alt: 'Program Narodowego Czytania.',
+      //   additionInfoThatMustBeDisplayed: null,
+      // },
+    ],
+    detailedDescription: '',
+    customLinkToDetails: '/activities/83aw7r17-0uu4-41e1-fff5-c36bvendh878',
+
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: true,
+    isToBeOnlyInNewsSection_NotSeenInEvents: true,
+    newsSectionImageUrl: 'news-img-bodygroove-001.jpg',
+    newsSectionImageAlt: 'Zajęcia Body Groove.',
+    //slider
+    isToBeInSlider: false,
+    sliderImageUrl: null,
+    sliderImageAlt: null,
+    visibleInSliderFrom: null,
+    visibleInSLiderTo: null,
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2025-09-08T23:59:00.968Z'),
   },
 ];
 
@@ -746,8 +813,8 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         day: 'WEDNESDAY',
         duration: [
           {
-            activityStart: new Date('2000-01-01T16:00:00.968Z'),
-            activityEnd: new Date('2000-01-01T17:30:00.968Z'),
+            activityStart: new Date('2000-01-01T16:15:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:45:00.968Z'),
           },
         ],
       },
@@ -772,8 +839,8 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         day: 'TUESDAY',
         duration: [
           {
-            activityStart: new Date('2000-01-01T16:45:00.968Z'),
-            activityEnd: new Date('2000-01-01T18:15:00.968Z'),
+            activityStart: new Date('2000-01-01T18:00:00.968Z'),
+            activityEnd: new Date('2000-01-01T19:30:00.968Z'),
           },
         ],
       },
@@ -809,8 +876,8 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         day: 'TUESDAY',
         duration: [
           {
-            activityStart: new Date('2000-01-01T15:30:00.968Z'),
-            activityEnd: new Date('2000-01-01T16:30:00.968Z'),
+            activityStart: new Date('2000-01-01T16:45:00.968Z'),
+            activityEnd: new Date('2000-01-01T17:45:00.968Z'),
           },
         ],
       },
@@ -920,7 +987,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         },
       ],
       description:
-        '<p>\r\n            Prowadząca: <b>JOANNA KUSY-SZPOTAŃSKA</b>\r\n          </p>\r\n\r\n          <p>\r\n            Body Groove to super zabawa, która jest przeznaczona dla każdego\r\n            ciała! Poświęcona zdrowiu i dobremu samopoczuciu. Na treningach\r\n            wykonujesz proste ruchy taneczne i czerpiesz z tego wszystkie\r\n            korzyści dla siebie !\r\n          </p>\r\n          <p>\r\n            Do tego mieszanka świetnej muzyki to idealny przepis na dobry\r\n            dance...\r\n          </p>\r\n          <p>\r\n            Taniec poprawi twoją elastyczność i siłę, poprawi skupienie i da Ci\r\n            lepszy sen i nastrój!!!\r\n          </p>\r\n\r\n          <p>\r\n            Każde zajęcia poprzedzone będą gimnastyką ogólnorozwojową zwaną też\r\n            ogólnokondycyjną. To propozycja dla osób w każdym wieku!\r\n          </p>\r\n\r\n          <p>\r\n            Ćwiczenia wzmocnią twój organizm, poprawią koordynację i z pewnością\r\n            pozytywnie wpłyną na samopoczucie. To dobry sposób o zadbanie o\r\n            swoje ciało :)\r\n          </p>\r\n          <p>\r\n            Będzie to miła forma spędzania czasu. Zadbaj o siebie razem z nami,\r\n            poczuj satysfakcję i więcej PEWNOŚCI !!!\r\n          </p>\r\n          <p>\r\n            Zobaczcie jak w duchu Body Groove, bawią się inni:\r\n            <a\r\n              href="https://fb.watch/mAKn3WXt0f/"\r\n    title="Otwiera się w nowej zakładce."          target="_blank"\r\n              rel="noopener noreferrer"\r\n            >\r\n              https://fb.watch/mAKn3WXt0f/\r\n            </a>\r\n          </p>',
+        '<p>\r\n            Prowadząca: <b>JOANNA KUSY-SZPOTAŃSKA</b>\r\n          </p>\r\n\r\n          <p>\r\n            Body Groove to super zabawa, która jest przeznaczona dla każdego\r\n            ciała! Poświęcona zdrowiu i dobremu samopoczuciu. Na treningach\r\n            wykonujesz proste ruchy taneczne i czerpiesz z tego wszystkie\r\n            korzyści dla siebie !\r\n          </p>\r\n          <p>\r\n            Do tego mieszanka świetnej muzyki to idealny przepis na dobry\r\n            dance...\r\n          </p>\r\n          <p>\r\n            Taniec poprawi twoją elastyczność i siłę, poprawi skupienie i da Ci\r\n            lepszy sen i nastrój!!!\r\n          </p>\r\n\r\n          <p>\r\n            Każde zajęcia poprzedzone będą gimnastyką ogólnorozwojową zwaną też\r\n            ogólnokondycyjną. To propozycja dla osób w każdym wieku!\r\n          </p>\r\n\r\n          <p>\r\n            Ćwiczenia wzmocnią twój organizm, poprawią koordynację i z pewnością\r\n            pozytywnie wpłyną na samopoczucie. To dobry sposób o zadbanie o\r\n            swoje ciało :)\r\n          </p>\r\n          <p>\r\n            Będzie to miła forma spędzania czasu. Zadbaj o siebie razem z nami,\r\n            poczuj satysfakcję i więcej PEWNOŚCI !!!\r\n          </p>\r\n          <p>\r\n            Zobaczcie jak w duchu Body Groove, bawią się inni:\r\n            <a\r\n              href="https://fb.watch/mAKn3WXt0f/"\r\n    title="Otwiera się w nowej zakładce."          target="_blank"\r\n              rel="noopener noreferrer"\r\n            >\r\n              https://fb.watch/mAKn3WXt0f/\r\n            </a>\r\n          </p><p>Pierwsze otwarte zajęcia, odbędą się <b>5 października od godz. 18.30</b>.</p>',
     },
     occurrence: [
       {

@@ -101,6 +101,7 @@ model Event{
   //details
   images Image[]
   detailedDescription String
+  customLinkToDetails String?
 
   //paying
   isPayed Boolean

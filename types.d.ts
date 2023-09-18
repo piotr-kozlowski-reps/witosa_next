@@ -118,6 +118,7 @@ export type TEventInNewsSection = Pick<
   | 'title'
   | 'shortDescription'
   | 'isDateToBeHiddenInNewsSection'
+  | 'customLinkToDetails'
 >;
 
 export type TSliderGroupsImages = {

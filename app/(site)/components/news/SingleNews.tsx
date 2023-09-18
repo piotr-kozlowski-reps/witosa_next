@@ -17,6 +17,7 @@ interface Props {
   index: number;
   currentDevice: TCurrentDevice;
   isDateToBeHiddenInNewsSection: boolean;
+  customLinkToDetails?: string | null;
 }
 
 export default function SingleNews(props: Props) {
@@ -31,7 +32,10 @@ export default function SingleNews(props: Props) {
     index,
     currentDevice,
     isDateToBeHiddenInNewsSection,
+    customLinkToDetails = '',
   } = props;
+
+  console.log(title, 'customlink: ', customLinkToDetails);
 
   let isShowingBothSurroundingLines =
     checkIfShouldShowBothSurroundingLines_WhenThreeColumnSelected(
@@ -146,7 +150,7 @@ export default function SingleNews(props: Props) {
           <div className="mt-[30px]">
             <CustomLink
               visibleText="dowiedz się więcej ..."
-              url={`/events/${id}`}
+              url={customLinkToDetails ? customLinkToDetails : `/events/${id}`}
               descriptionText={title}
             />
           </div>

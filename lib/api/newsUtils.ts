@@ -27,6 +27,7 @@ export async function getNewsDataSorted() {
         title: event.title,
         shortDescription: event.shortDescription,
         isDateToBeHiddenInNewsSection: event.isDateToBeHiddenInNewsSection,
+        customLinkToDetails: event.customLinkToDetails,
       };
     })
     .sort(function (a, b) {

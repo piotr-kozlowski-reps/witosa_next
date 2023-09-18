@@ -57,6 +57,7 @@ export default function NewsInside(props: Props) {
                     newsSectionImageUrl={newsEvent.newsSectionImageUrl}
                     title={newsEvent.title}
                     shortDescription={newsEvent.shortDescription}
+                    customLinkToDetails={newsEvent.customLinkToDetails}
                     index={index}
                     currentDevice={getCurrentDevice()}
                     isDateToBeHiddenInNewsSection={
