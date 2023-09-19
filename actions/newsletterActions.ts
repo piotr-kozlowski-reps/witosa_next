@@ -76,27 +76,6 @@ export async function addNewsletterAddress(
   };
 }
 
-// export const getAllNewsletterAddresses = cache(
-//   async (): Promise<TGetAllNewsletterAddressesResponse> => {
-//     /** checking session */
-//     const session = await getServerSession(authOptions);
-//     if (!session) {
-//       logger.warn(notLoggedIn);
-//       return { status: 'ERROR', response: notLoggedIn };
-//     }
-
-//     let emailsInNewsletter: Newsletter[] = [];
-//     try {
-//       emailsInNewsletter = await prisma.newsletter.findMany();
-//     } catch (error) {
-//       logger.warn(dbReadingErrorMessage);
-//       return { status: 'ERROR', response: dbReadingErrorMessage };
-//     }
-
-//     return { status: 'SUCCESS', response: emailsInNewsletter };
-//   }
-// );
-
 export const getAllNewsletterAddresses =
   async (): Promise<TGetAllNewsletterAddressesResponse> => {
     /** checking session */
@@ -181,8 +160,8 @@ export async function deleteNewsletterAddresses(
 
 export async function updateNewsletterAddress(
   oldAddress: string,
-  updatedAddress: string
-) {
+  formData: FormData
+): Promise<TActionResponse> {
   /** checking session */
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -190,13 +169,15 @@ export async function updateNewsletterAddress(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
+  const updatedAddress = formData.get('email') as string;
+
   /** validate existence of addresses */
   if (!oldAddress || !updatedAddress) {
     logger.warn(badEmailFormatMessage);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
-  /** validate form of emails */
+  /** validate format of emails */
   try {
     loginEmailSchema.parse(oldAddress);
     loginEmailSchema.parse(updatedAddress);
@@ -218,12 +199,28 @@ export async function updateNewsletterAddress(
     return { status: 'ERROR', response: emailNotExistsMessage };
   }
 
-  //TODO: update value
+  /* updating email in db */
+  try {
+    await prisma.newsletter.update({
+      where: {
+        email: oldAddress,
+      },
+      data: {
+        email: updatedAddress,
+      },
+    });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-  /** send success response */
+  const responseText = `E-mail: ${oldAddress} został zmieniony na: ${updatedAddress}.`;
+
+  /* final success response */
+  logger.info(responseText);
   return {
     status: 'SUCCESS',
-    response: `E-mail: ${oldAddress} został zmieniony na: ${updatedAddress}.`,
+    response: responseText,
   };
 }
 

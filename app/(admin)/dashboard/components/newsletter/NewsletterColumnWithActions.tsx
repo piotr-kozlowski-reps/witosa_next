@@ -5,6 +5,7 @@ import CopyIcon from '@/app/(site)/components/icons/CopyIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteNewsletterContent from '@/app/(site)/components/modal/ModalDeleteNewsletterContent';
 import { useModalState } from '@/context/modalState';
+import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
 
 type Props = {
@@ -16,6 +17,8 @@ export default function NewsletterColumnWithActions(props: Props) {
   const { newsletterEmail } = props;
   const { setShowModal } = useModalState();
   const { setShowNotification } = useNotificationState();
+  const { setIsAddNewsletterVisible, setNewsletterFormikDataForPUT } =
+    useNavigationState();
 
   ////tsx
   return (
@@ -26,7 +29,7 @@ export default function NewsletterColumnWithActions(props: Props) {
             navigator.clipboard.writeText(newsletterEmail);
             setShowNotification(
               'SUCCESS',
-              `E-mail: ${newsletterEmail} został skopiowany do schowka.`
+              `Adres e-mail: ${newsletterEmail} został skopiowany do schowka.`
             );
           }}
           alt="Kopiuj adres e-mail."
@@ -36,7 +39,8 @@ export default function NewsletterColumnWithActions(props: Props) {
       <div>
         <EditIcon
           actionFn={() => {
-            alert('not implemented');
+            setNewsletterFormikDataForPUT(newsletterEmail);
+            setIsAddNewsletterVisible(true);
           }}
           alt="Edytuj email Newslettera."
         />

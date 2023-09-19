@@ -23,6 +23,9 @@ type TNavigationState = {
   isMobileAccessibilitySubMenuVisible: boolean;
   isCyclicalActivitiesMenuVisible: boolean;
   currentDevice: TCurrentDevice;
+  //admin forms components
+  isAddNewsletterVisible: boolean;
+  newsletterFormikDataForPUT: string;
 };
 
 const navigationStateData: TNavigationState = {
@@ -142,6 +145,9 @@ const navigationStateData: TNavigationState = {
   isMobileGroupsSubMenuVisible: false,
   isMobileAccessibilitySubMenuVisible: false,
   isCyclicalActivitiesMenuVisible: false,
+  //admin forms components
+  isAddNewsletterVisible: false,
+  newsletterFormikDataForPUT: '',
 };
 
 const navigationState = hookstate(
@@ -339,5 +345,24 @@ export function useNavigationState() {
     setIsCyclicalActivitiesMenuToBeVisible() {
       state.isCyclicalActivitiesMenuVisible.set(true);
     },
+
+    // admin forms components
+    getIsAddNewsletterVisible() {
+      return state.isAddNewsletterVisible.get();
+    },
+    setIsAddNewsletterVisible(isToBeVisible: boolean) {
+      return state.isAddNewsletterVisible.set(isToBeVisible);
+    },
+    getNewsletterFormikDataForPUT() {
+      return state.newsletterFormikDataForPUT.get();
+    },
+    setNewsletterFormikDataForPUT(email: string) {
+      return state.newsletterFormikDataForPUT.set(email);
+    },
+    resetNewsletterFormikDataForPUT() {
+      return state.newsletterFormikDataForPUT.set('');
+    },
+
+    // newsletterFormikDataForPUT,
   };
 }

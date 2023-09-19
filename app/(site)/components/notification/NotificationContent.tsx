@@ -10,8 +10,6 @@ export default function NotificationContent() {
   const { getNotificationContent, getNotificationType } =
     useNotificationState();
 
-  console.log(getNotificationType());
-
   ////tsx
   return (
     <Fragment>

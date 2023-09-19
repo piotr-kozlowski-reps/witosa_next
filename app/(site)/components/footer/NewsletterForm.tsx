@@ -3,10 +3,13 @@
 import { addNewsletterAddress } from '@/actions/newsletterActions';
 import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
+import {
+  NewsletterFormInputs,
+  newsletterValidationSchema,
+} from '@/lib/forms/newsletter-form';
 import { TActionResponse, TNewsletterFormValues } from '@/types';
 import { Formik, FormikProps } from 'formik';
 import { Fragment, useRef } from 'react';
-import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import CustomButton from '../CustomButton';
 import InputFormik from '../forms/InputFormik';
@@ -17,18 +20,6 @@ export default function NewsletterForm() {
   const formRef = useRef<HTMLFormElement>(null);
 
   ////formik
-  type NewsletterFormInputs = z.TypeOf<typeof newsletterValidationSchema>;
-
-  const newsletterValidationSchema: z.ZodType<TNewsletterFormValues> = z.object(
-    {
-      email: z
-        .string({
-          required_error: 'Wprowadź e-mail w poprawnej formie.',
-        })
-        .email('Wprowadź e-mail w poprawnej formie.'),
-    }
-  );
-
   async function submitFormHandler(
     formData: FormData,
     formik: FormikProps<TNewsletterFormValues>
@@ -59,7 +50,6 @@ export default function NewsletterForm() {
     <Fragment>
       <Formik<NewsletterFormInputs>
         initialValues={{ email: '' }}
-        // onSubmit={submitFormHandler}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(newsletterValidationSchema)}
       >
