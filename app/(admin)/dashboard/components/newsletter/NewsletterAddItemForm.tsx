@@ -86,6 +86,7 @@ export default function NewsletterAddItemForm() {
       setShowNotification('SUCCESS', response.response);
       resetNewsletterFormikDataForPUT();
       formik.resetForm();
+      setIsAddNewsletterVisible(false);
       return;
     }
   }

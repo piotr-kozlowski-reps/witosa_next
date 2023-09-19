@@ -68,6 +68,8 @@ export async function addNewsletterAddress(
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
+  revalidatePath('/dashboard');
+
   /* final success response */
   logger.info(generateNewsletterDbWritingSuccessMessageWithCurrentEmail(email));
   return {
@@ -214,9 +216,10 @@ export async function updateNewsletterAddress(
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
-  const responseText = `E-mail: ${oldAddress} został zmieniony na: ${updatedAddress}.`;
+  revalidatePath('/dashboard');
 
   /* final success response */
+  const responseText = `E-mail: ${oldAddress} został zmieniony na: ${updatedAddress}.`;
   logger.info(responseText);
   return {
     status: 'SUCCESS',
