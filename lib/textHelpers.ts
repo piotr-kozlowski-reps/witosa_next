@@ -1,4 +1,11 @@
-import { ActivityType, Day, EventType, ForWhom, Place } from '@prisma/client';
+import {
+  ActivityType,
+  Day,
+  EventType,
+  ForWhom,
+  Place,
+  UserRole,
+} from '@prisma/client';
 
 export function getPolishTypeName(type: EventType) {
   let polishTypeName = '';
@@ -314,4 +321,23 @@ export function createEmailsListInOneLineInSquareBrackets(
   });
 
   return result;
+}
+
+export function getPolishUserRoleName(userRole: UserRole) {
+  let polishUserRoleName = '';
+
+  switch (userRole) {
+    case 'ADMIN':
+      polishUserRoleName = 'Administrator';
+      break;
+
+    case 'EDITOR':
+      polishUserRoleName = 'Edytor';
+      break;
+
+    default:
+      throw new Error('getPolishUserRoleName not defined');
+  }
+
+  return polishUserRoleName;
 }

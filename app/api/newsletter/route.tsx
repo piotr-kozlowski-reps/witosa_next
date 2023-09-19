@@ -11,8 +11,8 @@ import {
   addStatusAndAllowOriginContent,
   stringifyObject,
 } from '@/lib/api/responsesUtils';
-import { loginEmailSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
+import { emailSchema } from '@/lib/zodSchemas';
 import { TNewsletterFormValuesSent } from '@/types';
 import { Newsletter } from '@prisma/client';
 import { getServerSession } from 'next-auth';
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
 
   /* format validation */
   try {
-    loginEmailSchema.parse(email);
+    emailSchema.parse(email);
   } catch (error) {
     logger.warn(badEmailFormatMessage);
     return new NextResponse(

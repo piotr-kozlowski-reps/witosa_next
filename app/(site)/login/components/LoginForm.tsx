@@ -1,7 +1,10 @@
 'use client';
 import { useNotificationState } from '@/context/notificationState';
 import { loggedIn } from '@/lib/api/apiTextResponses';
-import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
+import {
+  emailSchema,
+  passwordSchema_Required_Min5_Max20,
+} from '@/lib/zodSchemas';
 import { TLoginFormValues } from '@/types';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
@@ -23,8 +26,8 @@ const LoginForm = () => {
   type loginFormInputs = z.TypeOf<typeof loginValidationSchema>;
 
   const loginValidationSchema: z.ZodType<TLoginFormValues> = z.object({
-    email: loginEmailSchema,
-    password: loginPasswordSchema,
+    email: emailSchema,
+    password: passwordSchema_Required_Min5_Max20,
   });
 
   async function submitFormHandler(

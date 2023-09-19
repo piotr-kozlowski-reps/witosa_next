@@ -98,8 +98,8 @@ export default function NewsletterAddItemForm() {
         <div className="prose">
           <h3>
             {isCurrentFormToPUTData
-              ? 'Zmień e-mail w newsletterze.'
-              : 'Dodaj e-mail do newslettera.'}
+              ? 'Zmień e-mail w newsletterze'
+              : 'Dodaj e-mail do newslettera'}
           </h3>
         </div>
         <div>
@@ -128,7 +128,7 @@ export default function NewsletterAddItemForm() {
               }}
             >
               {/* <Form> */}
-              <div className="w-96">
+              <div className="form-input-width">
                 <InputFormik
                   name="email"
                   type="email"

@@ -16,6 +16,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
     //TODO: make middleware to handle Errors to log them
     throw new Error('Email already exist');
   }
+
   const hashedPassword = await bcryptjs.hash(password, 10);
   let user;
   try {

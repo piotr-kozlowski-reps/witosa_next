@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react';
 import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
-import DashboardUsers from './DashboardUsers';
 import DashboardNewsletter from './newsletter/DashboardNewsletter';
+import DashboardUsers from './users/DashboardUsers';
 
 type Props = {
   newsletterDataCombo: TNewsletterDataCombo;

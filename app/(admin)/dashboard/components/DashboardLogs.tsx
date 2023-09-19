@@ -1,3 +1,3 @@
 export default function DashboardLogs() {
-  return <div>DashboardLogs</div>;
+  return <div>DashboardLogs - not implemented</div>;
 }

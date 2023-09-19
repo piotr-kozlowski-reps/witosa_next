@@ -1,5 +1,6 @@
 // import { TLayoutState } from '@/types';
 import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
+import { TRegisterFormInputs } from '@/lib/forms/user-form';
 import {
   TCurrentDevice,
   TLink,
@@ -26,6 +27,8 @@ type TNavigationState = {
   //admin forms components
   isAddNewsletterVisible: boolean;
   newsletterFormikDataForPUT: string;
+  isAddUserVisible: boolean;
+  userFormikDataForPUT: TRegisterFormInputs;
 };
 
 const navigationStateData: TNavigationState = {
@@ -148,6 +151,14 @@ const navigationStateData: TNavigationState = {
   //admin forms components
   isAddNewsletterVisible: false,
   newsletterFormikDataForPUT: '',
+  isAddUserVisible: false,
+  userFormikDataForPUT: {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    userRole: 'EDITOR',
+  },
 };
 
 const navigationState = hookstate(
@@ -346,7 +357,8 @@ export function useNavigationState() {
       state.isCyclicalActivitiesMenuVisible.set(true);
     },
 
-    // admin forms components
+    //// admin forms components
+    //newsletter
     getIsAddNewsletterVisible() {
       return state.isAddNewsletterVisible.get();
     },
@@ -360,9 +372,30 @@ export function useNavigationState() {
       return state.newsletterFormikDataForPUT.set(email);
     },
     resetNewsletterFormikDataForPUT() {
-      return state.newsletterFormikDataForPUT.set('');
+      state.newsletterFormikDataForPUT.set('');
     },
 
-    // newsletterFormikDataForPUT,
+    //user
+    getIsAddUserVisible() {
+      return state.isAddUserVisible.get();
+    },
+    setIsAddUserVisible(isToBeVisible: boolean) {
+      return state.isAddUserVisible.set(isToBeVisible);
+    },
+    getUserFormikDataForPUT() {
+      return state.userFormikDataForPUT.get();
+    },
+    setUserFormikDataForPUT(data: TRegisterFormInputs) {
+      state.userFormikDataForPUT.set(data);
+    },
+    resetUserFormikDataForPUT() {
+      state.userFormikDataForPUT.set({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        userRole: 'EDITOR',
+      });
+    },
   };
 }

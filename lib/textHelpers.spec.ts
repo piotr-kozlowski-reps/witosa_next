@@ -8,6 +8,7 @@ import {
   getHoursAndMinutesWithGInFrontFromDateObject,
   getPolishDayFromDateObject,
   getPolishTypeName,
+  getPolishUserRoleName,
   getTwoDigitHours,
   getTwoDigitMinutes,
 } from './textHelpers';
@@ -252,5 +253,33 @@ describe('createEmailsListInOneLineInSquareBrackets()', () => {
         'test2@test.pl',
       ])
     ).toEqual(`test@test.pl, test2@test.pl`);
+  });
+});
+
+describe('getPolishUserRoleName', () => {
+  // Should return 'Administrator' when userRole is 'ADMIN'
+  it('should return "Administrator" when userRole is "ADMIN"', () => {
+    const result = getPolishUserRoleName('ADMIN');
+    expect(result).toBe('Administrator');
+  });
+
+  // Should return 'Edytor' when userRole is 'EDITOR'
+  it("should return 'Edytor' when userRole is 'EDITOR'", () => {
+    const result = getPolishUserRoleName('EDITOR');
+    expect(result).toBe('Edytor');
+  });
+
+  // Should throw an error when userRole is null
+  it('should throw an error when userRole is null', () => {
+    expect(() => {
+      getPolishUserRoleName(null!);
+    }).toThrowError('getPolishUserRoleName not defined');
+  });
+
+  // Should throw an error when userRole is undefined
+  it('should throw an error when userRole is undefined', () => {
+    expect(() => {
+      getPolishUserRoleName(undefined!);
+    }).toThrowError('getPolishUserRoleName not defined');
   });
 });

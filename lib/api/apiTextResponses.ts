@@ -18,8 +18,20 @@ export const dbReadingErrorMessage =
 export const notLoggedIn = 'Nie jesteś zalogowany.';
 export const loggedIn = 'Jesteś zalogowany.';
 
+//user
+export const lackOfUserData = 'Brakuje danych, by dodać użytkownika.';
+export const badUserData = 'Otrzymane danych są nieprawidłowe.';
+export const userAlreadyExists = 'Użytkownik o takim e-mailu już istnieje.';
+
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
   email: string
 ) {
   return `E-mail: ${email} - został zapisany w naszym newsletterze.`;
+}
+
+export function generateUserDbWritingSuccessMessageWithData(
+  userName: string,
+  email: string
+) {
+  return `Użytkownik: ${userName} o e-mailu: ${email} - został zapisany w bazie danych.`;
 }

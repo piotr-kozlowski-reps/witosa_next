@@ -102,6 +102,7 @@ export default function RegisterForm() {
                   placeholder="powtórz hasło"
                 ></Field>
               </div>
+
               <div className="">
                 <label htmlFor="name">ADMIN/USER: </label>
                 <Field

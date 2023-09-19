@@ -458,4 +458,8 @@
     /* box-shadow: 0 0 0 1px #000; */
   }
   /* checkbox-rect end */
+
+  .form-input-width {
+    @apply w-96;
+  }
 }

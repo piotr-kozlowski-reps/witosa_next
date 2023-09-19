@@ -1,6 +1,9 @@
 import { getExceptionStack } from '@/lib/errors/ErrorUtils';
-import { loginEmailSchema, loginPasswordSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
+import {
+  emailSchema,
+  passwordSchema_Required_Min5_Max20,
+} from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
@@ -43,8 +46,8 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          loginEmailSchema.parse(credentials.email);
-          loginPasswordSchema.parse(credentials.password);
+          emailSchema.parse(credentials.email);
+          passwordSchema_Required_Min5_Max20.parse(credentials.password);
         } catch (error) {
           logger.warn(badLoginCredentialsMessage);
           throw new Error(badLoginCredentialsMessage);

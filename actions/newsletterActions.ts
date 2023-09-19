@@ -18,9 +18,9 @@ import {
   generateNewsletterDbWritingSuccessMessageWithCurrentEmail,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
-import { loginEmailSchema } from '@/lib/errors/zodSchemas';
 import logger from '@/lib/logger';
 import { createEmailsListInOneLineInSquareBrackets } from '@/lib/textHelpers';
+import { emailSchema } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllNewsletterAddressesResponse } from '@/types';
 import { Newsletter } from '@prisma/client';
@@ -39,7 +39,7 @@ export async function addNewsletterAddress(
 
   /* format validation */
   try {
-    loginEmailSchema.parse(email);
+    emailSchema.parse(email);
   } catch (error) {
     logger.warn(badEmailFormatMessage);
     return { status: 'ERROR', response: badEmailFormatMessage };
@@ -181,8 +181,8 @@ export async function updateNewsletterAddress(
 
   /** validate format of emails */
   try {
-    loginEmailSchema.parse(oldAddress);
-    loginEmailSchema.parse(updatedAddress);
+    emailSchema.parse(oldAddress);
+    emailSchema.parse(updatedAddress);
   } catch (error) {
     logger.warn(badEmailFormatMessage);
     return { status: 'ERROR', response: badEmailFormatMessage };
