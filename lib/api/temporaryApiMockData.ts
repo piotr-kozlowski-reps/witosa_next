@@ -1096,6 +1096,16 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     },
     occurrence: [
       {
+        id: '22awed17-z454-ht81-dfr5-cefr8egzh199',
+        day: 'MONDAY',
+        duration: [
+          {
+            activityStart: new Date('2000-01-01T16:30:00.968Z'),
+            activityEnd: new Date('2000-01-01T18:00:00.968Z'),
+          },
+        ],
+      },
+      {
         id: 'f54wed17-z454-ht81-fff5-cefr8egzh148',
         day: 'WEDNESDAY',
         duration: [
