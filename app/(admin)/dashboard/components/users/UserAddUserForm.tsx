@@ -3,6 +3,7 @@
 import { addUser } from '@/actions/userActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
+import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
@@ -84,6 +85,15 @@ export default function UserAddUserForm() {
     //   }
   }
 
+  const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
+    (role) => ({ value: role, label: getPolishUserRoleName(role) })
+  );
+  // const optionsCustomNamesForUserRoles = (
+  //   Object.keys(UserRole) as Array<UserRole>
+  // ).map((role) => getPolishUserRoleName(role));
+
+  // console.log({ optionsCustomNamesForUserRoles });
+
   ////tsx
   return (
     <Fragment>
@@ -111,6 +121,8 @@ export default function UserAddUserForm() {
         validationSchema={toFormikValidationSchema(userValidationSchema)}
       >
         {(formik) => {
+          console.log({ formik });
+
           ////tsx
           return (
             <form
@@ -159,14 +171,20 @@ export default function UserAddUserForm() {
               </div>
 
               <div className="mt-4 form-input-width">
-                <label htmlFor="userRole">Uprawienia:</label>
+                <SelectFormik<UserRole, TRegisterFormInputs>
+                  name="userRole"
+                  label="uprawnienia:"
+                  options={optionsForUserRoles}
+                  formik={formik}
+                />
+                {/* <label htmlFor="userRole">Uprawienia:</label>
                 <select name="userRole" id="userRole">
                   {(Object.keys(UserRole) as Array<UserRole>).map((role) => (
                     <option value={role} key={role}>
                       {getPolishUserRoleName(role)}
                     </option>
                   ))}
-                </select>
+                </select> */}
               </div>
 
               {/* buttons */}
