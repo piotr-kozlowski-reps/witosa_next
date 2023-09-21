@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 export async function checkIfUserIsAnAdmin() {
   const session = await getServerSession(authOptions);
-  return session?.user?.role === 'ADMIN' ? true : false;
+  return session?.user?.userRole === 'ADMIN' ? true : false;
 }
 
 export async function checkIfUserIsAnAdminAndIfNot_RedirectToPath(

@@ -1,9 +1,9 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
-import ModalDeleteNewsletterContent from '@/app/(site)/components/modal/ModalDeleteNewsletterContent';
+import ModalDeleteUserContent from '@/app/(site)/components/modal/ModalDeleteUserContent';
 import { useModalState } from '@/context/modalState';
-import { Newsletter } from '@prisma/client';
+import { User } from '@prisma/client';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -165,19 +165,21 @@ export default function UsersDataTable<TData, TValue>({
             <div className="inline-block ml-2">
               <CustomButton
                 actionFn={() => {
-                  const filteredEmails = table
+                  const filteredUsersIds = table
                     .getFilteredSelectedRowModel()
                     .rows.map((row) => {
                       return row.original;
                     })
-                    .map(
-                      (originalObject) => (originalObject as Newsletter).email
-                    );
+                    .map((originalObject) => {
+                      const originalUserObject: User = originalObject as User;
+                      return {
+                        id: originalUserObject.id,
+                        name: originalUserObject.name,
+                      };
+                    });
                   setShowModal(
                     true,
-                    <ModalDeleteNewsletterContent
-                      newsletterEmails={filteredEmails}
-                    />
+                    <ModalDeleteUserContent users={filteredUsersIds} />
                   );
                 }}
                 text="skasuj elementy"

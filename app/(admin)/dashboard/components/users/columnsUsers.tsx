@@ -164,9 +164,11 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
         </button>
       );
     },
-    accessorKey: 'role',
+    accessorKey: 'userRole',
     cell: ({ row }) => {
-      const roleOriginalValue = row.getValue('role');
+      const roleOriginalValue = row.getValue('userRole');
+      console.log({ roleOriginalValue });
+
       const roleFormattedValue = getPolishUserRoleName(
         roleOriginalValue as UserRole
       );
@@ -179,7 +181,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
       return (
         <div className="float-right mr-8">
           <input
-            placeholder="wyszukaj e-mail"
+            placeholder="wyszukaj po e-mailu"
             value={(table.getColumn('email')?.getFilterValue() as string) || ''}
             onChange={(e) => {
               table.getColumn('email')?.setFilterValue(e.target.value);
@@ -191,9 +193,9 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
     },
     cell: ({ row }) => {
       const userRowData = row.original;
-      const userId = userRowData.id;
-      const name = userRowData.name;
-      return <UserColumnWithActions id={userId} name={name} />;
+      // const userId = userRowData.id;
+      // const name = userRowData.name;
+      return <UserColumnWithActions user={userRowData} />;
     },
   },
 ];

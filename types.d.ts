@@ -201,7 +201,7 @@ export type TGetAllNewsletterAddressesResponse = {
 };
 export type TUserPicked = Pick<
   User,
-  'id' | 'name' | 'email' | 'role' | 'updatedAt'
+  'id' | 'name' | 'email' | 'userRole' | 'updatedAt'
 >;
 export type TGetAllUsersResponse = {
   status: TStatus;

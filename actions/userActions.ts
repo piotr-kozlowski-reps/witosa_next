@@ -92,7 +92,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
         name: submittedName,
         email: submittedEmail,
         hashedPassword,
-        role: submittedUserRole,
+        userRole: submittedUserRole,
       },
     });
   } catch (error) {
@@ -135,7 +135,7 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
     name: user.name,
     email: user.email,
     updatedAt: user.updatedAt,
-    role: user.role as UserRole,
+    userRole: user.userRole as UserRole,
   }));
 
   return { status: 'SUCCESS', response: usersPickedData };
@@ -148,8 +148,6 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     logger.warn(notLoggedIn);
     return { status: 'ERROR', response: notLoggedIn };
   }
-
-  // console.log(JSON.stringify(ids));
 
   /** checking values eXistenZ */
   if (!ids || ids.length === 0) {

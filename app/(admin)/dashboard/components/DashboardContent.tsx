@@ -16,7 +16,7 @@ type Props = {
 export default function DashboardContent(props: Props) {
   ////vars
   const session = useSession();
-  const isAdmin = session?.data?.user?.role === 'ADMIN';
+  const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { newsletterDataCombo, usersData } = props;
 
   ////tsx

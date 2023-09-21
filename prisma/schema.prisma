@@ -70,7 +70,7 @@ model User{
   hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role UserRole @default(EDITOR)
+  userRole UserRole @default(EDITOR)
   events Event[]
   activities CyclicalActivity[]
   // sliders Slide[]

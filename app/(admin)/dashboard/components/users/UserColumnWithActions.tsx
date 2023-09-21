@@ -1,49 +1,42 @@
 'use client';
 
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteUserContent from '@/app/(site)/components/modal/ModalDeleteUserContent';
 import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
+import { TUserPicked } from '@/types';
 
 type Props = {
-  id: string;
-  name: string;
+  user: TUserPicked;
 };
 
 export default function UserColumnWithActions(props: Props) {
   ////vars
-  const { id, name } = props;
+  const { user } = props;
+  const { id, name } = user;
   const { setShowModal } = useModalState();
   const { setShowNotification } = useNotificationState();
-  const { setIsAddNewsletterVisible, setNewsletterFormikDataForPUT } =
+  const { setIsAddNewsletterVisible, setUserFormikDataForPUT } =
     useNavigationState();
 
   ////tsx
   return (
     <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
-      {/* <div>
-        <CopyIcon
-          actionFn={() => {
-            navigator.clipboard.writeText(newsletterEmail);
-            setShowNotification(
-              'SUCCESS',
-              `Adres e-mail: ${newsletterEmail} został skopiowany do schowka.`
-            );
-          }}
-          alt="Kopiuj adres e-mail."
-        />
-      </div> */}
-
-      {/* <div>
+      <div>
         <EditIcon
           actionFn={() => {
-            setNewsletterFormikDataForPUT(newsletterEmail);
+            setUserFormikDataForPUT({
+              ...user,
+              password: '',
+              confirmPassword: '',
+            });
             setIsAddNewsletterVisible(true);
           }}
           alt="Edytuj email Newslettera."
         />
-      </div> */}
+      </div>
 
       <div>
         <CloseIcon

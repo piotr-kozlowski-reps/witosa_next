@@ -25,7 +25,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
         name,
         email,
         hashedPassword,
-        role: userRole,
+        userRole: userRole,
       },
     });
   } catch (error) {
