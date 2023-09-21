@@ -7,7 +7,7 @@ import {
   UserRole,
 } from '@prisma/client';
 
-export function getPolishTypeName(type: EventType) {
+export function getPolishEventTypeName(type: EventType) {
   let polishTypeName = '';
 
   switch (type) {
@@ -17,6 +17,10 @@ export function getPolishTypeName(type: EventType) {
 
     case 'DANCE':
       polishTypeName = 'taniec';
+      break;
+
+    case 'LITERATURE':
+      polishTypeName = 'literatura';
       break;
 
     case 'WORKSHOP':
@@ -48,7 +52,7 @@ export function getPolishTypeName(type: EventType) {
       break;
 
     default:
-      throw new Error('getPolishTypeName not defined');
+      throw new Error('getPolishEventTypeName not defined');
   }
 
   return polishTypeName;
@@ -97,52 +101,52 @@ export function getPolishCategoryOfActivitiesName(category: ActivityType) {
   return polishCategoryName;
 }
 
-export function getPolishCategoryOfEventsName(category: EventType) {
-  let polishCategoryName = '';
+// export function getPolishCategoryOfEventsName(category: EventType) {
+//   let polishCategoryName = '';
 
-  switch (category) {
-    case 'CABARET':
-      polishCategoryName = 'kabaret';
-      break;
+//   switch (category) {
+//     case 'CABARET':
+//       polishCategoryName = 'kabaret';
+//       break;
 
-    case 'CONCERT':
-      polishCategoryName = 'koncert';
-      break;
+//     case 'CONCERT':
+//       polishCategoryName = 'koncert';
+//       break;
 
-    case 'DANCE':
-      polishCategoryName = 'taniec';
-      break;
+//     case 'DANCE':
+//       polishCategoryName = 'taniec';
+//       break;
 
-    case 'CYCLIC_MEETING':
-      polishCategoryName = 'wydarzenia cykliczne';
-      break;
+//     case 'CYCLIC_MEETING':
+//       polishCategoryName = 'wydarzenia cykliczne';
+//       break;
 
-    case 'FESTIVAL':
-      polishCategoryName = 'festiwal';
-      break;
+//     case 'FESTIVAL':
+//       polishCategoryName = 'festiwal';
+//       break;
 
-    case 'LECTURE':
-      polishCategoryName = 'wykład';
-      break;
+//     case 'LECTURE':
+//       polishCategoryName = 'wykład';
+//       break;
 
-    case 'SPECTACLE':
-      polishCategoryName = 'spektakl';
-      break;
+//     case 'SPECTACLE':
+//       polishCategoryName = 'spektakl';
+//       break;
 
-    case 'WORKSHOP':
-      polishCategoryName = 'warsztaty';
-      break;
+//     case 'WORKSHOP':
+//       polishCategoryName = 'warsztaty';
+//       break;
 
-    case 'OTHERS':
-      polishCategoryName = 'inne';
-      break;
+//     case 'OTHERS':
+//       polishCategoryName = 'inne';
+//       break;
 
-    default:
-      throw new Error(`getPolishCategoryOfEvents - ${category} not defined`);
-  }
+//     default:
+//       throw new Error(`getPolishCategoryOfEvents - ${category} not defined`);
+//   }
 
-  return polishCategoryName;
-}
+//   return polishCategoryName;
+// }
 
 export function getPolishForWhomName(forWhom: ForWhom) {
   let polishForWhomName = '';

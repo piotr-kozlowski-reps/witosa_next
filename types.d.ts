@@ -3,6 +3,7 @@ import {
   Day,
   Event,
   Newsletter,
+  User,
   UserRole,
 } from '@prisma/client';
 
@@ -197,6 +198,14 @@ export type TActionResponse = {
 export type TGetAllNewsletterAddressesResponse = {
   status: TStatus;
   response: string | Newsletter[];
+};
+export type TUserPicked = Pick<
+  User,
+  'id' | 'name' | 'email' | 'role' | 'updatedAt'
+>;
+export type TGetAllUsersResponse = {
+  status: TStatus;
+  response: string | TUserPicked[];
 };
 
 export type TNewsletterDataCombo = {

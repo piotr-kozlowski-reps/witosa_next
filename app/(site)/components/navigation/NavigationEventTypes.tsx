@@ -1,4 +1,4 @@
-import { getPolishCategoryOfEventsName } from '@/lib/textHelpers';
+import { getPolishEventTypeName } from '@/lib/textHelpers';
 import { EventType } from '@prisma/client';
 import CustomButton from '../CustomButton';
 
@@ -44,8 +44,8 @@ export default function NavigationEventTypes(props: Props) {
         {(Object.keys(EventType) as Array<EventType>).map((eventType) => (
           <CustomButton
             key={eventType}
-            text={getPolishCategoryOfEventsName(eventType)}
-            descriptionText={getPolishCategoryOfEventsName(eventType)}
+            text={getPolishEventTypeName(eventType)}
+            descriptionText={getPolishEventTypeName(eventType)}
             disabled={false}
             outlined={checkButtonCategoryState(eventType) ? false : true}
             actionFn={() => toggleCategory(eventType)}

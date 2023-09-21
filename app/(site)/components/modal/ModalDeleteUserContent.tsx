@@ -1,6 +1,5 @@
 'use client';
 
-import { deleteNewsletterAddresses } from '@/actions/newsletterActions';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
 import { useState } from 'react';
@@ -9,31 +8,38 @@ import ModalElementsToBeDeleted from './ModalElementsToBeDeleted';
 import ModalTitle from './ModalTitle';
 
 type Props = {
-  newsletterEmails: string[];
+  users: { id: string; name: string }[];
 };
 
-export default function ModalDeleteNewsletterContent(props: Props) {
+export default function ModalDeleteUserContent(props: Props) {
   ////vars
-  const { newsletterEmails } = props;
+  const { users } = props;
   const { setHideModal } = useModalState();
   const { setShowNotification } = useNotificationState();
   const [pending, setPending] = useState(false);
 
-  const isOnlyOneEmailInArray = newsletterEmails.length === 1;
+  const isOnlyOneEmailInArray = users.length === 1;
 
   ////tsx
   return (
     <div className="max-w-full prose">
       <ModalTitle
         text={`Czy na pewno chcesz usunąć ${
-          isOnlyOneEmailInArray ? 'e-mail' : 'e-maile'
+          isOnlyOneEmailInArray ? 'użytkownika' : 'użytkowników'
         }?`}
       />
       <ModalElementsToBeDeleted
-        nameForListingElements={isOnlyOneEmailInArray ? 'E-mail:' : 'E-maile:'}
-        elementsNamesArray={newsletterEmails}
+        nameForListingElements={
+          isOnlyOneEmailInArray ? 'Użytkownik:' : 'Użytkownicy:'
+        }
+        elementsNamesArray={users.map((user) => user.name)}
       />
-
+      {/* <h2 className="-mt-[18px]">
+        <span className="text-skin-gray">
+          {isOnlyOneEmailInArray ? 'E-mail:' : 'E-maile:'}
+        </span>{' '}
+        {createEmailsListInOneLineInSquareBrackets(users)}
+      </h2> */}
       <div className="flex flex-col tablet:flex-row justify-start items-start tablet:items-center gap-4 tablet:gap-8 mt-[25px]">
         <div>
           <CustomButton
@@ -48,19 +54,17 @@ export default function ModalDeleteNewsletterContent(props: Props) {
             disabled={pending}
             actionFn={async () => {
               setPending(true);
-              const dataResponse = await deleteNewsletterAddresses(
-                newsletterEmails
-              );
+              // const dataResponse = await deleteNewsletterAddresses(ids);
 
-              if (dataResponse.status === 'ERROR') {
-                setShowNotification('ERROR', dataResponse.response);
-                setHideModal();
-                setPending(false);
-                return;
-              }
-              setShowNotification('SUCCESS', dataResponse.response);
-              setHideModal();
-              setPending(false);
+              // if (dataResponse.status === 'ERROR') {
+              //   setShowNotification('ERROR', dataResponse.response);
+              //   setHideModal();
+              //   setPending(false);
+              //   return;
+              // }
+              // setShowNotification('SUCCESS', dataResponse.response);
+              // setHideModal();
+              // setPending(false);
             }}
           />
         </div>

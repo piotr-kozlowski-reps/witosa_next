@@ -1,6 +1,6 @@
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
-import { TNewsletterDataCombo } from '@/types';
+import { TGetAllUsersResponse, TNewsletterDataCombo } from '@/types';
 import { useSession } from 'next-auth/react';
 import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
@@ -10,6 +10,7 @@ import DashboardUsers from './users/DashboardUsers';
 
 type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
+  usersData: TGetAllUsersResponse;
 };
 
 export default function DashboardInsidePages(props: Props) {
@@ -45,7 +46,7 @@ export default function DashboardInsidePages(props: Props) {
       </ComponentTransitionFromRightToLeft>
 
       <ComponentTransitionFromRightToLeft>
-        {isToShowUsers ? <DashboardUsers /> : null}
+        {isToShowUsers ? <DashboardUsers usersData={props.usersData} /> : null}
       </ComponentTransitionFromRightToLeft>
 
       <ComponentTransitionFromRightToLeft>

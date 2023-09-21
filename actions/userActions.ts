@@ -18,8 +18,8 @@ import {
   useRoleSchema,
 } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
-import { TActionResponse } from '@/types';
-import { UserRole } from '@prisma/client';
+import { TActionResponse, TGetAllUsersResponse, TUserPicked } from '@/types';
+import { User, UserRole } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
@@ -110,6 +110,33 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
     status: 'SUCCESS',
     response: successMessage,
   };
+}
+
+export async function getAllUsers(): Promise<TGetAllUsersResponse> {
+  /** checking session */
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    logger.warn(notLoggedIn);
+    return { status: 'ERROR', response: notLoggedIn };
+  }
+
+  let users: User[] = [];
+  try {
+    users = await prisma.user.findMany();
+  } catch (error) {
+    logger.warn(dbReadingErrorMessage);
+    return { status: 'ERROR', response: dbReadingErrorMessage };
+  }
+
+  const usersPickedData: TUserPicked[] = users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    updatedAt: user.updatedAt,
+    role: user.role as UserRole,
+  }));
+
+  return { status: 'SUCCESS', response: usersPickedData };
 }
 
 // export const getAllNewsletterAddresses =

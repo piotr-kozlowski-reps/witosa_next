@@ -3,11 +3,19 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationState } from '@/context/navigationState';
+import { TGetAllUsersResponse, TUserPicked } from '@/types';
 import { Fragment } from 'react';
 import UserAddUserForm from './UserAddUserForm';
+import UsersDataTable from './UsersDataTable';
+import { columnsUsers } from './columnsUsers';
 
-export default function DashboardUsers() {
+type Props = {
+  usersData: TGetAllUsersResponse;
+};
+
+export default function DashboardUsers(props: Props) {
   ////vars
+  const { usersData } = props;
   const { getIsAddUserVisible, setIsAddUserVisible } = useNavigationState();
 
   ////tsx
@@ -15,7 +23,6 @@ export default function DashboardUsers() {
     <Fragment>
       {getIsAddUserVisible() ? (
         <ComponentTransitionFromRightToLeft>
-          {/* <NewsletterAddItemForm /> */}
           <UserAddUserForm />
         </ComponentTransitionFromRightToLeft>
       ) : null}
@@ -39,10 +46,10 @@ export default function DashboardUsers() {
                 />
               </div>
             </div>
-            {/* <NewsletterDataTable
-              columns={columns}
-              data={newsletterPreparedDataArray}
-            /> */}
+            <UsersDataTable
+              columns={columnsUsers}
+              data={usersData.response as TUserPicked[]}
+            />
           </Fragment>
         </ComponentTransitionFromRightToLeft>
       ) : null}

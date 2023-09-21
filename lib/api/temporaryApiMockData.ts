@@ -587,7 +587,6 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-15T23:59:00.968Z'),
   },
-
   {
     id: '1ase27417-9875-ffhy-g351-ce6bfr4gh3aa',
     eventTypes: ['DANCE', 'OTHERS'],
@@ -639,6 +638,67 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2025-09-08T23:59:00.968Z'),
+  },
+  {
+    id: 'f54d8847-d3g1-gt51-8116-6r6rr7fd8899',
+    eventTypes: ['LITERATURE'],
+    eventForWhom: ['TEENS'],
+    title: 'Wieczorek Głośnego Czytania',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy młodzież (13-16 lat) na spotkanie ze "Zwiadowcami", czeka na Was nie tylko literatura... :)',
+    eventStartDate: new Date('2023-09-29T18:00:00.968Z'),
+    eventEndDate: new Date('2023-09-29T21:00:00.968Z'),
+    createdAt: new Date('2023-08-26T15:20:24.968Z'),
+    updatedAt: new Date('2023-08-26T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_zwiadowcy_003.jpg',
+        alt: 'Napis Wieczorek Głośnego Czytania.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_zwiadowcy_001.jpg',
+        alt: 'Plakat powieści "Zwiadowcy".',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_zwiadowcy_002.jpg',
+        alt: 'Zdjęcie programu Wieczorku Głośnego Czytania "Zwiadowców".',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '<div><p>Jeśli masz 13-16 lat i kochasz czytanie ten wieczór jest dla Ciebie!</p><p>W programie:</p><ul><li>czytanie fragmentów serii „Zwiadowcy” Johna Flanagana,</li><li>familiada książkowa (quizy, challenge, wyzwania),</li><li>wspólne kręcenie książkowego filmiku,</li><li>sjesta biblioteczna (pogawędka o bibliotece i czytaniu),</li><li>literacka uczta (poczęstunek).</li></ul><p>Wydarzenie jest realizowane w ramach projektu "Nowe otwarcie - Projekt DK+. Inicjatywy Lokalne ".</p><p>Dofinansowano ze środków Ministra Kultury i Dziedzictwa Narodowego w ramach programu Narodowego Centrum Kultury: Dom Kultury+ Edycja 2023</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: false,
+    kindOfEnterInfo:
+      'Wstep bezpłatny. Zapisy odbywają się w MBP,  Filii nr 2, (al. Lipowa 12) lub pod nr tel. 32 332 63 94.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-zwiadowcy-001.jpg',
+    newsSectionImageAlt:
+      'Twarz autorki - młoda kobieta w okularach i długich, prostych włosach.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_zwiadowcy_001.jpg',
+    sliderImageAlt: 'Plakat powieści "Zwiadowcy".',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-09-29T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-09-29T23:59:00.968Z'),
   },
 ];
 

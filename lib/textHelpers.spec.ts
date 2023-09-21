@@ -7,7 +7,7 @@ import {
   getCorrectTwoDigitsMonthNumber,
   getHoursAndMinutesWithGInFrontFromDateObject,
   getPolishDayFromDateObject,
-  getPolishTypeName,
+  getPolishEventTypeName,
   getPolishUserRoleName,
   getTwoDigitHours,
   getTwoDigitMinutes,
@@ -185,29 +185,31 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
 
 describe('getPolishTypeName()', () => {
   it('returns kabaret', () => {
-    expect(getPolishTypeName('CABARET')).toEqual('kabaret');
+    expect(getPolishEventTypeName('CABARET')).toEqual('kabaret');
   });
 
   it('returns koncert', () => {
-    expect(getPolishTypeName('CONCERT')).toEqual('koncert');
+    expect(getPolishEventTypeName('CONCERT')).toEqual('koncert');
   });
   it('returns spotkania cykliczne', () => {
-    expect(getPolishTypeName('CYCLIC_MEETING')).toEqual('spotkania cykliczne');
+    expect(getPolishEventTypeName('CYCLIC_MEETING')).toEqual(
+      'spotkania cykliczne'
+    );
   });
   it('returns festiwal', () => {
-    expect(getPolishTypeName('FESTIVAL')).toEqual('festiwal');
+    expect(getPolishEventTypeName('FESTIVAL')).toEqual('festiwal');
   });
   it('returns wykłady', () => {
-    expect(getPolishTypeName('LECTURE')).toEqual('wykłady');
+    expect(getPolishEventTypeName('LECTURE')).toEqual('wykłady');
   });
   it('returns inne', () => {
-    expect(getPolishTypeName('OTHERS')).toEqual('inne');
+    expect(getPolishEventTypeName('OTHERS')).toEqual('inne');
   });
   it('returns spektakl', () => {
-    expect(getPolishTypeName('SPECTACLE')).toEqual('spektakl');
+    expect(getPolishEventTypeName('SPECTACLE')).toEqual('spektakl');
   });
   it('returns warsztaty', () => {
-    expect(getPolishTypeName('WORKSHOP')).toEqual('warsztaty');
+    expect(getPolishEventTypeName('WORKSHOP')).toEqual('warsztaty');
   });
 });
 

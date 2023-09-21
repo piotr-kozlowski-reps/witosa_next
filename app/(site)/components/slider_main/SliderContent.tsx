@@ -1,7 +1,7 @@
 'use client';
 
 import { useObserveElementHeight } from '@/hooks/useObserveElementHeight';
-import { getPolishTypeName } from '@/lib/textHelpers';
+import { getPolishEventTypeName } from '@/lib/textHelpers';
 import { TSlide } from '@/types';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -156,7 +156,7 @@ export default function SliderContent(props: Props) {
                     <div key={index} className="inline font-base-regular">
                       <span>{index !== 0 ? '|' : ''}</span>
                       <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
-                        {getPolishTypeName(type)}
+                        {getPolishEventTypeName(type)}
                       </span>
                     </div>
                   ))}

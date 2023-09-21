@@ -1,4 +1,4 @@
-import { getPolishTypeName } from '@/lib/textHelpers';
+import { getPolishEventTypeName } from '@/lib/textHelpers';
 import { TCurrentDevice } from '@/types';
 import { EventType } from '@prisma/client';
 import clsx from 'clsx';
@@ -115,7 +115,7 @@ export default function SingleNews(props: Props) {
               >
                 <span>{index !== 0 ? '|' : ''}</span>
                 <span className={clsx(index !== 0 ? 'mx-2' : 'mr-2')}>
-                  {getPolishTypeName(type)}
+                  {getPolishEventTypeName(type)}
                 </span>
               </div>
             ))}
