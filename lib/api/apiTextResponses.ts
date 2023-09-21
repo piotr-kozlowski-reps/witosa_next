@@ -24,7 +24,7 @@ export const loggedIn = 'Jesteś zalogowany.';
 
 //user
 export const lackOfUserData = 'Brakuje danych, by dodać użytkownika.';
-export const badUserData = 'Otrzymane danych są nieprawidłowe.';
+export const badUserData = 'Otrzymane dane są nieprawidłowe.';
 export const userAlreadyExists = 'Użytkownik o takim e-mailu już istnieje.';
 
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(

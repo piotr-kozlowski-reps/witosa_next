@@ -12,6 +12,8 @@ import {
 import { hookstate, useHookstate } from '@hookstate/core';
 import { devtools } from '@hookstate/devtools';
 
+type TRegisterFormInputs_Plus_Id = TRegisterFormInputs & { id: string };
+
 type TNavigationState = {
   links: TLink[];
   socialLinks: TsocialLinks[];
@@ -28,7 +30,7 @@ type TNavigationState = {
   isAddNewsletterVisible: boolean;
   newsletterFormikDataForPUT: string;
   isAddUserVisible: boolean;
-  userFormikDataForPUT: TRegisterFormInputs;
+  userFormikDataForPUT: TRegisterFormInputs_Plus_Id;
 };
 
 const navigationStateData: TNavigationState = {
@@ -148,11 +150,13 @@ const navigationStateData: TNavigationState = {
   isMobileGroupsSubMenuVisible: false,
   isMobileAccessibilitySubMenuVisible: false,
   isCyclicalActivitiesMenuVisible: false,
+
   //admin forms components
   isAddNewsletterVisible: false,
   newsletterFormikDataForPUT: '',
   isAddUserVisible: false,
   userFormikDataForPUT: {
+    id: '',
     name: '',
     email: '',
     password: '',
@@ -385,11 +389,12 @@ export function useNavigationState() {
     getUserFormikDataForPUT() {
       return state.userFormikDataForPUT.get();
     },
-    setUserFormikDataForPUT(data: TRegisterFormInputs) {
+    setUserFormikDataForPUT(data: TRegisterFormInputs_Plus_Id) {
       state.userFormikDataForPUT.set(data);
     },
     resetUserFormikDataForPUT() {
       state.userFormikDataForPUT.set({
+        id: '',
         name: '',
         email: '',
         password: '',

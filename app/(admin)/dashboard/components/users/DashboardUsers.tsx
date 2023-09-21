@@ -16,7 +16,11 @@ type Props = {
 export default function DashboardUsers(props: Props) {
   ////vars
   const { usersData } = props;
-  const { getIsAddUserVisible, setIsAddUserVisible } = useNavigationState();
+  const {
+    getIsAddUserVisible,
+    setIsAddUserVisible,
+    resetUserFormikDataForPUT,
+  } = useNavigationState();
 
   ////tsx
   return (
@@ -40,7 +44,7 @@ export default function DashboardUsers(props: Props) {
                   text="dodaj użytkownika"
                   descriptionText="Dodaj użytkownika."
                   actionFn={() => {
-                    // resetNewsletterFormikDataForPUT(); ////TODO: dołóż
+                    resetUserFormikDataForPUT();
                     setIsAddUserVisible(true);
                   }}
                 />

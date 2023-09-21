@@ -423,7 +423,7 @@
     -ms-user-select: none;
   }
   .checkbox-rect input[type='checkbox']:hover + label:hover {
-    color: rgb(23, 86, 228);
+    color: var(--cta-primary);
   }
   .checkbox-rect input[type='checkbox']:hover + label:before {
     background: var(--cta-secondary);
@@ -441,7 +441,7 @@
     border-radius: 5px;
     position: absolute;
     left: 0;
-    top: -8px;
+    top: 1px;
     -webkit-transition: all 0.2s, background 0.2s ease-in-out;
     transition: all 0.2s, background 0.2s ease-in-out;
     background: #f3f3f3;

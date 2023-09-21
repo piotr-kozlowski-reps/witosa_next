@@ -1,6 +1,5 @@
 'use client';
-
-import { addUser } from '@/actions/userActions';
+import { addUser, updateUser } from '@/actions/userActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
@@ -10,13 +9,13 @@ import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TRegisterFormInputs,
-  userValidationSchema,
+  userValidationSchemaIncludingPassword,
 } from '@/lib/forms/user-form';
 import { getPolishUserRoleName } from '@/lib/textHelpers';
 import { TActionResponse } from '@/types';
 import { UserRole } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 export default function UserAddUserForm() {
@@ -28,6 +27,8 @@ export default function UserAddUserForm() {
 
   const isCurrentFormToPOSTData = !getUserFormikDataForPUT().name;
   const isCurrentFormToPUTData = getUserFormikDataForPUT().name;
+
+  const [isToChangePassword, setIsToChangePassword] = useState(false);
 
   ////formik
   async function submitFormHandler(
@@ -57,42 +58,35 @@ export default function UserAddUserForm() {
       formik.resetForm();
       return;
     }
-    //   if (isCurrentFormToPUTData) {
-    //     // console.log('put');
-    //     //check if address is in DB - if not error
-    //     //update address
-    //     try {
-    //       response = await updateNewsletterAddress(
-    //         getNewsletterFormikDataForPUT(),
-    //         formData
-    //       );
-    //     } catch (error) {
-    //       setShowNotification('ERROR', dbReadingErrorMessage);
-    //     }
-    //     if (!response || !response.status || !response.response) {
-    //       setShowNotification('ERROR', dbReadingErrorMessage);
-    //       return;
-    //     }
-    //     if (response.status === 'ERROR') {
-    //       setShowNotification('ERROR', response.response);
-    //       return;
-    //     }
-    //     setShowNotification('SUCCESS', response.response);
-    //     resetNewsletterFormikDataForPUT();
-    //     formik.resetForm();
-    //     setIsAddNewsletterVisible(false);
-    //     return;
-    //   }
+    if (isCurrentFormToPUTData) {
+      try {
+        response = await updateUser(
+          getUserFormikDataForPUT().id,
+          isToChangePassword,
+          formData
+        );
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+      if (!response || !response.status || !response.response) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+        return;
+      }
+      if (response.status === 'ERROR') {
+        setShowNotification('ERROR', response.response);
+        return;
+      }
+      setShowNotification('SUCCESS', response.response);
+      resetUserFormikDataForPUT();
+      formik.resetForm();
+      setIsAddUserVisible(false);
+      return;
+    }
   }
 
   const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
     (role) => ({ value: role, label: getPolishUserRoleName(role) })
   );
-  // const optionsCustomNamesForUserRoles = (
-  //   Object.keys(UserRole) as Array<UserRole>
-  // ).map((role) => getPolishUserRoleName(role));
-
-  // console.log({ optionsCustomNamesForUserRoles });
 
   ////tsx
   return (
@@ -118,7 +112,9 @@ export default function UserAddUserForm() {
       <Formik<TRegisterFormInputs>
         initialValues={getUserFormikDataForPUT()}
         onSubmit={() => {}}
-        validationSchema={toFormikValidationSchema(userValidationSchema)}
+        validationSchema={toFormikValidationSchema(
+          userValidationSchemaIncludingPassword
+        )}
       >
         {(formik) => {
           console.log({ formik });
@@ -130,7 +126,7 @@ export default function UserAddUserForm() {
                 await submitFormHandler(formData, formik);
               }}
             >
-              <div className="form-input-width">
+              <div className="form-input-width -mt-[7px]">
                 <InputFormik
                   name="name"
                   type="text"
@@ -139,7 +135,7 @@ export default function UserAddUserForm() {
                 />
               </div>
 
-              <div className="mt-4 form-input-width">
+              <div className="mt-[20px] form-input-width">
                 <InputFormik
                   name="email"
                   type="email"
@@ -152,43 +148,78 @@ export default function UserAddUserForm() {
                 />
               </div>
 
-              <div className="mt-4 form-input-width">
-                <InputFormik
-                  name="password"
-                  type="password"
-                  label={isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'}
-                  placeholder="wpisz hasło"
-                />
-              </div>
+              {isCurrentFormToPOSTData ? (
+                <Fragment>
+                  <div className="mt-[20px] form-input-width">
+                    <InputFormik
+                      name="password"
+                      type="password"
+                      label={isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'}
+                      placeholder="wpisz hasło"
+                    />
+                  </div>
+                  <div className="mt-[20px] form-input-width">
+                    <InputFormik
+                      name="confirmPassword"
+                      type="password"
+                      label="powtórz hasło:"
+                      placeholder="powtórz hasło"
+                    />
+                  </div>
+                </Fragment>
+              ) : null}
 
-              <div className="mt-4 form-input-width">
-                <InputFormik
-                  name="confirmPassword"
-                  type="password"
-                  label="powtórz hasło:"
-                  placeholder="powtórz hasło"
-                />
-              </div>
-
-              <div className="mt-4 form-input-width">
+              <div className="mt-[20px] form-input-width">
                 <SelectFormik<UserRole, TRegisterFormInputs>
                   name="userRole"
                   label="uprawnienia:"
                   options={optionsForUserRoles}
                   formik={formik}
                 />
-                {/* <label htmlFor="userRole">Uprawienia:</label>
-                <select name="userRole" id="userRole">
-                  {(Object.keys(UserRole) as Array<UserRole>).map((role) => (
-                    <option value={role} key={role}>
-                      {getPolishUserRoleName(role)}
-                    </option>
-                  ))}
-                </select> */}
               </div>
+              {isCurrentFormToPUTData ? (
+                <Fragment>
+                  <div className="mt-[23px] form-input-width font-base-regular hover:font-base-bold">
+                    <div className="checkbox-rect">
+                      <input
+                        type="checkbox"
+                        id="checkbox-rect1"
+                        checked={isToChangePassword}
+                        onChange={() =>
+                          setIsToChangePassword((prevState) => !prevState)
+                        }
+                      />
+                      <label htmlFor="checkbox-rect1" className="pl-8 ">
+                        czy chcesz zmienić hasło?
+                      </label>
+                    </div>
+                  </div>
+                  {isToChangePassword ? (
+                    <Fragment>
+                      <div className="mt-[20px] form-input-width">
+                        <InputFormik
+                          name="password"
+                          type="password"
+                          label={
+                            isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'
+                          }
+                          placeholder="wpisz hasło"
+                        />
+                      </div>
+                      <div className="mt-[20px] form-input-width">
+                        <InputFormik
+                          name="confirmPassword"
+                          type="password"
+                          label="powtórz hasło:"
+                          placeholder="powtórz hasło"
+                        />
+                      </div>
+                    </Fragment>
+                  ) : null}
+                </Fragment>
+              ) : null}
 
-              {/* buttons */}
-              <div className="mt-[20px] flex gap-8">
+              <div className="mt-[28px] flex gap-8">
                 <CustomButton
                   text={isCurrentFormToPUTData ? 'zmień' : 'dodaj'}
                   descriptionText="Dodaj użytkownika."

@@ -10,7 +10,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
     id: 'select',
     header: ({ table }) => {
       return (
-        <div className="checkbox-rect">
+        <div className="checkbox-rect -mt-[9px]">
           <input
             type="checkbox"
             id="checkbox-rect1"
@@ -25,7 +25,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="checkbox-rect">
+        <div className="checkbox-rect -mt-[9px]">
           <input
             type="checkbox"
             checked={row.getIsSelected()}

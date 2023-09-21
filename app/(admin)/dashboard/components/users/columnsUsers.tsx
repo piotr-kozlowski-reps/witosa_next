@@ -12,7 +12,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
     id: 'select',
     header: ({ table }) => {
       return (
-        <div className="checkbox-rect">
+        <div className="checkbox-rect -mt-[9px]">
           <input
             type="checkbox"
             id="checkbox-rect1"
@@ -27,7 +27,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="checkbox-rect">
+        <div className="checkbox-rect -mt-[9px]">
           <input
             type="checkbox"
             checked={row.getIsSelected()}
@@ -167,11 +167,9 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
     accessorKey: 'userRole',
     cell: ({ row }) => {
       const roleOriginalValue = row.getValue('userRole');
-      console.log({ roleOriginalValue });
-
-      const roleFormattedValue = getPolishUserRoleName(
-        roleOriginalValue as UserRole
-      );
+      const roleFormattedValue = roleOriginalValue
+        ? getPolishUserRoleName(roleOriginalValue as UserRole)
+        : 'nieznane uprawnienia, odśwież stronę';
       return <div>{roleFormattedValue}</div>;
     },
   },

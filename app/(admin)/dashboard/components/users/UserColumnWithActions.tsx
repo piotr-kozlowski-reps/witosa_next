@@ -18,8 +18,7 @@ export default function UserColumnWithActions(props: Props) {
   const { id, name } = user;
   const { setShowModal } = useModalState();
   const { setShowNotification } = useNotificationState();
-  const { setIsAddNewsletterVisible, setUserFormikDataForPUT } =
-    useNavigationState();
+  const { setIsAddUserVisible, setUserFormikDataForPUT } = useNavigationState();
 
   ////tsx
   return (
@@ -29,10 +28,10 @@ export default function UserColumnWithActions(props: Props) {
           actionFn={() => {
             setUserFormikDataForPUT({
               ...user,
-              password: '',
-              confirmPassword: '',
+              password: '!!!!!',
+              confirmPassword: '!!!!!',
             });
-            setIsAddNewsletterVisible(true);
+            setIsAddUserVisible(true);
           }}
           alt="Edytuj email Newslettera."
         />

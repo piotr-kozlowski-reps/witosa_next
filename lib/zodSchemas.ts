@@ -23,3 +23,9 @@ export const nameSchema_Required_Min2 = z
   .min(2, { message: 'min 2 znaki' });
 
 export const useRoleSchema = z.nativeEnum(UserRole);
+
+export const password_NotRequired_CanBeUndefined = z
+  .string({
+    required_error: 'Pole jest wymagane',
+  })
+  .min(2, { message: 'min 2 znaki' });
