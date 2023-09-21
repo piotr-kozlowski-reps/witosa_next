@@ -31,6 +31,7 @@ type TNavigationState = {
   newsletterFormikDataForPUT: string;
   isAddUserVisible: boolean;
   userFormikDataForPUT: TRegisterFormInputs_Plus_Id;
+  isAddCyclicalActivityVisible: boolean;
 };
 
 const navigationStateData: TNavigationState = {
@@ -163,6 +164,7 @@ const navigationStateData: TNavigationState = {
     confirmPassword: '',
     userRole: 'EDITOR',
   },
+  isAddCyclicalActivityVisible: false,
 };
 
 const navigationState = hookstate(
@@ -401,6 +403,14 @@ export function useNavigationState() {
         confirmPassword: '',
         userRole: 'EDITOR',
       });
+    },
+
+    //cyclicalActivities
+    getIsAddCyclicalActivityVisible() {
+      return state.isAddCyclicalActivityVisible.get();
+    },
+    setIsAddCyclicalActivityVisible(isToBeVisible: boolean) {
+      return state.isAddCyclicalActivityVisible.set(isToBeVisible);
     },
   };
 }

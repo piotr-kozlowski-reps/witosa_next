@@ -2,9 +2,9 @@ import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWr
 import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
 import { TGetAllUsersResponse, TNewsletterDataCombo } from '@/types';
 import { useSession } from 'next-auth/react';
-import DashboardCyclicalActivities from './DashboardCyclicalActivities';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
+import DashboardCyclicalActivities from './cyclical_activities/DashboardCyclicalActivities';
 import DashboardNewsletter from './newsletter/DashboardNewsletter';
 import DashboardUsers from './users/DashboardUsers';
 
