@@ -16,8 +16,7 @@ type Props = {
 export default function CyclicActivitiesDynamicInside(props: Props) {
   ////vars
   const { activity } = props;
-  const sliderImages: TSliderGroupImage[] | undefined =
-    activity.extendedInfo?.images || [];
+  const sliderImages: TSliderGroupImage[] | undefined = activity.images || [];
 
   const isSliderEmpty = sliderImages && sliderImages.length === 0;
 
@@ -30,10 +29,10 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {activity.name}
           </h1>
-          {activity.extendedInfo?.description ? (
+          {activity.longDescription ? (
             <div
               dangerouslySetInnerHTML={{
-                __html: activity.extendedInfo?.description as string,
+                __html: activity.longDescription as string,
               }}
             ></div>
           ) : null}
