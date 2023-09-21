@@ -470,7 +470,7 @@
     /* padding-left: 32px; */
   }
   .custom-list-bullet li::marker {
-    content: '>>';
+    content: '>';
     position: absolute;
     left: 0;
     color: var(--cta-secondary);

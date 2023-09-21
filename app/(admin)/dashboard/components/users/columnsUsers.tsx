@@ -1,4 +1,6 @@
+import { getPolishUserRoleName } from '@/lib/textHelpers';
 import { TUserPicked } from '@/types';
+import { UserRole } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -133,6 +135,42 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
         'pl'
       );
       return <div>{formattedDate}</div>;
+    },
+  },
+  {
+    header: ({ column }) => {
+      return (
+        <button
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+          className="float-left ml-6"
+        >
+          <span
+            className={clsx(
+              'text-skin-inverted',
+              column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
+            )}
+          >
+            uprawnienia
+          </span>
+          <Image
+            alt="ikonka sortowania."
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}sort-icon.svg`}
+            width={14}
+            height={14}
+            className="inline-block ml-[7px] mb-[2px]"
+          />
+        </button>
+      );
+    },
+    accessorKey: 'role',
+    cell: ({ row }) => {
+      const roleOriginalValue = row.getValue('role');
+      const roleFormattedValue = getPolishUserRoleName(
+        roleOriginalValue as UserRole
+      );
+      return <div>{roleFormattedValue}</div>;
     },
   },
   {

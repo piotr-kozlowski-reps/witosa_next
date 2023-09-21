@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteUsers } from '@/actions/userActions';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
 import { useState } from 'react';
@@ -34,12 +35,7 @@ export default function ModalDeleteUserContent(props: Props) {
         }
         elementsNamesArray={users.map((user) => user.name)}
       />
-      {/* <h2 className="-mt-[18px]">
-        <span className="text-skin-gray">
-          {isOnlyOneEmailInArray ? 'E-mail:' : 'E-maile:'}
-        </span>{' '}
-        {createEmailsListInOneLineInSquareBrackets(users)}
-      </h2> */}
+
       <div className="flex flex-col tablet:flex-row justify-start items-start tablet:items-center gap-4 tablet:gap-8 mt-[25px]">
         <div>
           <CustomButton
@@ -47,24 +43,26 @@ export default function ModalDeleteUserContent(props: Props) {
               pending
                 ? 'usuwanie ...'
                 : isOnlyOneEmailInArray
-                ? 'usuń e-mail'
-                : 'usuń e-maile'
+                ? 'usuń użytkownika'
+                : 'usuń użytkowników'
             }
-            descriptionText="Usuń e-maile."
+            descriptionText="Usuń użytkowników."
             disabled={pending}
             actionFn={async () => {
               setPending(true);
-              // const dataResponse = await deleteNewsletterAddresses(ids);
+              const dataResponse = await deleteUsers(
+                users.map((user) => user.id)
+              );
 
-              // if (dataResponse.status === 'ERROR') {
-              //   setShowNotification('ERROR', dataResponse.response);
-              //   setHideModal();
-              //   setPending(false);
-              //   return;
-              // }
-              // setShowNotification('SUCCESS', dataResponse.response);
-              // setHideModal();
-              // setPending(false);
+              if (dataResponse.status === 'ERROR') {
+                setShowNotification('ERROR', dataResponse.response);
+                setHideModal();
+                setPending(false);
+                return;
+              }
+              setShowNotification('SUCCESS', dataResponse.response);
+              setHideModal();
+              setPending(false);
             }}
           />
         </div>

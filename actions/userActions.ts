@@ -2,6 +2,7 @@
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
+  badEmailFormatMessage,
   badUserData,
   dbReadingErrorMessage,
   dbWritingErrorMessage,
@@ -9,6 +10,7 @@ import {
   lackOfUserData,
   notLoggedIn,
   userAlreadyExists,
+  userNotExistsMessage,
 } from '@/lib/api/apiTextResponses';
 import logger from '@/lib/logger';
 import {
@@ -139,87 +141,65 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
   return { status: 'SUCCESS', response: usersPickedData };
 }
 
-// export const getAllNewsletterAddresses =
-//   async (): Promise<TGetAllNewsletterAddressesResponse> => {
-//     /** checking session */
-//     const session = await getServerSession(authOptions);
-//     if (!session) {
-//       logger.warn(notLoggedIn);
-//       return { status: 'ERROR', response: notLoggedIn };
-//     }
+export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
+  /** checking session */
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    logger.warn(notLoggedIn);
+    return { status: 'ERROR', response: notLoggedIn };
+  }
 
-//     let emailsInNewsletter: Newsletter[] = [];
-//     try {
-//       emailsInNewsletter = await prisma.newsletter.findMany();
-//     } catch (error) {
-//       logger.warn(dbReadingErrorMessage);
-//       return { status: 'ERROR', response: dbReadingErrorMessage };
-//     }
+  // console.log(JSON.stringify(ids));
 
-//     return { status: 'SUCCESS', response: emailsInNewsletter };
-//   };
+  /** checking values eXistenZ */
+  if (!ids || ids.length === 0) {
+    logger.warn(badEmailFormatMessage);
+    return { status: 'ERROR', response: badEmailFormatMessage };
+  }
 
-// export async function deleteNewsletterAddresses(
-//   emailsArray: string[]
-// ): Promise<TActionResponse> {
-//   /** checking session */
-//   const session = await getServerSession(authOptions);
-//   if (!session) {
-//     logger.warn(notLoggedIn);
-//     return { status: 'ERROR', response: notLoggedIn };
-//   }
+  /* validation if ids already exist in db */
+  for (let i = 0; i < ids.length; i++) {
+    let exists: unknown;
+    try {
+      exists = await checkIfUserExists(ids[i]);
+      console.log({ exists });
+    } catch (error) {
+      logger.warn(dbReadingErrorMessage);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
 
-//   /** checking values eXistenZ */
-//   if (!emailsArray) {
-//     logger.warn(badEmailFormatMessage);
-//     return { status: 'ERROR', response: badEmailFormatMessage };
-//   }
+    if (!exists) {
+      logger.warn(userNotExistsMessage);
+      return { status: 'ERROR', response: userNotExistsMessage };
+    }
+  }
 
-//   /* validation if emails already exist in db */
-//   for (let i = 0; i < emailsArray.length; i++) {
-//     let exists: unknown;
-//     try {
-//       exists = await checkIfEmailExists(emailsArray[i]);
-//     } catch (error) {
-//       logger.warn(dbReadingErrorMessage);
-//       return { status: 'ERROR', response: dbReadingErrorMessage };
-//     }
+  /* deleting users from db */
+  try {
+    await prisma.user.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-//     if (!exists) {
-//       logger.warn(emailNotExistsMessage);
-//       return { status: 'ERROR', response: emailNotExistsMessage };
-//     }
-//   }
+  revalidatePath('/dashboard');
 
-//   try {
-//     await prisma.newsletter.deleteMany({
-//       where: {
-//         email: {
-//           in: emailsArray,
-//         },
-//       },
-//     });
-//   } catch (error) {
-//     logger.warn(dbWritingErrorMessage);
-//     return { status: 'ERROR', response: dbWritingErrorMessage };
-//   }
+  const responseText =
+    ids.length === 1
+      ? `Użytkownik został skasowany.`
+      : `Użytkownicy zostali skasowani.`;
 
-//   revalidatePath('/dashboard');
-
-//   const responseText =
-//     emailsArray.length === 1
-//       ? `E-mail: ${createEmailsListInOneLineInSquareBrackets(
-//           emailsArray
-//         )} - został skasowany z Newslettera.`
-//       : `E-maile: ${createEmailsListInOneLineInSquareBrackets(
-//           emailsArray
-//         )} - zostały skasowane z Newslettera.`;
-
-//   return {
-//     status: 'SUCCESS',
-//     response: responseText,
-//   };
-// }
+  return {
+    status: 'SUCCESS',
+    response: responseText,
+  };
+}
 
 // export async function updateNewsletterAddress(
 //   oldAddress: string,
@@ -288,8 +268,8 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
 //   };
 // }
 
-// ////utils
-// async function checkIfEmailExists(email: string) {
-//   const exists = await prisma.newsletter.findUnique({ where: { email } });
-//   return exists;
-// }
+////utils
+async function checkIfUserExists(id: string) {
+  const exists = await prisma.user.findUnique({ where: { id } });
+  return exists;
+}

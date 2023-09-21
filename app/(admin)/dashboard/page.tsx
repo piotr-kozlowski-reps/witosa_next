@@ -8,8 +8,6 @@ export default async function Dashboard() {
   const newsletterData = await getAllNewsletterAddresses();
   const usersData = await getAllUsers();
 
-  console.log(usersData.response);
-
   const newsletterDataCombo: TNewsletterDataCombo = {
     allNewsletterAddresses: newsletterData,
   };

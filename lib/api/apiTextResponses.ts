@@ -8,6 +8,10 @@ export const emailNotExistsMessage =
 export const newsletterDbWritingSuccessMessage =
   'E-mail został zapisany w naszym newsletterze.';
 
+//user
+export const userNotExistsMessage =
+  'Nie można znaleźć użytkownika w bazie danych.';
+
 //db
 export const dbWritingErrorMessage =
   'Błąd w trakcie zapisywania danych. Spróbuj ponownie.';
