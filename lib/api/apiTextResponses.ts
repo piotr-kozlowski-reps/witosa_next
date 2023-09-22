@@ -27,6 +27,12 @@ export const lackOfUserData = 'Brakuje danych, by dodać użytkownika.';
 export const badUserData = 'Otrzymane dane są nieprawidłowe.';
 export const userAlreadyExists = 'Użytkownik o takim e-mailu już istnieje.';
 
+//cyclical activities
+export const lackOfCyclicalActivitiesData = 'Brakuje danych, by dodać zajęcia.';
+export const badCyclicalActivitiesData = 'Otrzymane dane są nieprawidłowe.';
+export const cyclicalActivityNotExistsMessage =
+  'Nie można znaleźć takich zajęć w bazie danych.';
+
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
   email: string
 ) {

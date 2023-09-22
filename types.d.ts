@@ -30,6 +30,13 @@ export type TRegisterFormValuesSent = {
   userRole: UserRole;
 };
 
+export type TCyclicalActivitiesFormValues = Pick<
+  CyclicalActivity,
+  'name' | 'activityTypes'
+> & {
+  expiresAt?: string;
+};
+
 export type TLoginFormValues = {
   email: string;
   password: string;
@@ -207,6 +214,11 @@ export type TUserPicked = Pick<
 export type TGetAllUsersResponse = {
   status: TStatus;
   response: string | TUserPicked[];
+};
+
+export type TGetAllCyclicalActivitiesResponse = {
+  status: TStatus;
+  response: string | CyclicalActivity[];
 };
 
 export type TNewsletterDataCombo = {

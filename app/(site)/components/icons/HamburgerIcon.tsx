@@ -35,7 +35,7 @@ export default function HamburgerIcon(props: Props) {
             r="19"
             // fill="#F16730"
             // stroke="#F16730"
-            // stroke-width="2"
+            // strokeWidth="2"
           />
           <path
             // fill-rule="evenodd"

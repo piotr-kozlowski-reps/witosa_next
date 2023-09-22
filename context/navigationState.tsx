@@ -1,5 +1,6 @@
 // import { TLayoutState } from '@/types';
 import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
+import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
 import { TRegisterFormInputs } from '@/lib/forms/user-form';
 import {
   TCurrentDevice,
@@ -32,6 +33,7 @@ type TNavigationState = {
   isAddUserVisible: boolean;
   userFormikDataForPUT: TRegisterFormInputs_Plus_Id;
   isAddCyclicalActivityVisible: boolean;
+  cyclicalActivityFormikDataForPUT: TCyclicalActivityFormInputs;
 };
 
 const navigationStateData: TNavigationState = {
@@ -165,6 +167,10 @@ const navigationStateData: TNavigationState = {
     userRole: 'EDITOR',
   },
   isAddCyclicalActivityVisible: false,
+  cyclicalActivityFormikDataForPUT: {
+    name: '',
+    expiresAt: null,
+  },
 };
 
 const navigationState = hookstate(
@@ -411,6 +417,15 @@ export function useNavigationState() {
     },
     setIsAddCyclicalActivityVisible(isToBeVisible: boolean) {
       return state.isAddCyclicalActivityVisible.set(isToBeVisible);
+    },
+    getCyclicalActivityFormikDataForPUT() {
+      return state.cyclicalActivityFormikDataForPUT.get();
+    },
+    resetCyclicalActivityFormikDataForPUT() {
+      state.cyclicalActivityFormikDataForPUT.set({
+        name: '',
+        expiresAt: null,
+      });
     },
   };
 }

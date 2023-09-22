@@ -1,6 +1,10 @@
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
-import { TGetAllUsersResponse, TNewsletterDataCombo } from '@/types';
+import {
+  TGetAllCyclicalActivitiesResponse,
+  TGetAllUsersResponse,
+  TNewsletterDataCombo,
+} from '@/types';
 import { useSession } from 'next-auth/react';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
@@ -11,10 +15,12 @@ import DashboardUsers from './users/DashboardUsers';
 type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
   usersData: TGetAllUsersResponse;
+  cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
 };
 
 export default function DashboardInsidePages(props: Props) {
   ////vars
+  const { cyclicalActivitiesData, newsletterDataCombo, usersData } = props;
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { getAdminLink, setAdminLinkToBeActive, getAllAdminLinks } =
@@ -34,19 +40,21 @@ export default function DashboardInsidePages(props: Props) {
       </ComponentTransitionFromRightToLeft>
 
       <ComponentTransitionFromRightToLeft>
-        {isToShowCyclicalActivities ? <DashboardCyclicalActivities /> : null}
-      </ComponentTransitionFromRightToLeft>
-
-      <ComponentTransitionFromRightToLeft>
-        {isToShowNewsletter ? (
-          <DashboardNewsletter
-            newsletterDataCombo={props.newsletterDataCombo}
+        {isToShowCyclicalActivities ? (
+          <DashboardCyclicalActivities
+            cyclicalActivitiesData={cyclicalActivitiesData}
           />
         ) : null}
       </ComponentTransitionFromRightToLeft>
 
       <ComponentTransitionFromRightToLeft>
-        {isToShowUsers ? <DashboardUsers usersData={props.usersData} /> : null}
+        {isToShowNewsletter ? (
+          <DashboardNewsletter newsletterDataCombo={newsletterDataCombo} />
+        ) : null}
+      </ComponentTransitionFromRightToLeft>
+
+      <ComponentTransitionFromRightToLeft>
+        {isToShowUsers ? <DashboardUsers usersData={usersData} /> : null}
       </ComponentTransitionFromRightToLeft>
 
       <ComponentTransitionFromRightToLeft>

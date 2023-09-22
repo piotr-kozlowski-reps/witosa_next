@@ -1,10 +1,20 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationState } from '@/context/navigationState';
+import { TGetAllCyclicalActivitiesResponse } from '@/types';
+import { CyclicalActivity } from '@prisma/client';
 import { Fragment } from 'react';
+import CyclicalActivitiesDataTable from './CyclicalActivitiesDataTable';
 import CyclicalActivityAddForm from './CyclicalActivityAddForm';
+import { columnsCyclicalActivities } from './columnsCyclicalActivities';
 
-export default function DashboardCyclicalActivities() {
+type Props = {
+  cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
+};
+
+export default function DashboardCyclicalActivities(props: Props) {
+  ////vars
+  const { cyclicalActivitiesData } = props;
   const { getIsAddCyclicalActivityVisible, setIsAddCyclicalActivityVisible } =
     useNavigationState();
   ////tsx
@@ -35,10 +45,10 @@ export default function DashboardCyclicalActivities() {
                 />
               </div>
             </div>
-            {/* <NewsletterDataTable
-              columns={columns}
-              data={newsletterPreparedDataArray}
-            /> */}
+            <CyclicalActivitiesDataTable
+              columns={columnsCyclicalActivities}
+              data={cyclicalActivitiesData.response as CyclicalActivity[]}
+            />
           </Fragment>
         </ComponentTransitionFromRightToLeft>
       ) : null}

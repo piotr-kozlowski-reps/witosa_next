@@ -172,7 +172,7 @@ model CyclicalActivity{
   shortDescription String
   longDescription String?
   images ImageCyclicalActivity[]
-  occurance CyclicalActivityOccurrence[]
+  occurrence CyclicalActivityOccurrence[]
   places Place[]
   customLinkToDetails String?
   expiresAt DateTime?

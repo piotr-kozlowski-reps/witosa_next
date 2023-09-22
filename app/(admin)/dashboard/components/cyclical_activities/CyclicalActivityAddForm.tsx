@@ -1,21 +1,23 @@
 'use client';
-import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
+import {
+  addCyclicalActivity,
+  deleteCyclicalActivities,
+} from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
-import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
+import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
-  TRegisterFormInputs,
-  userValidationSchemaIncludingPassword,
-} from '@/lib/forms/user-form';
-import { getPolishUserRoleName } from '@/lib/textHelpers';
+  TCyclicalActivityFormInputs,
+  cyclicalActivityValidationSchema,
+} from '@/lib/forms/cyclical-activities-form';
 import { TActionResponse } from '@/types';
-import { UserRole } from '@prisma/client';
+import { ActivityType } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 export default function CyclicalActivityAddForm() {
@@ -23,50 +25,41 @@ export default function CyclicalActivityAddForm() {
   const { setIsAddCyclicalActivityVisible, resetUserFormikDataForPUT } =
     useNavigationState();
   const { setShowNotification } = useNotificationState();
-  const { getUserFormikDataForPUT } = useNavigationState();
+  const {
+    getCyclicalActivityFormikDataForPUT,
+    resetCyclicalActivityFormikDataForPUT,
+  } = useNavigationState();
 
-  const isCurrentFormToPOSTData = !getUserFormikDataForPUT().name;
-  const isCurrentFormToPUTData = getUserFormikDataForPUT().name;
-
-  const [isToChangePassword, setIsToChangePassword] = useState(false);
+  const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
+  const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
 
   ////formik
   async function submitFormHandler(
     formData: FormData,
-    formik: FormikProps<TRegisterFormInputs>
+    formik: FormikProps<TCyclicalActivityFormInputs>
   ) {
-    console.log('submitFormHandler');
-
     let response: TActionResponse | null = null;
+
+    ////post cyclical activity
     if (isCurrentFormToPOSTData) {
       try {
         response = await addCyclicalActivity(formData);
       } catch (error) {
         setShowNotification('ERROR', dbReadingErrorMessage);
       }
+      if (!response || !response.status || !response.response) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+        return;
+      }
+      if (response.status === 'ERROR') {
+        setShowNotification('ERROR', response.response);
+        return;
+      }
+      setShowNotification('SUCCESS', response.response);
+      resetCyclicalActivityFormikDataForPUT();
+      formik.resetForm();
+      return;
     }
-
-    // let response: TActionResponse | null = null;
-    // if (isCurrentFormToPOSTData) {
-    //   try {
-    //     response = await addUser(formData);
-    //   } catch (error) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //   }
-    //   if (!response || !response.status || !response.response) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //     return;
-    //   }
-
-    //   if (response.status === 'ERROR') {
-    //     setShowNotification('ERROR', response.response);
-    //     return;
-    //   }
-    //   setShowNotification('SUCCESS', response.response);
-    //   resetUserFormikDataForPUT();
-    //   formik.resetForm();
-    //   return;
-    // }
     // if (isCurrentFormToPUTData) {
     //   try {
     //     response = await updateUser(
@@ -93,9 +86,9 @@ export default function CyclicalActivityAddForm() {
     // }
   }
 
-  const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
-    (role) => ({ value: role, label: getPolishUserRoleName(role) })
-  );
+  // const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
+  //   (role) => ({ value: role, label: getPolishUserRoleName(role) })
+  // );
 
   ////tsx
   return (
@@ -110,7 +103,7 @@ export default function CyclicalActivityAddForm() {
           <CloseIcon
             alt="Zamknij formularz."
             actionFn={() => {
-              // resetUserFormikDataForPUT(); //TODO:  włącz jak zkończysz
+              resetCyclicalActivityFormikDataForPUT();
               setIsAddCyclicalActivityVisible(false);
             }}
           />
@@ -118,11 +111,12 @@ export default function CyclicalActivityAddForm() {
       </div>
 
       {/* form */}
-      <Formik<TRegisterFormInputs>
-        initialValues={getUserFormikDataForPUT()}
+      <Formik<TCyclicalActivityFormInputs>
+        // initialValues={getUserFormikDataForPUT()} //TODO: potem popraw
+        initialValues={{ name: '', activityTypes: [] }}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(
-          userValidationSchemaIncludingPassword
+          cyclicalActivityValidationSchema
         )}
       >
         {(formik) => {
@@ -135,6 +129,12 @@ export default function CyclicalActivityAddForm() {
                 await submitFormHandler(formData, formik);
               }}
             >
+              <div className="flex gap-4 mb-12">
+                <div>etap1</div>
+                <div>etap2</div>
+                <div>etap3</div>
+              </div>
+
               <div className="form-input-width -mt-[7px]">
                 <InputFormik
                   name="name"
@@ -144,49 +144,40 @@ export default function CyclicalActivityAddForm() {
                 />
               </div>
 
-              <div className="mt-[20px] form-input-width">
-                <InputFormik
-                  name="email"
-                  type="email"
+              <div className=" mt-[20px]">
+                <MultipleSelectAsSeparateButtonsFormik<
+                  ActivityType,
+                  TCyclicalActivityFormInputs
+                >
+                  name="activityTypes"
                   label={
                     isCurrentFormToPUTData
-                      ? 'zmień adres e-mail:'
-                      : 'adres e-mail:'
+                      ? 'zmień rodzaj zajęć:'
+                      : 'rodzaj zajęć:'
                   }
-                  placeholder="wpisz adres e-mail"
+                  enumToIterateThrough={
+                    Object.keys(ActivityType) as Array<ActivityType>
+                  }
+                  // enumToIterateThrough={ActivityType}
+                  formik={formik}
                 />
+                {/* <InputFormik
+                  name="name"
+                  type="text"
+                  label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
+                  placeholder="wpisz nazwę"
+                /> */}
               </div>
 
-              {isCurrentFormToPOSTData ? (
-                <Fragment>
-                  <div className="mt-[20px] form-input-width">
-                    <InputFormik
-                      name="password"
-                      type="password"
-                      label={isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'}
-                      placeholder="wpisz hasło"
-                    />
-                  </div>
-                  <div className="mt-[20px] form-input-width">
-                    <InputFormik
-                      name="confirmPassword"
-                      type="password"
-                      label="powtórz hasło:"
-                      placeholder="powtórz hasło"
-                    />
-                  </div>
-                </Fragment>
-              ) : null}
-
-              <div className="mt-[20px] form-input-width">
+              {/* <div className="mt-[20px] form-input-width">
                 <SelectFormik<UserRole, TRegisterFormInputs>
                   name="userRole"
                   label="uprawnienia:"
                   options={optionsForUserRoles}
                   formik={formik}
                 />
-              </div>
-              {isCurrentFormToPUTData ? (
+              </div> */}
+              {/* {isCurrentFormToPUTData ? (
                 <Fragment>
                   <div className="mt-[23px] form-input-width font-base-regular hover:font-base-bold">
                     <div className="checkbox-rect">
@@ -226,9 +217,26 @@ export default function CyclicalActivityAddForm() {
                     </Fragment>
                   ) : null}
                 </Fragment>
-              ) : null}
+              ) : null} */}
 
               <div className="mt-[28px] flex gap-8">
+                <CustomButton
+                  text={isCurrentFormToPUTData ? 'zmień' : 'dodaj'}
+                  descriptionText="Dodaj użytkownika."
+                  additionalClasses="mt-[4px]"
+                  onSubmit={true}
+                  disabled={!formik.dirty || !formik.isValid}
+                />
+                <CustomButton
+                  text="wróć do listy"
+                  descriptionText="Wróć do listy użytkowników."
+                  additionalClasses="mt-[4px]"
+                  disabled={false}
+                  outlined={true}
+                  actionFn={() => setIsAddCyclicalActivityVisible(false)}
+                />
+
+                <div>tymczas</div>
                 <CustomButton
                   text="add"
                   descriptionText="Dodaj użytkownika."
@@ -236,21 +244,18 @@ export default function CyclicalActivityAddForm() {
                   onSubmit={true}
                   disabled={false}
                 />
-                {/* <CustomButton
-                  text={isCurrentFormToPUTData ? 'zmień' : 'dodaj'}
-                  descriptionText="Dodaj użytkownika."
-                  additionalClasses="mt-[4px]"
-                  onSubmit={true}
-                  disabled={!formik.dirty || !formik.isValid}
-                /> */}
-                {/* <CustomButton
-                  text="wróć do listy"
-                  descriptionText="Wróć do listy użytkowników."
+                <CustomButton
+                  text="delete"
+                  descriptionText="Wywal."
                   additionalClasses="mt-[4px]"
                   disabled={false}
-                  outlined={true}
-                  actionFn={() => setIsAddCyclicalActivityVisible(false)}
-                /> */}
+                  actionFn={async () => {
+                    const response = await deleteCyclicalActivities([
+                      '750a48ae-a265-4730-8771-ee65d8f03253',
+                    ]);
+                    console.log(response);
+                  }}
+                />
               </div>
             </form>
           );

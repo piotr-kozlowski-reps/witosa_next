@@ -29,3 +29,5 @@ export const password_NotRequired_CanBeUndefined = z
     required_error: 'Pole jest wymagane',
   })
   .min(2, { message: 'min 2 znaki' });
+
+export const isDateSchema = z.date({ description: 'Data ma zły format.' });

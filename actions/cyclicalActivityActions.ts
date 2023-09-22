@@ -1,12 +1,26 @@
 'use server';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { dbReadingErrorMessage, notLoggedIn } from '@/lib/api/apiTextResponses';
+import {
+  badCyclicalActivitiesData,
+  cyclicalActivityNotExistsMessage,
+  dbReadingErrorMessage,
+  dbWritingErrorMessage,
+  lackOfCyclicalActivitiesData,
+  notLoggedIn,
+} from '@/lib/api/apiTextResponses';
+import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
+import { isDateSchema, nameSchema_Required_Min2 } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
-import { TActionResponse, TGetAllUsersResponse, TUserPicked } from '@/types';
-import { User, UserRole } from '@prisma/client';
+import {
+  TActionResponse,
+  TCyclicalActivitiesFormValues,
+  TGetAllCyclicalActivitiesResponse,
+} from '@/types';
+import { CyclicalActivity } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 
 export async function addCyclicalActivity(
   formData: FormData
@@ -18,205 +32,120 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  const authorId = session.user?.id;
-
-  console.log('addCyclicalActivity');
-
-  const response = await prisma.cyclicalActivity.create({
-    data: {
-      name: 'test1',
-      activityTypes: ['PLASTICITY'],
-      activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
-      shortDescription: 'short desctiption',
-      longDescription: 'long description',
-      customLinkToDetails: 'customLinkToDetails',
-      places: ['ART_ROOM'],
-      isToBePublished: true,
-      expiresAt: '2025-10-10T22:00:24.968Z',
-      author: {
-        connect: { id: authorId },
-      },
-      images: {
-        createMany: {
-          data: [
-            {
-              url: 'url1.jpg',
-              alt: 'alt1',
-              additionInfoThatMustBeDisplayed: 'additionalInfo',
-            },
-            {
-              url: 'url2.jpg',
-              alt: 'alt3',
-            },
-          ],
-        },
-      },
-    },
-    include: {
-      images: true
-    }
-  });
-
-  console.log({ response });
-
-  /////////////////////////////////////////////////////////////////////////
-
-  //   extendedInfo: {
-  //     images: [
-  //       {
-  //         url: 'activities_image_004.jpg',
-  //         alt: 'Prezentowana wystawa miała formę wizualizacji multimedialnej opartej na filme VR 360 i odtwarzanej za pomocą przeznaczonych do tego celu okularów i słuchawek.',
-  //         additionInfoThatMustBeDisplayed: null,
-  //       },
-  //       {
-  //         url: 'activities_image_005.jpg',
-  //         alt: 'Cykl dyplomowy “Subtelne Formy”, który przedstawiał ciało, jako abstrakcyjną wyłaniającą się z czerni formę.',
-  //         additionInfoThatMustBeDisplayed: null,
-  //       },
-  //       {
-  //         url: 'activities_image_006.jpg',
-  //         alt: 'Cykl “Introspekcja” buduje obraz człowieka składającego się nie tylko z fizycznego wyglądu ale także z własnej emocjonalności.',
-  //         additionInfoThatMustBeDisplayed: null,
-  //       },
-  //     ],
-  //     description:
-  //       '<p>\r\n            Prowadząca: <b>AGATA NIŹNIKIEWICZ</b>\r\n          </p>\r\n          <p>\r\n            Zajęcia, na których absolutnie odpoczniesz od elektroniki i na\r\n            chwilę zwolnisz, zatracając się w pracy manualnej.\r\n          </p>\r\n          <p>\r\n            Nie jest to czas wyłącznie dla osób uzdolnionych plastycznie,\r\n            ponieważ dla uczestników warsztatów przygotowane są szablony i\r\n            wzory.\r\n          </p>\r\n          <p>\r\n            Warsztaty polegają na ręcznym tworzeniu matryc w różnych materiałach\r\n            w zależności od techniki. Wyryte matryce pokrywamy farbą drukarską i\r\n            przy użyciu prasy drukarskiej przenosimy rysunek z matrycy na\r\n            papier, tworząc grafikę.\r\n          </p>\r\n          <p>\r\n            Zajęcia prowadzone w miłej atmosferze sprzyjają odprężeniu i\r\n            twórczym działaniom oraz pozwalają na chwilę relaksu, Prace\r\n            uczestników systematycznie będą prezentowane w formie wystaw.\r\n          </p>',
-  //   },
-  //   occurrence: [
-  //     {
-  //       id: '854e7c17-0uu4-4881-fff5-ce6bgezzh848',
-  //       day: 'MONDAY',
-  //       duration: [
-  //         {
-  //           activityStart: new Date('2000-01-01T18:00:00.968Z'),
-  //           activityEnd: new Date('2000-01-01T20:00:00.968Z'),
-  //         },
-  //       ],
-  //     },
-  //   ],
-
-  //   expiresAt: new Date('2025-08-10T11:00:24.968Z'),
-  // },
-  /////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
-
-  //// model CyclicalActivity{
-  ////   id String @id @default(uuid())
-  ////   name String
-  /////   activityTypes ActivityType[]
-  ////   activitiesForWhom ForWhom[]
-  ////   shortDescription String
-  //   occurance CyclicalActivityOccurrence[]
-  ////   places Place[]
-  ////   customLinkToDetails String?
-  //   expiresAt DateTime?
-  ////   isToBePublished Boolean
-  ////   createdAt DateTime @default(now())
-  ////   updatedAt DateTime @updatedAt
-  //   author User @relation(fields: [authorId], references: [id])
-
-  // }
-
-  // model CyclicalActivityOccurrence {
-  //   id String @id @default(uuid())
-  //   day Day
-  //   activityStart DateTime
-  //   activityEnd DateTime
-  //   cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
-  //   cyclicalActivityId String
-
-  /////////////////////////////////////////////////////////////////////////
+  // console.log([...formData]);
 
   // /** checking values eXistenZ */
-  // const submittedName = formData.get('name') as string;
+  const submittedName = formData.get('name') as string;
+  const submittedExpiresAt = formData.get('expiresAt') as string;
   // const submittedEmail = formData.get('email') as string;
   // const submittedPassword = formData.get('password') as string;
   // const submittedConfirmPassword = formData.get('confirmPassword') as string;
   // const submittedUserRole = formData.get('userRole') as UserRole;
+  if (
+    !submittedName
+    // !submittedEmail ||
+    // !submittedPassword ||
+    // !submittedConfirmPassword ||
+    // !submittedUserRole
+  ) {
+    logger.warn(lackOfCyclicalActivitiesData);
+    return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
+  }
 
-  // if (
-  //   !submittedName ||
-  //   !submittedEmail ||
-  //   !submittedPassword ||
-  //   !submittedConfirmPassword ||
-  //   !submittedUserRole
-  // ) {
-  //   logger.warn(lackOfUserData);
-  //   return { status: 'ERROR', response: lackOfUserData };
-  // }
+  /* format validation */
+  const formDataAsObject: TCyclicalActivitiesFormValues = {
+    name: submittedName,
+    expiresAt: submittedExpiresAt,
+  };
+  let validationResult = false;
+  try {
+    validationResult = validateCyclicalActivityData(formDataAsObject);
+  } catch (error) {
+    logger.warn(badCyclicalActivitiesData);
+    return { status: 'ERROR', response: badCyclicalActivitiesData };
+  }
+  if (!validationResult) {
+    //TODO: check if aby na pewno tutaj dobry warunek
+    logger.warn(badCyclicalActivitiesData);
+    return { status: 'ERROR', response: badCyclicalActivitiesData };
+  }
 
-  // /* format validation */
-  // let validationResult = false;
-  // try {
-  //   validationResult = validateUserData(
-  //     submittedName,
-  //     submittedEmail,
-  //     submittedPassword,
-  //     submittedConfirmPassword,
-  //     submittedUserRole
-  //   );
-  // } catch (error) {
-  //   logger.warn(badUserData);
-  //   return { status: 'ERROR', response: badUserData };
-  // }
-  // if (validationResult) {
-  //   logger.warn(badUserData);
-  //   return { status: 'ERROR', response: badUserData };
-  // }
+  /* writing cyclical activity to db */
+  const authorId = session.user?.id;
+  try {
+    const response = await prisma.cyclicalActivity.create({
+      data: {
+        name: submittedName,
+        activityTypes: ['PLASTICITY'],
+        activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
+        shortDescription: 'short desctiption',
+        longDescription: 'long description',
+        customLinkToDetails: 'customLinkToDetails',
+        places: ['ART_ROOM'],
+        isToBePublished: true,
+        expiresAt: '2022-10-10T22:00:24.968Z',
+        author: {
+          connect: { id: authorId },
+        },
+        images: {
+          createMany: {
+            data: [
+              {
+                url: 'url1.jpg',
+                alt: 'alt1',
+                additionInfoThatMustBeDisplayed: 'additionalInfo',
+              },
+              {
+                url: 'url2.jpg',
+                alt: 'alt3',
+              },
+            ],
+          },
+        },
+        occurrence: {
+          createMany: {
+            data: [
+              {
+                day: 'MONDAY',
+                activityStart: '2025-10-10T20:00:24.968Z',
+                activityEnd: '2025-10-10T22:00:24.968Z',
+              },
+              {
+                day: 'WEDNESDAY',
+                activityStart: '2025-10-10T16:00:24.968Z',
+                activityEnd: '2025-10-10T18:15:24.968Z',
+              },
+            ],
+          },
+        },
+      },
+      include: {
+        images: true,
+        occurrence: true,
+      },
+    });
 
-  // /* validation if user already exists in db */
-  // let exists: unknown;
-  // try {
-  //   exists = await prisma.user.findUnique({
-  //     where: {
-  //       email: submittedEmail,
-  //     },
-  //   });
-  // } catch (error) {
-  //   logger.warn(dbReadingErrorMessage);
-  //   return { status: 'ERROR', response: dbReadingErrorMessage };
-  // }
-  // if (exists) {
-  //   logger.warn(userAlreadyExists);
-  //   return { status: 'ERROR', response: userAlreadyExists };
-  // }
+    console.log({ response });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-  // /* writing user to db */
-  // const hashedPassword = await bcryptjs.hash(submittedPassword, 10);
-  // try {
-  //   await prisma.user.create({
-  //     data: {
-  //       name: submittedName,
-  //       email: submittedEmail,
-  //       hashedPassword,
-  //       userRole: submittedUserRole,
-  //     },
-  //   });
-  // } catch (error) {
-  //   logger.warn(dbWritingErrorMessage);
-  //   return { status: 'ERROR', response: dbWritingErrorMessage };
-  // }
+  /** revalidation */
+  revalidatePath('/');
 
-  // revalidatePath('/dashboard');
-
-  // /* final success response */
-  // const successMessage = generateUserDbWritingSuccessMessageWithData(
-  //   submittedName,
-  //   submittedEmail
-  // );
-  // logger.info(successMessage);
-  // return {
-  //   status: 'SUCCESS',
-  //   response: successMessage,
-  // };
-
+  /* final success response */
+  const successMessage = `Zajęcia: (${submittedName}) zostały zapisane.`;
+  logger.info(successMessage);
   return {
     status: 'SUCCESS',
-    response: 'temporary',
+    response: successMessage,
   };
 }
 
-export async function getAllUsers(): Promise<TGetAllUsersResponse> {
+export async function deleteCyclicalActivities(
+  ids: string[]
+): Promise<TActionResponse> {
   /** checking session */
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -224,81 +153,100 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  let users: User[] = [];
+  /** checking values eXistenZ */
+  if (!ids || ids.length === 0) {
+    logger.warn(badCyclicalActivitiesData);
+    return { status: 'ERROR', response: badCyclicalActivitiesData };
+  }
+
+  /* validation if ids already exist in db */
+  for (let i = 0; i < ids.length; i++) {
+    let exists: unknown;
+    try {
+      exists = await checkIfCyclicalActivityExists(ids[i]);
+    } catch (error) {
+      logger.warn(dbReadingErrorMessage);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
+    if (!exists) {
+      logger.warn(cyclicalActivityNotExistsMessage);
+      return { status: 'ERROR', response: cyclicalActivityNotExistsMessage };
+    }
+  }
+
+  /* deleting users from db */
+  for (let i = 0; i < ids.length; i++) {
+    console.log(ids[i]);
+
+    const deleteCyclicalActivityImages =
+      prisma.imageCyclicalActivity.deleteMany({
+        where: {
+          cyclicalActivityId: ids[i],
+        },
+      });
+
+    const deleteCyclicalActivityOccurrence =
+      prisma.cyclicalActivityOccurrence.deleteMany({
+        where: { cyclicalActivityId: ids[i] },
+      });
+
+    const deleteCyclicalActivity = prisma.cyclicalActivity.deleteMany({
+      where: {
+        id: ids[i],
+      },
+    });
+
+    let transaction: unknown;
+    try {
+      transaction = await prisma.$transaction([
+        deleteCyclicalActivityImages,
+        deleteCyclicalActivityOccurrence,
+        deleteCyclicalActivity,
+      ]);
+    } catch (error) {
+      console.error(error);
+    }
+
+    console.log({ transaction });
+
+    //   if(transaction[transaction.length -1].co)
+  }
+
+  /** revalidate all */
+  revalidatePath('/');
+
+  /** final response */
+  const successMessage = `Zajęcia zostały usunięte.`;
+  logger.info(successMessage);
+  return {
+    status: 'SUCCESS',
+    response: successMessage,
+  };
+}
+
+export async function getAllCyclicalActivities(): Promise<TGetAllCyclicalActivitiesResponse> {
+  let cyclicalActivities: CyclicalActivity[] = [];
+
   try {
-    users = await prisma.user.findMany();
+    cyclicalActivities = await prisma.cyclicalActivity.findMany({
+      include: {
+        images: true,
+        occurrence: true,
+      },
+    });
   } catch (error) {
     logger.warn(dbReadingErrorMessage);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
-
-  const usersPickedData: TUserPicked[] = users.map((user) => ({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    updatedAt: user.updatedAt,
-    userRole: user.userRole as UserRole,
-  }));
-
-  return { status: 'SUCCESS', response: usersPickedData };
+  // const usersPickedData: TUserPicked[] = users.map((user) => ({
+  //   id: user.id,
+  //   name: user.name,
+  //   email: user.email,
+  //   updatedAt: user.updatedAt,
+  //   userRole: user.userRole as UserRole,
+  // }));
+  return { status: 'SUCCESS', response: cyclicalActivities };
 }
-
-// export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
-//   /** checking session */
-//   const session = await getServerSession(authOptions);
-//   if (!session) {
-//     logger.warn(notLoggedIn);
-//     return { status: 'ERROR', response: notLoggedIn };
-//   }
-
-//   /** checking values eXistenZ */
-//   if (!ids || ids.length === 0) {
-//     logger.warn(badEmailFormatMessage);
-//     return { status: 'ERROR', response: badEmailFormatMessage };
-//   }
-
-//   /* validation if ids already exist in db */
-//   for (let i = 0; i < ids.length; i++) {
-//     let exists: unknown;
-//     try {
-//       exists = await checkIfUserExists(ids[i]);
-//     } catch (error) {
-//       logger.warn(dbReadingErrorMessage);
-//       return { status: 'ERROR', response: dbReadingErrorMessage };
-//     }
-
-//     if (!exists) {
-//       logger.warn(userNotExistsMessage);
-//       return { status: 'ERROR', response: userNotExistsMessage };
-//     }
-//   }
-
-//   /* deleting users from db */
-//   try {
-//     await prisma.user.deleteMany({
-//       where: {
-//         id: {
-//           in: ids,
-//         },
-//       },
-//     });
-//   } catch (error) {
-//     logger.warn(dbWritingErrorMessage);
-//     return { status: 'ERROR', response: dbWritingErrorMessage };
-//   }
-
-//   revalidatePath('/dashboard');
-
-//   const responseText =
-//     ids.length === 1
-//       ? `Użytkownik został skasowany.`
-//       : `Użytkownicy zostali skasowani.`;
-
-//   return {
-//     status: 'SUCCESS',
-//     response: responseText,
-//   };
-// }
 
 // export async function updateUser(
 //   id: string,
@@ -438,25 +386,24 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
 // }
 
 ////utils
-// async function checkIfUserExists(id: string) {
-//   const exists = await prisma.user.findUnique({ where: { id } });
-//   return exists;
-// }
+async function checkIfCyclicalActivityExists(id: string) {
+  const exists = await prisma.cyclicalActivity.findUnique({ where: { id } });
+  return exists;
+}
 
-// function validateUserData(
-//   name: string,
-//   email: string,
-//   password: string,
-//   confirmationPassword: string,
-//   userRole: UserRole
-// ) {
-//   nameSchema_Required_Min2.parse(name);
-//   emailSchema.parse(email);
-//   passwordSchema_Required_Min5_Max20.parse(password);
-//   passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
-//   useRoleSchema.parse(userRole);
-//   if (password.trim() !== confirmationPassword.trim()) {
-//     throw new Error("Password and it's confirmation are not the same");
-//   }
-//   return true;
-// }
+function validateCyclicalActivityData(
+  cyclicalActivity: TCyclicalActivityFormInputs
+) {
+  nameSchema_Required_Min2.parse(cyclicalActivity.name);
+  if (cyclicalActivity.expiresAt) {
+    isDateSchema.parse(cyclicalActivity.expiresAt);
+  }
+  // emailSchema.parse(email);
+  // passwordSchema_Required_Min5_Max20.parse(password);
+  // passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
+  // useRoleSchema.parse(userRole);
+  // if (password.trim() !== confirmationPassword.trim()) {
+  //   throw new Error("Password and it's confirmation are not the same");
+  // }
+  return true;
+}

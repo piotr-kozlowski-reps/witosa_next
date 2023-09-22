@@ -1,7 +1,11 @@
 'use client';
 
 import NotAuthenticatedError from '@/app/(site)/components/NotAuthenticatedError';
-import { TGetAllUsersResponse, TNewsletterDataCombo } from '@/types';
+import {
+  TGetAllCyclicalActivitiesResponse,
+  TGetAllUsersResponse,
+  TNewsletterDataCombo,
+} from '@/types';
 import { useSession } from 'next-auth/react';
 import { Fragment } from 'react';
 import DashboardHeader from './DashboardHeader';
@@ -11,13 +15,14 @@ import DashboardNavigation from './DashboardNavigation';
 type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
   usersData: TGetAllUsersResponse;
+  cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
 };
 
 export default function DashboardContent(props: Props) {
   ////vars
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
-  const { newsletterDataCombo, usersData } = props;
+  const { newsletterDataCombo, usersData, cyclicalActivitiesData } = props;
 
   ////tsx
   return (
@@ -32,6 +37,7 @@ export default function DashboardContent(props: Props) {
             <DashboardInsidePages
               newsletterDataCombo={newsletterDataCombo}
               usersData={usersData}
+              cyclicalActivitiesData={cyclicalActivitiesData}
             />
           </div>
         </div>
