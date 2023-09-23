@@ -32,7 +32,7 @@ export type TRegisterFormValuesSent = {
 
 export type TCyclicalActivitiesFormValues = Pick<
   CyclicalActivity,
-  'name' | 'activityTypes'
+  'name' | 'activityTypes' | 'activitiesForWhom'
 > & {
   expiresAt?: string;
 };
@@ -236,3 +236,8 @@ export type TNotificationState = {
   notificationType: TNotificationType;
   timeoutInMilliseconds?: number;
 };
+
+export type TWhatTypeIsProvidedEnum =
+  | 'IT_IS_ACTIVITY_TYPE'
+  | 'IT_IS_FOR_WHOM_TYPE'
+  | 'IT_IS_EVENT_TYPE';

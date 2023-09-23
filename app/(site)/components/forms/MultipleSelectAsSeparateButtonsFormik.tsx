@@ -1,5 +1,10 @@
-import { getPolishCategoryOfActivitiesName } from '@/lib/textHelpers';
-import { ActivityType } from '@prisma/client';
+import { useMultipleSelectHelper } from '@/hooks/useMultipleSelectHelper';
+import {
+  getPolishCategoryOfActivitiesName,
+  getPolishForWhomName,
+} from '@/lib/textHelpers';
+import { TWhatTypeIsProvidedEnum } from '@/types';
+import { ActivityType, ForWhom } from '@prisma/client';
 import clsx from 'clsx';
 import { Field, FormikProps } from 'formik';
 import { Fragment } from 'react';
@@ -18,61 +23,22 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
 ) {
   ///vars
   const { name, label, width, formik, enumToIterateThrough } = props;
+  const { toggleItemsInArray, isItemChosen } = useMultipleSelectHelper<T, R>(
+    formik,
+    name
+  );
 
-  // let enumWithCasedType: unknown[];
-  // if (
-  //   enumToIterateThrough.includes('PLASTICITY' as T) &&
-  //   enumToIterateThrough.includes('THEATER' as T) &&
-  //   enumToIterateThrough.includes('RECREATION' as T)
-  // ) {
-  //   enumWithCasedType = { ...enumToIterateThrough } as unknown as ActivityType;
-  // }
+  //getting what type is provided Enum
+  const whatTypeIsProvidedEnum =
+    getWhatTypeIsProvidedEnum<T>(enumToIterateThrough);
+  const isActivityType = whatTypeIsProvidedEnum === 'IT_IS_ACTIVITY_TYPE';
+  const isEventType = whatTypeIsProvidedEnum === 'IT_IS_EVENT_TYPE';
+  const isForWhomType = whatTypeIsProvidedEnum === 'IT_IS_FOR_WHOM_TYPE';
 
-  // console.log(typeof enumWithCasedType);
-
-  // const enumWIthCasedType = enumToIterateThrough
-  // console.log(typeof enumWithCasedType);
-
-  let isActivityType = false;
-  if (
-    enumToIterateThrough.includes('PLASTICITY' as T) &&
-    enumToIterateThrough.includes('THEATER' as T) &&
-    enumToIterateThrough.includes('RECREATION' as T)
-  ) {
-    isActivityType = true;
-  }
-
-  let isEventType = false;
-  if (
-    enumToIterateThrough.includes('FESTIVAL' as T) &&
-    enumToIterateThrough.includes('SPECTACLE' as T) &&
-    enumToIterateThrough.includes('WORKSHOP' as T)
-  ) {
-    isEventType = true;
-  }
-
-  let isForWhomType = false;
-  if (
-    enumToIterateThrough.includes('CHILDREN' as T) &&
-    enumToIterateThrough.includes('WOMEN' as T)
-  ) {
-    isForWhomType = true;
-  }
-
-  // console.log({ isActivityType });
-  // console.log({ isEventType });
-  // console.log({ isForWhomType });
-
-  // const [selectedOption, setSelectedOption] = useState(options[0]);
-  // const [isMounted, setIsMounted] = useState(false);
-
-  // useEffect(() => {
-  //   formik.setFieldValue(name, selectedOption.value);
-  // }, []);
-
+  ////tsx
   return (
     <div className="flex flex-col items-start justify-start">
-      <Field id={name} name="name">
+      <Field id={name} name={name}>
         {(formik: any) => {
           ////vars
           const { field, form, touched } = formik;
@@ -99,17 +65,18 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                 style={{ width: width ? width : '100%' }}
               >
                 {enumToIterateThrough.map((item, index) => (
-                  <div key={index}>
+                  <div key={index} onBlur={onBlur}>
                     <CustomButton
-                      // text="text"
+                      id={item as string}
                       text={
                         isActivityType
                           ? getPolishCategoryOfActivitiesName(
                               item as ActivityType
                             )
+                          : isForWhomType
+                          ? getPolishForWhomName(item as ForWhom)
                           : 'text'
                       }
-                      // descriptionText="test"
                       descriptionText={
                         isActivityType
                           ? getPolishCategoryOfActivitiesName(
@@ -118,88 +85,20 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                           : 'text'
                       }
                       disabled={false}
-                      outlined={true}
-                      // outlined={
-                      //   checkButtonCategoryState(activityType) ? false : true
-                      // }
-                      // actionFn={() => {}}
-                      // actionFn={() => toggleCategory(activityType)}
+                      outlined={!isItemChosen(item)}
+                      actionFn={() => {
+                        toggleItemsInArray(item as T);
+                      }}
                     />
                   </div>
-                  // <div key={index}>item: {item as string}</div>
                 ))}
               </div>
 
-              {/* //   <div
-            //     className="custom-select"
-            //     style={{ width: width ? width : '100%' }}
-            //   >
-            //     <Select
-            //       options={options}
-            //       defaultValue={selectedOption}
-            //       name={name}
-            //       id={name}
-            //       onChange={(val) => {
-            //         setSelectedOption({ value: val!.value, label: val!.label });
-            //         form.setFieldValue(name, val!.value);
-            //       }}
-            //       onBlur={onBlur}
-            //       value={selectedOption}
-            //       styles={{
-            //         container: (baseStyles) => ({
-            //           ...baseStyles,
-            //         }),
-            //         control: (baseStyles, state) => ({
-            //           ...baseStyles,
-            //           ...stylesCommon,
-            //           cursor: 'pointer',
-            //           fontWeight: state.isFocused ? 600 : 400,
-            //           border:
-            //             state.isFocused || state.menuIsOpen
-            //               ? '2px solid var(--cta-secondary)'
-            //               : '2px solid var(--color-background-base)',
-            //         }),
-            //         menu: () => ({
-            //           width: '100%',
-            //         }),
-            //         option: (baseStyles, state) => ({
-            //           ...baseStyles,
-            //           ...stylesCommon,
-            //           fontWeight: state.isSelected
-            //             ? 600
-            //             : state.isFocused
-            //             ? 600
-            //             : 400,
-            //           color: state.isSelected
-            //             ? 'var(--color-background-base)'
-            //             : 'var(--color-foreground-base)',
-            //           backgroundColor: state.isSelected
-            //             ? 'var(--cta-secondary)'
-            //             : state.isFocused
-            //             ? 'var(--cta-primary)'
-            //             : 'var(--color-background-base)',
-            //           border: state.isSelected
-            //             ? '0px solid var(--cta-primary)'
-            //             : state.isFocused
-            //             ? '0px solid var(--cta-primary)'
-            //             : '2px solid var(--cta-primary)',
-            //           padding: '5px',
-            //           cursor: state.isSelected ? 'default' : 'pointer',
-            //           height: '44px',
-            //           display: 'flex',
-            //           justifyContent: 'start',
-            //           alignItems: 'center',
-            //           boxShadow: 'none',
-            //         }),
-            //       }}
-            //     />
-            //   </div>
-
-            //   {isErrorPresentAndFieldWasTouched ? (
-            //     <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-            //       {errors[name]}
-            //     </p>
-            //   ) : null} */}
+              {isErrorPresentAndFieldWasTouched ? (
+                <p className="mt-[6px] text-skin-error mb-0 font-base-regular">
+                  {errors[name]}
+                </p>
+              ) : null}
             </Fragment>
           );
         }}
@@ -209,18 +108,33 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
 }
 
 ////utils
-// function defineTypeOfProvidedEnum(
-//   providedEnum: ActivityType | EventType | ForWhom
-// ) {
-//   const isActivityType =
-//     ('PLASTICITY' as ActivityType) in providedEnum &&
-//     'THEATER' in providedEnum &&
-//     'RECREATION' in providedEnum;
+function getWhatTypeIsProvidedEnum<T>(
+  providedEnum: T[]
+): TWhatTypeIsProvidedEnum {
+  if (
+    providedEnum.includes('PLASTICITY' as T) &&
+    providedEnum.includes('THEATER' as T) &&
+    providedEnum.includes('RECREATION' as T)
+  ) {
+    return 'IT_IS_ACTIVITY_TYPE';
+  }
 
-//   const isEventType =
-//     'FESTIVAL' in providedEnum &&
-//     'SPECTACLE' in providedEnum &&
-//     'WORKSHOP' in providedEnum;
+  if (
+    providedEnum.includes('FESTIVAL' as T) &&
+    providedEnum.includes('SPECTACLE' as T) &&
+    providedEnum.includes('WORKSHOP' as T)
+  ) {
+    return 'IT_IS_EVENT_TYPE';
+  }
 
-//   const isForWhomType = 'CHILDREN' in providedEnum && 'WOMEN' in providedEnum;
-// }
+  if (
+    providedEnum.includes('CHILDREN' as T) &&
+    providedEnum.includes('WOMEN' as T)
+  ) {
+    return 'IT_IS_FOR_WHOM_TYPE';
+  }
+
+  throw new Error(
+    `getWhatTypeIsProvidedEnum - provided Enum doesn't fit desired criteria.`
+  );
+}

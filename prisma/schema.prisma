@@ -162,7 +162,6 @@ model CyclicalActivityOccurrence {
   activityEnd DateTime
   cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
   cyclicalActivityId String
-
 }
 model CyclicalActivity{
   id String @id @default(uuid())

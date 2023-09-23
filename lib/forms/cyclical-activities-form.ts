@@ -1,10 +1,17 @@
 import { TCyclicalActivitiesFormValues } from '@/types';
 import { z } from 'zod';
-import { nameSchema_Required_Min2 } from '../zodSchemas';
+import {
+  activityTypeArraySchema,
+  forWhomArraySchema,
+  nameSchema_Required_Min2,
+} from '../zodSchemas';
 
 export const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesFormValues> =
   z.object({
     name: nameSchema_Required_Min2,
+    activityTypes: activityTypeArraySchema,
+    activitiesForWhom: forWhomArraySchema,
+
     // expiresAt: isDateSchema,
 
     // email: emailSchema,

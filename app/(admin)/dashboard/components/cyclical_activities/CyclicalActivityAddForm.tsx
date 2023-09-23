@@ -15,7 +15,7 @@ import {
   cyclicalActivityValidationSchema,
 } from '@/lib/forms/cyclical-activities-form';
 import { TActionResponse } from '@/types';
-import { ActivityType } from '@prisma/client';
+import { ActivityType, ForWhom } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
 import { Fragment } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
@@ -39,6 +39,10 @@ export default function CyclicalActivityAddForm() {
     formik: FormikProps<TCyclicalActivityFormInputs>
   ) {
     let response: TActionResponse | null = null;
+
+    //append all arrays into formData
+    appendEnumTypes(formik, formData, 'activityTypes');
+    appendEnumTypes(formik, formData, 'activitiesForWhom');
 
     ////post cyclical activity
     if (isCurrentFormToPOSTData) {
@@ -113,7 +117,7 @@ export default function CyclicalActivityAddForm() {
       {/* form */}
       <Formik<TCyclicalActivityFormInputs>
         // initialValues={getUserFormikDataForPUT()} //TODO: potem popraw
-        initialValues={{ name: '', activityTypes: [] }}
+        initialValues={{ name: '', activityTypes: [], activitiesForWhom: [] }}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(
           cyclicalActivityValidationSchema
@@ -161,12 +165,20 @@ export default function CyclicalActivityAddForm() {
                   // enumToIterateThrough={ActivityType}
                   formik={formik}
                 />
-                {/* <InputFormik
-                  name="name"
-                  type="text"
-                  label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
-                  placeholder="wpisz nazwę"
-                /> */}
+              </div>
+
+              <div className="mt-[20px]">
+                <MultipleSelectAsSeparateButtonsFormik<
+                  ForWhom,
+                  TCyclicalActivityFormInputs
+                >
+                  name="activitiesForWhom"
+                  label={
+                    isCurrentFormToPUTData ? 'zmień dla kogo:' : 'dla kogo:'
+                  }
+                  enumToIterateThrough={Object.keys(ForWhom) as Array<ForWhom>}
+                  formik={formik}
+                />
               </div>
 
               {/* <div className="mt-[20px] form-input-width">
@@ -262,5 +274,18 @@ export default function CyclicalActivityAddForm() {
         }}
       </Formik>
     </Fragment>
+  );
+}
+
+//utils
+function appendEnumTypes(
+  formik: FormikProps<TCyclicalActivityFormInputs>,
+  formData: FormData,
+  valueName: string
+) {
+  (formik.getFieldProps(valueName).value as Array<string>).forEach(
+    (activity) => {
+      formData.append(valueName, activity);
+    }
   );
 }

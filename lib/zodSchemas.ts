@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { ActivityType, ForWhom, UserRole } from '@prisma/client';
 import { z } from 'zod';
 
 export const emailSchema = z
@@ -23,6 +23,18 @@ export const nameSchema_Required_Min2 = z
   .min(2, { message: 'min 2 znaki' });
 
 export const useRoleSchema = z.nativeEnum(UserRole);
+
+//activity type
+export const activityTypeSchema = z.nativeEnum(ActivityType);
+export const activityTypeArraySchema = z
+  .array(activityTypeSchema)
+  .nonempty({ message: 'Chociaż jeden rodzaj zajęć musi być wybrany.' });
+
+//for whom
+export const forWhomSchema = z.nativeEnum(ForWhom);
+export const forWhomArraySchema = z
+  .array(forWhomSchema)
+  .nonempty({ message: 'Chociaż jeden element musi być wybrany.' });
 
 export const password_NotRequired_CanBeUndefined = z
   .string({

@@ -18,7 +18,7 @@ import {
   TCyclicalActivitiesFormValues,
   TGetAllCyclicalActivitiesResponse,
 } from '@/types';
-import { CyclicalActivity } from '@prisma/client';
+import { ActivityType, CyclicalActivity, ForWhom } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
@@ -37,12 +37,17 @@ export async function addCyclicalActivity(
   // /** checking values eXistenZ */
   const submittedName = formData.get('name') as string;
   const submittedExpiresAt = formData.get('expiresAt') as string;
-  // const submittedEmail = formData.get('email') as string;
-  // const submittedPassword = formData.get('password') as string;
-  // const submittedConfirmPassword = formData.get('confirmPassword') as string;
-  // const submittedUserRole = formData.get('userRole') as UserRole;
+  const submittedActivityTypes = formData.getAll(
+    'activityTypes'
+  ) as ActivityType[];
+  const submittedActivitiesForWhom = formData.getAll(
+    'activitiesForWhom'
+  ) as ForWhom[];
+
   if (
-    !submittedName
+    !submittedName ||
+    !submittedActivityTypes ||
+    !submittedActivitiesForWhom
     // !submittedEmail ||
     // !submittedPassword ||
     // !submittedConfirmPassword ||
@@ -55,7 +60,9 @@ export async function addCyclicalActivity(
   /* format validation */
   const formDataAsObject: TCyclicalActivitiesFormValues = {
     name: submittedName,
-    expiresAt: submittedExpiresAt,
+    activityTypes: submittedActivityTypes,
+    activitiesForWhom: submittedActivitiesForWhom,
+    expiresAt: submittedExpiresAt || undefined,
   };
   let validationResult = false;
   try {
@@ -76,8 +83,8 @@ export async function addCyclicalActivity(
     const response = await prisma.cyclicalActivity.create({
       data: {
         name: submittedName,
-        activityTypes: ['PLASTICITY'],
-        activitiesForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
+        activityTypes: submittedActivityTypes,
+        activitiesForWhom: submittedActivitiesForWhom,
         shortDescription: 'short desctiption',
         longDescription: 'long description',
         customLinkToDetails: 'customLinkToDetails',

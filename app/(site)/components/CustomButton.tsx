@@ -11,6 +11,7 @@ interface Props {
   outlined?: boolean;
   currentlyActive?: boolean;
   actionFn?: () => void;
+  id?: string;
   // actionFn?: (() => void) | ((adminLinkName: TLinkAdminName) => void) | void;
   // url: string;
 }
@@ -19,6 +20,7 @@ export default function CustomButton(props: Props) {
   ////vars
   const { pending } = useFormStatus();
   const {
+    id,
     text,
     descriptionText,
     additionalClasses,
@@ -36,6 +38,7 @@ export default function CustomButton(props: Props) {
         <div className="standard-button-non-clickable">{text}</div>
       ) : (
         <button
+          id={id}
           type={onSubmit ? 'submit' : 'button'}
           className={clsx(
             outlined ? 'outlined-button' : 'standard-button',
