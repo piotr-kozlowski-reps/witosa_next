@@ -1,4 +1,4 @@
-import { ActivityType, ForWhom, UserRole } from '@prisma/client';
+import { ActivityType, ForWhom, Place, UserRole } from '@prisma/client';
 import { z } from 'zod';
 
 export const emailSchema = z
@@ -35,6 +35,12 @@ export const forWhomSchema = z.nativeEnum(ForWhom);
 export const forWhomArraySchema = z
   .array(forWhomSchema)
   .nonempty({ message: 'Chociaż jeden element musi być wybrany.' });
+
+//place
+export const placeSchema = z.nativeEnum(Place);
+export const placesArraySchema = z
+  .array(placeSchema)
+  .nonempty({ message: 'Chociaż jedno miejsce musi być wybrane.' });
 
 export const password_NotRequired_CanBeUndefined = z
   .string({

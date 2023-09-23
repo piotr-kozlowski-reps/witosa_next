@@ -4,6 +4,7 @@ import {
   activityTypeArraySchema,
   forWhomArraySchema,
   nameSchema_Required_Min2,
+  placesArraySchema,
 } from '../zodSchemas';
 
 export const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesFormValues> =
@@ -11,6 +12,7 @@ export const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesForm
     name: nameSchema_Required_Min2,
     activityTypes: activityTypeArraySchema,
     activitiesForWhom: forWhomArraySchema,
+    places: placesArraySchema,
 
     // expiresAt: isDateSchema,
 

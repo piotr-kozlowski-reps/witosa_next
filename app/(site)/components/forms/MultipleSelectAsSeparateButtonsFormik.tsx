@@ -1,10 +1,7 @@
 import { useMultipleSelectHelper } from '@/hooks/useMultipleSelectHelper';
-import {
-  getPolishCategoryOfActivitiesName,
-  getPolishForWhomName,
-} from '@/lib/textHelpers';
-import { TWhatTypeIsProvidedEnum } from '@/types';
-import { ActivityType, ForWhom } from '@prisma/client';
+import { getWhatTypeIsProvidedEnum } from '@/lib/arrayHelpers';
+import { getPolishNameForEnumItem } from '@/lib/textHelpers';
+import { TTypeDescriber } from '@/types';
 import clsx from 'clsx';
 import { Field, FormikProps } from 'formik';
 import { Fragment } from 'react';
@@ -30,10 +27,24 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
 
   //getting what type is provided Enum
   const whatTypeIsProvidedEnum =
-    getWhatTypeIsProvidedEnum<T>(enumToIterateThrough);
+    getWhatTypeIsProvidedEnum(enumToIterateThrough);
   const isActivityType = whatTypeIsProvidedEnum === 'IT_IS_ACTIVITY_TYPE';
   const isEventType = whatTypeIsProvidedEnum === 'IT_IS_EVENT_TYPE';
   const isForWhomType = whatTypeIsProvidedEnum === 'IT_IS_FOR_WHOM_TYPE';
+  const isPlaceType = whatTypeIsProvidedEnum === 'IT_IS_PLACE_TYPE';
+  const typeDescriber: TTypeDescriber = {
+    isActivityType,
+    isEventType,
+    isForWhomType,
+    isPlaceType,
+  };
+
+  // getPolishNameAndDescription({
+  //     isActivityType,
+  //     isEventType,
+  //     isForWhomType,
+  //     isPlaceType,
+  //   }, );
 
   ////tsx
   return (
@@ -68,22 +79,11 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                   <div key={index} onBlur={onBlur}>
                     <CustomButton
                       id={item as string}
-                      text={
-                        isActivityType
-                          ? getPolishCategoryOfActivitiesName(
-                              item as ActivityType
-                            )
-                          : isForWhomType
-                          ? getPolishForWhomName(item as ForWhom)
-                          : 'text'
-                      }
-                      descriptionText={
-                        isActivityType
-                          ? getPolishCategoryOfActivitiesName(
-                              item as ActivityType
-                            )
-                          : 'text'
-                      }
+                      text={getPolishNameForEnumItem<T>(typeDescriber, item)}
+                      descriptionText={getPolishNameForEnumItem<T>(
+                        typeDescriber,
+                        item
+                      )}
                       disabled={false}
                       outlined={!isItemChosen(item)}
                       actionFn={() => {
@@ -108,33 +108,37 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
 }
 
 ////utils
-function getWhatTypeIsProvidedEnum<T>(
-  providedEnum: T[]
-): TWhatTypeIsProvidedEnum {
-  if (
-    providedEnum.includes('PLASTICITY' as T) &&
-    providedEnum.includes('THEATER' as T) &&
-    providedEnum.includes('RECREATION' as T)
-  ) {
-    return 'IT_IS_ACTIVITY_TYPE';
-  }
+// export function getWhatTypeIsProvidedEnum(
+//   providedEnum: any[]
+// ): TWhatTypeIsProvidedEnum {
+//   if (
+//     providedEnum.includes('PLASTICITY') &&
+//     providedEnum.includes('THEATER') &&
+//     providedEnum.includes('RECREATION')
+//   ) {
+//     return 'IT_IS_ACTIVITY_TYPE';
+//   }
 
-  if (
-    providedEnum.includes('FESTIVAL' as T) &&
-    providedEnum.includes('SPECTACLE' as T) &&
-    providedEnum.includes('WORKSHOP' as T)
-  ) {
-    return 'IT_IS_EVENT_TYPE';
-  }
+//   if (
+//     providedEnum.includes('FESTIVAL') &&
+//     providedEnum.includes('SPECTACLE') &&
+//     providedEnum.includes('WORKSHOP')
+//   ) {
+//     return 'IT_IS_EVENT_TYPE';
+//   }
 
-  if (
-    providedEnum.includes('CHILDREN' as T) &&
-    providedEnum.includes('WOMEN' as T)
-  ) {
-    return 'IT_IS_FOR_WHOM_TYPE';
-  }
+//   if (providedEnum.includes('CHILDREN') && providedEnum.includes('WOMEN')) {
+//     return 'IT_IS_FOR_WHOM_TYPE';
+//   }
 
-  throw new Error(
-    `getWhatTypeIsProvidedEnum - provided Enum doesn't fit desired criteria.`
-  );
-}
+//   if (
+//     providedEnum.includes('DANCING_ROOM') &&
+//     providedEnum.includes('ART_ROOM')
+//   ) {
+//     return 'IT_IS_PLACE_TYPE';
+//   }
+
+//   throw new Error(
+//     `getWhatTypeIsProvidedEnum - provided Enum doesn't fit desired criteria.`
+//   );
+// }

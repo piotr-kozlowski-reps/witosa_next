@@ -15,7 +15,7 @@ import {
   cyclicalActivityValidationSchema,
 } from '@/lib/forms/cyclical-activities-form';
 import { TActionResponse } from '@/types';
-import { ActivityType, ForWhom } from '@prisma/client';
+import { ActivityType, ForWhom, Place } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
 import { Fragment } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
@@ -43,6 +43,7 @@ export default function CyclicalActivityAddForm() {
     //append all arrays into formData
     appendEnumTypes(formik, formData, 'activityTypes');
     appendEnumTypes(formik, formData, 'activitiesForWhom');
+    appendEnumTypes(formik, formData, 'places');
 
     ////post cyclical activity
     if (isCurrentFormToPOSTData) {
@@ -117,7 +118,12 @@ export default function CyclicalActivityAddForm() {
       {/* form */}
       <Formik<TCyclicalActivityFormInputs>
         // initialValues={getUserFormikDataForPUT()} //TODO: potem popraw
-        initialValues={{ name: '', activityTypes: [], activitiesForWhom: [] }}
+        initialValues={{
+          name: '',
+          activityTypes: [],
+          activitiesForWhom: [],
+          places: [],
+        }}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(
           cyclicalActivityValidationSchema
@@ -177,6 +183,22 @@ export default function CyclicalActivityAddForm() {
                     isCurrentFormToPUTData ? 'zmień dla kogo:' : 'dla kogo:'
                   }
                   enumToIterateThrough={Object.keys(ForWhom) as Array<ForWhom>}
+                  formik={formik}
+                />
+              </div>
+
+              <div className="mt-[20px]">
+                <MultipleSelectAsSeparateButtonsFormik<
+                  Place,
+                  TCyclicalActivityFormInputs
+                >
+                  name="places"
+                  label={
+                    isCurrentFormToPUTData
+                      ? 'zmień miejsce zajęć:'
+                      : 'miejsce zajęć:'
+                  }
+                  enumToIterateThrough={Object.keys(Place) as Array<Place>}
                   formik={formik}
                 />
               </div>

@@ -11,14 +11,20 @@ import {
 } from '@/lib/api/apiTextResponses';
 import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
-import { isDateSchema, nameSchema_Required_Min2 } from '@/lib/zodSchemas';
+import {
+  activityTypeArraySchema,
+  forWhomArraySchema,
+  isDateSchema,
+  nameSchema_Required_Min2,
+  placesArraySchema,
+} from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
   TCyclicalActivitiesFormValues,
   TGetAllCyclicalActivitiesResponse,
 } from '@/types';
-import { ActivityType, CyclicalActivity, ForWhom } from '@prisma/client';
+import { ActivityType, CyclicalActivity, ForWhom, Place } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
@@ -43,11 +49,13 @@ export async function addCyclicalActivity(
   const submittedActivitiesForWhom = formData.getAll(
     'activitiesForWhom'
   ) as ForWhom[];
+  const submittedPlaces = formData.getAll('places') as Place[];
 
   if (
     !submittedName ||
     !submittedActivityTypes ||
-    !submittedActivitiesForWhom
+    !submittedActivitiesForWhom ||
+    !submittedPlaces
     // !submittedEmail ||
     // !submittedPassword ||
     // !submittedConfirmPassword ||
@@ -62,6 +70,7 @@ export async function addCyclicalActivity(
     name: submittedName,
     activityTypes: submittedActivityTypes,
     activitiesForWhom: submittedActivitiesForWhom,
+    places: submittedPlaces,
     expiresAt: submittedExpiresAt || undefined,
   };
   let validationResult = false;
@@ -72,7 +81,6 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
   if (!validationResult) {
-    //TODO: check if aby na pewno tutaj dobry warunek
     logger.warn(badCyclicalActivitiesData);
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
@@ -85,10 +93,10 @@ export async function addCyclicalActivity(
         name: submittedName,
         activityTypes: submittedActivityTypes,
         activitiesForWhom: submittedActivitiesForWhom,
+        places: submittedPlaces,
         shortDescription: 'short desctiption',
         longDescription: 'long description',
         customLinkToDetails: 'customLinkToDetails',
-        places: ['ART_ROOM'],
         isToBePublished: true,
         expiresAt: '2022-10-10T22:00:24.968Z',
         author: {
@@ -402,9 +410,14 @@ function validateCyclicalActivityData(
   cyclicalActivity: TCyclicalActivityFormInputs
 ) {
   nameSchema_Required_Min2.parse(cyclicalActivity.name);
+  activityTypeArraySchema.parse(cyclicalActivity.activityTypes);
+  forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
+  placesArraySchema.parse(cyclicalActivity.places);
+
   if (cyclicalActivity.expiresAt) {
     isDateSchema.parse(cyclicalActivity.expiresAt);
   }
+
   // emailSchema.parse(email);
   // passwordSchema_Required_Min5_Max20.parse(password);
   // passwordSchema_Required_Min5_Max20.parse(confirmationPassword);

@@ -1,3 +1,4 @@
+import { TTypeDescriber } from '@/types';
 import {
   ActivityType,
   Day,
@@ -344,4 +345,24 @@ export function getPolishUserRoleName(userRole: UserRole) {
   }
 
   return polishUserRoleName;
+}
+
+// const type;
+export function getPolishNameForEnumItem<T>(
+  typeDescriber: TTypeDescriber,
+  item: T
+): string {
+  if (typeDescriber.isActivityType) {
+    return getPolishCategoryOfActivitiesName(item as ActivityType);
+  }
+
+  if (typeDescriber.isForWhomType) {
+    return getPolishForWhomName(item as ForWhom);
+  }
+
+  if (typeDescriber.isPlaceType) {
+    return getPolishPlaceName(item as Place);
+  }
+
+  throw new Error('getPolishNameForEnumItem - something went wrong');
 }
