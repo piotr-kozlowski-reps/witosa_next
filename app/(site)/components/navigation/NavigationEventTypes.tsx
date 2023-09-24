@@ -47,7 +47,8 @@ export default function NavigationEventTypes(props: Props) {
             text={getPolishEventTypeName(eventType)}
             descriptionText={getPolishEventTypeName(eventType)}
             disabled={false}
-            outlined={checkButtonCategoryState(eventType) ? false : true}
+            outlined={true}
+            isChosen={checkButtonCategoryState(eventType) ? true : false}
             actionFn={() => toggleCategory(eventType)}
           />
         ))}

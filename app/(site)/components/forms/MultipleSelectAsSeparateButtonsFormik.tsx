@@ -85,7 +85,9 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                         item
                       )}
                       disabled={false}
-                      outlined={!isItemChosen(item)}
+                      // outlined={!isItemChosen(item)}
+                      outlined={true}
+                      isChosen={isItemChosen(item)}
                       actionFn={() => {
                         toggleItemsInArray(item as T);
                       }}

@@ -47,7 +47,8 @@ export default function NavigationTargets(props: Props) {
             text={getPolishForWhomName(ForWhom)}
             descriptionText={getPolishForWhomName(ForWhom)}
             disabled={false}
-            outlined={checkButtonForWhomState(ForWhom) ? false : true}
+            outlined={true}
+            isChosen={checkButtonForWhomState(ForWhom) ? true : false}
             actionFn={() => toggleForWhom(ForWhom)}
           />
         ))}

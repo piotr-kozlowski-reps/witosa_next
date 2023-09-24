@@ -1,9 +1,7 @@
 'use client';
-import {
-  addCyclicalActivity,
-  deleteCyclicalActivities,
-} from '@/actions/cyclicalActivityActions';
+import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
+import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
@@ -123,6 +121,7 @@ export default function CyclicalActivityAddForm() {
           activityTypes: [],
           activitiesForWhom: [],
           places: [],
+          isToBePublished: true,
         }}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(
@@ -139,10 +138,11 @@ export default function CyclicalActivityAddForm() {
                 await submitFormHandler(formData, formik);
               }}
             >
-              <div className="flex gap-4 mb-12">
-                <div>etap1</div>
-                <div>etap2</div>
-                <div>etap3</div>
+              <div className="flex gap-8 mb-12 font-base-regular">
+                <div>etap1 - informacje ogólne</div>
+                <div>etap2 - opis zajęć</div>
+                <div>etap3 - godziny zajęć</div>
+                <div>etap4 - zdjęcia</div>
               </div>
 
               <div className="form-input-width -mt-[7px]">
@@ -200,6 +200,21 @@ export default function CyclicalActivityAddForm() {
                   }
                   enumToIterateThrough={Object.keys(Place) as Array<Place>}
                   formik={formik}
+                />
+              </div>
+
+              <div className="mt-[20px]">
+                <CheckboxFormik
+                  name="isToBePublished"
+                  label="Czy zajęcia mają być opublikowane?"
+
+                  // label={
+                  //   isCurrentFormToPUTData
+                  //     ? 'zmień miejsce zajęć:'
+                  //     : 'miejsce zajęć:'
+                  // }
+                  // enumToIterateThrough={Object.keys(Place) as Array<Place>}
+                  // formik={formik}
                 />
               </div>
 
@@ -268,27 +283,6 @@ export default function CyclicalActivityAddForm() {
                   disabled={false}
                   outlined={true}
                   actionFn={() => setIsAddCyclicalActivityVisible(false)}
-                />
-
-                <div>tymczas</div>
-                <CustomButton
-                  text="add"
-                  descriptionText="Dodaj użytkownika."
-                  additionalClasses="mt-[4px]"
-                  onSubmit={true}
-                  disabled={false}
-                />
-                <CustomButton
-                  text="delete"
-                  descriptionText="Wywal."
-                  additionalClasses="mt-[4px]"
-                  disabled={false}
-                  actionFn={async () => {
-                    const response = await deleteCyclicalActivities([
-                      '750a48ae-a265-4730-8771-ee65d8f03253',
-                    ]);
-                    console.log(response);
-                  }}
                 />
               </div>
             </form>

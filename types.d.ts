@@ -32,7 +32,7 @@ export type TRegisterFormValuesSent = {
 
 export type TCyclicalActivitiesFormValues = Pick<
   CyclicalActivity,
-  'name' | 'activityTypes' | 'activitiesForWhom' | 'places'
+  'name' | 'activityTypes' | 'activitiesForWhom' | 'places' | 'isToBePublished'
 > & {
   expiresAt?: string;
 };

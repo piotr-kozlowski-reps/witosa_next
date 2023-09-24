@@ -50,7 +50,8 @@ export default function NavigationActivityTypes(props: Props) {
               text={getPolishCategoryOfActivitiesName(activityType)}
               descriptionText={getPolishCategoryOfActivitiesName(activityType)}
               disabled={false}
-              outlined={checkButtonCategoryState(activityType) ? false : true}
+              outlined={true}
+              isChosen={checkButtonCategoryState(activityType) ? true : false}
               actionFn={() => toggleCategory(activityType)}
             />
           )

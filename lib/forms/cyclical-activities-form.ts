@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   activityTypeArraySchema,
   forWhomArraySchema,
+  isBooleanSchema,
   nameSchema_Required_Min2,
   placesArraySchema,
 } from '../zodSchemas';
@@ -13,6 +14,7 @@ export const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesForm
     activityTypes: activityTypeArraySchema,
     activitiesForWhom: forWhomArraySchema,
     places: placesArraySchema,
+    isToBePublished: isBooleanSchema,
 
     // expiresAt: isDateSchema,
 

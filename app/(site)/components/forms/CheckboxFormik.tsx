@@ -1,13 +1,12 @@
-import clsx from 'clsx';
 import { Field } from 'formik';
 import { Fragment } from 'react';
 
 interface Props {
   name: string;
-  label: string; //TODO: na pewno string? może mogę to dookreślić, znaleźć
-  type: string;
-  placeholder: string;
-  width?: number;
+  label: string;
+  // type: string;
+  // placeholder: string;
+  // width?: number;
   // isTextarea?: boolean;
   // value: string;
   // onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -17,13 +16,13 @@ interface Props {
   // dataTestIdForError: string;
 }
 
-export default function InputFormik(props: Props) {
+export default function CheckboxFormik(props: Props) {
   ///vars
-  const { name, placeholder, label, width, type } = props;
+  const { name, label } = props;
 
   return (
     <div className="flex flex-col items-start justify-start">
-      <Field id={name} name="name">
+      <Field id={name} name={name}>
         {(formik: any) => {
           ////vars
           const { field, form, touched } = formik;
@@ -32,12 +31,32 @@ export default function InputFormik(props: Props) {
 
           const isErrorPresentAndFieldWasTouched: undefined | string =
             errors[name] && form.touched[name];
-          const isErrorNotPresentAndFieldWasTouched: undefined | string =
-            !errors[name] && form.touched[name];
+
+          console.log({ field });
 
           return (
             <Fragment>
-              <label
+              <div className="mt-[23px] form-input-width font-base-regular hover:font-base-bold">
+                <div className="checkbox-rect">
+                  <input
+                    type="checkbox"
+                    id={name}
+                    name={name}
+                    // checked={isToChangePassword}
+                    checked={form.values[name]}
+                    onChange={(val) => onChange(val)}
+                    value={form.values[name]}
+
+                    // onChange={() =>
+                    //   setIsToChangePassword((prevState) => !prevState)
+                    // }
+                  />
+                  <label htmlFor={name} className="pl-8 ">
+                    {label}
+                  </label>
+                </div>
+              </div>
+              {/* <label
                 htmlFor={name}
                 className={clsx(
                   'font-base-regular',
@@ -45,8 +64,8 @@ export default function InputFormik(props: Props) {
                 )}
               >
                 {label}
-              </label>
-              <input
+              </label> */}
+              {/* <input
                 id={name}
                 name={name}
                 type={type}
@@ -59,18 +78,15 @@ export default function InputFormik(props: Props) {
                   !width ? 'w-full' : '',
                   isErrorPresentAndFieldWasTouched
                     ? 'border-2 border-error'
-                    : '',
-                  isErrorNotPresentAndFieldWasTouched
-                    ? 'bg-cta-secondary-opacity'
                     : ''
                 )}
                 style={width ? { width: `${width}px` } : {}}
-              />
-              {isErrorPresentAndFieldWasTouched ? (
+              /> */}
+              {/* {isErrorPresentAndFieldWasTouched ? (
                 <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
                   {errors[name]}
                 </p>
-              ) : null}
+              ) : null} */}
             </Fragment>
           );
         }}

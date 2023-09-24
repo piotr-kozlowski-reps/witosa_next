@@ -49,3 +49,5 @@ export const password_NotRequired_CanBeUndefined = z
   .min(2, { message: 'min 2 znaki' });
 
 export const isDateSchema = z.date({ description: 'Data ma zły format.' });
+
+export const isBooleanSchema = z.boolean();

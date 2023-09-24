@@ -173,6 +173,7 @@ const navigationStateData: TNavigationState = {
     activitiesForWhom: [],
     activityTypes: [],
     places: [],
+    isToBePublished: true,
   },
 };
 
@@ -431,6 +432,7 @@ export function useNavigationState() {
         activitiesForWhom: [],
         activityTypes: [],
         places: [],
+        isToBePublished: true,
       });
     },
   };

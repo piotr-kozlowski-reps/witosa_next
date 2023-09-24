@@ -12,8 +12,7 @@ interface Props {
   currentlyActive?: boolean;
   actionFn?: () => void;
   id?: string;
-  // actionFn?: (() => void) | ((adminLinkName: TLinkAdminName) => void) | void;
-  // url: string;
+  isChosen?: boolean;
 }
 
 export default function CustomButton(props: Props) {
@@ -29,6 +28,7 @@ export default function CustomButton(props: Props) {
     outlined = false,
     actionFn = () => {},
     currentlyActive = false,
+    isChosen = false,
   } = props;
 
   ////tsx
@@ -41,7 +41,11 @@ export default function CustomButton(props: Props) {
           id={id}
           type={onSubmit ? 'submit' : 'button'}
           className={clsx(
-            outlined ? 'outlined-button' : 'standard-button',
+            isChosen
+              ? 'chosen-button'
+              : outlined
+              ? 'outlined-button'
+              : 'standard-button',
             additionalClasses ? additionalClasses : ''
           )}
           aria-label={descriptionText}

@@ -14,6 +14,7 @@ import logger from '@/lib/logger';
 import {
   activityTypeArraySchema,
   forWhomArraySchema,
+  isBooleanSchema,
   isDateSchema,
   nameSchema_Required_Min2,
   placesArraySchema,
@@ -50,16 +51,17 @@ export async function addCyclicalActivity(
     'activitiesForWhom'
   ) as ForWhom[];
   const submittedPlaces = formData.getAll('places') as Place[];
+  const submittedIsToBePublished =
+    (formData.get('isToBePublished') as string) === 'true' ? true : false;
+
+  console.log({ submittedIsToBePublished });
 
   if (
     !submittedName ||
     !submittedActivityTypes ||
     !submittedActivitiesForWhom ||
-    !submittedPlaces
-    // !submittedEmail ||
-    // !submittedPassword ||
-    // !submittedConfirmPassword ||
-    // !submittedUserRole
+    !submittedPlaces ||
+    submittedIsToBePublished === undefined
   ) {
     logger.warn(lackOfCyclicalActivitiesData);
     return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
@@ -72,6 +74,7 @@ export async function addCyclicalActivity(
     activitiesForWhom: submittedActivitiesForWhom,
     places: submittedPlaces,
     expiresAt: submittedExpiresAt || undefined,
+    isToBePublished: submittedIsToBePublished,
   };
   let validationResult = false;
   try {
@@ -94,10 +97,10 @@ export async function addCyclicalActivity(
         activityTypes: submittedActivityTypes,
         activitiesForWhom: submittedActivitiesForWhom,
         places: submittedPlaces,
+        isToBePublished: submittedIsToBePublished,
         shortDescription: 'short desctiption',
         longDescription: 'long description',
         customLinkToDetails: 'customLinkToDetails',
-        isToBePublished: true,
         expiresAt: '2022-10-10T22:00:24.968Z',
         author: {
           connect: { id: authorId },
@@ -413,6 +416,7 @@ function validateCyclicalActivityData(
   activityTypeArraySchema.parse(cyclicalActivity.activityTypes);
   forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
   placesArraySchema.parse(cyclicalActivity.places);
+  isBooleanSchema.parse(cyclicalActivity.isToBePublished);
 
   if (cyclicalActivity.expiresAt) {
     isDateSchema.parse(cyclicalActivity.expiresAt);

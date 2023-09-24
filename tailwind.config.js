@@ -60,11 +60,13 @@ module.exports = {
       dropShadow: {
         big: '-4px 4px 18px var(--color-shadow)',
         small: '-4px 4px 18px var(--color-shadow)',
+        'properly-filled': '-4px 4px 18px var(--cta-secondary)',
       },
       colors: {
         'primary-color': 'var(--color-foreground-base)',
         'cta-primary': 'var(--cta-primary)',
         'cta-secondary': 'var(--cta-secondary)',
+        'cta-secondary-opacity': 'var(--cta-secondary-opacity)',
         'gray-color': 'var(--color-gray)',
         error: 'var(--color-error)',
       },
