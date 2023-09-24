@@ -207,14 +207,6 @@ export default function CyclicalActivityAddForm() {
                 <CheckboxFormik
                   name="isToBePublished"
                   label="Czy zajęcia mają być opublikowane?"
-
-                  // label={
-                  //   isCurrentFormToPUTData
-                  //     ? 'zmień miejsce zajęć:'
-                  //     : 'miejsce zajęć:'
-                  // }
-                  // enumToIterateThrough={Object.keys(Place) as Array<Place>}
-                  // formik={formik}
                 />
               </div>
 
