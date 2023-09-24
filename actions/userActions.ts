@@ -41,6 +41,12 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
   const submittedConfirmPassword = formData.get('confirmPassword') as string;
   const submittedUserRole = formData.get('userRole') as UserRole;
 
+  console.log({ submittedName });
+  console.log({ submittedEmail });
+  console.log({ submittedPassword });
+  console.log({ submittedConfirmPassword });
+  console.log({ submittedUserRole });
+
   if (
     !submittedName ||
     !submittedEmail ||
@@ -64,9 +70,12 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
     );
   } catch (error) {
     logger.warn(badUserData);
-    return { status: 'ERROR', response: badUserData };
+    return {
+      status: 'ERROR',
+      response: `${badUserData} ${(error as Error).message}`,
+    };
   }
-  if (validationResult) {
+  if (!validationResult) {
     logger.warn(badUserData);
     return { status: 'ERROR', response: badUserData };
   }
@@ -352,13 +361,39 @@ function validateUserData(
   confirmationPassword: string,
   userRole: UserRole
 ) {
-  nameSchema_Required_Min2.parse(name);
-  emailSchema.parse(email);
-  passwordSchema_Required_Min5_Max20.parse(password);
-  passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
-  useRoleSchema.parse(userRole);
+  try {
+    nameSchema_Required_Min2.parse(name);
+  } catch (error) {
+    throw new Error('Nazwa jest niepoprawna.');
+  }
+
+  try {
+    emailSchema.parse(email);
+  } catch (error) {
+    throw new Error('E-mail jest niepoprawny.');
+  }
+
+  try {
+    passwordSchema_Required_Min5_Max20.parse(password);
+  } catch (error) {
+    throw new Error('Hasło jest niepoprawne.');
+  }
+
+  try {
+    passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
+  } catch (error) {
+    throw new Error('Potwierdzenie hasła jest niepoprawne.');
+  }
+
+  try {
+    useRoleSchema.parse(userRole);
+  } catch (error) {
+    throw new Error('Nadane uprawnienia są niepoprawne.');
+  }
+
   if (password.trim() !== confirmationPassword.trim()) {
     throw new Error("Password and it's confirmation are not the same");
   }
+
   return true;
 }
