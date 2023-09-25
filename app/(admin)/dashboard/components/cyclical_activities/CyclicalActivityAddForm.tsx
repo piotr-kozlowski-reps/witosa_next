@@ -2,9 +2,11 @@
 import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
+import DatePickerFormik from '@/app/(site)/components/forms/DatePickerFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
@@ -15,7 +17,8 @@ import {
 import { TActionResponse } from '@/types';
 import { ActivityType, ForWhom, Place } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
-import { Fragment } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { Fragment, useState } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 export default function CyclicalActivityAddForm() {
@@ -30,6 +33,12 @@ export default function CyclicalActivityAddForm() {
 
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
+
+  //expiration at logic
+  const [isExpiresAtVisible, setIsExpiresAtVisible] = useState(false);
+  const toggleExpiresAtVisibility = () => {
+    setIsExpiresAtVisible((preState) => !preState);
+  };
 
   ////formik
   async function submitFormHandler(
@@ -89,10 +98,6 @@ export default function CyclicalActivityAddForm() {
     // }
   }
 
-  // const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
-  //   (role) => ({ value: role, label: getPolishUserRoleName(role) })
-  // );
-
   ////tsx
   return (
     <Fragment>
@@ -122,6 +127,7 @@ export default function CyclicalActivityAddForm() {
           activitiesForWhom: [],
           places: [],
           isToBePublished: true,
+          expiresAt: null,
         }}
         onSubmit={() => {}}
         validationSchema={toFormikValidationSchema(
@@ -140,9 +146,9 @@ export default function CyclicalActivityAddForm() {
             >
               <div className="flex gap-8 mb-12 font-base-regular">
                 <div>etap1 - informacje ogólne</div>
-                <div>etap2 - opis zajęć</div>
-                <div>etap3 - godziny zajęć</div>
-                <div>etap4 - zdjęcia</div>
+                <div className="text-skin-gray">etap2 - opis zajęć</div>
+                <div className="text-skin-gray">etap3 - godziny zajęć</div>
+                <div className="text-skin-gray">etap4 - zdjęcia</div>
               </div>
 
               <div className="form-input-width -mt-[7px]">
@@ -173,7 +179,7 @@ export default function CyclicalActivityAddForm() {
                 />
               </div>
 
-              <div className="mt-[20px]">
+              <div className="mt-[22px]">
                 <MultipleSelectAsSeparateButtonsFormik<
                   ForWhom,
                   TCyclicalActivityFormInputs
@@ -187,7 +193,7 @@ export default function CyclicalActivityAddForm() {
                 />
               </div>
 
-              <div className="mt-[20px]">
+              <div className="mt-[22px]">
                 <MultipleSelectAsSeparateButtonsFormik<
                   Place,
                   TCyclicalActivityFormInputs
@@ -203,12 +209,39 @@ export default function CyclicalActivityAddForm() {
                 />
               </div>
 
-              <div className="mt-[20px]">
+              <div className="mt-[2px]">
                 <CheckboxFormik
                   name="isToBePublished"
                   label="Czy zajęcia mają być opublikowane?"
+                  isCommentPopupVisible={true}
+                  commentContent="Pole to gdy jest zaznaczone, zajęcia będą wyświetlały się na stronie internetowej. Gdy będzie odznaczone, zajęcia będą zapisane w bazie danych, lecz nie będą widoczne dla odbiorców strony."
+                  isToBeUsedAsPartFormik={true}
                 />
               </div>
+
+              <div className="mt-[-2px]">
+                <CheckboxFormik
+                  name="isExpirationDateToBeAdded"
+                  label="Czy chcesz dodać datę zakończenia publikacji?"
+                  isCommentPopupVisible={true}
+                  commentContent="Gdy pole będzie odznaczone i zarazem data nie będzie określona, zajęcia będą widoczne na stronie internetowej bez ograniczeń czasowych. Gdy pole będzie zaznaczone, należy podać datę, po której automatycznie zajęcia przestaną się wyświetlać na stronie."
+                  isToBeUsedAsPartFormik={false}
+                  actionFn={toggleExpiresAtVisibility}
+                  passedValue={isExpiresAtVisible}
+                />
+              </div>
+
+              <AnimatePresence mode="wait">
+                {isExpiresAtVisible ? (
+                  <ComponentTransitionFromRightToLeft>
+                    <DatePickerFormik<TCyclicalActivityFormInputs>
+                      name="expiresAt"
+                      label="data zakończenia publikacji"
+                      formik={formik}
+                    />
+                  </ComponentTransitionFromRightToLeft>
+                ) : null}
+              </AnimatePresence>
 
               {/* <div className="mt-[20px] form-input-width">
                 <SelectFormik<UserRole, TRegisterFormInputs>

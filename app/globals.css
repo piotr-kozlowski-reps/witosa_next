@@ -34,7 +34,7 @@
 
 @layer base {
   :root {
-    /* swiper customisation */
+    /* swiper customization */
     --swiper-pagination-bullet-inactive-opacity: 0.4;
     --swiper-pagination-bullet-size: 8px;
     --swiper-pagination-bullet-horizontal-gap: 8px;

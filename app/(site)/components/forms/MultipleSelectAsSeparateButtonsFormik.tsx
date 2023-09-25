@@ -39,13 +39,6 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
     isPlaceType,
   };
 
-  // getPolishNameAndDescription({
-  //     isActivityType,
-  //     isEventType,
-  //     isForWhomType,
-  //     isPlaceType,
-  //   }, );
-
   ////tsx
   return (
     <div className="flex flex-col items-start justify-start">
@@ -85,7 +78,6 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                         item
                       )}
                       disabled={false}
-                      // outlined={!isItemChosen(item)}
                       outlined={true}
                       isChosen={isItemChosen(item)}
                       actionFn={() => {

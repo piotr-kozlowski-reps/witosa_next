@@ -32,9 +32,14 @@ export type TRegisterFormValuesSent = {
 
 export type TCyclicalActivitiesFormValues = Pick<
   CyclicalActivity,
-  'name' | 'activityTypes' | 'activitiesForWhom' | 'places' | 'isToBePublished'
+  | 'name'
+  | 'activityTypes'
+  | 'activitiesForWhom'
+  | 'places'
+  | 'isToBePublished'
+  | 'expiresAt'
 > & {
-  expiresAt?: string;
+  expiresAt?: string | null;
 };
 
 export type TLoginFormValues = {
@@ -112,7 +117,7 @@ export type TMainSliderData = {
   urlToEvent: string;
 };
 
-export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL';
+export type TIconSize = 'BIG' | 'NORMAL' | 'SMALL' | 'EXTRA_SMALL';
 
 export type TCurrentDevice = 'MOBILE' | 'TABLET' | 'DESKTOP';
 

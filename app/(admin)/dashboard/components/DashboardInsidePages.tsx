@@ -34,7 +34,7 @@ export default function DashboardInsidePages(props: Props) {
 
   ////tsx
   return (
-    <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0 ">
+    <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0">
       <ComponentTransitionFromRightToLeft>
         {isToShowEvents ? <DashboardEvents /> : null}
       </ComponentTransitionFromRightToLeft>
