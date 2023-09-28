@@ -169,7 +169,7 @@ const navigationStateData: TNavigationState = {
   isAddCyclicalActivityVisible: false,
   cyclicalActivityFormikDataForPUT: {
     name: '',
-    expiresAt: undefined,
+    expiresAt: null,
     activitiesForWhom: [],
     activityTypes: [],
     places: [],
@@ -428,7 +428,7 @@ export function useNavigationState() {
     resetCyclicalActivityFormikDataForPUT() {
       state.cyclicalActivityFormikDataForPUT.set({
         name: '',
-        expiresAt: undefined,
+        expiresAt: null,
         activitiesForWhom: [],
         activityTypes: [],
         places: [],

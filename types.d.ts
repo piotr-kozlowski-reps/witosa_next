@@ -38,9 +38,7 @@ export type TCyclicalActivitiesFormValues = Pick<
   | 'places'
   | 'isToBePublished'
   | 'expiresAt'
-> & {
-  expiresAt?: string | null;
-};
+>;
 
 export type TLoginFormValues = {
   email: string;

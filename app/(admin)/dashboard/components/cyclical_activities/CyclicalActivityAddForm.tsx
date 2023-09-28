@@ -236,8 +236,10 @@ export default function CyclicalActivityAddForm() {
                   <ComponentTransitionFromRightToLeft>
                     <DatePickerFormik<TCyclicalActivityFormInputs>
                       name="expiresAt"
-                      label="data zakończenia publikacji"
+                      label="data zakończenia publikacji:"
                       formik={formik}
+                      additionalClasses="mt-[13px]"
+                      isErrorValidationTurnedOn={isExpiresAtVisible}
                     />
                   </ComponentTransitionFromRightToLeft>
                 ) : null}
