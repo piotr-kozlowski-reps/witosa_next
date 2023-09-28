@@ -82,7 +82,6 @@ export default function DatePickerFormik<T>(props: Props<T>) {
           {label}
         </div>
         <DatePicker
-          // label={label}
           format="yyyy-MM-dd"
           value={formik.getFieldProps(name).value}
           onChange={(val) => formik.getFieldHelpers(name).setValue(val)}
@@ -100,9 +99,6 @@ export default function DatePickerFormik<T>(props: Props<T>) {
                   ? 'var(--cta-secondary-opacity)'
                   : ''
               ),
-              // isErrorPresentAndFieldWasTouched
-              //   ? 'var(--color-error)'
-              //   : '',
             },
           }}
 

@@ -9,6 +9,7 @@ import {
 import { ThemeProvider, createTheme } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { pl } from 'date-fns/locale';
 import { useSession } from 'next-auth/react';
 import { Fragment } from 'react';
 import DashboardHeader from './DashboardHeader';
@@ -82,7 +83,7 @@ export default function DashboardContent(props: Props) {
     <Fragment>
       {session?.status === 'unauthenticated' ? <NotAuthenticatedError /> : null}
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
           {session && session?.data?.user ? (
             <div className="proper-container-classes">
               <DashboardHeader userName={session?.data?.user?.name} />
