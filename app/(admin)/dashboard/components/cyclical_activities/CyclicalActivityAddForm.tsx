@@ -262,6 +262,7 @@ export default function CyclicalActivityAddForm() {
                       formik={formik}
                       additionalClasses="mt-[13px]"
                       isErrorValidationTurnedOn={isExpiresAtVisible}
+                      errorText="Data musi być określona."
                     />
                   </ComponentTransitionFromRightToLeft>
                 ) : null}
