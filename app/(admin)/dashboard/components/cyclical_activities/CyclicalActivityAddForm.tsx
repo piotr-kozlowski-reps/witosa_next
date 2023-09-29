@@ -3,6 +3,7 @@ import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
 import DatePickerFormik from '@/app/(site)/components/forms/DatePickerFormik';
+import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
@@ -39,6 +40,23 @@ export default function CyclicalActivityAddForm() {
   const toggleExpiresAtVisibility = () => {
     setIsExpiresAtVisible((preState) => !preState);
   };
+
+  //form stages logic
+  const stagesInitialStage = [
+    {
+      isAccessToStage: true,
+      linkName: 'informacje ogólne',
+    },
+    {
+      isAccessToStage: false,
+      linkName: 'opis zajęć oraz zdjęcia',
+    },
+    {
+      isAccessToStage: false,
+      linkName: 'godziny zajęć',
+    },
+  ];
+  const [stage, setStage] = useState(stagesInitialStage);
 
   ////formik
   async function submitFormHandler(
@@ -145,10 +163,14 @@ export default function CyclicalActivityAddForm() {
               }}
             >
               <div className="flex gap-8 mb-12 font-base-regular">
-                <div>etap1 - informacje ogólne</div>
+                {stagesInitialStage.map((stage, index) => (
+                  <FormStageLink key={index} linkName={stage.linkName} />
+                  // <div key={index}>dfvdf</div>
+                ))}
+                {/* <div>etap1 - informacje ogólne</div>
                 <div className="text-skin-gray">etap2 - opis zajęć</div>
                 <div className="text-skin-gray">etap3 - godziny zajęć</div>
-                <div className="text-skin-gray">etap4 - zdjęcia</div>
+                <div className="text-skin-gray">etap4 - zdjęcia</div> */}
               </div>
 
               <div className="form-input-width -mt-[7px]">

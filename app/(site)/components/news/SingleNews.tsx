@@ -1,3 +1,7 @@
+import {
+  getDayAlwaysInTwoDigits,
+  getMonthAlwaysInTwoDigits,
+} from '@/lib/dateHelpers';
 import { getPolishEventTypeName } from '@/lib/textHelpers';
 import { TCurrentDevice } from '@/types';
 import { EventType } from '@prisma/client';
@@ -159,14 +163,6 @@ export default function SingleNews(props: Props) {
 }
 
 ////utils
-function getMonthAlwaysInTwoDigits(date: Date) {
-  const monthNumber = date.getMonth() + 1;
-  return monthNumber <= 10 ? `0${monthNumber}` : monthNumber;
-}
-function getDayAlwaysInTwoDigits(date: Date) {
-  const dayNumber = date.getDate();
-  return dayNumber <= 9 ? `0${dayNumber}` : dayNumber;
-}
 function createFormattedDate(date: Date) {
   return `${getDayAlwaysInTwoDigits(date)}.${getMonthAlwaysInTwoDigits(date)}`;
 }

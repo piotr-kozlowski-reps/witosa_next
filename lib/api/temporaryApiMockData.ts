@@ -700,6 +700,56 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-29T23:59:00.968Z'),
   },
+
+  {
+    id: '44dd8847-f5g1-gt51-811v-6r6rr7fd8wws',
+    eventTypes: ['CONCERT'],
+    eventForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'Wieczór włoski CIAO AMORE',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Za nami już wieczór hiszpański (z flamenco), wieczór kubański, a przed nami wieczór włoski... :)',
+    eventStartDate: new Date('2023-10-20T18:00:00.968Z'),
+    eventEndDate: new Date('2023-10-20T21:00:00.968Z'),
+    createdAt: new Date('2023-09-29T15:20:24.968Z'),
+    updatedAt: new Date('2023-09-29T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_italia_001.jpg',
+        alt: 'Plakat Andrea Lattari.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '<div><p>Za nami już wieczór hiszpański (z flamenco), wieczór kubański, a przed nami wieczór włoski - chcieliśmy w naszym Art CK przedłużyć ten uroczy czas wakacyjnych podróży i wspomnień, dając Wam możliwość artystycznego przeniesienia się do tych pięknych, pełnych słońca i pozytywnej energii miejsc.</p><p>Zatem, planujcie już wieczór 20 października aby pobyć z nami trochę we włoskich klimatachI!!!</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo: 'Cena biletu: 35 zł',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-italia-001.jpg',
+    newsSectionImageAlt: 'Plakat Andrea Lattari.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_italia_001.jpg',
+    sliderImageAlt: 'Plakat Andrea Lattari.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-20T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-20T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
