@@ -14,6 +14,11 @@ export function useIconsLogicHandler(size?: TIconSize) {
   let width = 32;
   let height = 32;
   switch (size) {
+    case 'EXTRA_SMALL':
+      width = 16;
+      height = 16;
+      break;
+
     case 'SMALL':
       width = 24;
       height = 24;

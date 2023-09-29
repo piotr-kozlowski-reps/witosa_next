@@ -39,13 +39,6 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
     isPlaceType,
   };
 
-  // getPolishNameAndDescription({
-  //     isActivityType,
-  //     isEventType,
-  //     isForWhomType,
-  //     isPlaceType,
-  //   }, );
-
   ////tsx
   return (
     <div className="flex flex-col items-start justify-start">
@@ -72,7 +65,7 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
               </label>
 
               <div
-                className="flex items-center justify-start gap-4 mt-[11px] flex-wrap"
+                className="flex items-center justify-start gap-4 mt-[3px] flex-wrap"
                 style={{ width: width ? width : '100%' }}
               >
                 {enumToIterateThrough.map((item, index) => (
@@ -85,7 +78,6 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
                         item
                       )}
                       disabled={false}
-                      // outlined={!isItemChosen(item)}
                       outlined={true}
                       isChosen={isItemChosen(item)}
                       actionFn={() => {

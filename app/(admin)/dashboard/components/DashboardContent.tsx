@@ -6,6 +6,10 @@ import {
   TGetAllUsersResponse,
   TNewsletterDataCombo,
 } from '@/types';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { pl } from 'date-fns/locale';
 import { useSession } from 'next-auth/react';
 import { Fragment } from 'react';
 import DashboardHeader from './DashboardHeader';
@@ -24,24 +28,78 @@ export default function DashboardContent(props: Props) {
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { newsletterDataCombo, usersData, cyclicalActivitiesData } = props;
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        light: 'rgba(41, 80, 71, 0.12)',
+        main: '#256254',
+        dark: '#256254',
+        contrastText: '#fdfdfd',
+      },
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            borderRadius: '20px',
+            outlineStyle: 'solid',
+            outlineWidth: '2px',
+            outlineOffset: '-2px',
+            outlineColor: 'var(--cta-primary)',
+            fontSize: 'var(--font-size-normal)',
+            lineHeight: 'var(--font-size-normal-line-height)',
+            fontWeight: '300',
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+            border: 'none',
+            '&:hover': {
+              outlineColor: 'var(--cta-secondary)',
+            },
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderRadius: '20px',
+            outlineStyle: 'solid',
+            outlineWidth: '2px',
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            borderRadius: '20px',
+            boxShadow: '-4px 4px 18px var(--color-shadow)',
+          },
+        },
+      },
+    },
+  });
+
   ////tsx
   return (
     <Fragment>
       {session?.status === 'unauthenticated' ? <NotAuthenticatedError /> : null}
-      {session && session?.data?.user ? (
-        <div className="proper-container-classes">
-          <DashboardHeader userName={session?.data?.user?.name} />
+      <ThemeProvider theme={theme}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
+          {session && session?.data?.user ? (
+            <div className="proper-container-classes">
+              <DashboardHeader userName={session?.data?.user?.name} />
 
-          <div className="mt-[37px] relative">
-            <DashboardNavigation isAdmin={isAdmin} />
-            <DashboardInsidePages
-              newsletterDataCombo={newsletterDataCombo}
-              usersData={usersData}
-              cyclicalActivitiesData={cyclicalActivitiesData}
-            />
-          </div>
-        </div>
-      ) : null}
+              <div className="mt-[37px] relative">
+                <DashboardNavigation isAdmin={isAdmin} />
+                <DashboardInsidePages
+                  newsletterDataCombo={newsletterDataCombo}
+                  usersData={usersData}
+                  cyclicalActivitiesData={cyclicalActivitiesData}
+                />
+              </div>
+            </div>
+          ) : null}
+        </LocalizationProvider>
+      </ThemeProvider>
     </Fragment>
   );
 }

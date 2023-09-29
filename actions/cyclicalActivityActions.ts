@@ -43,7 +43,7 @@ export async function addCyclicalActivity(
 
   // /** checking values eXistenZ */
   const submittedName = formData.get('name') as string;
-  const submittedExpiresAt = formData.get('expiresAt') as string;
+  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
   const submittedActivityTypes = formData.getAll(
     'activityTypes'
   ) as ActivityType[];
@@ -73,7 +73,7 @@ export async function addCyclicalActivity(
     activityTypes: submittedActivityTypes,
     activitiesForWhom: submittedActivitiesForWhom,
     places: submittedPlaces,
-    expiresAt: submittedExpiresAt || undefined,
+    expiresAt: submittedExpiresAt || null,
     isToBePublished: submittedIsToBePublished,
   };
   let validationResult = false;
