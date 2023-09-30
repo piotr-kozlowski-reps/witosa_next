@@ -252,3 +252,9 @@ export type TTypeDescriber = {
   isForWhomType: boolean;
   isPlaceType: boolean;
 };
+
+export type TFormStage = {
+  isAccessToStage: boolean;
+  isActive: boolean;
+  linkName: string;
+};

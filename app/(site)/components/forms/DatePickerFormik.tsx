@@ -35,9 +35,6 @@ export default function DatePickerFormik<T>(props: Props<T>) {
     checkIfValueIsDate(formik.getFieldProps(name).value) === true &&
     formik.getFieldMeta(name).touched;
 
-  // console.log({ isErrorPresentAndFieldWasTouched });
-  // console.log(formik.getFieldMeta(name));
-
   ///tsx
   return (
     <div className="flex flex-col items-start justify-start font-base-regular">

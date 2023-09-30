@@ -110,6 +110,9 @@
   .font-sm-normal {
     @apply font-normal text-size-small text-skin-base;
   }
+  .font-sm-bold {
+    @apply font-bold text-size-small text-skin-base;
+  }
   .font-base-regular {
     @apply font-normal text-size-normal text-skin-base;
   }
@@ -241,7 +244,6 @@
   }
 
   /* icons*/
-
   .icon-active {
     @apply font-normal;
   }

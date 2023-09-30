@@ -15,7 +15,11 @@ import {
   TCyclicalActivityFormInputs,
   cyclicalActivityValidationSchema,
 } from '@/lib/forms/cyclical-activities-form';
-import { TActionResponse } from '@/types';
+import {
+  TActionResponse,
+  TCyclicalActivitiesFormValues,
+  TFormStage,
+} from '@/types';
 import { ActivityType, ForWhom, Place } from '@prisma/client';
 import { Formik, FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
@@ -42,21 +46,67 @@ export default function CyclicalActivityAddForm() {
   };
 
   //form stages logic
-  const stagesInitialStage = [
+  const stagesInitialStage: TFormStage[] = [
     {
       isAccessToStage: true,
       linkName: 'informacje ogólne',
+      isActive: true,
     },
     {
       isAccessToStage: false,
       linkName: 'opis zajęć oraz zdjęcia',
+      isActive: false,
     },
     {
       isAccessToStage: false,
       linkName: 'godziny zajęć',
+      isActive: false,
     },
   ];
-  const [stage, setStage] = useState(stagesInitialStage);
+  const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
+  console.log({ stage });
+
+  function getCurrentStageIndex() {
+    return stage.findIndex((stageItem) => stageItem.isActive);
+  }
+  function goNextStageForm() {
+    const currentIndex = getCurrentStageIndex();
+    setStage((prevStage) => {
+      const newState = prevStage.map((item) => ({ ...item, isActive: false }));
+      newState[currentIndex + 1].isActive = true;
+      return newState;
+    });
+  }
+  function goPrevStageForm() {
+    const currentIndex = getCurrentStageIndex();
+    setStage((prevStage) => {
+      const newState = prevStage.map((item) => ({ ...item, isActive: false }));
+      newState[currentIndex - 1].isActive = true;
+      return newState;
+    });
+  }
+  function checkIfNextIsEnabled() {
+    //index number
+    const currentIndex = getCurrentStageIndex();
+    const isGoingNextStagePossibleWithCurrentIndex =
+      currentIndex !== stage.length - 1;
+
+    //TODO: validation of form values that allows going further
+    const validation = true;
+
+    return isGoingNextStagePossibleWithCurrentIndex && validation;
+  }
+  function checkIfPrevIsEnabled() {
+    const currentIndex = getCurrentStageIndex();
+    const isGoingPrevStagePossibleWithCurrentIndex = currentIndex !== 0;
+    return isGoingPrevStagePossibleWithCurrentIndex;
+  }
+
+  // useEffect(() => {
+  //   if (checkValidityOfFirstStage()) {
+  //     setStage((prevValue) => (prevValue[1].isAccessToStage = true));
+  //   }
+  // }, []);
 
   ////formik
   async function submitFormHandler(
@@ -152,8 +202,25 @@ export default function CyclicalActivityAddForm() {
           cyclicalActivityValidationSchema
         )}
       >
-        {(formik) => {
+        {(formik: FormikProps<TCyclicalActivitiesFormValues>) => {
           console.log({ formik });
+
+          function checkValidityOfFormFirstStage(
+            formik: FormikProps<TCyclicalActivitiesFormValues>
+          ) {
+            const fieldNames = ['name'];
+            let isValid = true;
+
+            fieldNames.forEach((field) => {
+              if (formik.getFieldMeta(field).error) {
+                isValid = false;
+              }
+            });
+
+            return isValid;
+          }
+
+          console.log('valid?: ', checkValidityOfFormFirstStage(formik));
 
           ////tsx
           return (
@@ -164,13 +231,8 @@ export default function CyclicalActivityAddForm() {
             >
               <div className="flex gap-8 mb-12 font-base-regular">
                 {stagesInitialStage.map((stage, index) => (
-                  <FormStageLink key={index} linkName={stage.linkName} />
-                  // <div key={index}>dfvdf</div>
+                  <FormStageLink key={index} stage={stage} />
                 ))}
-                {/* <div>etap1 - informacje ogólne</div>
-                <div className="text-skin-gray">etap2 - opis zajęć</div>
-                <div className="text-skin-gray">etap3 - godziny zajęć</div>
-                <div className="text-skin-gray">etap4 - zdjęcia</div> */}
               </div>
 
               <div className="form-input-width -mt-[7px]">
@@ -319,6 +381,23 @@ export default function CyclicalActivityAddForm() {
               ) : null} */}
 
               <div className="mt-[28px] flex gap-8">
+                <CustomButton
+                  text="poprzedni etap"
+                  descriptionText="Przejdź dalej."
+                  additionalClasses="mt-[4px]"
+                  disabled={!checkIfPrevIsEnabled()}
+                  actionFn={goPrevStageForm}
+                  outlined={true}
+                />
+                <CustomButton
+                  text="następny etap"
+                  descriptionText="Następny etap."
+                  additionalClasses="mt-[4px]"
+                  disabled={!checkIfNextIsEnabled()}
+                  actionFn={goNextStageForm}
+                  outlined={true}
+                />
+
                 <CustomButton
                   text={isCurrentFormToPUTData ? 'zmień' : 'dodaj'}
                   descriptionText="Dodaj użytkownika."

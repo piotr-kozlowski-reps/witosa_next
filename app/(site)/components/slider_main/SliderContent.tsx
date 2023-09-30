@@ -150,7 +150,6 @@ export default function SliderContent(props: Props) {
                 key={slide.id}
                 transition={{ delay: 0.1 }}
               >
-                {/* <div ref={descriptionRef} className="absolute mt-8 prose"> */}
                 <div className="text-size-normal">
                   {slide.eventTypes.map((type, index) => (
                     <div key={index} className="inline font-base-regular">
