@@ -129,7 +129,7 @@ export default function NewsletterAddItemForm() {
             >
               {/* <Form> */}
               <div className="form-input-width">
-                <InputFormik
+                <InputFormik<NewsletterFormInputs>
                   name="email"
                   type="email"
                   label={
@@ -138,6 +138,7 @@ export default function NewsletterAddItemForm() {
                       : 'podaj adres e-mail:'
                   }
                   placeholder="adres e-mail"
+                  formik={formik}
                 />
               </div>
               <div className="mt-[20px] flex gap-8">

@@ -21,9 +21,9 @@ import {
   TFormStage,
 } from '@/types';
 import { ActivityType, ForWhom, Place } from '@prisma/client';
-import { Formik, FormikProps } from 'formik';
+import { FormikProps, useFormik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 export default function CyclicalActivityAddForm() {
@@ -45,6 +45,25 @@ export default function CyclicalActivityAddForm() {
     setIsExpiresAtVisible((preState) => !preState);
   };
 
+  const formik = useFormik<TCyclicalActivityFormInputs>({
+    initialValues: {
+      name: '',
+      activityTypes: [],
+      activitiesForWhom: [],
+      places: [],
+      isToBePublished: true,
+      expiresAt: null,
+    },
+    onSubmit: () => {},
+    validationSchema: toFormikValidationSchema(
+      cyclicalActivityValidationSchema
+    ),
+  });
+
+  console.log({ formik });
+
+  // console.log('valid?: ', checkValidityOfFormFirstStage(formik));
+
   //form stages logic
   const stagesInitialStage: TFormStage[] = [
     {
@@ -64,23 +83,53 @@ export default function CyclicalActivityAddForm() {
     },
   ];
   const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
-  console.log({ stage });
+  // console.log({ stage });
+
+  function checkValidityOfFormFirstStage(
+    formik: FormikProps<TCyclicalActivitiesFormValues>
+  ) {
+    const fieldNames = ['name', 'activityTypes'];
+    let isValid = true;
+
+    fieldNames.forEach((field) => {
+      if (formik.getFieldMeta(field).error) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  }
 
   function getCurrentStageIndex() {
     return stage.findIndex((stageItem) => stageItem.isActive);
   }
-  function goNextStageForm() {
+
+  /** if index argument not provided -> function works as go_to_next_stage | when index argument provided function goes to desired index  */
+  function goToNextGivenStageOrJustNextStageOfForm(index?: number) {
     const currentIndex = getCurrentStageIndex();
     setStage((prevStage) => {
-      const newState = prevStage.map((item) => ({ ...item, isActive: false }));
-      newState[currentIndex + 1].isActive = true;
+      const newState = prevStage.map((item) => ({
+        ...item,
+        isActive: false,
+      }));
+
+      index || index === 0
+        ? (newState[index].isActive = true)
+        : (newState[currentIndex + 1].isActive = true);
+
       return newState;
     });
   }
-  function goPrevStageForm() {
+
+  function goToPrevGivenStageOrJustPrevStageOfForm(index?: number) {
     const currentIndex = getCurrentStageIndex();
     setStage((prevStage) => {
       const newState = prevStage.map((item) => ({ ...item, isActive: false }));
+
+      index || index === 0
+        ? (newState[index].isActive = true)
+        : (newState[currentIndex - 1].isActive = true);
+
       newState[currentIndex - 1].isActive = true;
       return newState;
     });
@@ -92,7 +141,7 @@ export default function CyclicalActivityAddForm() {
       currentIndex !== stage.length - 1;
 
     //TODO: validation of form values that allows going further
-    const validation = true;
+    const validation = checkValidityOfFormFirstStage(formik);
 
     return isGoingNextStagePossibleWithCurrentIndex && validation;
   }
@@ -102,11 +151,22 @@ export default function CyclicalActivityAddForm() {
     return isGoingPrevStagePossibleWithCurrentIndex;
   }
 
-  // useEffect(() => {
-  //   if (checkValidityOfFirstStage()) {
-  //     setStage((prevValue) => (prevValue[1].isAccessToStage = true));
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (checkValidityOfFormFirstStage(formik)) {
+      const resultStageState = [...stage];
+      if (!resultStageState[1].isAccessToStage) {
+        resultStageState[1].isAccessToStage = true;
+        setStage(resultStageState);
+      }
+    }
+    if (!checkValidityOfFormFirstStage(formik)) {
+      const resultStageState = [...stage];
+      if (resultStageState[1].isAccessToStage) {
+        resultStageState[1].isAccessToStage = false;
+        setStage(resultStageState);
+      }
+    }
+  }, [formik]);
 
   ////formik
   async function submitFormHandler(
@@ -169,7 +229,7 @@ export default function CyclicalActivityAddForm() {
   ////tsx
   return (
     <Fragment>
-      <div className="flex items-center justify-between mb-4 mr-8 -mt-[18px]">
+      <div className="flex items-center justify-between mb-[22px] mr-8 -mt-[18px]">
         <div className="prose">
           <h3>
             {isCurrentFormToPUTData ? 'Zmień szczegóły zajęć' : 'Dodaj zajęcia'}
@@ -187,60 +247,32 @@ export default function CyclicalActivityAddForm() {
       </div>
 
       {/* form */}
-      <Formik<TCyclicalActivityFormInputs>
-        // initialValues={getUserFormikDataForPUT()} //TODO: potem popraw
-        initialValues={{
-          name: '',
-          activityTypes: [],
-          activitiesForWhom: [],
-          places: [],
-          isToBePublished: true,
-          expiresAt: null,
+      <form
+        action={async (formData) => {
+          await submitFormHandler(formData, formik);
         }}
-        onSubmit={() => {}}
-        validationSchema={toFormikValidationSchema(
-          cyclicalActivityValidationSchema
-        )}
       >
-        {(formik: FormikProps<TCyclicalActivitiesFormValues>) => {
-          console.log({ formik });
+        <div className="flex mb-12 font-base-regular">
+          {stage.map((stageItem, index) => (
+            <FormStageLink
+              key={index}
+              stage={stageItem}
+              index={index}
+              actionFn={() => goToNextGivenStageOrJustNextStageOfForm(index)}
+            />
+          ))}
+        </div>
 
-          function checkValidityOfFormFirstStage(
-            formik: FormikProps<TCyclicalActivitiesFormValues>
-          ) {
-            const fieldNames = ['name'];
-            let isValid = true;
-
-            fieldNames.forEach((field) => {
-              if (formik.getFieldMeta(field).error) {
-                isValid = false;
-              }
-            });
-
-            return isValid;
-          }
-
-          console.log('valid?: ', checkValidityOfFormFirstStage(formik));
-
-          ////tsx
-          return (
-            <form
-              action={async (formData) => {
-                await submitFormHandler(formData, formik);
-              }}
-            >
-              <div className="flex gap-8 mb-12 font-base-regular">
-                {stagesInitialStage.map((stage, index) => (
-                  <FormStageLink key={index} stage={stage} />
-                ))}
-              </div>
-
-              <div className="form-input-width -mt-[7px]">
-                <InputFormik
+        {stage[0].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <Fragment>
+              <div className="form-input-width -mt-[13px]">
+                <InputFormik<TCyclicalActivityFormInputs>
                   name="name"
                   type="text"
                   label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
                   placeholder="wpisz nazwę"
+                  formik={formik}
                 />
               </div>
 
@@ -294,12 +326,13 @@ export default function CyclicalActivityAddForm() {
               </div>
 
               <div className="mt-[2px]">
-                <CheckboxFormik
+                <CheckboxFormik<TCyclicalActivityFormInputs>
                   name="isToBePublished"
                   label="Czy zajęcia mają być opublikowane?"
                   isCommentPopupVisible={true}
                   commentContent="Pole to gdy jest zaznaczone, zajęcia będą wyświetlały się na stronie internetowej. Gdy będzie odznaczone, zajęcia będą zapisane w bazie danych, lecz nie będą widoczne dla odbiorców strony."
                   isToBeUsedAsPartFormik={true}
+                  formik={formik}
                 />
               </div>
 
@@ -329,95 +362,78 @@ export default function CyclicalActivityAddForm() {
                   </ComponentTransitionFromRightToLeft>
                 ) : null}
               </AnimatePresence>
+            </Fragment>
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
 
-              {/* <div className="mt-[20px] form-input-width">
-                <SelectFormik<UserRole, TRegisterFormInputs>
-                  name="userRole"
-                  label="uprawnienia:"
-                  options={optionsForUserRoles}
+        {stage[1].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <Fragment>
+              <div className="form-input-width -mt-[7px]">
+                <InputFormik<TCyclicalActivityFormInputs>
+                  name="name"
+                  type="text"
+                  label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
+                  placeholder="wpisz nazwę"
                   formik={formik}
                 />
-              </div> */}
-              {/* {isCurrentFormToPUTData ? (
-                <Fragment>
-                  <div className="mt-[23px] form-input-width font-base-regular hover:font-base-bold">
-                    <div className="checkbox-rect">
-                      <input
-                        type="checkbox"
-                        id="checkbox-rect1"
-                        checked={isToChangePassword}
-                        onChange={() =>
-                          setIsToChangePassword((prevState) => !prevState)
-                        }
-                      />
-                      <label htmlFor="checkbox-rect1" className="pl-8 ">
-                        czy chcesz zmienić hasło?
-                      </label>
-                    </div>
-                  </div>
-                  {isToChangePassword ? (
-                    <Fragment>
-                      <div className="mt-[20px] form-input-width">
-                        <InputFormik
-                          name="password"
-                          type="password"
-                          label={
-                            isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'
-                          }
-                          placeholder="wpisz hasło"
-                        />
-                      </div>
-                      <div className="mt-[20px] form-input-width">
-                        <InputFormik
-                          name="confirmPassword"
-                          type="password"
-                          label="powtórz hasło:"
-                          placeholder="powtórz hasło"
-                        />
-                      </div>
-                    </Fragment>
-                  ) : null}
-                </Fragment>
-              ) : null} */}
+              </div>
+            </Fragment>
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
 
-              <div className="mt-[28px] flex gap-8">
-                <CustomButton
-                  text="poprzedni etap"
-                  descriptionText="Przejdź dalej."
-                  additionalClasses="mt-[4px]"
-                  disabled={!checkIfPrevIsEnabled()}
-                  actionFn={goPrevStageForm}
-                  outlined={true}
-                />
-                <CustomButton
-                  text="następny etap"
-                  descriptionText="Następny etap."
-                  additionalClasses="mt-[4px]"
-                  disabled={!checkIfNextIsEnabled()}
-                  actionFn={goNextStageForm}
-                  outlined={true}
-                />
-
-                <CustomButton
-                  text={isCurrentFormToPUTData ? 'zmień' : 'dodaj'}
-                  descriptionText="Dodaj użytkownika."
-                  additionalClasses="mt-[4px]"
-                  onSubmit={true}
-                  disabled={!formik.dirty || !formik.isValid}
-                />
-                <CustomButton
-                  text="wróć do listy"
-                  descriptionText="Wróć do listy użytkowników."
-                  additionalClasses="mt-[4px]"
-                  disabled={false}
-                  outlined={true}
-                  actionFn={() => setIsAddCyclicalActivityVisible(false)}
+        {stage[2].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <Fragment>
+              <div className="form-input-width -mt-[7px]">
+                <InputFormik<TCyclicalActivityFormInputs>
+                  name="name"
+                  type="text"
+                  label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
+                  placeholder="wpisz nazwę"
+                  formik={formik}
                 />
               </div>
-            </form>
-          );
-        }}
-      </Formik>
+            </Fragment>
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
+
+        <div className="mt-[40px] flex gap-8">
+          <CustomButton
+            text="poprzedni etap"
+            descriptionText="Przejdź dalej."
+            additionalClasses="mt-[4px]"
+            disabled={!checkIfPrevIsEnabled()}
+            actionFn={() => goToPrevGivenStageOrJustPrevStageOfForm()}
+            outlined={true}
+            currentlyActive={false}
+          />
+          <CustomButton
+            text="następny etap"
+            descriptionText="Następny etap."
+            additionalClasses="mt-[4px]"
+            disabled={!checkIfNextIsEnabled()}
+            actionFn={() => goToNextGivenStageOrJustNextStageOfForm()}
+            outlined={true}
+          />
+
+          <CustomButton
+            text={isCurrentFormToPUTData ? 'zmień zajęcia' : 'dodaj zajęcia'}
+            descriptionText="Dodaj użytkownika."
+            additionalClasses="mt-[4px]"
+            onSubmit={true}
+            disabled={!formik.dirty || !formik.isValid}
+          />
+          {/* <CustomButton
+            text="wróć do listy"
+            descriptionText="Wróć do listy użytkowników."
+            additionalClasses="mt-[4px]"
+            disabled={false}
+            outlined={true}
+            actionFn={() => setIsAddCyclicalActivityVisible(false)}
+          /> */}
+        </div>
+      </form>
     </Fragment>
   );
 }

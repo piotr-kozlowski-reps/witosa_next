@@ -63,11 +63,12 @@ export default function NewsletterForm() {
               ref={formRef}
             >
               {/* <Form> */}
-              <InputFormik
+              <InputFormik<NewsletterFormInputs>
                 name="email"
                 type="email"
                 label="podaj adres e-mail:"
                 placeholder="Twój e-mail"
+                formik={formik}
               />
               <div className="mt-[20px]">
                 <CustomButton

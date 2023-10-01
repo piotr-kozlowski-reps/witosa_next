@@ -6,7 +6,11 @@ export function useMultipleSelectHelper<T, R>(
   name: string
 ) {
   ////vars
-  const [chosenItemsInArray, setChosenItemsInArray] = useState<T[]>([]);
+  const [chosenItemsInArray, setChosenItemsInArray] = useState<T[]>(
+    formik.getFieldProps(name).value
+  );
+
+  console.log(formik.getFieldProps(name).value);
 
   ////utils
   const toggleItemsInArray = (itemInArray: T) => {

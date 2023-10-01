@@ -1,7 +1,8 @@
-import { Field } from 'formik';
+import { FormikProps } from 'formik';
 import CommentPopup from '../comment-popus/CommentPopup';
+import CheckboxExplicityForFormikInput from './CheckboxExplicityForFormikInput';
 
-type Props =
+type Props<T = void> =
   | {
       name: string;
       label: string;
@@ -10,6 +11,7 @@ type Props =
       isToBeUsedAsPartFormik: true;
       actionFn?: never;
       passedValue?: never;
+      formik: FormikProps<T>;
     }
   | {
       name: string;
@@ -19,9 +21,10 @@ type Props =
       isToBeUsedAsPartFormik: false;
       actionFn: () => void;
       passedValue: boolean;
+      formik?: never;
     };
 
-export default function CheckboxFormik(props: Props) {
+export default function CheckboxFormik<T = void>(props: Props<T>) {
   ///vars
   const {
     name,
@@ -31,55 +34,32 @@ export default function CheckboxFormik(props: Props) {
     isToBeUsedAsPartFormik,
     actionFn,
     passedValue,
+    formik,
   } = props;
 
+  ////tsx
   return (
     <div className="flex flex-col items-start justify-start">
-      {isToBeUsedAsPartFormik ? (
-        <Field id={name} name={name}>
-          {(formik: any) => {
-            ////vars
-            const { field, form, touched } = formik;
-            const { onChange, onBlur } = field;
-            const { errors } = form;
-
-            const isErrorPresentAndFieldWasTouched: undefined | string =
-              errors[name] && form.touched[name];
-
-            // console.log({ field });
-
-            return (
-              <div className="flex mt-[23px]">
-                <div className=" font-base-regular hover:font-base-bold">
-                  <div className="checkbox-rect">
-                    <input
-                      type="checkbox"
-                      id={name}
-                      name={name}
-                      checked={form.values[name]}
-                      onChange={(val) => onChange(val)}
-                      onBlur={onBlur}
-                      value={form.values[name]}
-                    />
-
-                    <label htmlFor={name} className="pl-8 ">
-                      {label}
-                    </label>
-                  </div>
-                </div>
-                {isCommentPopupVisible ? (
-                  <div className="px-2">
-                    <CommentPopup
-                      size="EXTRA_SMALL"
-                      alt={`${name} - komentarz.`}
-                      commentContent={commentContent}
-                    />
-                  </div>
-                ) : null}
-              </div>
-            );
-          }}
-        </Field>
+      {isToBeUsedAsPartFormik && formik ? (
+        <div className="flex mt-[23px]">
+          <div className=" font-base-regular hover:font-base-bold">
+            <div className="checkbox-rect">
+              <CheckboxExplicityForFormikInput<T> formik={formik} name={name} />
+              <label htmlFor={name} className="pl-8 ">
+                {label}
+              </label>
+            </div>
+          </div>
+          {isCommentPopupVisible ? (
+            <div className="px-2">
+              <CommentPopup
+                size="EXTRA_SMALL"
+                alt={`${name} - komentarz.`}
+                commentContent={commentContent}
+              />
+            </div>
+          ) : null}
+        </div>
       ) : null}
 
       {!isToBeUsedAsPartFormik ? (

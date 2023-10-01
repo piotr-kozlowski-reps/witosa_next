@@ -278,7 +278,7 @@
   }
   /* buttons */
   .standard-button {
-    @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-size-normal text-skin-inverted desktop:hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray;
+    @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-primary rounded-base text-size-normal text-skin-inverted desktop:hover:bg-skin-cta-secondary disabled:cursor-auto disabled:bg-skin-gray disabled:opacity-70 desktop:disabled:hover:bg-gray-color;
   }
   .chosen-button {
     @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-secondary rounded-base text-size-normal text-skin-inverted desktop:hover:bg-skin-cta-primary disabled:cursor-auto disabled:bg-skin-gray;
@@ -288,7 +288,7 @@
     @apply px-6 py-2 font-light no-underline transition-all bg-skin-cta-secondary rounded-base text-size-normal text-skin-inverted disabled:cursor-auto disabled:bg-skin-gray;
   }
   .outlined-button {
-    @apply px-6 py-2 outline-offset-[-2px] font-light no-underline lowercase transition-all bg-skin-main-bg outline outline-2 outline-cta-primary rounded-base text-size-normal text-skin-base desktop:hover:bg-skin-cta-primary desktop:hover:outline-cta-primary disabled:cursor-auto disabled:bg-skin-gray disabled:outline-gray-color desktop:hover:text-skin-inverted;
+    @apply px-6 py-2 outline-offset-[-2px] font-light no-underline lowercase transition-all bg-skin-main-bg outline outline-2 outline-cta-primary rounded-base text-size-normal text-skin-base desktop:hover:bg-skin-cta-primary desktop:hover:outline-cta-primary disabled:cursor-auto disabled:bg-skin-gray disabled:outline-gray-color disabled:text-skin-inverted desktop:hover:text-skin-inverted disabled:hover:bg-skin-gray desktop:disabled:hover:outline-gray-color disabled:opacity-70;
   }
 
   .submenu-container {

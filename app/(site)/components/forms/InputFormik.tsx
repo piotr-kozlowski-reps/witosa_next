@@ -1,13 +1,19 @@
+import {
+  getErrorForField,
+  getIsErrorNOTPresentAndFieldWasTouched,
+  getIsErrorPresentAndFieldWasTouched,
+} from '@/lib/formikHelpers';
 import clsx from 'clsx';
-import { Field } from 'formik';
+import { FormikProps } from 'formik';
 import { Fragment } from 'react';
 
-interface Props {
+interface Props<T> {
   name: string;
   label: string; //TODO: na pewno string? może mogę to dookreślić, znaleźć
   type: string;
   placeholder: string;
   width?: number;
+  formik: FormikProps<T>;
   // isTextarea?: boolean;
   // value: string;
   // onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -17,64 +23,59 @@ interface Props {
   // dataTestIdForError: string;
 }
 
-export default function InputFormik(props: Props) {
+export default function InputFormik<T>(props: Props<T>) {
   ///vars
-  const { name, placeholder, label, width, type } = props;
+  const { name, placeholder, label, width, type, formik } = props;
 
+  //formik
+  const error = getErrorForField<T>(formik, name);
+  const isErrorPresentAndFieldWasTouched =
+    getIsErrorPresentAndFieldWasTouched<T>(formik, name);
+  const isErrorNotPresentAndFieldWasTouched =
+    getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
+
+  const currentValue = formik.getFieldMeta(name).value as string;
+  const onChangeForInput = formik.getFieldProps(name).onChange;
+  const onBlurForInput = formik.getFieldProps(name).onBlur;
+
+  ///tsx
   return (
     <div className="flex flex-col items-start justify-start">
-      <Field id={name} name="name">
-        {(formik: any) => {
-          ////vars
-          const { field, form, touched } = formik;
-          const { onChange, onBlur } = field;
-          const { errors } = form;
+      <Fragment>
+        <label
+          htmlFor={name}
+          className={clsx(
+            'font-base-regular',
+            isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+          )}
+        >
+          {label}
+        </label>
 
-          const isErrorPresentAndFieldWasTouched: undefined | string =
-            errors[name] && form.touched[name];
-          const isErrorNotPresentAndFieldWasTouched: undefined | string =
-            !errors[name] && form.touched[name];
-
-          return (
-            <Fragment>
-              <label
-                htmlFor={name}
-                className={clsx(
-                  'font-base-regular',
-                  isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
-                )}
-              >
-                {label}
-              </label>
-              <input
-                id={name}
-                name={name}
-                type={type}
-                placeholder={placeholder}
-                value={form.values[name]}
-                onChange={(val) => onChange(val)}
-                onBlur={onBlur}
-                className={clsx(
-                  'form-input',
-                  !width ? 'w-full' : '',
-                  isErrorPresentAndFieldWasTouched
-                    ? 'border-2 border-error'
-                    : '',
-                  isErrorNotPresentAndFieldWasTouched
-                    ? 'bg-cta-secondary-opacity'
-                    : ''
-                )}
-                style={width ? { width: `${width}px` } : {}}
-              />
-              {isErrorPresentAndFieldWasTouched ? (
-                <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-                  {errors[name]}
-                </p>
-              ) : null}
-            </Fragment>
-          );
-        }}
-      </Field>
+        <input
+          id={name}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          value={currentValue}
+          onChange={(val) => onChangeForInput(val)}
+          onBlur={onBlurForInput}
+          className={clsx(
+            'form-input',
+            !width ? 'w-full' : '',
+            isErrorPresentAndFieldWasTouched ? 'border-2 border-error' : '',
+            isErrorNotPresentAndFieldWasTouched
+              ? 'bg-cta-secondary-opacity'
+              : ''
+          )}
+          style={width ? { width: `${width}px` } : {}}
+        />
+        {isErrorPresentAndFieldWasTouched ? (
+          <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
+            {error}
+          </p>
+        ) : null}
+      </Fragment>
     </div>
   );
 }
