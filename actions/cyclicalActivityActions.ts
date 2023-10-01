@@ -55,14 +55,17 @@ export async function addCyclicalActivity(
   const submittedIsExpiresAtRequired =
     (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
   const submittedExpiresAt = formData.get('expiresAt') as Date & string;
+  const submittedShortDescription = formData.get('shortDescription') as string;
 
+  //TODO: maybe also with ZOD ?
   if (
     !submittedName ||
     !submittedActivityTypes ||
     !submittedActivitiesForWhom ||
     !submittedPlaces ||
     submittedIsToBePublished === undefined ||
-    submittedIsExpiresAtRequired === undefined
+    submittedIsExpiresAtRequired === undefined ||
+    submittedShortDescription
   ) {
     logger.warn(lackOfCyclicalActivitiesData);
     return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
@@ -77,6 +80,7 @@ export async function addCyclicalActivity(
     isExpiresAtRequired: submittedIsExpiresAtRequired,
     expiresAt: submittedExpiresAt || null,
     isToBePublished: submittedIsToBePublished,
+    shortDescription: submittedShortDescription,
   };
   let validationResult = false;
   try {
@@ -95,16 +99,18 @@ export async function addCyclicalActivity(
   try {
     const response = await prisma.cyclicalActivity.create({
       data: {
+        //stage1
         name: submittedName,
         activityTypes: submittedActivityTypes,
         activitiesForWhom: submittedActivitiesForWhom,
         places: submittedPlaces,
         isToBePublished: submittedIsToBePublished,
-        shortDescription: 'short desctiption',
+        isExpiresAtRequired: submittedIsExpiresAtRequired,
+        expiresAt: submittedExpiresAt,
+        //stage2
+        shortDescription: submittedShortDescription,
         longDescription: 'long description',
         customLinkToDetails: 'customLinkToDetails',
-        isExpiresAtRequired: submittedIsExpiresAtRequired,
-        expiresAt: '2022-10-10T22:00:24.968Z',
         author: {
           connect: { id: authorId },
         },
