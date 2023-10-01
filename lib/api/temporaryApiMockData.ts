@@ -895,6 +895,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -934,6 +935,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -972,6 +974,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1011,6 +1014,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1049,6 +1053,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1087,6 +1092,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1122,6 +1128,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1167,6 +1174,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1235,6 +1243,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1288,6 +1297,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1336,6 +1346,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
   {
@@ -1396,6 +1407,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
     createdAt: new Date('2023-08-10T11:00:24.968Z'),
     updatedAt: new Date('2023-08-10T11:00:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+    isExpiresAtRequired: true,
     expiresAt: new Date('2025-08-10T11:00:24.968Z'),
   },
 ];
