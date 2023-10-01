@@ -5,31 +5,60 @@ import {
   forWhomArraySchema,
   isBooleanSchema,
   isDateOrNullSchema,
+  isDateSchema,
   nameSchema_Required_Min2,
   placesArraySchema,
 } from '../zodSchemas';
 
-export const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesFormValues> =
-  z.object({
-    name: nameSchema_Required_Min2,
-    activityTypes: activityTypeArraySchema,
-    activitiesForWhom: forWhomArraySchema,
-    places: placesArraySchema,
-    isToBePublished: isBooleanSchema,
-    expiresAt: isDateOrNullSchema,
+// export function getCyclicalActivityValidationSchema(
+//   isExpiresAtShouldBePresent: boolean
+// ) {
+//   const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesFormValues> =
+//     z.object({
+//       name: nameSchema_Required_Min2,
+//       activityTypes: activityTypeArraySchema,
+//       activitiesForWhom: forWhomArraySchema,
+//       places: placesArraySchema,
+//       isToBePublished: isBooleanSchema,
 
-    // expiresAt: isDateSchema,
+//       expiresAt: isExpiresAtShouldBePresent ? isDateSchema : isDateOrNullSchema,
+//     });
 
-    // email: emailSchema,
-    // password: passwordSchema_Required_Min5_Max20,
-    // confirmPassword: passwordSchema_Required_Min5_Max20,
-    // userRole: useRoleSchema,
-  });
-// .refine((data) => data.password === data.confirmPassword, {
-//   message: 'Wpisane hasła się różnią',
-//   path: ['confirmPassword'],
-// });
+//   return cyclicalActivityValidationSchema;
+// }
+
+export function getCyclicalActivityValidationSchema() {
+  return cyclicalActivityValidationSchemaStageOne;
+}
+
+export const cyclicalActivityValidationSchemaStageOne: z.ZodType<TCyclicalActivitiesFormValues> =
+  z
+    .object({
+      name: nameSchema_Required_Min2,
+      activityTypes: activityTypeArraySchema,
+      activitiesForWhom: forWhomArraySchema,
+      places: placesArraySchema,
+      isToBePublished: isBooleanSchema,
+      isExpiresAtRequired: isBooleanSchema,
+      expiresAt: isDateOrNullSchema,
+    })
+    .superRefine((values, context) => {
+      if (!values.isExpiresAtRequired) {
+        return;
+      }
+
+      const isValidated = isDateSchema.safeParse(values.expiresAt);
+      if (isValidated.success) {
+        return;
+      }
+
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Data musi być określona.',
+        path: ['expiresAt'],
+      });
+    });
 
 export type TCyclicalActivityFormInputs = z.TypeOf<
-  typeof cyclicalActivityValidationSchema
+  typeof cyclicalActivityValidationSchemaStageOne
 >;

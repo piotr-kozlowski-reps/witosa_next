@@ -13,7 +13,7 @@ import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
-  cyclicalActivityValidationSchema,
+  getCyclicalActivityValidationSchema,
 } from '@/lib/forms/cyclical-activities-form';
 import {
   TActionResponse,
@@ -40,10 +40,10 @@ export default function CyclicalActivityAddForm() {
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
 
   //expiration at logic
-  const [isExpiresAtVisible, setIsExpiresAtVisible] = useState(false);
-  const toggleExpiresAtVisibility = () => {
-    setIsExpiresAtVisible((preState) => !preState);
-  };
+  // const [isExpiresAtVisible, setIsExpiresAtVisible] = useState(false);
+  // const toggleExpiresAtVisibility = () => {
+  //   setIsExpiresAtVisible((preState) => !preState);
+  // };
 
   const formik = useFormik<TCyclicalActivityFormInputs>({
     initialValues: {
@@ -52,16 +52,18 @@ export default function CyclicalActivityAddForm() {
       activitiesForWhom: [],
       places: [],
       isToBePublished: true,
+      isExpiresAtRequired: false,
       expiresAt: null,
     },
     onSubmit: () => {},
     validationSchema: toFormikValidationSchema(
-      cyclicalActivityValidationSchema
+      getCyclicalActivityValidationSchema()
     ),
   });
 
   console.log({ formik });
-
+  // console.log(formik.getFieldProps('isExpiresAtRequired').value);
+  const isExpiresAtRequired = formik.getFieldProps('isExpiresAtRequired').value;
   // console.log('valid?: ', checkValidityOfFormFirstStage(formik));
 
   //form stages logic
@@ -337,7 +339,15 @@ export default function CyclicalActivityAddForm() {
               </div>
 
               <div className="mt-[-2px]">
-                <CheckboxFormik
+                <CheckboxFormik<TCyclicalActivityFormInputs>
+                  name="isExpiresAtRequired"
+                  label="Czy chcesz dodać datę zakończenia publikacji?"
+                  isCommentPopupVisible={true}
+                  commentContent="Gdy pole będzie odznaczone (zarazem data nie będzie określona), zajęcia będą widoczne na stronie internetowej bez ograniczeń czasowych. Gdy pole będzie zaznaczone, należy podać datę, po której automatycznie zajęcia przestaną się wyświetlać na stronie."
+                  isToBeUsedAsPartFormik={true}
+                  formik={formik}
+                />
+                {/* <CheckboxFormik
                   name="isExpirationDateToBeAdded"
                   label="Czy chcesz dodać datę zakończenia publikacji?"
                   isCommentPopupVisible={true}
@@ -345,18 +355,18 @@ export default function CyclicalActivityAddForm() {
                   isToBeUsedAsPartFormik={false}
                   actionFn={toggleExpiresAtVisibility}
                   passedValue={isExpiresAtVisible}
-                />
+                /> */}
               </div>
 
               <AnimatePresence mode="wait">
-                {isExpiresAtVisible ? (
+                {isExpiresAtRequired ? (
                   <ComponentTransitionFromRightToLeft>
                     <DatePickerFormik<TCyclicalActivityFormInputs>
                       name="expiresAt"
                       label="data zakończenia publikacji:"
                       formik={formik}
                       additionalClasses="mt-[13px]"
-                      isErrorValidationTurnedOn={isExpiresAtVisible}
+                      isErrorValidationTurnedOn={isExpiresAtRequired}
                       errorText="Data musi być określona."
                     />
                   </ComponentTransitionFromRightToLeft>

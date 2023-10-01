@@ -61,7 +61,10 @@ export const password_NotRequired_CanBeUndefined = z
 
 //
 /** date */
-export const isDateSchema = z.date({ description: 'Data ma zły format.' });
+export const isDateSchema = z.date({
+  required_error: 'Data musi być określona.',
+  description: 'Data ma zły format.',
+});
 
 //
 /** boolean*/

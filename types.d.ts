@@ -37,6 +37,7 @@ export type TCyclicalActivitiesFormValues = Pick<
   | 'activitiesForWhom'
   | 'places'
   | 'isToBePublished'
+  | 'isExpiresAtRequired'
   | 'expiresAt'
 >;
 
