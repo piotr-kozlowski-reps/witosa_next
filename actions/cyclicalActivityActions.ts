@@ -421,16 +421,11 @@ function validateCyclicalActivityData(
   placesArraySchema.parse(cyclicalActivity.places);
   isBooleanSchema.parse(cyclicalActivity.isToBePublished);
   isBooleanSchema.parse(cyclicalActivity.isExpiresAtRequired);
-  if (cyclicalActivity.expiresAt) {
+  //expiresAt
+  if (cyclicalActivity.isExpiresAtRequired) {
     isDateSchema.parse(cyclicalActivity.expiresAt);
   }
 
-  // emailSchema.parse(email);
-  // passwordSchema_Required_Min5_Max20.parse(password);
-  // passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
-  // useRoleSchema.parse(userRole);
-  // if (password.trim() !== confirmationPassword.trim()) {
-  //   throw new Error("Password and it's confirmation are not the same");
-  // }
   return true;
 }
+//TODO: może szansa aby to także zrobić singe source of truth dzieki schematowi z ZODa
