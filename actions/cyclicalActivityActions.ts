@@ -43,7 +43,6 @@ export async function addCyclicalActivity(
 
   // /** checking values eXistenZ */
   const submittedName = formData.get('name') as string;
-  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
   const submittedActivityTypes = formData.getAll(
     'activityTypes'
   ) as ActivityType[];
@@ -53,15 +52,17 @@ export async function addCyclicalActivity(
   const submittedPlaces = formData.getAll('places') as Place[];
   const submittedIsToBePublished =
     (formData.get('isToBePublished') as string) === 'true' ? true : false;
-
-  console.log({ submittedIsToBePublished });
+  const submittedIsExpiresAtRequired =
+    (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
+  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
 
   if (
     !submittedName ||
     !submittedActivityTypes ||
     !submittedActivitiesForWhom ||
     !submittedPlaces ||
-    submittedIsToBePublished === undefined
+    submittedIsToBePublished === undefined ||
+    submittedIsExpiresAtRequired === undefined
   ) {
     logger.warn(lackOfCyclicalActivitiesData);
     return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
@@ -73,6 +74,7 @@ export async function addCyclicalActivity(
     activityTypes: submittedActivityTypes,
     activitiesForWhom: submittedActivitiesForWhom,
     places: submittedPlaces,
+    isExpiresAtRequired: submittedIsExpiresAtRequired,
     expiresAt: submittedExpiresAt || null,
     isToBePublished: submittedIsToBePublished,
   };
@@ -101,6 +103,7 @@ export async function addCyclicalActivity(
         shortDescription: 'short desctiption',
         longDescription: 'long description',
         customLinkToDetails: 'customLinkToDetails',
+        isExpiresAtRequired: submittedIsExpiresAtRequired,
         expiresAt: '2022-10-10T22:00:24.968Z',
         author: {
           connect: { id: authorId },
@@ -417,7 +420,7 @@ function validateCyclicalActivityData(
   forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
   placesArraySchema.parse(cyclicalActivity.places);
   isBooleanSchema.parse(cyclicalActivity.isToBePublished);
-
+  isBooleanSchema.parse(cyclicalActivity.isExpiresAtRequired);
   if (cyclicalActivity.expiresAt) {
     isDateSchema.parse(cyclicalActivity.expiresAt);
   }
