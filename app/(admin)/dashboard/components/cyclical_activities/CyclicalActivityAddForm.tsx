@@ -6,6 +6,7 @@ import DatePickerFormik from '@/app/(site)/components/forms/DatePickerFormik';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
+import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationState } from '@/context/navigationState';
@@ -14,6 +15,8 @@ import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
   getCyclicalActivityValidationSchema,
+  getCyclicalActivityValidationSchemaForStageOne,
+  getCyclicalActivityValidationSchemaForStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
 import {
   TActionResponse,
@@ -39,14 +42,9 @@ export default function CyclicalActivityAddForm() {
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
 
-  //expiration at logic
-  // const [isExpiresAtVisible, setIsExpiresAtVisible] = useState(false);
-  // const toggleExpiresAtVisibility = () => {
-  //   setIsExpiresAtVisible((preState) => !preState);
-  // };
-
   const formik = useFormik<TCyclicalActivityFormInputs>({
     initialValues: {
+      //stage1
       name: '',
       activityTypes: [],
       activitiesForWhom: [],
@@ -54,6 +52,9 @@ export default function CyclicalActivityAddForm() {
       isToBePublished: true,
       isExpiresAtRequired: false,
       expiresAt: null,
+
+      //stage2
+      shortDescription: '',
     },
     onSubmit: () => {},
     validationSchema: toFormikValidationSchema(
@@ -62,9 +63,8 @@ export default function CyclicalActivityAddForm() {
   });
 
   console.log({ formik });
-  // console.log(formik.getFieldProps('isExpiresAtRequired').value);
+
   const isExpiresAtRequired = formik.getFieldProps('isExpiresAtRequired').value;
-  // console.log('valid?: ', checkValidityOfFormFirstStage(formik));
 
   //form stages logic
   const stagesInitialStage: TFormStage[] = [
@@ -87,19 +87,19 @@ export default function CyclicalActivityAddForm() {
   const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
   // console.log({ stage });
 
-  function checkValidityOfFormFirstStage(
+  function checkValidityOfFormStageOne(
     formik: FormikProps<TCyclicalActivitiesFormValues>
   ) {
-    const fieldNames = ['name', 'activityTypes'];
-    let isValid = true;
-
-    fieldNames.forEach((field) => {
-      if (formik.getFieldMeta(field).error) {
-        isValid = false;
-      }
-    });
-
-    return isValid;
+    return getCyclicalActivityValidationSchemaForStageOne().safeParse(
+      formik.values
+    ).success;
+  }
+  function checkValidityOfFormStageTwo(
+    formik: FormikProps<TCyclicalActivitiesFormValues>
+  ) {
+    return getCyclicalActivityValidationSchemaForStageTwo().safeParse(
+      formik.values
+    ).success;
   }
 
   function getCurrentStageIndex() {
@@ -143,7 +143,7 @@ export default function CyclicalActivityAddForm() {
       currentIndex !== stage.length - 1;
 
     //TODO: validation of form values that allows going further
-    const validation = checkValidityOfFormFirstStage(formik);
+    const validation = checkValidityOfFormStageOne(formik);
 
     return isGoingNextStagePossibleWithCurrentIndex && validation;
   }
@@ -154,17 +154,33 @@ export default function CyclicalActivityAddForm() {
   }
 
   useEffect(() => {
-    if (checkValidityOfFormFirstStage(formik)) {
+    //stageOne validation -> access to stageTwo
+    if (checkValidityOfFormStageOne(formik)) {
       const resultStageState = [...stage];
       if (!resultStageState[1].isAccessToStage) {
         resultStageState[1].isAccessToStage = true;
         setStage(resultStageState);
       }
     }
-    if (!checkValidityOfFormFirstStage(formik)) {
+    if (!checkValidityOfFormStageOne(formik)) {
       const resultStageState = [...stage];
       if (resultStageState[1].isAccessToStage) {
         resultStageState[1].isAccessToStage = false;
+        setStage(resultStageState);
+      }
+    }
+    //stageTwo validation -> access to stageThree
+    if (checkValidityOfFormStageTwo(formik)) {
+      const resultStageState = [...stage];
+      if (!resultStageState[2].isAccessToStage) {
+        resultStageState[2].isAccessToStage = true;
+        setStage(resultStageState);
+      }
+    }
+    if (!checkValidityOfFormStageTwo(formik)) {
+      const resultStageState = [...stage];
+      if (resultStageState[2].isAccessToStage) {
+        resultStageState[2].isAccessToStage = false;
         setStage(resultStageState);
       }
     }
@@ -292,7 +308,6 @@ export default function CyclicalActivityAddForm() {
                   enumToIterateThrough={
                     Object.keys(ActivityType) as Array<ActivityType>
                   }
-                  // enumToIterateThrough={ActivityType}
                   formik={formik}
                 />
               </div>
@@ -379,12 +394,15 @@ export default function CyclicalActivityAddForm() {
         {stage[1].isActive ? (
           <ComponentTransitionFromRightToLeft>
             <Fragment>
-              <div className="form-input-width -mt-[7px]">
-                <InputFormik<TCyclicalActivityFormInputs>
-                  name="name"
-                  type="text"
-                  label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
-                  placeholder="wpisz nazwę"
+              <div className="-mt-[13px] mr-8">
+                <TextareaFormik<TCyclicalActivityFormInputs>
+                  name="shortDescription"
+                  label={
+                    isCurrentFormToPUTData
+                      ? 'zmień krótki opis:'
+                      : 'krótki opis:'
+                  }
+                  placeholder="dodaj krótki opis..."
                   formik={formik}
                 />
               </div>
@@ -396,13 +414,14 @@ export default function CyclicalActivityAddForm() {
           <ComponentTransitionFromRightToLeft>
             <Fragment>
               <div className="form-input-width -mt-[7px]">
-                <InputFormik<TCyclicalActivityFormInputs>
-                  name="name"
+                {/* <TextareaFormik<TCyclicalActivityFormInputs> name="shortDescription" la/> */}
+                {/* <InputFormik<TCyclicalActivityFormInputs>
+                  name="shortDescription"
                   type="text"
                   label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
                   placeholder="wpisz nazwę"
                   formik={formik}
-                />
+                /> */}
               </div>
             </Fragment>
           </ComponentTransitionFromRightToLeft>

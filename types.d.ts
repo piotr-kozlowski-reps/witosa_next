@@ -30,7 +30,21 @@ export type TRegisterFormValuesSent = {
   userRole: UserRole;
 };
 
-export type TCyclicalActivitiesFormValues = Pick<
+// export type TCyclicalActivitiesFormValues = Pick<
+//   CyclicalActivity,
+//   | 'name'
+//   | 'activityTypes'
+//   | 'activitiesForWhom'
+//   | 'places'
+//   | 'isToBePublished'
+//   | 'isExpiresAtRequired'
+//   | 'expiresAt'
+//   | 'shortDescription'
+// >;
+export type TCyclicalActivitiesFormValues =
+  TCyclicalActivitiesFormValuesStageOne & TCyclicalActivitiesFormValuesStageTwo;
+
+export type TCyclicalActivitiesFormValuesStageOne = Pick<
   CyclicalActivity,
   | 'name'
   | 'activityTypes'
@@ -39,6 +53,11 @@ export type TCyclicalActivitiesFormValues = Pick<
   | 'isToBePublished'
   | 'isExpiresAtRequired'
   | 'expiresAt'
+>;
+
+export type TCyclicalActivitiesFormValuesStageTwo = Pick<
+  CyclicalActivity,
+  'shortDescription'
 >;
 
 export type TLoginFormValues = {

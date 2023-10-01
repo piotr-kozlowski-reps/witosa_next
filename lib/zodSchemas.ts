@@ -24,10 +24,20 @@ export const passwordSchema_Required_Min5_Max20 = z
 /** name */
 export const nameSchema_Required_Min2 = z
   .string({
-    required_error: 'Pole jest wymagane',
+    required_error: 'Pole jest wymagane.',
   })
-  .min(2, { message: 'min 2 znaki' });
+  .min(2, { message: 'Min. 2 znaki.' });
 
+//
+/** short description */
+export const shortDescription_Required_Min5 = z
+  .string({
+    required_error: 'Pole jest wymagane.',
+  })
+  .min(5, { message: 'Min. 5 znaków.' });
+
+//
+/** user role */
 export const useRoleSchema = z.nativeEnum(UserRole);
 
 //

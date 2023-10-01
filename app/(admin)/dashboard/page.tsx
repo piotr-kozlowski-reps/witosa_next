@@ -3,6 +3,7 @@ import { getAllNewsletterAddresses } from '@/actions/newsletterActions';
 import { getAllUsers } from '@/actions/userActions';
 import { TNewsletterDataCombo } from '@/types';
 
+import { Fragment } from 'react';
 import DashboardContent from './components/DashboardContent';
 
 export default async function Dashboard() {
@@ -17,10 +18,12 @@ export default async function Dashboard() {
 
   ////tsx
   return (
-    <DashboardContent
-      newsletterDataCombo={newsletterDataCombo}
-      usersData={usersData}
-      cyclicalActivitiesData={cyclicalActivitiesData}
-    />
+    <Fragment>
+      <DashboardContent
+        newsletterDataCombo={newsletterDataCombo}
+        usersData={usersData}
+        cyclicalActivitiesData={cyclicalActivitiesData}
+      />
+    </Fragment>
   );
 }
