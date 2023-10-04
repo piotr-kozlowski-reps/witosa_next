@@ -805,6 +805,58 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-20T23:59:00.968Z'),
   },
+  {
+    id: '123d8847-e3g1-gt51-871v-fr6rr7fd8wzz',
+    eventTypes: ['CYCLIC_MEETING', 'WORKSHOP', 'OTHERS'],
+    eventForWhom: ['ADULTS', 'SENIORS', 'WOMEN'],
+    title: 'Kobiecy wieczór z dynią na pierwszym planie ',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Rozpoczynamy cykl jesiennych wieczorów kobiecych, na pierwszy plan stawiamy dynię i wszelkie cudowności od niej pochodzące! Będziemy spędzać uroczy wieczór, robiąc piękne ozdoby dyniowe do naszych wnętrz, smakując dyniowe pyszności popijane aromatyczną kawą, a wszystko to w przy pięknej muzyce, świecach i uśmiechniętych sercach!',
+    eventStartDate: new Date('2023-10-14T18:00:00.968Z'),
+    eventEndDate: new Date('2023-10-14T20:00:00.968Z'),
+    createdAt: new Date('2023-10-04T22:20:24.968Z'),
+    updatedAt: new Date('2023-10-04T22:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_dynia_001.jpg',
+        alt: 'Plakat na czarnym tle kolorowe liście i dynie oraz napis Kobiecy Wieczór z dynią, 14 października, godz. 18.00, Art CK.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+    detailedDescription:
+      '<div><p>Dynia bardzo lubi się z jesiennymi kwiatami! Będzie wyglądała świetnie  jako… oryginalny wazon na kwiaty. Uczestnicząc w naszym Kobiecym Wieczorze z DYNIĄ w tle przygotujemy dla Ciebie wszystkie materiały, które będą potrzebne Ci do stworzenia pięknej dekoracji dyniowo - kwiatowej, którą oczywiście weźmiesz do swojego domu! W naszej Art Cafe otrzymasz również profesjonalną pomoc i wsparcie w wykonaniu tej dekoracji.</p><p>Stworzymy dla Ciebie niezwykłą atmosferę wspierającą twórczą pracę:  świece, muzyka, uśmiech, pyszności dyniowe, świeża kawa - czy jeszcze o czymś zapomnieliśmy by dać Ci chwilę odprężenia?</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo:
+      'Wstęp: 45 zł, rezerwacja miejsc pod numerem telefonu 32 332 63 79.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-dyniai-001.jpg',
+    newsSectionImageAlt:
+      'W wydrążonej dyni tkwią różne kolorowe kwiaty tworząc ozdobę, dekorację.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_dynia_001.jpg',
+    sliderImageAlt:
+      'Plakat na czarnym tle kolorowe liście i dynie oraz napis Kobiecy Wieczór z dynią, 14 października, godz. 18.00, Art CK.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-14T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-14T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
