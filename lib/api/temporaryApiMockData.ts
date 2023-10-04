@@ -594,7 +594,7 @@ export const allEventsMockData: TEventTemporary[] = [
     title: 'Rozpoczynamy zajęcia Body Groove.',
     places: ['DANCING_ROOM'],
     shortDescription:
-      'Zapraszamy wszystkich zainteresowanych zajęciami Body Groove, na pierwsze otwarte zajęcia, które odbędą się 5 października od godz. 18.30.',
+      'Zapraszamy wszystkich zainteresowanych zajęciami Body Groove, na pierwsze otwarte zajęcia, które odbędą się 5 października od godz. 18.45.',
     eventStartDate: new Date('2023-09-13T18:00:00.968Z'),
     eventEndDate: null,
     createdAt: new Date('2023-08-27T14:20:00.968Z'),
@@ -1124,7 +1124,7 @@ export const allCyclicalActivitiesMockData: CyclicalActivityTemporary[] = [
         day: 'THURSDAY',
         duration: [
           {
-            activityStart: new Date('2000-01-01T18:30:00.968Z'),
+            activityStart: new Date('2000-01-01T18:45:00.968Z'),
             activityEnd: new Date('2000-01-01T20:00:00.968Z'),
           },
         ],
