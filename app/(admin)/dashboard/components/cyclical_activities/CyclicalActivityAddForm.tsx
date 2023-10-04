@@ -9,9 +9,11 @@ import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
-  getCyclicalActivityValidationSchema,
+  generateValidationForCyclicalActivities,
   getCyclicalActivityValidationSchemaForStageOne,
   getCyclicalActivityValidationSchemaForStageTwo,
+  validateValuesForCyclicalActivitiesStageOne,
+  validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
 import {
   TActionResponse,
@@ -20,12 +22,12 @@ import {
 } from '@/types';
 import { FormikProps, useFormik } from 'formik';
 import { Fragment, useEffect, useState } from 'react';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
 import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 
 export default function CyclicalActivityAddForm() {
   ////vars
+  const validationSchema = generateValidationForCyclicalActivities();
   const { setIsAddCyclicalActivityVisible, resetUserFormikDataForPUT } =
     useNavigationState();
   const { setShowNotification } = useNotificationState();
@@ -55,9 +57,7 @@ export default function CyclicalActivityAddForm() {
       longDescription: '',
     },
     onSubmit: () => {},
-    validationSchema: toFormikValidationSchema(
-      getCyclicalActivityValidationSchema()
-    ),
+    validationSchema: validationSchema,
   });
 
   console.log({ formik });
@@ -157,19 +157,15 @@ export default function CyclicalActivityAddForm() {
 
   useEffect(() => {
     //stageOne validation -> access to stageTwo
-    // console.log(
-    //   'checkValidityOfFormStageOne(formik): ',
-    //   checkValidityOfFormStageOne(formik)
-    // );
 
-    if (checkValidityOfFormStageOne(formik)) {
+    if (validateValuesForCyclicalActivitiesStageOne(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[1].isAccessToStage) {
         resultStageState[1].isAccessToStage = true;
         setStage(resultStageState);
       }
     }
-    if (!checkValidityOfFormStageOne(formik)) {
+    if (!validateValuesForCyclicalActivitiesStageOne(formik.values)) {
       const resultStageState = [...stage];
       if (resultStageState[1].isAccessToStage) {
         resultStageState[1].isAccessToStage = false;
@@ -177,19 +173,14 @@ export default function CyclicalActivityAddForm() {
       }
     }
     //stageTwo validation -> access to stageThree
-    // console.log(
-    //   'checkValidityOfFormStageTwo(formik): ',
-    //   checkValidityOfFormStageTwo(formik)
-    // );
-
-    if (checkValidityOfFormStageTwo(formik)) {
+    if (validateValuesForCyclicalActivitiesStageTwo(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[2].isAccessToStage) {
         resultStageState[2].isAccessToStage = true;
         setStage(resultStageState);
       }
     }
-    if (!checkValidityOfFormStageTwo(formik)) {
+    if (!validateValuesForCyclicalActivitiesStageTwo(formik.values)) {
       const resultStageState = [...stage];
       if (resultStageState[2].isAccessToStage) {
         resultStageState[2].isAccessToStage = false;

@@ -294,6 +294,9 @@
   .submenu-container {
     @apply py-4 rounded-b-base rounded-r-base bg-skin-main-bg drop-shadow-big;
   }
+  .base-container-look {
+    @apply py-4 rounded-base bg-skin-main-bg drop-shadow-big;
+  }
 
   .skip-link {
     @apply absolute z-10 w-1 h-1 p-8 overflow-hidden font-normal top-6 left-[-10000px] bg-skin-main-bg drop-shadow-big rounded-base primary-focus focus:left-6 focus:w-auto focus:h-auto;

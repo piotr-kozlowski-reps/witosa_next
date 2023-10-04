@@ -1,6 +1,10 @@
 'use client';
 
-import { isDateSchema } from '@/lib/zodSchemas';
+import {
+  getErrorForField,
+  getIsErrorNOTPresentAndFieldWasTouched,
+  getIsErrorPresentAndFieldWasTouched,
+} from '@/lib/formikHelpers';
 import { DatePicker } from '@mui/x-date-pickers';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
@@ -25,15 +29,22 @@ export default function DatePickerFormik<T>(props: Props<T>) {
     errorText,
   } = props;
 
-  const isErrorPresentAndFieldWasTouched =
-    isErrorValidationTurnedOn &&
-    checkIfValueIsDate(formik.getFieldProps(name).value) === false &&
-    formik.getFieldMeta(name).touched;
+  const error = getErrorForField<T>(formik, name);
 
-  const isErrorNOTPresentAndFieldWasTouched =
-    isErrorValidationTurnedOn &&
-    checkIfValueIsDate(formik.getFieldProps(name).value) === true &&
-    formik.getFieldMeta(name).touched;
+  const isErrorPresentAndFieldWasTouched =
+    getIsErrorPresentAndFieldWasTouched<T>(formik, name);
+  const isErrorNotPresentAndFieldWasTouched =
+    getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
+
+  // const isErrorPresentAndFieldWasTouched =
+  //   isErrorValidationTurnedOn &&
+  //   checkIfValueIsDate(formik.getFieldProps(name).value) === false &&
+  //   formik.getFieldMeta(name).touched;
+
+  // const isErrorNOTPresentAndFieldWasTouched =
+  //   isErrorValidationTurnedOn &&
+  //   checkIfValueIsDate(formik.getFieldProps(name).value) === true &&
+  //   formik.getFieldMeta(name).touched;
 
   ///tsx
   return (
@@ -58,13 +69,13 @@ export default function DatePickerFormik<T>(props: Props<T>) {
           showDaysOutsideCurrentMonth
           sx={{
             '& .MuiInputBase-root': {
-              backgroundColor: isErrorNOTPresentAndFieldWasTouched
+              backgroundColor: isErrorNotPresentAndFieldWasTouched
                 ? 'var(--cta-secondary-opacity)'
                 : '',
               outlineColor: clsx(
                 isErrorPresentAndFieldWasTouched
                   ? 'var(--color-error)'
-                  : isErrorNOTPresentAndFieldWasTouched
+                  : isErrorNotPresentAndFieldWasTouched
                   ? 'var(--cta-secondary-opacity)'
                   : ''
               ),
@@ -73,7 +84,7 @@ export default function DatePickerFormik<T>(props: Props<T>) {
         />
         {isErrorPresentAndFieldWasTouched ? (
           <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-            {errorText || 'Błąd.'}
+            {error}
           </p>
         ) : null}
       </div>
@@ -82,12 +93,15 @@ export default function DatePickerFormik<T>(props: Props<T>) {
 }
 
 //utils
-function checkIfValueIsDate(val: any) {
-  try {
-    isDateSchema.parse(val);
-  } catch (error) {
-    return false;
-  }
+// function checkIfValueIsDate(val: any) {
+//   try {
+//     isDateSchema.parse(val);
+//   } catch (error) {
+//     return false;
+//   }
 
+//   return true;
+// }
+function checkIfValueIsDate(val: any) {
   return true;
 }

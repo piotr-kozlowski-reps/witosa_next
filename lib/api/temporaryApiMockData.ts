@@ -700,7 +700,62 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-29T23:59:00.968Z'),
   },
+  {
+    id: '32dd8847-fr41-gt51-8dev-6r6rr7fd56ws',
+    title: 'Spotkanie z Alkiem Rogozińskim',
+    eventTypes: ['LECTURE', 'OTHERS'],
+    eventForWhom: ['TEENS', 'SENIORS', 'ADULTS'],
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy na kolejne już w Art CK spotkanie z literaturą, tym razem naszym gościem będzie autor kryminałów - Alek Rogoziński.',
+    eventStartDate: new Date('2023-10-13T18:00:00.968Z'),
+    eventEndDate: new Date('2023-10-13T21:00:00.968Z'),
+    createdAt: new Date('2023-10-04T15:20:24.968Z'),
+    updatedAt: new Date('2023-10-04T15:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
 
+    //details
+    images: [
+      {
+        url: 'events_alek_001.jpg',
+        alt: 'Portret młodego mężczyzny w kolorowej koszuli na tle zielonej ściany.',
+        additionInfoThatMustBeDisplayed: 'Foto: Anna Powałowska',
+      },
+      {
+        url: 'events_alek_002.jpg',
+        alt: 'Portret młodego mężczyzny otulonego szalem i podtrzymującego brodę złożonymi rękoma, wszytsko w monochromatycznej kolorystyce.',
+        additionInfoThatMustBeDisplayed: 'Foto: Anna Powałowska',
+      },
+    ],
+    detailedDescription:
+      '<div><p><b>Alek Rogoziński</b> - Z zawodu dziennikarz, z pasji kryminalista… to znaczy - twórca kryminałów. Przez lata związany z mediami (Radio Plus i Radio Kolor).</p><p>Zadebiutował w marcu 2015 roku kryminałem „Ukochany z piekła rodem”, zdobywając pierwsze miejsce na liście bestsellerów kryminalnych EMPIK.com. Kolejną pierwszą pozycję zdobył w 2022 roku w kategorii literatura obyczajowa dzięki powieści „Przeklęta szkatułka”. Dwie jego powieści, „Jak Cie zabić, kochanie?” i „Do trzech razy śmierć”, zostały nominowane w plebiscycie „Książka roku” portalu Lubimy Czytać.</p><p>Za książkę „Lustereczko, powiedz przecie” nagrodzony 1-szą nagrodą w plebiscycie „Zbrodnia z przymrużeniem oka”. Ponownie zdobył tę nagrodę rok później za powieść „Zbrodnia w wielkim mieście”, a dwa lata później za komedię kryminalną „Raz, dwa, trzy… giniesz ty!”.W 2021 roku jego książka „Miasteczko morderców” została nominowana do Grand Prix Festiwalu Kryminalna Warszawa.</p><p>W październiku 2022 roku w czasie gali wręczenia nagród „Złoty Pocisk”, odbywającej się w ramach 25. Międzynarodowych Targów Książki w Krakowie, został wyróżniony za swoją twórczość nagrodą specjalną!</p><p>Spotkanie realizowane jest z programu Narodowego Centrum Kultury Dom Kultury + Edycja 2023.</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-alek-001.jpg',
+    newsSectionImageAlt:
+      'Portret mężczyzny w kolorowym przebraniu, czarny cylinder, czerwony frak, kolorowy szal, dłońmi w białych rękawiczkach trzyma żółtą filiżankę, na twarzy kolorowy makijaż.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_alek_001.jpg',
+    sliderImageAlt:
+      'Portret młodego mężczyzny w kolorowej koszuli na tle zielonej ściany.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-13T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-13T23:59:00.968Z'),
+  },
   {
     id: '44dd8847-f5g1-gt51-811v-6r6rr7fd8wws',
     eventTypes: ['CONCERT'],
@@ -718,13 +773,13 @@ export const allEventsMockData: TEventTemporary[] = [
     //details
     images: [
       {
-        url: 'events_italia_001.jpg',
+        url: 'events_italia_002.jpg',
         alt: 'Plakat Andrea Lattari.',
         additionInfoThatMustBeDisplayed: null,
       },
     ],
     detailedDescription:
-      '<div><p>Za nami już wieczór hiszpański (z flamenco), wieczór kubański, a przed nami wieczór włoski - chcieliśmy w naszym Art CK przedłużyć ten uroczy czas wakacyjnych podróży i wspomnień, dając Wam możliwość artystycznego przeniesienia się do tych pięknych, pełnych słońca i pozytywnej energii miejsc.</p><p>Zatem, planujcie już wieczór 20 października aby pobyć z nami trochę we włoskich klimatachI!!!</p></div>',
+      '<div><p>Za nami już wieczór hiszpański (z flamenco), wieczór kubański, a przed nami wieczór włoski - chcieliśmy w naszym Art CK przedłużyć ten uroczy czas wakacyjnych podróży i wspomnień, dając Wam możliwość artystycznego przeniesienia się do tych pięknych, pełnych słońca i pozytywnej energii miejsc.</p><p>Zatem, planujcie już wieczór 20 października aby pobyć z nami trochę we włoskich klimatach!!!</p></div>',
     customLinkToDetails: null,
 
     //paying
@@ -741,7 +796,7 @@ export const allEventsMockData: TEventTemporary[] = [
 
     //slider
     isToBeInSlider: true,
-    sliderImageUrl: 'events_italia_001.jpg',
+    sliderImageUrl: 'events_italia_002.jpg',
     sliderImageAlt: 'Plakat Andrea Lattari.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleInSLiderTo: new Date('2023-10-20T23:59:00.968Z'),
