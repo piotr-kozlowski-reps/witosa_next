@@ -36,6 +36,22 @@ type TNavigationState = {
   cyclicalActivityFormikDataForPUT: TCyclicalActivityFormInputs;
 };
 
+const cyclicaActivitiesFreshObject: TCyclicalActivityFormInputs = {
+  //stage1
+  name: '',
+  activitiesForWhom: [],
+  activityTypes: [],
+  places: [],
+  isToBePublished: true,
+  isExpiresAtRequired: false,
+  expiresAt: null,
+  //stage1
+  shortDescription: '',
+  isCustomLinkToDetails: false,
+  customLinkToDetails: '',
+  longDescription: '',
+};
+
 const navigationStateData: TNavigationState = {
   links: [
     {
@@ -167,14 +183,7 @@ const navigationStateData: TNavigationState = {
     userRole: 'EDITOR',
   },
   isAddCyclicalActivityVisible: false,
-  cyclicalActivityFormikDataForPUT: {
-    name: '',
-    expiresAt: null,
-    activitiesForWhom: [],
-    activityTypes: [],
-    places: [],
-    isToBePublished: true,
-  },
+  cyclicalActivityFormikDataForPUT: cyclicaActivitiesFreshObject,
 };
 
 const navigationState = hookstate(
@@ -426,14 +435,7 @@ export function useNavigationState() {
       return state.cyclicalActivityFormikDataForPUT.get();
     },
     resetCyclicalActivityFormikDataForPUT() {
-      state.cyclicalActivityFormikDataForPUT.set({
-        name: '',
-        expiresAt: null,
-        activitiesForWhom: [],
-        activityTypes: [],
-        places: [],
-        isToBePublished: true,
-      });
+      state.cyclicalActivityFormikDataForPUT.set(cyclicaActivitiesFreshObject);
     },
   };
 }

@@ -30,14 +30,37 @@ export type TRegisterFormValuesSent = {
   userRole: UserRole;
 };
 
-export type TCyclicalActivitiesFormValues = Pick<
+// export type TCyclicalActivitiesFormValues = Pick<
+//   CyclicalActivity,
+//   | 'name'
+//   | 'activityTypes'
+//   | 'activitiesForWhom'
+//   | 'places'
+//   | 'isToBePublished'
+//   | 'isExpiresAtRequired'
+//   | 'expiresAt'
+//   | 'shortDescription'
+// >;
+export type TCyclicalActivitiesFormValues =
+  TCyclicalActivitiesFormValuesStageOne & TCyclicalActivitiesFormValuesStageTwo;
+
+export type TCyclicalActivitiesFormValuesStageOne = Pick<
   CyclicalActivity,
   | 'name'
   | 'activityTypes'
   | 'activitiesForWhom'
   | 'places'
   | 'isToBePublished'
+  | 'isExpiresAtRequired'
   | 'expiresAt'
+>;
+
+export type TCyclicalActivitiesFormValuesStageTwo = Pick<
+  CyclicalActivity,
+  | 'shortDescription'
+  | 'customLinkToDetails'
+  | 'isCustomLinkToDetails'
+  | 'longDescription'
 >;
 
 export type TLoginFormValues = {
@@ -251,4 +274,10 @@ export type TTypeDescriber = {
   isEventType: boolean;
   isForWhomType: boolean;
   isPlaceType: boolean;
+};
+
+export type TFormStage = {
+  isAccessToStage: boolean;
+  isActive: boolean;
+  linkName: string;
 };

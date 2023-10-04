@@ -96,6 +96,7 @@ export default function DashboardContent(props: Props) {
                   cyclicalActivitiesData={cyclicalActivitiesData}
                 />
               </div>
+              {/* <FooterStamp /> */}
             </div>
           ) : null}
         </LocalizationProvider>

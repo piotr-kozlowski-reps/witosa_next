@@ -84,19 +84,21 @@ const LoginForm = () => {
                       </div>
 
                       <div className="mt-[20px]">
-                        <InputFormik
+                        <InputFormik<loginFormInputs>
                           name="email"
                           type="email"
                           label="podaj adres e-mail:"
                           placeholder="Twój e-mail"
+                          formik={formik}
                         />
                       </div>
                       <div className="mt-4">
-                        <InputFormik
+                        <InputFormik<loginFormInputs>
                           name="password"
                           type="password"
                           label="podaj hasło:"
                           placeholder="Twoje hasło"
+                          formik={formik}
                         />
                       </div>
 

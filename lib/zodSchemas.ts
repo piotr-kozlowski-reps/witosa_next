@@ -24,10 +24,37 @@ export const passwordSchema_Required_Min5_Max20 = z
 /** name */
 export const nameSchema_Required_Min2 = z
   .string({
-    required_error: 'Pole jest wymagane',
+    required_error: 'Pole jest wymagane.',
   })
-  .min(2, { message: 'min 2 znaki' });
+  .min(2, { message: 'Min. 2 znaki.' });
 
+//
+/** short description */
+export const shortDescription_Required_Min5 = z
+  .string({
+    required_error: 'Pole jest wymagane.',
+  })
+  .min(5, { message: 'Min. 5 znaków.' });
+
+//
+/** custom link to details */
+export const customLinkToDetails_Required_Or_Null = z.nullable(
+  z.string({
+    required_error: 'Pole jest wymagane.',
+  })
+);
+export const customLinkToDetails_Required = z
+  .string({
+    required_error: 'Pole jest wymagane.',
+  })
+  .min(1, { message: 'Pole jest wymagane.' });
+
+//
+/** long description */
+export const longDescription_Required_Or_Null = z.string();
+
+//
+/** user role */
 export const useRoleSchema = z.nativeEnum(UserRole);
 
 //
@@ -61,7 +88,10 @@ export const password_NotRequired_CanBeUndefined = z
 
 //
 /** date */
-export const isDateSchema = z.date({ description: 'Data ma zły format.' });
+export const isDateSchema = z.date({
+  required_error: 'Data musi być określona.',
+  description: 'Data ma zły format.',
+});
 
 //
 /** boolean*/

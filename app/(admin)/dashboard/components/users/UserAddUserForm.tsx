@@ -127,16 +127,17 @@ export default function UserAddUserForm() {
               }}
             >
               <div className="form-input-width -mt-[7px]">
-                <InputFormik
+                <InputFormik<TRegisterFormInputs>
                   name="name"
                   type="text"
                   label={isCurrentFormToPUTData ? 'zmień nazwę:' : 'nazwa:'}
                   placeholder="wpisz nazwę"
+                  formik={formik}
                 />
               </div>
 
               <div className="mt-[20px] form-input-width">
-                <InputFormik
+                <InputFormik<TRegisterFormInputs>
                   name="email"
                   type="email"
                   label={
@@ -145,25 +146,28 @@ export default function UserAddUserForm() {
                       : 'adres e-mail:'
                   }
                   placeholder="wpisz adres e-mail"
+                  formik={formik}
                 />
               </div>
 
               {isCurrentFormToPOSTData ? (
                 <Fragment>
                   <div className="mt-[20px] form-input-width">
-                    <InputFormik
+                    <InputFormik<TRegisterFormInputs>
                       name="password"
                       type="password"
                       label={isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'}
                       placeholder="wpisz hasło"
+                      formik={formik}
                     />
                   </div>
                   <div className="mt-[20px] form-input-width">
-                    <InputFormik
+                    <InputFormik<TRegisterFormInputs>
                       name="confirmPassword"
                       type="password"
                       label="powtórz hasło:"
                       placeholder="powtórz hasło"
+                      formik={formik}
                     />
                   </div>
                 </Fragment>
@@ -197,21 +201,23 @@ export default function UserAddUserForm() {
                   {isToChangePassword ? (
                     <Fragment>
                       <div className="mt-[20px] form-input-width">
-                        <InputFormik
+                        <InputFormik<TRegisterFormInputs>
                           name="password"
                           type="password"
                           label={
                             isCurrentFormToPUTData ? 'zmień hasło:' : 'hasło:'
                           }
                           placeholder="wpisz hasło"
+                          formik={formik}
                         />
                       </div>
                       <div className="mt-[20px] form-input-width">
-                        <InputFormik
+                        <InputFormik<TRegisterFormInputs>
                           name="confirmPassword"
                           type="password"
                           label="powtórz hasło:"
                           placeholder="powtórz hasło"
+                          formik={formik}
                         />
                       </div>
                     </Fragment>

@@ -1,9 +1,14 @@
 import { useMultipleSelectHelper } from '@/hooks/useMultipleSelectHelper';
 import { getWhatTypeIsProvidedEnum } from '@/lib/arrayHelpers';
+import {
+  getErrorForField,
+  getIsErrorNOTPresentAndFieldWasTouched,
+  getIsErrorPresentAndFieldWasTouched,
+} from '@/lib/formikHelpers';
 import { getPolishNameForEnumItem } from '@/lib/textHelpers';
 import { TTypeDescriber } from '@/types';
 import clsx from 'clsx';
-import { Field, FormikProps } from 'formik';
+import { FormikProps } from 'formik';
 import { Fragment } from 'react';
 import CustomButton from '../CustomButton';
 
@@ -24,6 +29,16 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
     formik,
     name
   );
+  //formik
+  const error = getErrorForField<R>(formik, name);
+  const isErrorPresentAndFieldWasTouched =
+    getIsErrorPresentAndFieldWasTouched<R>(formik, name);
+  const isErrorNotPresentAndFieldWasTouched =
+    getIsErrorNOTPresentAndFieldWasTouched<R>(formik, name);
+
+  const currentValue = formik.getFieldMeta(name).value as string;
+  const onChangeForInput = formik.getFieldProps(name).onChange;
+  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   //getting what type is provided Enum
   const whatTypeIsProvidedEnum =
@@ -42,97 +57,46 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
   ////tsx
   return (
     <div className="flex flex-col items-start justify-start">
-      <Field id={name} name={name}>
-        {(formik: any) => {
-          ////vars
-          const { field, form, touched } = formik;
-          const { onChange, onBlur } = field;
-          const { errors } = form;
-
-          const isErrorPresentAndFieldWasTouched: undefined | string =
-            errors[name] && form.touched[name];
-
-          return (
-            <Fragment>
-              <label
-                htmlFor={name}
-                className={clsx(
-                  'font-base-regular',
-                  isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+      <Fragment>
+        <label
+          htmlFor={name}
+          className={clsx(
+            'font-base-regular',
+            isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+          )}
+        >
+          {label}
+        </label>
+        <div
+          className="flex items-center justify-start gap-4 mt-[3px] flex-wrap"
+          style={{ width: width ? width : '100%' }}
+        >
+          {enumToIterateThrough.map((item, index) => (
+            <div key={index} onBlur={onBlurForInput}>
+              <CustomButton
+                id={item as string}
+                text={getPolishNameForEnumItem<T>(typeDescriber, item)}
+                descriptionText={getPolishNameForEnumItem<T>(
+                  typeDescriber,
+                  item
                 )}
-              >
-                {label}
-              </label>
+                disabled={false}
+                outlined={true}
+                isChosen={isItemChosen(item)}
+                actionFn={() => {
+                  toggleItemsInArray(item as T);
+                }}
+              />
+            </div>
+          ))}
+        </div>
 
-              <div
-                className="flex items-center justify-start gap-4 mt-[3px] flex-wrap"
-                style={{ width: width ? width : '100%' }}
-              >
-                {enumToIterateThrough.map((item, index) => (
-                  <div key={index} onBlur={onBlur}>
-                    <CustomButton
-                      id={item as string}
-                      text={getPolishNameForEnumItem<T>(typeDescriber, item)}
-                      descriptionText={getPolishNameForEnumItem<T>(
-                        typeDescriber,
-                        item
-                      )}
-                      disabled={false}
-                      outlined={true}
-                      isChosen={isItemChosen(item)}
-                      actionFn={() => {
-                        toggleItemsInArray(item as T);
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {isErrorPresentAndFieldWasTouched ? (
-                <p className="mt-[6px] text-skin-error mb-0 font-base-regular">
-                  {errors[name]}
-                </p>
-              ) : null}
-            </Fragment>
-          );
-        }}
-      </Field>
+        {isErrorPresentAndFieldWasTouched ? (
+          <p className="mt-[6px] text-skin-error mb-0 font-base-regular">
+            {error}
+          </p>
+        ) : null}
+      </Fragment>
     </div>
   );
 }
-
-////utils
-// export function getWhatTypeIsProvidedEnum(
-//   providedEnum: any[]
-// ): TWhatTypeIsProvidedEnum {
-//   if (
-//     providedEnum.includes('PLASTICITY') &&
-//     providedEnum.includes('THEATER') &&
-//     providedEnum.includes('RECREATION')
-//   ) {
-//     return 'IT_IS_ACTIVITY_TYPE';
-//   }
-
-//   if (
-//     providedEnum.includes('FESTIVAL') &&
-//     providedEnum.includes('SPECTACLE') &&
-//     providedEnum.includes('WORKSHOP')
-//   ) {
-//     return 'IT_IS_EVENT_TYPE';
-//   }
-
-//   if (providedEnum.includes('CHILDREN') && providedEnum.includes('WOMEN')) {
-//     return 'IT_IS_FOR_WHOM_TYPE';
-//   }
-
-//   if (
-//     providedEnum.includes('DANCING_ROOM') &&
-//     providedEnum.includes('ART_ROOM')
-//   ) {
-//     return 'IT_IS_PLACE_TYPE';
-//   }
-
-//   throw new Error(
-//     `getWhatTypeIsProvidedEnum - provided Enum doesn't fit desired criteria.`
-//   );
-// }

@@ -42,8 +42,8 @@ export async function addCyclicalActivity(
   // console.log([...formData]);
 
   // /** checking values eXistenZ */
+  //TODO:  .... check everything here, starts to be a mess
   const submittedName = formData.get('name') as string;
-  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
   const submittedActivityTypes = formData.getAll(
     'activityTypes'
   ) as ActivityType[];
@@ -53,15 +53,27 @@ export async function addCyclicalActivity(
   const submittedPlaces = formData.getAll('places') as Place[];
   const submittedIsToBePublished =
     (formData.get('isToBePublished') as string) === 'true' ? true : false;
+  const submittedIsCustomLinkToDetails =
+    (formData.get('isCustomLinkToDetails') as string) === 'true' ? true : false;
+  const submittedIsExpiresAtRequired =
+    (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
+  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
+  const submittedShortDescription = formData.get('shortDescription') as string;
+  const submittedLongDescription = formData.get('longDescription') as string;
+  const submittedCustomLinkToDetails = formData.get(
+    'longDescription'
+  ) as string;
 
-  console.log({ submittedIsToBePublished });
-
+  //TODO: maybe also with ZOD  .... check everything here, starts to be a mess
   if (
     !submittedName ||
     !submittedActivityTypes ||
     !submittedActivitiesForWhom ||
     !submittedPlaces ||
-    submittedIsToBePublished === undefined
+    submittedIsToBePublished === undefined ||
+    submittedIsExpiresAtRequired === undefined ||
+    submittedShortDescription ||
+    submittedIsCustomLinkToDetails === undefined
   ) {
     logger.warn(lackOfCyclicalActivitiesData);
     return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
@@ -73,8 +85,13 @@ export async function addCyclicalActivity(
     activityTypes: submittedActivityTypes,
     activitiesForWhom: submittedActivitiesForWhom,
     places: submittedPlaces,
+    isExpiresAtRequired: submittedIsExpiresAtRequired,
     expiresAt: submittedExpiresAt || null,
     isToBePublished: submittedIsToBePublished,
+    shortDescription: submittedShortDescription,
+    longDescription: submittedLongDescription,
+    isCustomLinkToDetails: submittedIsCustomLinkToDetails,
+    customLinkToDetails: submittedCustomLinkToDetails,
   };
   let validationResult = false;
   try {
@@ -93,15 +110,19 @@ export async function addCyclicalActivity(
   try {
     const response = await prisma.cyclicalActivity.create({
       data: {
+        //stage1
         name: submittedName,
         activityTypes: submittedActivityTypes,
         activitiesForWhom: submittedActivitiesForWhom,
         places: submittedPlaces,
         isToBePublished: submittedIsToBePublished,
-        shortDescription: 'short desctiption',
+        isExpiresAtRequired: submittedIsExpiresAtRequired,
+        expiresAt: submittedExpiresAt,
+        //stage2
+        shortDescription: submittedShortDescription,
         longDescription: 'long description',
+        isCustomLinkToDetails: submittedIsCustomLinkToDetails,
         customLinkToDetails: 'customLinkToDetails',
-        expiresAt: '2022-10-10T22:00:24.968Z',
         author: {
           connect: { id: authorId },
         },
@@ -417,17 +438,12 @@ function validateCyclicalActivityData(
   forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
   placesArraySchema.parse(cyclicalActivity.places);
   isBooleanSchema.parse(cyclicalActivity.isToBePublished);
-
-  if (cyclicalActivity.expiresAt) {
+  isBooleanSchema.parse(cyclicalActivity.isExpiresAtRequired);
+  //expiresAt
+  if (cyclicalActivity.isExpiresAtRequired) {
     isDateSchema.parse(cyclicalActivity.expiresAt);
   }
 
-  // emailSchema.parse(email);
-  // passwordSchema_Required_Min5_Max20.parse(password);
-  // passwordSchema_Required_Min5_Max20.parse(confirmationPassword);
-  // useRoleSchema.parse(userRole);
-  // if (password.trim() !== confirmationPassword.trim()) {
-  //   throw new Error("Password and it's confirmation are not the same");
-  // }
   return true;
 }
+//TODO: może szansa aby to także zrobić singe source of truth dzieki schematowi z ZODa
