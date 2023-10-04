@@ -1,3 +1,4 @@
+import ImagesUploadFormik from '@/app/(site)/components/forms/ImagesUploadFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import RichTextEditorFormik from '@/app/(site)/components/forms/RichTextEditorFormik';
 import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
@@ -91,13 +92,22 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
         <AnimatePresence mode="wait">
           {!isCustomLinkToDetails ? (
             <ComponentTransitionFromRightToLeft>
-              <div className=" mt-[20px]">
-                <RichTextEditorFormik<T>
-                  name="longDescription"
-                  label="szczegółowy opis:"
-                  formik={formik}
-                />
-              </div>
+              <Fragment>
+                <div className=" mt-[20px]">
+                  <RichTextEditorFormik<T>
+                    name="longDescription"
+                    label="szczegółowy opis:"
+                    formik={formik}
+                  />
+                </div>
+                <div className=" mt-[20px]">
+                  <ImagesUploadFormik<T>
+                    formik={formik}
+                    name="images"
+                    label="obrazy:"
+                  />
+                </div>
+              </Fragment>
             </ComponentTransitionFromRightToLeft>
           ) : null}
         </AnimatePresence>

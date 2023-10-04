@@ -3,7 +3,18 @@ import {
   TCyclicalActivitiesFormValuesStageOne,
   TCyclicalActivitiesFormValuesStageTwo,
 } from '@/types';
+import * as Yup from 'yup';
 import { z } from 'zod';
+import {
+  activityTypeArrayYupSchema,
+  customLinkToDetailsYupSchema,
+  cyclicalActivityExpiresAtYupSchema,
+  forWhomArrayYupSchema,
+  isBooleanYupSchema,
+  longDescriptionYupSchema,
+  nameSchemaYup_Required_Min2,
+  placesYupSchema,
+} from '../yupSchemas';
 import {
   activityTypeArraySchema,
   customLinkToDetails_Required,
@@ -172,3 +183,36 @@ export type TCyclicalActivityFormInputs = z.TypeOf<
   typeof cyclicalActivityValidationSchemaStageOne &
     typeof cyclicalActivityValidationSchemaStageTwo
 >;
+
+export const cyclicalActivityValidationSchemaStageOneWithYup = {
+  name: nameSchemaYup_Required_Min2,
+  activityTypes: activityTypeArrayYupSchema,
+  activitiesForWhom: forWhomArrayYupSchema,
+  places: placesYupSchema,
+  isToBePublished: isBooleanYupSchema,
+  isExpiresAtRequired: isBooleanYupSchema,
+  expiresAt: cyclicalActivityExpiresAtYupSchema,
+};
+export const cyclicalActivityValidationSchemaStageTwoWithYup = {
+  shortDescription: nameSchemaYup_Required_Min2,
+  isCustomLinkToDetails: isBooleanYupSchema,
+  customLinkToDetails: customLinkToDetailsYupSchema,
+  longDescription: longDescriptionYupSchema,
+};
+
+export function generateValidationForCyclicalActivities() {
+  return Yup.object({
+    ...cyclicalActivityValidationSchemaStageOneWithYup,
+    ...cyclicalActivityValidationSchemaStageTwoWithYup,
+  });
+}
+export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
+  return Yup.object({
+    ...cyclicalActivityValidationSchemaStageOneWithYup,
+  }).isValidSync(values);
+}
+export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
+  return Yup.object({
+    ...cyclicalActivityValidationSchemaStageTwoWithYup,
+  }).isValidSync(values);
+}

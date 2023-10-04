@@ -2,6 +2,7 @@ import {
   CyclicalActivity,
   Day,
   Event,
+  ImageCyclicalActivity,
   Newsletter,
   User,
   UserRole,
@@ -281,3 +282,8 @@ export type TFormStage = {
   isActive: boolean;
   linkName: string;
 };
+
+export type TImageCyclicalActivityFormValues = Pick<
+  ImageCyclicalActivity,
+  'url' | 'alt' | 'additionInfoThatMustBeDisplayed'
+>;
