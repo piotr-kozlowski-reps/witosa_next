@@ -8,7 +8,7 @@ import InfoIcon from '../icons/InfoIcon';
 type Props = {
   alt: string;
   size?: TIconSize;
-  commentContent: string;
+  commentContent: React.ReactNode;
   // additionalClasses?: string;
   // actionFn: () => void;
 };
@@ -45,7 +45,7 @@ export default function CommentPopup(props: Props) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute bottom-0 w-56 p-4 left-8 bg-skin-main-bg font-base-regular drop-shadow-big rounded-base"
+            className="absolute bottom-0 w-64 p-4 left-8 bg-skin-main-bg font-base-regular drop-shadow-big rounded-base"
           >
             {commentContent}
           </motion.div>

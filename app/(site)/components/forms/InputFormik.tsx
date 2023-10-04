@@ -6,28 +6,63 @@ import {
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
+import CommentPopup from '../comment-popus/CommentPopup';
 
-interface Props<T> {
-  name: string;
-  label: string; //TODO: na pewno string? może mogę to dookreślić, znaleźć
-  type: string;
-  placeholder: string;
-  width?: number;
-  formik: FormikProps<T>;
-  // isTextarea?: boolean;
-  // value: string;
-  // onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  // onBlur: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  // inputData: TInputFormState;
-  // dataTestId: string;
-  // dataTestIdForError: string;
-}
+// type Props<T, R> =
+//   | {
+//       name: string;
+//       label: string;
+//       options: { value: T; label: string }[];
+//       formik: FormikProps<R>;
+//       width?: number;
+//       isCommentPopupVisible?: true;
+//       commentContent?: React.ReactNode;
+//     }
+//   | {
+//       name: string;
+//       label: string;
+//       options: { value: T; label: string }[];
+//       formik: FormikProps<R>;
+//       width?: number;
+//       isCommentPopupVisible?: false;
+//       commentContent?: never;
+//     };
+type Props<T> =
+  | {
+      name: string;
+      label: string;
+      type: string;
+      placeholder: string;
+      width?: number;
+      formik: FormikProps<T>;
+      isCommentPopupVisible?: false;
+      commentContent?: never;
+    }
+  | {
+      name: string;
+      label: string;
+      type: string;
+      placeholder: string;
+      width?: number;
+      formik: FormikProps<T>;
+      isCommentPopupVisible?: true;
+      commentContent?: React.ReactNode;
+    };
 
 export default function InputFormik<T>(props: Props<T>) {
-  ///vars
-  const { name, placeholder, label, width, type, formik } = props;
+  ////vars
+  const {
+    name,
+    placeholder,
+    label,
+    width,
+    type,
+    formik,
+    isCommentPopupVisible,
+    commentContent,
+  } = props;
 
-  //formik
+  ////formik
   const error = getErrorForField<T>(formik, name);
   const isErrorPresentAndFieldWasTouched =
     getIsErrorPresentAndFieldWasTouched<T>(formik, name);
@@ -38,9 +73,14 @@ export default function InputFormik<T>(props: Props<T>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
+  // const onBluerHandler = () => {
+  //   onBlurForInput;
+  //   // alert('on blur');
+  // };
+
   ///tsx
   return (
-    <div className="flex flex-col items-start justify-start">
+    <div className="relative flex flex-col items-start justify-start">
       <Fragment>
         <label
           htmlFor={name}
@@ -59,6 +99,7 @@ export default function InputFormik<T>(props: Props<T>) {
           placeholder={placeholder}
           value={currentValue}
           onChange={(val) => onChangeForInput(val)}
+          // onBlur={onBlurForInput}
           onBlur={onBlurForInput}
           className={clsx(
             'form-input',
@@ -70,6 +111,15 @@ export default function InputFormik<T>(props: Props<T>) {
           )}
           style={width ? { width: `${width}px` } : {}}
         />
+        {isCommentPopupVisible ? (
+          <div className="absolute top-[35px] px-2 -right-[32px]">
+            <CommentPopup
+              size="EXTRA_SMALL"
+              alt={`${name} - komentarz.`}
+              commentContent={commentContent}
+            />
+          </div>
+        ) : null}
         {isErrorPresentAndFieldWasTouched ? (
           <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
             {error}

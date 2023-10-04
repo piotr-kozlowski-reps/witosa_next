@@ -173,6 +173,7 @@ model CyclicalActivity{
   images ImageCyclicalActivity[]
   occurrence CyclicalActivityOccurrence[]
   places Place[]
+  isCustomLinkToDetails Boolean
   customLinkToDetails String?
   isExpiresAtRequired Boolean
   expiresAt DateTime?

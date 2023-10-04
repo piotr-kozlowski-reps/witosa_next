@@ -57,7 +57,10 @@ export type TCyclicalActivitiesFormValuesStageOne = Pick<
 
 export type TCyclicalActivitiesFormValuesStageTwo = Pick<
   CyclicalActivity,
-  'shortDescription'
+  | 'shortDescription'
+  | 'customLinkToDetails'
+  | 'isCustomLinkToDetails'
+  | 'longDescription'
 >;
 
 export type TLoginFormValues = {

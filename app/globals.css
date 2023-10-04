@@ -490,4 +490,34 @@
     left: 0;
     color: var(--cta-secondary);
   }
+
+  /* quill */
+  .ql-toolbar {
+    @apply py-4 rounded-b-base rounded-r-base bg-skin-main-bg drop-shadow-big;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    /* border: none !important; */
+    border-color: var(--color-main-bg);
+    border-radius: 20px;
+    background-color: var(--color-background-base);
+    box-shadow: -4px 4px 18px var(--color-shadow);
+  }
+
+  .ql-toolbar-error {
+    border-width: 2px;
+    border-color: var(--color-error);
+  }
+
+  .ql-container {
+    font-family: 'rubik' !important;
+    min-height: 256px;
+  }
+
+  /* .ql-editor {
+    min-height: 600px;
+  } */
+
+  .ql-container.ql-snow {
+    border: none !important;
+  }
 }

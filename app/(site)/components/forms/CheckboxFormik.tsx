@@ -7,7 +7,7 @@ type Props<T = void> =
       name: string;
       label: string;
       isCommentPopupVisible?: boolean;
-      commentContent?: string;
+      commentContent?: React.ReactNode;
       isToBeUsedAsPartFormik: true;
       actionFn?: never;
       passedValue?: never;
@@ -17,7 +17,7 @@ type Props<T = void> =
       name: string;
       label: string;
       isCommentPopupVisible?: boolean;
-      commentContent?: string;
+      commentContent?: React.ReactNode;
       isToBeUsedAsPartFormik: false;
       actionFn: () => void;
       passedValue: boolean;

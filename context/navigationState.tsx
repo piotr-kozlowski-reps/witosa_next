@@ -47,6 +47,9 @@ const cyclicaActivitiesFreshObject: TCyclicalActivityFormInputs = {
   expiresAt: null,
   //stage1
   shortDescription: '',
+  isCustomLinkToDetails: false,
+  customLinkToDetails: '',
+  longDescription: '',
 };
 
 const navigationStateData: TNavigationState = {

@@ -42,6 +42,7 @@ export async function addCyclicalActivity(
   // console.log([...formData]);
 
   // /** checking values eXistenZ */
+  //TODO:  .... check everything here, starts to be a mess
   const submittedName = formData.get('name') as string;
   const submittedActivityTypes = formData.getAll(
     'activityTypes'
@@ -52,12 +53,18 @@ export async function addCyclicalActivity(
   const submittedPlaces = formData.getAll('places') as Place[];
   const submittedIsToBePublished =
     (formData.get('isToBePublished') as string) === 'true' ? true : false;
+  const submittedIsCustomLinkToDetails =
+    (formData.get('isCustomLinkToDetails') as string) === 'true' ? true : false;
   const submittedIsExpiresAtRequired =
     (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
   const submittedExpiresAt = formData.get('expiresAt') as Date & string;
   const submittedShortDescription = formData.get('shortDescription') as string;
+  const submittedLongDescription = formData.get('longDescription') as string;
+  const submittedCustomLinkToDetails = formData.get(
+    'longDescription'
+  ) as string;
 
-  //TODO: maybe also with ZOD ?
+  //TODO: maybe also with ZOD  .... check everything here, starts to be a mess
   if (
     !submittedName ||
     !submittedActivityTypes ||
@@ -65,7 +72,8 @@ export async function addCyclicalActivity(
     !submittedPlaces ||
     submittedIsToBePublished === undefined ||
     submittedIsExpiresAtRequired === undefined ||
-    submittedShortDescription
+    submittedShortDescription ||
+    submittedIsCustomLinkToDetails === undefined
   ) {
     logger.warn(lackOfCyclicalActivitiesData);
     return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
@@ -81,6 +89,9 @@ export async function addCyclicalActivity(
     expiresAt: submittedExpiresAt || null,
     isToBePublished: submittedIsToBePublished,
     shortDescription: submittedShortDescription,
+    longDescription: submittedLongDescription,
+    isCustomLinkToDetails: submittedIsCustomLinkToDetails,
+    customLinkToDetails: submittedCustomLinkToDetails,
   };
   let validationResult = false;
   try {
@@ -110,6 +121,7 @@ export async function addCyclicalActivity(
         //stage2
         shortDescription: submittedShortDescription,
         longDescription: 'long description',
+        isCustomLinkToDetails: submittedIsCustomLinkToDetails,
         customLinkToDetails: 'customLinkToDetails',
         author: {
           connect: { id: authorId },

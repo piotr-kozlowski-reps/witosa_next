@@ -37,6 +37,23 @@ export const shortDescription_Required_Min5 = z
   .min(5, { message: 'Min. 5 znaków.' });
 
 //
+/** custom link to details */
+export const customLinkToDetails_Required_Or_Null = z.nullable(
+  z.string({
+    required_error: 'Pole jest wymagane.',
+  })
+);
+export const customLinkToDetails_Required = z
+  .string({
+    required_error: 'Pole jest wymagane.',
+  })
+  .min(1, { message: 'Pole jest wymagane.' });
+
+//
+/** long description */
+export const longDescription_Required_Or_Null = z.string();
+
+//
 /** user role */
 export const useRoleSchema = z.nativeEnum(UserRole);
 
