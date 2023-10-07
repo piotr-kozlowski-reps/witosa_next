@@ -3,8 +3,15 @@ import {
   getIsErrorNOTPresentAndFieldWasTouched,
   getIsErrorPresentAndFieldWasTouched,
 } from '@/lib/formikHelpers';
-import { TImageCyclicalActivityFormValues } from '@/types';
-import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { TFileWithPreview, TImageCyclicalActivityFormValues } from '@/types';
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
@@ -19,27 +26,17 @@ type Props<T> = {
   name: string;
   label: string;
   formik: FormikProps<T>;
+  isCurrentFormToPUTData: string;
 };
+
+type TFormImageType = (TImageCyclicalActivityFormValues & {
+  id: number | string;
+})[];
 
 export default function ImagesUploadFormik<T>(props: Props<T>) {
   ////vars
-  const { name, label, formik } = props;
-  const [images, setImages] = useState<
-    (TImageCyclicalActivityFormValues & { id: number | string })[]
-  >([
-    {
-      id: 1,
-      url: '1sdfvsdfv1',
-      alt: '1iddgbfg1',
-      additionInfoThatMustBeDisplayed: null,
-    },
-    {
-      id: 2,
-      url: '2sdfvsdfv2',
-      alt: '2iddgbfg2',
-      additionInfoThatMustBeDisplayed: 'sdfcdf',
-    },
-  ]);
+  const { name, label, formik, isCurrentFormToPUTData } = props;
+  const [file, setFile] = useState<TFileWithPreview>();
 
   ////formik
   const error = getErrorForField<T>(formik, name);
@@ -48,9 +45,30 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
-  const currentValue = formik.getFieldMeta(name).value as string;
+  const currentValue = formik.getFieldMeta(name).value as TFormImageType;
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
+
+  const [images, setImages] = useState<TFormImageType>(
+    currentValue.length > 0
+      ? currentValue
+      : [
+          {
+            url: '',
+            alt: '',
+            additionInfoThatMustBeDisplayed: '',
+            id: new Date().getTime().toString(),
+          },
+        ]
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 30,
+      },
+    })
+  );
 
   function dragEndHander(event: DragEndEvent) {
     const { active, over } = event;
@@ -81,16 +99,27 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
       >
         {label}
       </label>
-      <DndContext collisionDetection={closestCenter} onDragEnd={dragEndHander}>
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={dragEndHander}
+        sensors={sensors}
+      >
         <SortableContext items={images} strategy={verticalListSortingStrategy}>
           <div className="mr-8 base-container-look">
-            {images.map((image) => (
-              <ImageInputFormik key={image.id} imageProps={image} />
+            {images.map((image, index) => (
+              <ImageInputFormik<T>
+                key={image.id}
+                imageProps={image}
+                index={index}
+                formik={formik}
+                isCurrentFormToPUTData={isCurrentFormToPUTData}
+                file={file}
+                setFile={setFile}
+              />
             ))}
           </div>
 
-          {/* <div className="p-4 bg-gray-400">inside</div>
-          {isErrorPresentAndFieldWasTouched ? (
+          {/* {isErrorPresentAndFieldWasTouched ? (
             <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
               {error}
             </p>

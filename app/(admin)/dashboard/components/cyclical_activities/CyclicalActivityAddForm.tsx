@@ -10,16 +10,10 @@ import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
   generateValidationForCyclicalActivities,
-  getCyclicalActivityValidationSchemaForStageOne,
-  getCyclicalActivityValidationSchemaForStageTwo,
   validateValuesForCyclicalActivitiesStageOne,
   validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
-import {
-  TActionResponse,
-  TCyclicalActivitiesFormValues,
-  TFormStage,
-} from '@/types';
+import { TActionResponse, TFormStage } from '@/types';
 import { FormikProps, useFormik } from 'formik';
 import { Fragment, useEffect, useState } from 'react';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
@@ -55,6 +49,7 @@ export default function CyclicalActivityAddForm() {
       isCustomLinkToDetails: false,
       customLinkToDetails: '',
       longDescription: '',
+      images: [],
     },
     onSubmit: () => {},
     validationSchema: validationSchema,
@@ -83,20 +78,18 @@ export default function CyclicalActivityAddForm() {
   const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
   // console.log({ stage });
 
-  function checkValidityOfFormStageOne(
-    formik: FormikProps<TCyclicalActivitiesFormValues>
-  ) {
-    return getCyclicalActivityValidationSchemaForStageOne().safeParse(
-      formik.values
-    ).success;
-  }
-  function checkValidityOfFormStageTwo(
-    formik: FormikProps<TCyclicalActivitiesFormValues>
-  ) {
-    return getCyclicalActivityValidationSchemaForStageTwo().safeParse(
-      formik.values
-    ).success;
-  }
+  // function checkValidityOfFormStageOne(
+  //   formik: FormikProps<TCyclicalActivitiesFormValues>
+  // ) {
+  //   return validateValuesForCyclicalActivitiesStageOne(formik.values);
+  // }
+  // function checkValidityOfFormStageTwo(
+  //   formik: FormikProps<TCyclicalActivitiesFormValues>
+  // ) {
+  //   return getCyclicalActivityValidationSchemaForStageTwo().safeParse(
+  //     formik.values
+  //   ).success;
+  // }
 
   function getCurrentStageIndex() {
     return stage.findIndex((stageItem) => stageItem.isActive);

@@ -104,7 +104,8 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
                   <ImagesUploadFormik<T>
                     formik={formik}
                     name="images"
-                    label="obrazy:"
+                    label="obrazki:"
+                    isCurrentFormToPUTData={isCurrentFormToPUTData}
                   />
                 </div>
               </Fragment>

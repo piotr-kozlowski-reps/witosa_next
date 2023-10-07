@@ -102,53 +102,6 @@ export function getPolishCategoryOfActivitiesName(category: ActivityType) {
   return polishCategoryName;
 }
 
-// export function getPolishCategoryOfEventsName(category: EventType) {
-//   let polishCategoryName = '';
-
-//   switch (category) {
-//     case 'CABARET':
-//       polishCategoryName = 'kabaret';
-//       break;
-
-//     case 'CONCERT':
-//       polishCategoryName = 'koncert';
-//       break;
-
-//     case 'DANCE':
-//       polishCategoryName = 'taniec';
-//       break;
-
-//     case 'CYCLIC_MEETING':
-//       polishCategoryName = 'wydarzenia cykliczne';
-//       break;
-
-//     case 'FESTIVAL':
-//       polishCategoryName = 'festiwal';
-//       break;
-
-//     case 'LECTURE':
-//       polishCategoryName = 'wykład';
-//       break;
-
-//     case 'SPECTACLE':
-//       polishCategoryName = 'spektakl';
-//       break;
-
-//     case 'WORKSHOP':
-//       polishCategoryName = 'warsztaty';
-//       break;
-
-//     case 'OTHERS':
-//       polishCategoryName = 'inne';
-//       break;
-
-//     default:
-//       throw new Error(`getPolishCategoryOfEvents - ${category} not defined`);
-//   }
-
-//   return polishCategoryName;
-// }
-
 export function getPolishForWhomName(forWhom: ForWhom) {
   let polishForWhomName = '';
 
@@ -365,4 +318,36 @@ export function getPolishNameForEnumItem<T>(
   }
 
   throw new Error('getPolishNameForEnumItem - something went wrong');
+}
+
+export function getPolishErrorNamesForDropZoneArea(errorCode: string) {
+  switch (errorCode) {
+    case 'file-invalid-type':
+      return 'Zły format pliku.';
+
+    case 'file-too-large':
+      return 'Plik jest zbyt duży - limit 4Mb.';
+
+    case 'too-many-files':
+      return 'Zbyt dużo plików - wymagany tylko jeden plik.';
+
+    default:
+      return 'Nieznany błąd - spróbuj ponownie';
+  }
+}
+
+export function createErrorsListInOneLineSeparatedWithVerticalLine(
+  errors: string[]
+) {
+  let result = '';
+
+  errors.forEach((error, index) => {
+    if (index !== errors.length - 1) {
+      result += `${error}${' '}${' '}|${' '}${' '}`;
+      return;
+    }
+    result += `${error}`;
+  });
+
+  return result;
 }

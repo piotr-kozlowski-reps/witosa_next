@@ -24,6 +24,7 @@ export default function IconButtonWrapper(props: Props) {
   return (
     <button
       onClick={actionFn}
+      type="button"
       className={clsx(
         ' w-full h-full',
         additionalClasses ? additionalClasses : '',

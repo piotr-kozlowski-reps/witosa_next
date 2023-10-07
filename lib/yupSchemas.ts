@@ -163,3 +163,16 @@ export const longDescriptionYupSchema = Yup.string()
     }
   )
   .nullable();
+
+//
+/** images */
+export const imagesYupSchema = Yup.array(
+  Yup.object().shape({
+    url: Yup.string().required('Obrazek musi być podany.'),
+    alt: Yup.string().required('Opis obrazka musi być podany.'),
+    additionInfoThatMustBeDisplayed: Yup.string().nullable(),
+  })
+).when('isCustomLinkToDetails', {
+  is: false,
+  then: (schema) => schema.min(1),
+});

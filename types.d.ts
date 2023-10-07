@@ -62,7 +62,7 @@ export type TCyclicalActivitiesFormValuesStageTwo = Pick<
   | 'customLinkToDetails'
   | 'isCustomLinkToDetails'
   | 'longDescription'
->;
+> & { images: TImageCyclicalActivityFormValues[] };
 
 export type TLoginFormValues = {
   email: string;
@@ -287,3 +287,5 @@ export type TImageCyclicalActivityFormValues = Pick<
   ImageCyclicalActivity,
   'url' | 'alt' | 'additionInfoThatMustBeDisplayed'
 >;
+
+export type TFileWithPreview = (File & { preview: string }) | undefined;

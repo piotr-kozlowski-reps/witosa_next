@@ -105,8 +105,6 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
           // onChange={setValue}
           onChange={(content, delta, source, editor) => {
             if (editor.getText().trim() == '') {
-              console.log('inside editor.getText() == null');
-
               setValue('');
               return;
             }
