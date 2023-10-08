@@ -552,6 +552,17 @@
       var(--cta-secondary) 9px
     );
   }
+
+  .diagonal-lines-fill-error {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-background-base),
+      var(--color-background-base) 8px,
+      var(--color-error) 8px,
+      var(--color-error) 9px
+    );
+  }
+
   .text-background {
     box-shadow: 28px 0 0px 0px var(--color-background-base),
       -28px 0 0px 0px var(--color-background-base);

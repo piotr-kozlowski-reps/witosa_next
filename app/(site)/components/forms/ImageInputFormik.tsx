@@ -1,32 +1,31 @@
-import CustomLinkToDetailsComment from '@/app/(admin)/dashboard/components/form_comments/CustomLinkToDetailsComment';
+import AdditionalDescriptionComment from '@/app/(admin)/dashboard/components/form_comments/AdditionalDescriptionComment';
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
-import { TFileWithPreview, TImageCyclicalActivityFormValues } from '@/types';
+import { TImageCyclicalActivityFormValues } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
 import CustomButton from '../CustomButton';
 import CloseIcon from '../icons/CloseIcon';
-import DropzoneImage from './DropzoneImage';
+import { DropImageFormik } from './DropImageFormik';
 import InputFormik from './InputFormik';
 import TextareaFormik from './TextareaFormik';
 
 type Props<T> = {
-  imageProps: TImageCyclicalActivityFormValues & { id: number | string };
+  imageProps: TImageCyclicalActivityFormValues;
+  // imageProps: TImageCyclicalActivityFormValues & {
+  //   id: number | string;
+  //   file: TFileWithPreview;
+  // };
   index: number;
   formik: FormikProps<T>;
   isCurrentFormToPUTData: string;
-  file: TFileWithPreview;
-  setFile: Dispatch<SetStateAction<TFileWithPreview>>;
+  name: string;
 };
 
 export default function ImageInputFormik<T>(props: Props<T>) {
   ////vars
-  const { imageProps, index, formik, isCurrentFormToPUTData, setFile, file } =
-    props;
-  const { url, alt, additionInfoThatMustBeDisplayed } = imageProps;
+  const { imageProps, index, formik, isCurrentFormToPUTData } = props;
+  const { file } = imageProps;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
@@ -52,37 +51,13 @@ export default function ImageInputFormik<T>(props: Props<T>) {
           />
         </div>
 
-        <div className="flex items-center justify-between w-full mt-[27px] h-16">
-          <div className="h-16 w-11 bg-cta-secondary rounded-r-base">
-            <div className="flex items-center justify-center h-16 w-11">
-              <span className="text-skin-inverted font-large-bold">
-                {index + 1}
-              </span>
-            </div>
-          </div>
-          <div
-            className={clsx(
-              'w-16 h-16 ml-8',
-              !file ? 'diagonal-lines-fill-gray opacity-30' : ''
-            )}
-          >
-            {file ? (
-              <Image
-                src={file.preview}
-                width={64}
-                height={64}
-                alt={file.name}
-                className="object-fill w-full h-full"
-                onLoad={() => {
-                  URL.revokeObjectURL(file.preview);
-                }}
-              />
-            ) : null}
-          </div>
-
-          <DropzoneImage url={url} file={file} setFile={setFile} />
-
-          <div className="w-8 h-16"></div>
+        <div className="mt-[27px] w-full">
+          <DropImageFormik<T>
+            index={index}
+            file={file}
+            formik={formik}
+            name={`images.${index}.file`}
+          />
         </div>
 
         <div className="mt-[20px] ml-[76px] form-input-width self-start ">
@@ -113,7 +88,8 @@ export default function ImageInputFormik<T>(props: Props<T>) {
             formik={formik}
             height={70}
             isCommentPopupVisible={true}
-            commentContent={<CustomLinkToDetailsComment />}
+            commentContent={<AdditionalDescriptionComment />}
+            isShowCommentToTheLeft={true}
           />
           <div className="w-8"></div>
         </div>

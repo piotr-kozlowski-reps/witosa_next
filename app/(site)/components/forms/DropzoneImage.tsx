@@ -4,27 +4,33 @@ import {
 } from '@/lib/textHelpers';
 import { TFileWithPreview } from '@/types';
 import clsx from 'clsx';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { FormikProps } from 'formik';
+import { useEffect, useState } from 'react';
 import { FileRejection, useDropzone } from 'react-dropzone';
 
-type Props = {
-  url: string;
-  file: TFileWithPreview;
-  setFile: Dispatch<SetStateAction<TFileWithPreview>>;
+type Props<T> = {
+  formik: FormikProps<T>;
+  name: string;
+  isErrorPresentAndFieldWasTouched: boolean | '' | undefined;
 };
 
-export default function DropzoneImage(props: Props) {
+export default function DropzoneImage<T>(props: Props<T>) {
   ////vars
-  const { url, file, setFile } = props;
+  const { formik, name, isErrorPresentAndFieldWasTouched } = props;
 
-  const [filesRejected, setFilesRejected] = useState<FileRejection[]>([]);
-  const [dropZoneText, setDropZoneText] = useState('');
+  ////formik
+  const currentValue = formik.getFieldMeta(name).value as TFileWithPreview;
+
+  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   //drop zone
+  const [filesRejected, setFilesRejected] = useState<FileRejection[]>([]);
+  const [dropZoneText, setDropZoneText] = useState('');
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     if (acceptedFiles?.length && acceptedFiles[0]) {
       const currentFile = acceptedFiles[0];
-      setFile(
+      formik.setFieldValue(
+        name,
         Object.assign(currentFile, {
           preview: URL.createObjectURL(currentFile),
         })
@@ -35,12 +41,13 @@ export default function DropzoneImage(props: Props) {
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { 'image/*': [] },
-    maxFiles: 1,
-    maxSize: 4096 * 1000,
-  });
+  const { getRootProps, getInputProps, isDragActive, isFileDialogActive } =
+    useDropzone({
+      onDrop,
+      accept: { 'image/*': [] },
+      maxFiles: 1,
+      maxSize: 4096 * 1000,
+    });
 
   let timer: ReturnType<typeof setTimeout>;
   const clearErrorDropZOneText = () => {
@@ -62,37 +69,56 @@ export default function DropzoneImage(props: Props) {
       return;
     }
 
-    if (!isDragActive && !file) {
+    if (!isDragActive && !currentValue) {
       setDropZoneText('przenieś obrazek na to pole lub kliknij');
       return;
     }
 
-    if (!isDragActive && file) {
-      setDropZoneText(file.name);
+    if (!isDragActive && currentValue) {
+      setDropZoneText(currentValue.name);
       return;
     }
 
     return () => {
       clearTimeout(timer);
     };
-  }, [filesRejected, isDragActive, file]);
+  }, [filesRejected, isDragActive, currentValue]);
+
+  useEffect(() => {
+    const isFieldTouched = formik.getFieldMeta(name).touched;
+
+    if (!isFieldTouched) {
+      formik.getFieldHelpers(name).setTouched(true);
+    }
+  }, [isFileDialogActive, isDragActive]);
 
   ////tsx
   return (
     <div
       {...getRootProps({
         className: clsx(
-          'flex-grow h-16 ml-8 w-max base-container-look',
-          file && !isDragActive
+          'flex-grow h-16 ml-8 w-max base-container-look hover:diagonal-lines-fill',
+          currentValue && !isDragActive
             ? 'diagonal-lines-fill-secondary'
-            : 'diagonal-lines-fill',
-          isDragActive ? 'diagonal-lines-fill' : ''
+            : 'diagonal-lines-fill-gray',
+          isDragActive ? 'diagonal-lines-fill' : '',
+          isErrorPresentAndFieldWasTouched ? 'diagonal-lines-fill-error' : ''
         ),
       })}
     >
       <input {...getInputProps()} />
-      <div className="flex items-center justify-center h-full mx-auto w-96">
-        <span className=" text-background font-base-regular">
+      <div
+        className="flex items-center justify-center h-full mx-auto w-96"
+        onBlur={() => {
+          alert('on blur');
+        }}
+      >
+        <span
+          className={clsx(
+            'text-background font-base-regular',
+            isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+          )}
+        >
           {dropZoneText}
         </span>
       </div>
@@ -102,9 +128,6 @@ export default function DropzoneImage(props: Props) {
 
 //// utils
 function createTextResponseText(filesRejected: FileRejection[]) {
-  // const allErrorCodes = filesRejected[0].errors.map((error) => {
-  //   return error.code;
-  // });
   const allErrorCodes: string[] = [];
   filesRejected.forEach((fileRejected) => {
     fileRejected.errors.forEach((error) => allErrorCodes.push(error.code));

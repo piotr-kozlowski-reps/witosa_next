@@ -3,7 +3,7 @@ import {
   getIsErrorNOTPresentAndFieldWasTouched,
   getIsErrorPresentAndFieldWasTouched,
 } from '@/lib/formikHelpers';
-import { TFileWithPreview, TImageCyclicalActivityFormValues } from '@/types';
+import { TImageCyclicalActivityFormValues } from '@/types';
 import {
   DndContext,
   DragEndEvent,
@@ -19,7 +19,7 @@ import {
 } from '@dnd-kit/sortable';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import ImageInputFormik from './ImageInputFormik';
 
 type Props<T> = {
@@ -29,14 +29,11 @@ type Props<T> = {
   isCurrentFormToPUTData: string;
 };
 
-type TFormImageType = (TImageCyclicalActivityFormValues & {
-  id: number | string;
-})[];
+type TFormImageType = TImageCyclicalActivityFormValues[];
 
 export default function ImagesUploadFormik<T>(props: Props<T>) {
   ////vars
   const { name, label, formik, isCurrentFormToPUTData } = props;
-  const [file, setFile] = useState<TFileWithPreview>();
 
   ////formik
   const error = getErrorForField<T>(formik, name);
@@ -45,22 +42,21 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
-  const currentValue = formik.getFieldMeta(name).value as TFormImageType;
+  const currentImagesValue = formik.getFieldMeta(name).value as TFormImageType;
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  const [images, setImages] = useState<TFormImageType>(
-    currentValue.length > 0
-      ? currentValue
+  const valueOfImagesToBePassedFurther: TFormImageType =
+    currentImagesValue.length > 0
+      ? currentImagesValue
       : [
           {
-            url: '',
+            file: undefined,
             alt: '',
             additionInfoThatMustBeDisplayed: '',
             id: new Date().getTime().toString(),
           },
-        ]
-  );
+        ];
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -78,12 +74,21 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
     }
 
     if (active.id !== over.id) {
-      setImages((elements) => {
-        const activeIndex = elements.findIndex((el) => el.id === active.id);
-        const overIndex = elements.findIndex((el) => el.id === over.id);
+      const activeIndex = currentImagesValue.findIndex(
+        (el) => el.id === active.id
+      );
+      const overIndex = currentImagesValue.findIndex((el) => el.id === over.id);
 
-        return arrayMove(elements, activeIndex, overIndex);
-      });
+      const resultArray = arrayMove(currentImagesValue, activeIndex, overIndex);
+
+      formik.setFieldValue(name, resultArray);
+
+      // setImages((elements) => {
+      //   const activeIndex = elements.findIndex((el) => el.id === active.id);
+      //   const overIndex = elements.findIndex((el) => el.id === over.id);
+
+      //   return arrayMove(elements, activeIndex, overIndex);
+      // });
     }
   }
 
@@ -104,17 +109,19 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
         onDragEnd={dragEndHander}
         sensors={sensors}
       >
-        <SortableContext items={images} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={valueOfImagesToBePassedFurther}
+          strategy={verticalListSortingStrategy}
+        >
           <div className="mr-8 base-container-look">
-            {images.map((image, index) => (
+            {valueOfImagesToBePassedFurther.map((image, index) => (
               <ImageInputFormik<T>
+                name={name}
                 key={image.id}
                 imageProps={image}
                 index={index}
                 formik={formik}
                 isCurrentFormToPUTData={isCurrentFormToPUTData}
-                file={file}
-                setFile={setFile}
               />
             ))}
           </div>

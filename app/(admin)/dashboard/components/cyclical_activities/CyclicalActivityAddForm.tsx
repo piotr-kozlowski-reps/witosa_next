@@ -55,6 +55,8 @@ export default function CyclicalActivityAddForm() {
     validationSchema: validationSchema,
   });
 
+  const [images, setImages] = useState([]);
+
   console.log({ formik });
 
   //form stages logic
@@ -76,20 +78,6 @@ export default function CyclicalActivityAddForm() {
     },
   ];
   const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
-  // console.log({ stage });
-
-  // function checkValidityOfFormStageOne(
-  //   formik: FormikProps<TCyclicalActivitiesFormValues>
-  // ) {
-  //   return validateValuesForCyclicalActivitiesStageOne(formik.values);
-  // }
-  // function checkValidityOfFormStageTwo(
-  //   formik: FormikProps<TCyclicalActivitiesFormValues>
-  // ) {
-  //   return getCyclicalActivityValidationSchemaForStageTwo().safeParse(
-  //     formik.values
-  //   ).success;
-  // }
 
   function getCurrentStageIndex() {
     return stage.findIndex((stageItem) => stageItem.isActive);

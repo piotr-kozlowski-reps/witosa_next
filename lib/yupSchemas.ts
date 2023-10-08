@@ -166,9 +166,67 @@ export const longDescriptionYupSchema = Yup.string()
 
 //
 /** images */
+const fileErrorMessages = {
+  FILE_TO_LARGE: 'Plik graficzny jest za duży - maksymalna wielkość to 4mb.',
+  ERROR_FILE_TYPE: 'Zły format pliku.',
+  NO_FILE: 'Brakuje pliku graficznego.',
+};
+const maxFileSize = 4096 * 1000;
+const fileTypes = [
+  'image/png',
+  'image/jpg',
+  'image/jpeg',
+  'image/gif',
+  'image/webp',
+  'image/bmp',
+  'image/tiff',
+];
+
 export const imagesYupSchema = Yup.array(
   Yup.object().shape({
-    url: Yup.string().required('Obrazek musi być podany.'),
+    file: Yup.mixed().test(
+      'is there any file',
+      fileErrorMessages.NO_FILE,
+      (file) => {
+        if (!file) {
+          return false;
+        }
+        return true;
+      }
+    ),
+    // .test('file size', fileErrorMessages.FILE_TO_LARGE, (file) => {
+    //   if (!file) {
+    //     return true;
+    //   }
+    //   return getIsFileSizeValid(file as File, maxFileSize);
+    // })
+    // .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (file) => {
+    //   if (!file) {
+    //     return true;
+    //   }
+    //   return getIsFileTypesValid(file as File, fileTypes);
+    // }),
+
+    //     imageSourceFull: Yup.mixed().test(
+    //   "image type or string",
+    //   "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+    //   (value) => {
+    //     if (!value) return;
+    //     if (
+    //       Object.prototype.toString.call(value) === "[object String]"
+    //     ) {
+    //       const isNotEmpty = value.trim().length > 0 ? true : false;
+    //       return isNotEmpty;
+    //     }
+    //     return (
+    //       value.type === "image/jpeg" ||
+    //       value.type === "image/png" ||
+    //       value.type === "image/jpg" ||
+    //       value.type === "image/gif"
+    //     );
+    //   }
+    // ),
+
     alt: Yup.string().required('Opis obrazka musi być podany.'),
     additionInfoThatMustBeDisplayed: Yup.string().nullable(),
   })
@@ -176,3 +234,17 @@ export const imagesYupSchema = Yup.array(
   is: false,
   then: (schema) => schema.min(1),
 });
+
+////utils
+export function getIsFileSizeValid(file: File, maxFileSize: number) {
+  if (!file) return true;
+  return file.size < maxFileSize;
+}
+export function getIsFileTypesValid(file: File, fileTypes: string[]) {
+  if (!file) return true;
+  let valid = true;
+  if (!fileTypes.includes(file.type)) {
+    return false;
+  }
+  return true;
+}

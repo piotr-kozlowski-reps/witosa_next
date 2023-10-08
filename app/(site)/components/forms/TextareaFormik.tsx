@@ -17,6 +17,7 @@ type Props<T> =
       formik: FormikProps<T>;
       isCommentPopupVisible?: false;
       commentContent?: never;
+      isShowCommentToTheLeft: never;
     }
   | {
       name: string;
@@ -27,6 +28,7 @@ type Props<T> =
       formik: FormikProps<T>;
       isCommentPopupVisible?: true;
       commentContent?: React.ReactNode;
+      isShowCommentToTheLeft?: boolean;
     };
 
 export default function TextareaFormik<T>(props: Props<T>) {
@@ -40,6 +42,7 @@ export default function TextareaFormik<T>(props: Props<T>) {
     height,
     isCommentPopupVisible,
     commentContent,
+    isShowCommentToTheLeft,
   } = props;
   //formik
   const error = getErrorForField<T>(formik, name);
@@ -88,6 +91,7 @@ export default function TextareaFormik<T>(props: Props<T>) {
             size="EXTRA_SMALL"
             alt={`${name} - komentarz.`}
             commentContent={commentContent}
+            isShowCommentToTheLeft={true}
           />
         </div>
       ) : null}
