@@ -7,11 +7,12 @@ type Props = {
   size?: TIconSize;
   additionalClasses?: string;
   actionFn: () => void;
+  disabled?: boolean;
 };
 
 export default function CloseIcon(props: Props) {
   ////vars
-  const { size, alt, additionalClasses, actionFn } = props;
+  const { size, alt, additionalClasses, actionFn, disabled } = props;
   const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
 
   ////tsx
@@ -20,6 +21,7 @@ export default function CloseIcon(props: Props) {
       actionFn={actionFn}
       additionalClasses={additionalClasses}
       alt={alt}
+      disabled={disabled}
     >
       <div style={{ width: width, height: height }}>
         <svg

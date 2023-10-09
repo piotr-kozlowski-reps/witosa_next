@@ -18,10 +18,20 @@ export default function DropzoneImage<T>(props: Props<T>) {
   ////vars
   const { formik, name, isErrorPresentAndFieldWasTouched } = props;
 
+  const [mainImageFile, setMainImageFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+
+  useEffect(() => {
+    if (mainImageFile && preview) {
+      formik.setFieldValue(
+        name,
+        Object.assign(mainImageFile, { preview: preview })
+      );
+    }
+  }, [mainImageFile, preview]);
+
   ////formik
   const currentValue = formik.getFieldMeta(name).value as TFileWithPreview;
-
-  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   //drop zone
   const [filesRejected, setFilesRejected] = useState<FileRejection[]>([]);
@@ -29,12 +39,16 @@ export default function DropzoneImage<T>(props: Props<T>) {
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     if (acceptedFiles?.length && acceptedFiles[0]) {
       const currentFile = acceptedFiles[0];
-      formik.setFieldValue(
-        name,
-        Object.assign(currentFile, {
-          preview: URL.createObjectURL(currentFile),
-        })
-      );
+
+      /** main image file */
+      setMainImageFile(currentFile);
+
+      /** prev of image file */
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreview(fileReader.result);
+      };
+      fileReader.readAsDataURL(currentFile);
     }
     if (rejectedFiles.length) {
       setFilesRejected(rejectedFiles);
@@ -85,9 +99,12 @@ export default function DropzoneImage<T>(props: Props<T>) {
   }, [filesRejected, isDragActive, currentValue]);
 
   useEffect(() => {
+    console.log({ isFileDialogActive });
+    console.log({ isDragActive });
+
     const isFieldTouched = formik.getFieldMeta(name).touched;
 
-    if (!isFieldTouched) {
+    if ((isFileDialogActive || isDragActive) && !isFieldTouched) {
       formik.getFieldHelpers(name).setTouched(true);
     }
   }, [isFileDialogActive, isDragActive]);
@@ -101,8 +118,10 @@ export default function DropzoneImage<T>(props: Props<T>) {
           currentValue && !isDragActive
             ? 'diagonal-lines-fill-secondary'
             : 'diagonal-lines-fill-gray',
-          isDragActive ? 'diagonal-lines-fill' : '',
-          isErrorPresentAndFieldWasTouched ? 'diagonal-lines-fill-error' : ''
+          isErrorPresentAndFieldWasTouched && !isDragActive
+            ? 'diagonal-lines-fill-error'
+            : '',
+          isDragActive ? 'diagonal-lines-fill' : ''
         ),
       })}
     >

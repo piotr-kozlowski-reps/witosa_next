@@ -22,7 +22,7 @@ export default function Modal() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="absolute z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[25px] pb-[32px] "
+          className="fixed z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[25px] pb-[32px] "
         >
           <div className="proper-container-classes">{getModalContent()}</div>
         </motion.div>
@@ -34,7 +34,7 @@ export default function Modal() {
           animate="visible"
           exit="exit"
           className={clsx(
-            'absolute top-0 bottom-0 left-0 right-0 z-30 w-screen h-screen overlay opacity-90 overflow-clip'
+            'fixed top-0 bottom-0 left-0 right-0 z-30 w-screen h-screen overlay opacity-90 overflow-clip'
           )}
           onClick={() => setHideModal()}
         ></motion.div>

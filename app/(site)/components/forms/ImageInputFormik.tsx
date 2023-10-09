@@ -1,9 +1,12 @@
 import AdditionalDescriptionComment from '@/app/(admin)/dashboard/components/form_comments/AdditionalDescriptionComment';
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
+import { useModalState } from '@/context/modalState';
 import { TImageCyclicalActivityFormValues } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import clsx from 'clsx';
 import { FormikProps } from 'formik';
+import Image from 'next/image';
 import CustomButton from '../CustomButton';
 import CloseIcon from '../icons/CloseIcon';
 import { DropImageFormik } from './DropImageFormik';
@@ -12,10 +15,6 @@ import TextareaFormik from './TextareaFormik';
 
 type Props<T> = {
   imageProps: TImageCyclicalActivityFormValues;
-  // imageProps: TImageCyclicalActivityFormValues & {
-  //   id: number | string;
-  //   file: TFileWithPreview;
-  // };
   index: number;
   formik: FormikProps<T>;
   isCurrentFormToPUTData: string;
@@ -26,28 +25,66 @@ export default function ImageInputFormik<T>(props: Props<T>) {
   ////vars
   const { imageProps, index, formik, isCurrentFormToPUTData } = props;
   const { file } = imageProps;
-
+  const { setShowModal, setHideModal } = useModalState();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
+
+  const currentValueOfImages = formik.getFieldMeta('images')
+    .value as TImageCyclicalActivityFormValues[];
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
+  function prevMobile(width: number) {
+    return (
+      <div className="flex items-center justify-center w-full">
+        {file ? (
+          <div className="flex flex-col items-center justify-center">
+            <div className="h-[352px]" style={{ width: width }}>
+              <Image
+                src={file!.preview}
+                width={500}
+                height={300}
+                alt={file!.name}
+                className="object-cover object-center w-full h-full"
+              />
+            </div>
+            <CustomButton
+              text={'zamknij'}
+              descriptionText="zamknij podgląd"
+              additionalClasses="mt-4"
+              disabled={false}
+              actionFn={() => setHideModal()}
+            />
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  function deleteImageItem() {
+    const resultImagesArray = [...currentValueOfImages];
+    resultImagesArray.splice(index, 1);
+    formik.setFieldValue('images', resultImagesArray);
+  }
+
+  ////tsx
   return (
     <div
       ref={setNodeRef}
       {...attributes}
       {...listeners}
       style={style}
-      className="mx-8 mb-4 base-container-look"
+      className={clsx('mx-8 mb-4 base-container-look')}
     >
       <div className="relative flex flex-col items-center justify-start mb-[28px]">
         <div className="absolute right-0 -top-[16px] z-60">
           <CloseIcon
             alt="Zamknij mobilne menu."
-            actionFn={() => alert('close icon no implemented')}
+            actionFn={deleteImageItem}
+            disabled={currentValueOfImages.length <= 1}
           />
         </div>
 
@@ -99,30 +136,30 @@ export default function ImageInputFormik<T>(props: Props<T>) {
             text={'podgląd komórka'}
             descriptionText="podgląd komórka"
             additionalClasses="mt-[4px]"
-            disabled={false}
+            disabled={!file}
             outlined={true}
             actionFn={() => {
-              alert('podgląd komórka - not implemented');
+              setShowModal(true, prevMobile(244));
             }}
           />
           <CustomButton
             text={'podgląd tablet'}
             descriptionText="podgląd tablet"
             additionalClasses="mt-[4px]"
-            disabled={false}
+            disabled={!file}
             outlined={true}
             actionFn={() => {
-              alert('podgląd tablet - not implemented');
+              setShowModal(true, prevMobile(749));
             }}
           />
           <CustomButton
             text={'podgląd komputer'}
             descriptionText="podgląd komputer"
             additionalClasses="mt-[4px]"
-            disabled={false}
+            disabled={!file}
             outlined={true}
             actionFn={() => {
-              alert('podgląd komputer - not implemented');
+              setShowModal(true, prevMobile(1140));
             }}
           />
         </div>

@@ -17,6 +17,7 @@ import { TActionResponse, TFormStage } from '@/types';
 import { FormikProps, useFormik } from 'formik';
 import { Fragment, useEffect, useState } from 'react';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
+import CyclicalActivityAddFormStageThree from './CyclicalActivityAddFormStageThree';
 import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 
 export default function CyclicalActivityAddForm() {
@@ -49,13 +50,27 @@ export default function CyclicalActivityAddForm() {
       isCustomLinkToDetails: false,
       customLinkToDetails: '',
       longDescription: '',
-      images: [],
+      images: [
+        {
+          file: undefined,
+          alt: '',
+          additionInfoThatMustBeDisplayed: '',
+          id: new Date().getTime().toString(),
+        },
+      ],
+
+      //stage3
+      occurrence: [
+        {
+          day: 'MONDAY',
+          activityStart: new Date(),
+          activityEnd: new Date(),
+        },
+      ],
     },
     onSubmit: () => {},
     validationSchema: validationSchema,
   });
-
-  const [images, setImages] = useState([]);
 
   console.log({ formik });
 
@@ -282,7 +297,10 @@ export default function CyclicalActivityAddForm() {
         {stage[2].isActive ? (
           <ComponentTransitionFromRightToLeft>
             <Fragment>
-              <div className="form-input-width -mt-[7px]">trzeci stage</div>
+              <CyclicalActivityAddFormStageThree<TCyclicalActivityFormInputs>
+                isCurrentFormToPUTData={isCurrentFormToPUTData}
+                formik={formik}
+              />
             </Fragment>
           </ComponentTransitionFromRightToLeft>
         ) : null}

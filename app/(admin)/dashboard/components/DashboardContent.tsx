@@ -1,6 +1,8 @@
 'use client';
 
 import NotAuthenticatedError from '@/app/(site)/components/NotAuthenticatedError';
+import Modal from '@/app/(site)/components/modal/Modal';
+import { useModalState } from '@/context/modalState';
 import {
   TGetAllCyclicalActivitiesResponse,
   TGetAllUsersResponse,
@@ -27,6 +29,7 @@ export default function DashboardContent(props: Props) {
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { newsletterDataCombo, usersData, cyclicalActivitiesData } = props;
+  const { getIsShowModal } = useModalState();
 
   const theme = createTheme({
     palette: {
@@ -85,19 +88,22 @@ export default function DashboardContent(props: Props) {
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
           {session && session?.data?.user ? (
-            <div className="proper-container-classes">
-              <DashboardHeader userName={session?.data?.user?.name} />
+            <Fragment>
+              {getIsShowModal() ? <Modal /> : null}
+              <div className="proper-container-classes">
+                <DashboardHeader userName={session?.data?.user?.name} />
 
-              <div className="mt-[37px] relative">
-                <DashboardNavigation isAdmin={isAdmin} />
-                <DashboardInsidePages
-                  newsletterDataCombo={newsletterDataCombo}
-                  usersData={usersData}
-                  cyclicalActivitiesData={cyclicalActivitiesData}
-                />
+                <div className="mt-[37px] relative">
+                  <DashboardNavigation isAdmin={isAdmin} />
+                  <DashboardInsidePages
+                    newsletterDataCombo={newsletterDataCombo}
+                    usersData={usersData}
+                    cyclicalActivitiesData={cyclicalActivitiesData}
+                  />
+                </div>
+                {/* <FooterStamp /> */}
               </div>
-              {/* <FooterStamp /> */}
-            </div>
+            </Fragment>
           ) : null}
         </LocalizationProvider>
       </ThemeProvider>

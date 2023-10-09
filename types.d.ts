@@ -1,5 +1,6 @@
 import {
   CyclicalActivity,
+  CyclicalActivityOccurrence,
   Day,
   Event,
   ImageCyclicalActivity,
@@ -289,3 +290,9 @@ export type TImageCyclicalActivityFormValues = Pick<
 > & { file: TFileWithPreview; id: string | number };
 
 export type TFileWithPreview = (File & { preview: string }) | undefined;
+
+export type TOccurrence = Pick<
+  CyclicalActivityOccurrence,
+  'day',
+  'activityStart' | 'activityEnd'
+>;

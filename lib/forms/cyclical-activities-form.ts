@@ -8,6 +8,7 @@ import {
   isBooleanYupSchema,
   longDescriptionYupSchema,
   nameSchemaYup_Required_Min2,
+  occurrenceYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
 
@@ -185,9 +186,14 @@ export const cyclicalActivityValidationSchemaStageTwoWithYup = {
   images: imagesYupSchema,
 };
 
+export const cyclicalActivityValidationSchemaStageThreeWithYup = {
+  occurrence: occurrenceYupSchema,
+};
+
 const yupSchema = Yup.object({
   ...cyclicalActivityValidationSchemaStageOneWithYup,
   ...cyclicalActivityValidationSchemaStageTwoWithYup,
+  ...cyclicalActivityValidationSchemaStageThreeWithYup,
 });
 
 export function generateValidationForCyclicalActivities() {

@@ -20,6 +20,7 @@ import {
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
+import CustomButton from '../CustomButton';
 import ImageInputFormik from './ImageInputFormik';
 
 type Props<T> = {
@@ -46,17 +47,17 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  const valueOfImagesToBePassedFurther: TFormImageType =
-    currentImagesValue.length > 0
-      ? currentImagesValue
-      : [
-          {
-            file: undefined,
-            alt: '',
-            additionInfoThatMustBeDisplayed: '',
-            id: new Date().getTime().toString(),
-          },
-        ];
+  // const valueOfImagesToBePassedFurther: TFormImageType =
+  //   currentImagesValue.length > 0
+  //     ? currentImagesValue
+  //     : [
+  //         {
+  //           file: undefined,
+  //           alt: '',
+  //           additionInfoThatMustBeDisplayed: '',
+  //           id: new Date().getTime().toString(),
+  //         },
+  //       ];
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -82,14 +83,20 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
       const resultArray = arrayMove(currentImagesValue, activeIndex, overIndex);
 
       formik.setFieldValue(name, resultArray);
-
-      // setImages((elements) => {
-      //   const activeIndex = elements.findIndex((el) => el.id === active.id);
-      //   const overIndex = elements.findIndex((el) => el.id === over.id);
-
-      //   return arrayMove(elements, activeIndex, overIndex);
-      // });
     }
+  }
+
+  function addNewImage() {
+    const resultImagesArray = [
+      ...currentImagesValue,
+      {
+        file: undefined,
+        alt: '',
+        additionInfoThatMustBeDisplayed: '',
+        id: new Date().getTime().toString(),
+      },
+    ];
+    formik.setFieldValue(name, resultImagesArray);
   }
 
   ////tsx
@@ -98,8 +105,8 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
       <label
         htmlFor={name}
         className={clsx(
-          'font-base-regular',
-          isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+          'font-base-regular'
+          // isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
         )}
       >
         {label}
@@ -109,12 +116,17 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
         onDragEnd={dragEndHander}
         sensors={sensors}
       >
-        <SortableContext
-          items={valueOfImagesToBePassedFurther}
-          strategy={verticalListSortingStrategy}
+        <div
+          className={clsx(
+            'mr-8 base-container-look'
+            // error ? 'border-2 border-error' : ''
+          )}
         >
-          <div className="mr-8 base-container-look">
-            {valueOfImagesToBePassedFurther.map((image, index) => (
+          <SortableContext
+            items={currentImagesValue}
+            strategy={verticalListSortingStrategy}
+          >
+            {currentImagesValue.map((image, index) => (
               <ImageInputFormik<T>
                 name={name}
                 key={image.id}
@@ -124,14 +136,20 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
                 isCurrentFormToPUTData={isCurrentFormToPUTData}
               />
             ))}
+          </SortableContext>
+          <div className="ml-8">
+            <CustomButton
+              text={'dodaj obrazek'}
+              descriptionText="Dodaj obrazek."
+              additionalClasses="mt-[4px]"
+              disabled={!!error}
+              outlined={true}
+              actionFn={() => {
+                addNewImage();
+              }}
+            />
           </div>
-
-          {/* {isErrorPresentAndFieldWasTouched ? (
-            <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-              {error}
-            </p>
-          ) : null} */}
-        </SortableContext>
+        </div>
       </DndContext>
     </Fragment>
   );
