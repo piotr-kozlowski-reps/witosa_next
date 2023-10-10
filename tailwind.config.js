@@ -30,10 +30,7 @@ module.exports = {
           'cta-primary': 'var(--cta-primary)',
           'cta-secondary': 'var(--cta-secondary)',
           error: 'var(--color-error)',
-          // fill: 'var(--color-fill)',
-          // 'fill-inverted': 'var(--color-fill-inverted)',
-          // 'button-accent': 'var(--color-button-accent)',
-          // 'button-accent-hover': 'var(--color-button-accent-hover)',
+          'cta-secondary-opacity': 'var(--cta-secondary-opacity)',
         },
       },
       fontSize: {

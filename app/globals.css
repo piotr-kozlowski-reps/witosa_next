@@ -523,4 +523,48 @@
   .ql-container.ql-snow {
     border: none !important;
   }
+
+  .diagonal-lines-fill {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-background-base),
+      var(--color-background-base) 8px,
+      var(--cta-primary) 8px,
+      var(--cta-primary) 9px
+    );
+  }
+
+  .diagonal-lines-fill-gray {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-background-base),
+      var(--color-background-base) 8px,
+      var(--color-gray) 8px,
+      var(--color-gray) 9px
+    );
+  }
+  .diagonal-lines-fill-secondary {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--cta-secondary-opacity),
+      var(--cta-secondary-opacity) 8px,
+      var(--cta-secondary) 8px,
+      var(--cta-secondary) 9px
+    );
+  }
+
+  .diagonal-lines-fill-error {
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-background-base),
+      var(--color-background-base) 8px,
+      var(--color-error) 8px,
+      var(--color-error) 9px
+    );
+  }
+
+  .text-background {
+    box-shadow: 28px 0 0px 0px var(--color-background-base),
+      -28px 0 0px 0px var(--color-background-base);
+  }
 }

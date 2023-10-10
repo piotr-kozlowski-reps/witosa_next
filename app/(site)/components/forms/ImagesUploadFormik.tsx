@@ -4,7 +4,14 @@ import {
   getIsErrorPresentAndFieldWasTouched,
 } from '@/lib/formikHelpers';
 import { TImageCyclicalActivityFormValues } from '@/types';
-import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
@@ -12,34 +19,22 @@ import {
 } from '@dnd-kit/sortable';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
+import CustomButton from '../CustomButton';
 import ImageInputFormik from './ImageInputFormik';
 
 type Props<T> = {
   name: string;
   label: string;
   formik: FormikProps<T>;
+  isCurrentFormToPUTData: string;
 };
+
+type TFormImageType = TImageCyclicalActivityFormValues[];
 
 export default function ImagesUploadFormik<T>(props: Props<T>) {
   ////vars
-  const { name, label, formik } = props;
-  const [images, setImages] = useState<
-    (TImageCyclicalActivityFormValues & { id: number | string })[]
-  >([
-    {
-      id: 1,
-      url: '1sdfvsdfv1',
-      alt: '1iddgbfg1',
-      additionInfoThatMustBeDisplayed: null,
-    },
-    {
-      id: 2,
-      url: '2sdfvsdfv2',
-      alt: '2iddgbfg2',
-      additionInfoThatMustBeDisplayed: 'sdfcdf',
-    },
-  ]);
+  const { name, label, formik, isCurrentFormToPUTData } = props;
 
   ////formik
   const error = getErrorForField<T>(formik, name);
@@ -48,9 +43,29 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
-  const currentValue = formik.getFieldMeta(name).value as string;
+  const currentImagesValue = formik.getFieldMeta(name).value as TFormImageType;
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
+
+  // const valueOfImagesToBePassedFurther: TFormImageType =
+  //   currentImagesValue.length > 0
+  //     ? currentImagesValue
+  //     : [
+  //         {
+  //           file: undefined,
+  //           alt: '',
+  //           additionInfoThatMustBeDisplayed: '',
+  //           id: new Date().getTime().toString(),
+  //         },
+  //       ];
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 30,
+      },
+    })
+  );
 
   function dragEndHander(event: DragEndEvent) {
     const { active, over } = event;
@@ -60,13 +75,28 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
     }
 
     if (active.id !== over.id) {
-      setImages((elements) => {
-        const activeIndex = elements.findIndex((el) => el.id === active.id);
-        const overIndex = elements.findIndex((el) => el.id === over.id);
+      const activeIndex = currentImagesValue.findIndex(
+        (el) => el.id === active.id
+      );
+      const overIndex = currentImagesValue.findIndex((el) => el.id === over.id);
 
-        return arrayMove(elements, activeIndex, overIndex);
-      });
+      const resultArray = arrayMove(currentImagesValue, activeIndex, overIndex);
+
+      formik.setFieldValue(name, resultArray);
     }
+  }
+
+  function addNewImage() {
+    const resultImagesArray = [
+      ...currentImagesValue,
+      {
+        file: undefined,
+        alt: '',
+        additionInfoThatMustBeDisplayed: '',
+        id: new Date().getTime().toString(),
+      },
+    ];
+    formik.setFieldValue(name, resultImagesArray);
   }
 
   ////tsx
@@ -75,27 +105,51 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
       <label
         htmlFor={name}
         className={clsx(
-          'font-base-regular',
-          isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
+          'font-base-regular'
+          // isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
         )}
       >
         {label}
       </label>
-      <DndContext collisionDetection={closestCenter} onDragEnd={dragEndHander}>
-        <SortableContext items={images} strategy={verticalListSortingStrategy}>
-          <div className="mr-8 base-container-look">
-            {images.map((image) => (
-              <ImageInputFormik key={image.id} imageProps={image} />
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={dragEndHander}
+        sensors={sensors}
+      >
+        <div
+          className={clsx(
+            'mr-8 base-container-look'
+            // error ? 'border-2 border-error' : ''
+          )}
+        >
+          <SortableContext
+            items={currentImagesValue}
+            strategy={verticalListSortingStrategy}
+          >
+            {currentImagesValue.map((image, index) => (
+              <ImageInputFormik<T>
+                name={name}
+                key={image.id}
+                imageProps={image}
+                index={index}
+                formik={formik}
+                isCurrentFormToPUTData={isCurrentFormToPUTData}
+              />
             ))}
+          </SortableContext>
+          <div className="ml-8">
+            <CustomButton
+              text={'dodaj obrazek'}
+              descriptionText="Dodaj obrazek."
+              additionalClasses="mt-[4px]"
+              disabled={!!error}
+              outlined={true}
+              actionFn={() => {
+                addNewImage();
+              }}
+            />
           </div>
-
-          {/* <div className="p-4 bg-gray-400">inside</div>
-          {isErrorPresentAndFieldWasTouched ? (
-            <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-              {error}
-            </p>
-          ) : null} */}
-        </SortableContext>
+        </div>
       </DndContext>
     </Fragment>
   );

@@ -1,4 +1,4 @@
-import { ActivityType, ForWhom, Place } from '@prisma/client';
+import { ActivityType, Day, ForWhom, Place } from '@prisma/client';
 import * as Yup from 'yup';
 
 //
@@ -163,3 +163,145 @@ export const longDescriptionYupSchema = Yup.string()
     }
   )
   .nullable();
+
+//
+/** images */
+const fileErrorMessages = {
+  FILE_TO_LARGE: 'Plik graficzny jest za duży - maksymalna wielkość to 4mb.',
+  ONLY_ONE_FILE: 'Zbyt dużo plików, przyjmowany jest tylko jeden plik.',
+  ERROR_FILE_TYPE: 'Zły format pliku.',
+  NO_FILE: 'Brakuje pliku graficznego.',
+};
+const maxFileSize = 4096 * 1000;
+const fileTypes = [
+  'image/png',
+  'image/jpg',
+  'image/jpeg',
+  'image/gif',
+  'image/webp',
+  'image/bmp',
+  'image/tiff',
+];
+
+export const imagesYupSchema = Yup.array(
+  Yup.object().shape({
+    file: Yup.mixed()
+      .test(
+        'is there any file',
+        fileErrorMessages.NO_FILE,
+        (value, context) => {
+          const isCustomLinkToDetails =
+            context.options.context?.isCustomLinkToDetails;
+
+          if (isCustomLinkToDetails) {
+            return true;
+          }
+
+          if (!value) {
+            return false;
+          }
+          return true;
+        }
+      )
+      .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value, context) => {
+        const isCustomLinkToDetails =
+          context.options.context?.isCustomLinkToDetails;
+
+        if (isCustomLinkToDetails) {
+          return true;
+        }
+
+        if (!value) {
+          return true;
+        }
+        return getIsFileTypesValid(value as File, fileTypes);
+      })
+      .test('file size', fileErrorMessages.FILE_TO_LARGE, (value, context) => {
+        const isCustomLinkToDetails =
+          context.options.context?.isCustomLinkToDetails;
+
+        if (isCustomLinkToDetails) {
+          return true;
+        }
+
+        if (!value) {
+          return true;
+        }
+
+        return getIsFileSizeValid(value as File, maxFileSize);
+      }),
+
+    //////////////////////
+    //     imageSourceFull: Yup.mixed().test(
+    //   "image type or string",
+    //   "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+    //   (value) => {
+    //     if (!value) return;
+    //     if (
+    //       Object.prototype.toString.call(value) === "[object String]"
+    //     ) {
+    //       const isNotEmpty = value.trim().length > 0 ? true : false;
+    //       return isNotEmpty;
+    //     }
+    //     return (
+    //       value.type === "image/jpeg" ||
+    //       value.type === "image/png" ||
+    //       value.type === "image/jpg" ||
+    //       value.type === "image/gif"
+    //     );
+    //   }
+    // ),
+    //////////////////////
+
+    alt: Yup.string().when(
+      'isCustomLinkToDetails',
+      (isCustomLinkToDetails, schema) => {
+        if (!isCustomLinkToDetails) {
+          return schema.required('Opis obrazka musi być podany.');
+        }
+        return schema;
+      }
+    ),
+    additionInfoThatMustBeDisplayed: Yup.string().nullable(),
+    id: Yup.string().required(),
+  })
+).when('isCustomLinkToDetails', {
+  is: false,
+  then: (schema) => schema.min(1),
+});
+
+/** day type */
+export const dayYupSchema = Yup.mixed()
+  .test(
+    'only one value of Day',
+    'Wybrany dzień tygodnia jest niepoprawny.',
+    (value) => {
+      if (Object.values(Day).includes(value as Day)) {
+        return true;
+      }
+      return false;
+    }
+  )
+  .required();
+
+export const occurrenceYupSchema = Yup.array(
+  Yup.object().shape({
+    day: dayYupSchema,
+    activityStart: isDateYupSchema,
+    activityEnd: isDateYupSchema,
+  })
+);
+
+////utils
+export function getIsFileSizeValid(file: File, maxFileSize: number) {
+  if (!file) return true;
+  return file.size < maxFileSize;
+}
+export function getIsFileTypesValid(file: File, fileTypes: string[]) {
+  if (!file) return true;
+  let valid = true;
+  if (!fileTypes.includes(file.type)) {
+    return false;
+  }
+  return true;
+}

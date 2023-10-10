@@ -1,3 +1,5 @@
+'use client';
+
 import {
   getErrorForField,
   getIsErrorNOTPresentAndFieldWasTouched,
@@ -13,22 +15,12 @@ type Props<T> =
   | {
       name: string;
       label: string;
-      // type: string;
-      // placeholder: string;
-      // width?: number;
       formik: FormikProps<T>;
-      // isCommentPopupVisible?: false;
-      // commentContent?: never;
     }
   | {
       name: string;
       label: string;
-      // type: string;
-      // placeholder: string;
-      // width?: number;
       formik: FormikProps<T>;
-      // isCommentPopupVisible?: true;
-      // commentContent?: React.ReactNode;
     };
 
 export default function RichTextEditorFormik<T>(props: Props<T>) {
@@ -43,12 +35,9 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
   const currentValue = formik.getFieldMeta(name).value as string;
-  const onChangeForInput = formik.getFieldProps(name).onChange;
-  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
+  //TODO: custom hook?
   const [value, setValue] = useState(currentValue);
-  // console.log({ value });
-
   useEffect(() => {
     formik.getFieldHelpers(name).setValue(value);
   }, [value]);
@@ -102,11 +91,10 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
           modules={modules}
           theme="snow"
           value={value}
+          placeholder="dodaj szczegółowy opis ..."
           // onChange={setValue}
           onChange={(content, delta, source, editor) => {
             if (editor.getText().trim() == '') {
-              console.log('inside editor.getText() == null');
-
               setValue('');
               return;
             }

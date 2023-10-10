@@ -1,6 +1,7 @@
 import { useIconsLogicHandler } from '@/hooks/useIconsLogicHandler';
 import { subMenuVariant } from '@/lib/animations/variants';
 import { TIconSize } from '@/types';
+import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import InfoIcon from '../icons/InfoIcon';
@@ -9,13 +10,14 @@ type Props = {
   alt: string;
   size?: TIconSize;
   commentContent: React.ReactNode;
+  isShowCommentToTheLeft?: boolean;
   // additionalClasses?: string;
   // actionFn: () => void;
 };
 
 export default function CommentPopup(props: Props) {
   ////vars
-  const { alt, size, commentContent } = props;
+  const { alt, size, commentContent, isShowCommentToTheLeft = false } = props;
   const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
   const [isCommentVisible, setIsCommentVisible] = useState(false);
 
@@ -45,7 +47,10 @@ export default function CommentPopup(props: Props) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute bottom-0 w-64 p-4 left-8 bg-skin-main-bg font-base-regular drop-shadow-big rounded-base"
+            className={clsx(
+              'absolute bottom-0 w-64 p-4  bg-skin-main-bg font-base-regular drop-shadow-big rounded-base',
+              isShowCommentToTheLeft ? 'right-8' : 'left-8'
+            )}
           >
             {commentContent}
           </motion.div>

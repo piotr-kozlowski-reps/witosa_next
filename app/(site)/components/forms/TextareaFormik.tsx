@@ -5,18 +5,45 @@ import {
 } from '@/lib/formikHelpers';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
+import CommentPopup from '../comment-popus/CommentPopup';
 
-interface Props<T> {
-  name: string;
-  label: string;
-  placeholder: string;
-  width?: number;
-  formik: FormikProps<T>;
-}
+type Props<T> =
+  | {
+      name: string;
+      label: string;
+      placeholder: string;
+      width?: number;
+      height?: number;
+      formik: FormikProps<T>;
+      isCommentPopupVisible?: false;
+      commentContent?: never;
+      isShowCommentToTheLeft: never;
+    }
+  | {
+      name: string;
+      label: string;
+      placeholder: string;
+      width?: number;
+      height?: number;
+      formik: FormikProps<T>;
+      isCommentPopupVisible?: true;
+      commentContent?: React.ReactNode;
+      isShowCommentToTheLeft?: boolean;
+    };
 
 export default function TextareaFormik<T>(props: Props<T>) {
   ///vars
-  const { name, label, placeholder, width, formik } = props;
+  const {
+    name,
+    label,
+    placeholder,
+    width,
+    formik,
+    height,
+    isCommentPopupVisible,
+    commentContent,
+    isShowCommentToTheLeft,
+  } = props;
   //formik
   const error = getErrorForField<T>(formik, name);
   const isErrorPresentAndFieldWasTouched =
@@ -30,7 +57,7 @@ export default function TextareaFormik<T>(props: Props<T>) {
 
   ///tsx
   return (
-    <div className="flex flex-col items-start justify-start w-full">
+    <div className="relative flex flex-col items-start justify-start w-full">
       <label
         htmlFor={name}
         className={clsx(
@@ -53,8 +80,21 @@ export default function TextareaFormik<T>(props: Props<T>) {
         value={currentValue}
         onBlur={onBlurForInput}
         onChange={(val) => onChangeForInput(val)}
-        style={width ? { width: `${width}px` } : { width: '100%' }}
+        style={{
+          width: width ? `${width}px` : '100%',
+          height: height ? `${height}px` : `128px`,
+        }}
       ></textarea>
+      {isCommentPopupVisible ? (
+        <div className="absolute top-[35px] px-2 -right-[32px]">
+          <CommentPopup
+            size="EXTRA_SMALL"
+            alt={`${name} - komentarz.`}
+            commentContent={commentContent}
+            isShowCommentToTheLeft={true}
+          />
+        </div>
+      ) : null}
       {isErrorPresentAndFieldWasTouched ? (
         <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
           {error}

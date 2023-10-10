@@ -1,33 +1,16 @@
-import {
-  TCyclicalActivitiesFormValues,
-  TCyclicalActivitiesFormValuesStageOne,
-  TCyclicalActivitiesFormValuesStageTwo,
-} from '@/types';
 import * as Yup from 'yup';
-import { z } from 'zod';
 import {
   activityTypeArrayYupSchema,
   customLinkToDetailsYupSchema,
   cyclicalActivityExpiresAtYupSchema,
   forWhomArrayYupSchema,
+  imagesYupSchema,
   isBooleanYupSchema,
   longDescriptionYupSchema,
   nameSchemaYup_Required_Min2,
+  occurrenceYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
-import {
-  activityTypeArraySchema,
-  customLinkToDetails_Required,
-  customLinkToDetails_Required_Or_Null,
-  forWhomArraySchema,
-  isBooleanSchema,
-  isDateOrNullSchema,
-  isDateSchema,
-  longDescription_Required_Or_Null,
-  nameSchema_Required_Min2,
-  placesArraySchema,
-  shortDescription_Required_Min5,
-} from '../zodSchemas';
 
 // export function getCyclicalActivityValidationSchema(
 //   isExpiresAtShouldBePresent: boolean
@@ -47,142 +30,144 @@ import {
 // }
 
 ////stage one
-export function getCyclicalActivityValidationSchemaForStageOne() {
-  return cyclicalActivityValidationSchemaStageOne;
-}
-export const cyclicalActivityValidationSchemaStageOne: z.ZodType<TCyclicalActivitiesFormValuesStageOne> =
-  z
-    .object({
-      name: nameSchema_Required_Min2,
-      activityTypes: activityTypeArraySchema,
-      activitiesForWhom: forWhomArraySchema,
-      places: placesArraySchema,
-      isToBePublished: isBooleanSchema,
-      isExpiresAtRequired: isBooleanSchema,
-      expiresAt: isDateOrNullSchema,
-    })
-    .superRefine((values, context) => {
-      if (!values.isExpiresAtRequired) {
-        return;
-      }
+// export function getCyclicalActivityValidationSchemaForStageOne() {
+//   return cyclicalActivityValidationSchemaStageOne;
+// }
+// export const cyclicalActivityValidationSchemaStageOne: z.ZodType<TCyclicalActivitiesFormValuesStageOne> =
+//   z
+//     .object({
+//       name: nameSchema_Required_Min2,
+//       activityTypes: activityTypeArraySchema,
+//       activitiesForWhom: forWhomArraySchema,
+//       places: placesArraySchema,
+//       isToBePublished: isBooleanSchema,
+//       isExpiresAtRequired: isBooleanSchema,
+//       expiresAt: isDateOrNullSchema,
+//     })
+//     .superRefine((values, context) => {
+//       if (!values.isExpiresAtRequired) {
+//         return;
+//       }
 
-      const isValidated = isDateSchema.safeParse(values.expiresAt);
-      if (!isValidated.success) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Data musi być określona.',
-          path: ['expiresAt'],
-        });
-      }
-    });
+//       const isValidated = isDateSchema.safeParse(values.expiresAt);
+//       if (!isValidated.success) {
+//         context.addIssue({
+//           code: z.ZodIssueCode.custom,
+//           message: 'Data musi być określona.',
+//           path: ['expiresAt'],
+//         });
+//       }
+//     });
 
-export function getCyclicalActivityValidationSchemaForStageTwo() {
-  return cyclicalActivityValidationSchemaStageTwo;
-}
-export const cyclicalActivityValidationSchemaStageTwo: z.ZodType<TCyclicalActivitiesFormValuesStageTwo> =
-  z
-    .object({
-      shortDescription: shortDescription_Required_Min5,
-      isCustomLinkToDetails: isBooleanSchema,
-      customLinkToDetails: customLinkToDetails_Required_Or_Null,
-      longDescription: customLinkToDetails_Required_Or_Null,
-    })
-    .superRefine((values, context) => {
-      if (values.isCustomLinkToDetails) {
-        const isValidated = customLinkToDetails_Required.safeParse(
-          values.customLinkToDetails
-        );
+// export function getCyclicalActivityValidationSchemaForStageTwo() {
+//   return cyclicalActivityValidationSchemaStageTwo;
+// }
+// export const cyclicalActivityValidationSchemaStageTwo: z.ZodType<TCyclicalActivitiesFormValuesStageTwo> =
+//   z
+//     .object({
+//       shortDescription: shortDescription_Required_Min5,
+//       isCustomLinkToDetails: isBooleanSchema,
+//       customLinkToDetails: customLinkToDetails_Required_Or_Null,
+//       longDescription: customLinkToDetails_Required_Or_Null,
+//     })
+//     .superRefine((values, context) => {
+//       if (values.isCustomLinkToDetails) {
+//         const isValidated = customLinkToDetails_Required.safeParse(
+//           values.customLinkToDetails
+//         );
 
-        if (!isValidated.success) {
-          context.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'błąd.',
-            path: ['longDescription'],
-          });
-        }
-      }
-      if (!values.isCustomLinkToDetails) {
-        const isValidated = customLinkToDetails_Required.safeParse(
-          values.longDescription
-        );
+//         if (!isValidated.success) {
+//           context.addIssue({
+//             code: z.ZodIssueCode.custom,
+//             message: 'błąd.',
+//             path: ['longDescription'],
+//           });
+//         }
+//       }
+//       if (!values.isCustomLinkToDetails) {
+//         const isValidated = customLinkToDetails_Required.safeParse(
+//           values.longDescription
+//         );
 
-        if (!isValidated.success) {
-          context.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'błąd.',
-            path: ['longDescription'],
-          });
-        }
-      }
-    });
+//         if (!isValidated.success) {
+//           context.addIssue({
+//             code: z.ZodIssueCode.custom,
+//             message: 'błąd.',
+//             path: ['longDescription'],
+//           });
+//         }
+//       }
+//     });
 
 ////union (unfortunately I have no idea how to do it dynamically)
-export function getCyclicalActivityValidationSchema(): z.ZodType<TCyclicalActivitiesFormValues> {
-  return z.object({
-    //stage1
-    name: nameSchema_Required_Min2,
-    activityTypes: activityTypeArraySchema,
-    activitiesForWhom: forWhomArraySchema,
-    places: placesArraySchema,
-    isToBePublished: isBooleanSchema,
-    isExpiresAtRequired: isBooleanSchema,
-    expiresAt: isDateOrNullSchema,
+// export function getCyclicalActivityValidationSchema(): z.ZodType<TCyclicalActivitiesFormValues> {
+//   return z.object({
+//     //stage1
+//     name: nameSchema_Required_Min2,
+//     activityTypes: activityTypeArraySchema,
+//     activitiesForWhom: forWhomArraySchema,
+//     places: placesArraySchema,
+//     isToBePublished: isBooleanSchema,
+//     isExpiresAtRequired: isBooleanSchema,
+//     expiresAt: isDateOrNullSchema,
 
-    //stage2
-    shortDescription: shortDescription_Required_Min5,
-    isCustomLinkToDetails: isBooleanSchema,
-    customLinkToDetails: customLinkToDetails_Required_Or_Null,
-    longDescription: longDescription_Required_Or_Null,
-  });
-  // .superRefine((values, context) => {
-  //   console.log('inside');
-  //   // if (!values.isExpiresAtRequired) {
-  //   //   // return;
-  //   // }
+//     //stage2
+//     shortDescription: shortDescription_Required_Min5,
+//     isCustomLinkToDetails: isBooleanSchema,
+//     customLinkToDetails: customLinkToDetails_Required_Or_Null,
+//     longDescription: longDescription_Required_Or_Null,
+//   });
+// .superRefine((values, context) => {
+//   console.log('inside');
+//   // if (!values.isExpiresAtRequired) {
+//   //   // return;
+//   // }
 
-  //   const isValidated = isDateSchema.safeParse(values.expiresAt);
-  //   if (!isValidated.success) {
-  //     context.addIssue({
-  //       code: z.ZodIssueCode.custom,
-  //       message: 'Data musi być określona.',
-  //       path: ['expiresAt'],
-  //     });
-  //   }
-  // })
-  // .superRefine((values, context) => {
-  //   if (values.isCustomLinkToDetails) {
-  //     const isValidated = customLinkToDetails_Required.safeParse(
-  //       values.customLinkToDetails
-  //     );
+//   const isValidated = isDateSchema.safeParse(values.expiresAt);
+//   if (!isValidated.success) {
+//     context.addIssue({
+//       code: z.ZodIssueCode.custom,
+//       message: 'Data musi być określona.',
+//       path: ['expiresAt'],
+//     });
+//   }
+// })
+// .superRefine((values, context) => {
+//   if (values.isCustomLinkToDetails) {
+//     const isValidated = customLinkToDetails_Required.safeParse(
+//       values.customLinkToDetails
+//     );
 
-  //     if (!isValidated.success) {
-  //       context.addIssue({
-  //         code: z.ZodIssueCode.custom,
-  //         message: 'błąd.',
-  //         path: ['longDescription'],
-  //       });
-  //     }
-  //   }
-  //   if (!values.isCustomLinkToDetails) {
-  //     const isValidated = customLinkToDetails_Required.safeParse(
-  //       values.longDescription
-  //     );
+//     if (!isValidated.success) {
+//       context.addIssue({
+//         code: z.ZodIssueCode.custom,
+//         message: 'błąd.',
+//         path: ['longDescription'],
+//       });
+//     }
+//   }
+//   if (!values.isCustomLinkToDetails) {
+//     const isValidated = customLinkToDetails_Required.safeParse(
+//       values.longDescription
+//     );
 
-  //     if (!isValidated.success) {
-  //       context.addIssue({
-  //         code: z.ZodIssueCode.custom,
-  //         message: 'błąd.',
-  //         path: ['longDescription'],
-  //       });
-  //     }
-  //   }
-  // });
-}
+//     if (!isValidated.success) {
+//       context.addIssue({
+//         code: z.ZodIssueCode.custom,
+//         message: 'błąd.',
+//         path: ['longDescription'],
+//       });
+//     }
+//   }
+// });
+// }
 
-export type TCyclicalActivityFormInputs = z.TypeOf<
-  typeof cyclicalActivityValidationSchemaStageOne &
-    typeof cyclicalActivityValidationSchemaStageTwo
->;
+// export type TCyclicalActivityFormInputs = z.TypeOf<
+//   typeof cyclicalActivityValidationSchemaStageOne &
+//     typeof cyclicalActivityValidationSchemaStageTwo
+// >;
+
+// getCyclicalActivityValidationSchemaForStageOne;
 
 export const cyclicalActivityValidationSchemaStageOneWithYup = {
   name: nameSchemaYup_Required_Min2,
@@ -198,13 +183,21 @@ export const cyclicalActivityValidationSchemaStageTwoWithYup = {
   isCustomLinkToDetails: isBooleanYupSchema,
   customLinkToDetails: customLinkToDetailsYupSchema,
   longDescription: longDescriptionYupSchema,
+  images: imagesYupSchema,
 };
 
+export const cyclicalActivityValidationSchemaStageThreeWithYup = {
+  occurrence: occurrenceYupSchema,
+};
+
+const yupSchema = Yup.object({
+  ...cyclicalActivityValidationSchemaStageOneWithYup,
+  ...cyclicalActivityValidationSchemaStageTwoWithYup,
+  ...cyclicalActivityValidationSchemaStageThreeWithYup,
+});
+
 export function generateValidationForCyclicalActivities() {
-  return Yup.object({
-    ...cyclicalActivityValidationSchemaStageOneWithYup,
-    ...cyclicalActivityValidationSchemaStageTwoWithYup,
-  });
+  return yupSchema;
 }
 export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
   return Yup.object({
@@ -216,3 +209,5 @@ export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
     ...cyclicalActivityValidationSchemaStageTwoWithYup,
   }).isValidSync(values);
 }
+
+export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;

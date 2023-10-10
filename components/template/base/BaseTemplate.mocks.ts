@@ -1,6 +1,8 @@
-import { IBaseTemplate } from './BaseTemplate';
+type Props = {
+  sampleTextProp: string;
+};
 
-const base: IBaseTemplate = {
+const base: Props = {
   sampleTextProp: 'Hello world!',
 };
 

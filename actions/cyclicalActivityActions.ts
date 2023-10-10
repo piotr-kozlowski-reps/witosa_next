@@ -6,7 +6,6 @@ import {
   cyclicalActivityNotExistsMessage,
   dbReadingErrorMessage,
   dbWritingErrorMessage,
-  lackOfCyclicalActivitiesData,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
@@ -24,6 +23,7 @@ import {
   TActionResponse,
   TCyclicalActivitiesFormValues,
   TGetAllCyclicalActivitiesResponse,
+  TImageCyclicalActivityFormValues,
 } from '@/types';
 import { ActivityType, CyclicalActivity, ForWhom, Place } from '@prisma/client';
 import { getServerSession } from 'next-auth';
@@ -63,21 +63,24 @@ export async function addCyclicalActivity(
   const submittedCustomLinkToDetails = formData.get(
     'longDescription'
   ) as string;
+  const submittedImages = formData.get(
+    'images'
+  ) as unknown as TImageCyclicalActivityFormValues[];
 
-  //TODO: maybe also with ZOD  .... check everything here, starts to be a mess
-  if (
-    !submittedName ||
-    !submittedActivityTypes ||
-    !submittedActivitiesForWhom ||
-    !submittedPlaces ||
-    submittedIsToBePublished === undefined ||
-    submittedIsExpiresAtRequired === undefined ||
-    submittedShortDescription ||
-    submittedIsCustomLinkToDetails === undefined
-  ) {
-    logger.warn(lackOfCyclicalActivitiesData);
-    return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
-  }
+  //TODO: maybe also with ZOD or YUP  .... check everything here, starts to be a mess
+  // if (
+  //   !submittedName ||
+  //   !submittedActivityTypes ||
+  //   !submittedActivitiesForWhom ||
+  //   !submittedPlaces ||
+  //   submittedIsToBePublished === undefined ||
+  //   submittedIsExpiresAtRequired === undefined ||
+  //   submittedShortDescription ||
+  //   submittedIsCustomLinkToDetails === undefined
+  // ) {
+  //   logger.warn(lackOfCyclicalActivitiesData);
+  //   return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
+  // }
 
   /* format validation */
   const formDataAsObject: TCyclicalActivitiesFormValues = {
@@ -92,10 +95,12 @@ export async function addCyclicalActivity(
     longDescription: submittedLongDescription,
     isCustomLinkToDetails: submittedIsCustomLinkToDetails,
     customLinkToDetails: submittedCustomLinkToDetails,
+    images: submittedImages,
   };
   let validationResult = false;
   try {
-    validationResult = validateCyclicalActivityData(formDataAsObject);
+    //TODO: validation
+    // validationResult = validateCyclicalActivityData(formDataAsObject);
   } catch (error) {
     logger.warn(badCyclicalActivitiesData);
     return { status: 'ERROR', response: badCyclicalActivitiesData };

@@ -10,19 +10,14 @@ import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
   generateValidationForCyclicalActivities,
-  getCyclicalActivityValidationSchemaForStageOne,
-  getCyclicalActivityValidationSchemaForStageTwo,
   validateValuesForCyclicalActivitiesStageOne,
   validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
-import {
-  TActionResponse,
-  TCyclicalActivitiesFormValues,
-  TFormStage,
-} from '@/types';
+import { TActionResponse, TFormStage } from '@/types';
 import { FormikProps, useFormik } from 'formik';
 import { Fragment, useEffect, useState } from 'react';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
+import CyclicalActivityAddFormStageThree from './CyclicalActivityAddFormStageThree';
 import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 
 export default function CyclicalActivityAddForm() {
@@ -55,6 +50,23 @@ export default function CyclicalActivityAddForm() {
       isCustomLinkToDetails: false,
       customLinkToDetails: '',
       longDescription: '',
+      images: [
+        {
+          file: undefined,
+          alt: '',
+          additionInfoThatMustBeDisplayed: '',
+          id: new Date().getTime().toString(),
+        },
+      ],
+
+      //stage3
+      occurrence: [
+        {
+          day: 'MONDAY',
+          activityStart: new Date(),
+          activityEnd: new Date(),
+        },
+      ],
     },
     onSubmit: () => {},
     validationSchema: validationSchema,
@@ -81,22 +93,6 @@ export default function CyclicalActivityAddForm() {
     },
   ];
   const [stage, setStage] = useState<TFormStage[]>(stagesInitialStage);
-  // console.log({ stage });
-
-  function checkValidityOfFormStageOne(
-    formik: FormikProps<TCyclicalActivitiesFormValues>
-  ) {
-    return getCyclicalActivityValidationSchemaForStageOne().safeParse(
-      formik.values
-    ).success;
-  }
-  function checkValidityOfFormStageTwo(
-    formik: FormikProps<TCyclicalActivitiesFormValues>
-  ) {
-    return getCyclicalActivityValidationSchemaForStageTwo().safeParse(
-      formik.values
-    ).success;
-  }
 
   function getCurrentStageIndex() {
     return stage.findIndex((stageItem) => stageItem.isActive);
@@ -173,6 +169,12 @@ export default function CyclicalActivityAddForm() {
       }
     }
     //stageTwo validation -> access to stageThree
+
+    console.log(
+      'validateValuesForCyclicalActivitiesStageTwo',
+      validateValuesForCyclicalActivitiesStageTwo(formik.values)
+    );
+
     if (validateValuesForCyclicalActivitiesStageTwo(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[2].isAccessToStage) {
@@ -301,7 +303,10 @@ export default function CyclicalActivityAddForm() {
         {stage[2].isActive ? (
           <ComponentTransitionFromRightToLeft>
             <Fragment>
-              <div className="form-input-width -mt-[7px]">trzeci stage</div>
+              <CyclicalActivityAddFormStageThree<TCyclicalActivityFormInputs>
+                isCurrentFormToPUTData={isCurrentFormToPUTData}
+                formik={formik}
+              />
             </Fragment>
           </ComponentTransitionFromRightToLeft>
         ) : null}

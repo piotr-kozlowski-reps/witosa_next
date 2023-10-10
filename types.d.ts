@@ -1,5 +1,6 @@
 import {
   CyclicalActivity,
+  CyclicalActivityOccurrence,
   Day,
   Event,
   ImageCyclicalActivity,
@@ -62,7 +63,7 @@ export type TCyclicalActivitiesFormValuesStageTwo = Pick<
   | 'customLinkToDetails'
   | 'isCustomLinkToDetails'
   | 'longDescription'
->;
+> & { images: TImageCyclicalActivityFormValues[] };
 
 export type TLoginFormValues = {
   email: string;
@@ -285,5 +286,13 @@ export type TFormStage = {
 
 export type TImageCyclicalActivityFormValues = Pick<
   ImageCyclicalActivity,
-  'url' | 'alt' | 'additionInfoThatMustBeDisplayed'
+  'alt' | 'additionInfoThatMustBeDisplayed'
+> & { file: TFileWithPreview; id: string | number };
+
+export type TFileWithPreview = (File & { preview: string }) | undefined;
+
+export type TOccurrence = Pick<
+  CyclicalActivityOccurrence,
+  'day',
+  'activityStart' | 'activityEnd'
 >;
