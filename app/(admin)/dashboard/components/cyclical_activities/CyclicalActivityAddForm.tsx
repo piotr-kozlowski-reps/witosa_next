@@ -169,6 +169,12 @@ export default function CyclicalActivityAddForm() {
       }
     }
     //stageTwo validation -> access to stageThree
+
+    console.log(
+      'validateValuesForCyclicalActivitiesStageTwo',
+      validateValuesForCyclicalActivitiesStageTwo(formik.values)
+    );
+
     if (validateValuesForCyclicalActivitiesStageTwo(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[2].isAccessToStage) {

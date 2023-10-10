@@ -190,7 +190,8 @@ export const imagesYupSchema = Yup.array(
         'is there any file',
         fileErrorMessages.NO_FILE,
         (value, context) => {
-          const isCustomLinkToDetails = context.parent.isCustomLinkToDetails;
+          const isCustomLinkToDetails =
+            context.options.context?.isCustomLinkToDetails;
 
           if (isCustomLinkToDetails) {
             return true;
@@ -203,7 +204,8 @@ export const imagesYupSchema = Yup.array(
         }
       )
       .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value, context) => {
-        const isCustomLinkToDetails = context.parent.isCustomLinkToDetails;
+        const isCustomLinkToDetails =
+          context.options.context?.isCustomLinkToDetails;
 
         if (isCustomLinkToDetails) {
           return true;
@@ -215,7 +217,8 @@ export const imagesYupSchema = Yup.array(
         return getIsFileTypesValid(value as File, fileTypes);
       })
       .test('file size', fileErrorMessages.FILE_TO_LARGE, (value, context) => {
-        const isCustomLinkToDetails = context.parent.isCustomLinkToDetails;
+        const isCustomLinkToDetails =
+          context.options.context?.isCustomLinkToDetails;
 
         if (isCustomLinkToDetails) {
           return true;
@@ -228,6 +231,7 @@ export const imagesYupSchema = Yup.array(
         return getIsFileSizeValid(value as File, maxFileSize);
       }),
 
+    //////////////////////
     //     imageSourceFull: Yup.mixed().test(
     //   "image type or string",
     //   "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
@@ -247,8 +251,17 @@ export const imagesYupSchema = Yup.array(
     //     );
     //   }
     // ),
+    //////////////////////
 
-    alt: Yup.string().required('Opis obrazka musi być podany.'),
+    alt: Yup.string().when(
+      'isCustomLinkToDetails',
+      (isCustomLinkToDetails, schema) => {
+        if (!isCustomLinkToDetails) {
+          return schema.required('Opis obrazka musi być podany.');
+        }
+        return schema;
+      }
+    ),
     additionInfoThatMustBeDisplayed: Yup.string().nullable(),
     id: Yup.string().required(),
   })

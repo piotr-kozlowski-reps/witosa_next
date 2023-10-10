@@ -43,9 +43,6 @@ export default function OccurrenceContentFormik<T>(props: Props<T>) {
               label="dzień zajęć:"
               options={optionsForDays}
               formik={formik}
-              // isCommentPopupVisible={true}
-              // commentContent={<IsCustomLinkToDetailsComment />}
-              // indexForChosenOptionWhenInitializing={defineCurrentIndex()}
             />
           </div>
 

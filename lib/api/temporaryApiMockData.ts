@@ -857,6 +857,63 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-14T23:59:00.968Z'),
   },
+  {
+    id: '8wwd8847-e3c1-gt51-991v-fr6rr44d8wz4',
+    eventTypes: ['WORKSHOP'],
+    eventForWhom: ['ADULTS', 'CHILDREN', 'TEENS', 'WOMEN'],
+    title: 'Jasiek CoJest - Warsztay Hip-Hop',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      '28 października zapraszamy do udziału w warsztatach tańca Hip-Hop z naszym gościem - Jaśkiem - Janem Jagodzińskim.',
+    eventStartDate: new Date('2023-10-28T11:00:00.968Z'),
+    eventEndDate: new Date('2023-10-28T20:00:00.968Z'),
+    createdAt: new Date('2023-10-10T22:20:24.968Z'),
+    updatedAt: new Date('2023-10-10T22:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_jasiek_001.jpg',
+        alt: 'Czarno - białe zdjęcie ukazujące tańczącego hip hop młodego mężczyznę.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+      {
+        url: 'events_jasiek_002.jpg',
+        alt: 'Portret młodego mężczyzny w pozycji tanecznej na białym tle.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+
+    detailedDescription:
+      '<div><p>  Jasiek - Założyciel studia Tutaj oraz studia Origin of, tancerz i choreograf prężnie działający na polskiej i zagranicznej scenie tanecznej.</p><p>Jego pasją jest przekazywanie swojej wiedzy kolejnym pokoleniom tancerzy. Szczególnie pociąga go hip hop, ale w swojej drodze tanecznej próbował wielu stylów, co dało mu solidną podstawę do eksperymentowania z ruchem.</p><p>  Jest zwycięzcą licznych polskich i zagranicznych wydarzeń tanecznych. W 2022 roku stworzył wraz z ekipą Co Jest Crew przy współpracy z francuskim choreografem Hamdim Dridi spektakl pt. "Step By Step", będący fuzją tańca współczesnego ze street dancem.</p><p> Na swoich zajęciach skupia się na indywidualnym rozwoju każdego z podopiecznych zwracając szczególną uwagę na rozwijanie kreatywności, budowanie charakteru oraz naukę techniki.</p><p>Godz. <b>11.00</b> - grupa młodsza<br/>Godz. <b>12.45</b> - grupa starsza</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo: 'Wstęp: 40 zł.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-jasiek-001.jpg',
+    newsSectionImageAlt:
+      'Czarno-białe zdjęcie ukazujące tańczącego hip hop młodego mężczyznę.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_jasiek_001.jpg',
+    sliderImageAlt:
+      'Czarno - białe zdjęcie ukazujące tańczącego hip hop młodego mężczyznę.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-28T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-28T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {
