@@ -19,11 +19,13 @@ export default async function Dashboard() {
   ////tsx
   return (
     <Fragment>
-      <DashboardContent
-        newsletterDataCombo={newsletterDataCombo}
-        usersData={usersData}
-        cyclicalActivitiesData={cyclicalActivitiesData}
-      />
+      <div className="flex-col items-start justify-start">
+        <DashboardContent
+          newsletterDataCombo={newsletterDataCombo}
+          usersData={usersData}
+          cyclicalActivitiesData={cyclicalActivitiesData}
+        />
+      </div>
     </Fragment>
   );
 }

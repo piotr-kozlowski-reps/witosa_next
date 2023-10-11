@@ -14,7 +14,12 @@ import {
   validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
 import { TActionResponse, TFormStage } from '@/types';
-import { FormikProps, useFormik } from 'formik';
+import {
+  FormikProps,
+  useFormik,
+  validateYupSchema,
+  yupToFormErrors,
+} from 'formik';
 import { Fragment, useEffect, useState } from 'react';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
 import CyclicalActivityAddFormStageThree from './CyclicalActivityAddFormStageThree';
@@ -52,7 +57,7 @@ export default function CyclicalActivityAddForm() {
       longDescription: '',
       images: [
         {
-          file: undefined,
+          file: null,
           alt: '',
           additionInfoThatMustBeDisplayed: '',
           id: new Date().getTime().toString(),
@@ -63,13 +68,20 @@ export default function CyclicalActivityAddForm() {
       occurrence: [
         {
           day: 'MONDAY',
-          activityStart: new Date(),
-          activityEnd: new Date(),
+          activityStart: null,
+          activityEnd: null,
         },
       ],
     },
     onSubmit: () => {},
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
+    validate: (value) => {
+      try {
+        validateYupSchema(value, validationSchema, true, value);
+      } catch (error) {
+        return yupToFormErrors(error);
+      }
+    },
   });
 
   console.log({ formik });
@@ -98,7 +110,10 @@ export default function CyclicalActivityAddForm() {
     return stage.findIndex((stageItem) => stageItem.isActive);
   }
 
-  /** if index argument not provided -> function works as go_to_next_stage | when index argument provided function goes to desired index  */
+  /**
+   * if index argument not provided -> function works as go_to_next_stage
+   * when index argument provided function goes to desired index
+   * */
   function goToNextGivenStageOrJustNextStageOfForm(index?: number) {
     const currentIndex = getCurrentStageIndex();
     setStage((prevStage) => {
@@ -153,7 +168,6 @@ export default function CyclicalActivityAddForm() {
 
   useEffect(() => {
     //stageOne validation -> access to stageTwo
-
     if (validateValuesForCyclicalActivitiesStageOne(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[1].isAccessToStage) {
@@ -168,13 +182,8 @@ export default function CyclicalActivityAddForm() {
         setStage(resultStageState);
       }
     }
+
     //stageTwo validation -> access to stageThree
-
-    console.log(
-      'validateValuesForCyclicalActivitiesStageTwo',
-      validateValuesForCyclicalActivitiesStageTwo(formik.values)
-    );
-
     if (validateValuesForCyclicalActivitiesStageTwo(formik.values)) {
       const resultStageState = [...stage];
       if (!resultStageState[2].isAccessToStage) {

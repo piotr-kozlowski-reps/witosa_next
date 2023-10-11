@@ -293,6 +293,5 @@ export type TFileWithPreview = (File & { preview: string }) | undefined;
 
 export type TOccurrence = Pick<
   CyclicalActivityOccurrence,
-  'day',
-  'activityStart' | 'activityEnd'
+  'day' | 'activityStart' | 'activityEnd'
 >;

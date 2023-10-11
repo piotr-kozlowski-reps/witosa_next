@@ -56,17 +56,31 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  // console.log({ currentValue });
-
   //initial value selection
   const [selectedOption, setSelectedOption] = useState(
     options[indexForChosenOptionWhenInitializing]
   );
-  // const [isMounted, setIsMounted] = useState(false);
+
+  console.log({ currentValue });
+  console.log({ options });
+  console.log('in selected options', { currentValue });
 
   useEffect(() => {
     formik.setFieldValue(name, selectedOption.value);
   }, [selectedOption]);
+
+  useEffect(() => {
+    console.log({ options });
+    const optionThatShouldBeSelectedAccordingToCurrentSection = options.find(
+      (option) => option.value === currentValue
+    );
+
+    if (optionThatShouldBeSelectedAccordingToCurrentSection) {
+      setSelectedOption(optionThatShouldBeSelectedAccordingToCurrentSection);
+    }
+
+    // setSelectedOption({ value: currentValue as T, label: val!.label })
+  }, [currentValue]);
 
   const stylesCommon: CSS.Properties = {
     width: '100%',
@@ -113,7 +127,7 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
             setSelectedOption({ value: val!.value, label: val!.label });
           }}
           onBlur={onBlurForInput}
-          // value={currentValue}
+          // value={currentValue as T}
           styles={{
             container: (baseStyles) => ({
               ...baseStyles,
