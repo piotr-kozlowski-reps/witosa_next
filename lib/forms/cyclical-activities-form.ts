@@ -204,4 +204,8 @@ export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
   }).isValidSync(values, { context: values });
 }
 
+export function validateValuesForCyclicalActivities(values: Object) {
+  return yupSchema.isValidSync(values, { context: values });
+}
+
 export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;

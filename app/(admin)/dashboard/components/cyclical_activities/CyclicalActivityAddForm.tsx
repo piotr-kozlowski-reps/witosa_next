@@ -217,9 +217,7 @@ export default function CyclicalActivityAddForm() {
     //post cyclical activity
     if (isCurrentFormToPOSTData) {
       try {
-        response = await addCyclicalActivity<TCyclicalActivityFormInputs>(
-          formik.values
-        );
+        response = await addCyclicalActivity(formik.values);
       } catch (error) {
         setShowNotification('ERROR', dbReadingErrorMessage);
       }
