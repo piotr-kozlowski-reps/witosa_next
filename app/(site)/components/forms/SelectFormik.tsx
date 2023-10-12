@@ -56,31 +56,13 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  //initial value selection
-  const [selectedOption, setSelectedOption] = useState(
-    options[indexForChosenOptionWhenInitializing]
-  );
-
-  console.log({ currentValue });
-  console.log({ options });
-  console.log('in selected options', { currentValue });
+  const [selectedOption, setSelectedOption] = useState(() => {
+    return options.find((option) => option.value === currentValue);
+  });
 
   useEffect(() => {
-    formik.setFieldValue(name, selectedOption.value);
-  }, [selectedOption]);
-
-  useEffect(() => {
-    console.log({ options });
-    const optionThatShouldBeSelectedAccordingToCurrentSection = options.find(
-      (option) => option.value === currentValue
-    );
-
-    if (optionThatShouldBeSelectedAccordingToCurrentSection) {
-      setSelectedOption(optionThatShouldBeSelectedAccordingToCurrentSection);
-    }
-
-    // setSelectedOption({ value: currentValue as T, label: val!.label })
-  }, [currentValue]);
+    setSelectedOption(options.find((option) => option.value === currentValue));
+  }, [currentValue, setSelectedOption, options]);
 
   const stylesCommon: CSS.Properties = {
     width: '100%',
@@ -89,11 +71,16 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
     color: 'var(--color-foreground-base)',
     marginTop: '3px',
     borderRadius: '20px',
-    backgroundColor: 'var(--color-background-base)',
+    backgroundColor: isErrorNotPresentAndFieldWasTouched
+      ? 'var(--cta-secondary-opacity)'
+      : 'var(--color-background-base)',
     paddingTop: '4px',
     paddingBottom: '4px',
     paddingLeft: '2rem',
     paddingRight: '1rem',
+    borderColor: isErrorNotPresentAndFieldWasTouched
+      ? 'var(--cta-secondary-opacity)'
+      : 'var(--color-background-base)',
     outline: '2px solid transparent',
     outlineOffset: '2px',
     boxShadow: '-4px 4px 18px var(--color-shadow)',
@@ -124,10 +111,13 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
           name={name}
           id={name}
           onChange={(val) => {
-            setSelectedOption({ value: val!.value, label: val!.label });
+            formik.setFieldTouched(name);
+            if (val && val.value !== undefined && val.value !== null) {
+              formik.setFieldValue(name, val!.value);
+            }
           }}
-          onBlur={onBlurForInput}
-          // value={currentValue as T}
+          onBlur={() => formik.setFieldTouched(name)}
+          value={selectedOption}
           styles={{
             container: (baseStyles) => ({
               ...baseStyles,

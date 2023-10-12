@@ -7,7 +7,6 @@ import HourAndMinutePickerFormik from './HourAndMinutePickerFormik';
 import SelectFormik from './SelectFormik';
 
 type Props<T> = {
-  // occurrenceItem: TOccurrence;
   name: string;
   index: number;
   formik: FormikProps<T>;
@@ -27,16 +26,10 @@ export default function OccurrenceContentFormik<T>(props: Props<T>) {
   const currentOccurrencesValue = formik.getFieldMeta(name)
     .value as TOccurrence[];
 
-  console.log({ currentOccurrencesValue });
-
   ////utils
   function deleteOccurrenceItem() {
-    console.log({ index });
     const resultOccurrencesArray = [...currentOccurrencesValue];
-
     resultOccurrencesArray.splice(index, 1);
-    console.log({ resultOccurrencesArray });
-
     formik.setFieldValue('occurrence', resultOccurrencesArray);
   }
 

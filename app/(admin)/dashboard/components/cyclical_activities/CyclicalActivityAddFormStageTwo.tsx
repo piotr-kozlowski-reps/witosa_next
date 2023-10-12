@@ -56,7 +56,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
         </div>
 
         <div className=" mt-[20px] form-input-width">
-          <SelectFormik<Boolean, T>
+          <SelectFormik<boolean, T>
             name="isCustomLinkToDetails"
             label="wybierz, jak przekażesz szczegółowe informacje do zajęć:"
             options={optionsForCustomLinkToDetails}

@@ -105,10 +105,7 @@ export const isDateOrNullYupSchema_AndThenRequired = isDateOrNullYupSchema.test(
   'date is required',
   'Data musi być określona.',
   (value) => {
-    console.log(value);
-
     const validation = isDateYupSchema.isValidSync(value);
-    console.log({ validation });
 
     if (!validation) {
       return false;
@@ -181,7 +178,7 @@ export const longDescriptionYupSchema = Yup.mixed()
 
       if (!isCustomLinkToDetails) {
         const validation = stringRequiredYupSchema.isValidSync(value);
-        console.log({ validation });
+        // console.log({ validation });
 
         if (!validation) {
           return false;
