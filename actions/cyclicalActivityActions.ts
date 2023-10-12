@@ -48,75 +48,80 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
-  // /* writing cyclical activity to db */
-  const authorId = session.user?.id;
+  // // /* writing cyclical activity to db */
+  // const authorId = session.user?.id;
 
-  let dataToBeSendToDb: CyclicalActivity = {
-    //stage1
-    name: values.name,
-    activityTypes: values.activityTypes as ActivityType[],
-    activitiesForWhom: values.activitiesForWhom as ForWhom[],
-    places: values.places as Place[],
-    isToBePublished: values.isToBePublished as boolean,
-    isExpiresAtRequired: values.isExpiresAtRequired as boolean,
-    expiresAt: values.expiresAt as Date | null,
-    //stage2
-    shortDescription: values.shortDescription,
-    longDescription: values.longDescription
-      ? (values.longDescription as string)
-      : null,
-    isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
-    customLinkToDetails: values.customLinkToDetails
-      ? values.customLinkToDetails
-      : null,
-    author: {
-      connect: { id: authorId },
-    },
-    //images (if needed) added in if below
-    //stage3
-    occurrence: {
-      createMany: {
-        data: values.occurrence,
-      },
-    },
-  };
+  // let dataToBeSendToDb: CyclicalActivity = {
+  //   //stage1
+  //   name: values.name,
+  //   activityTypes: values.activityTypes as ActivityType[],
+  //   activitiesForWhom: values.activitiesForWhom as ForWhom[],
+  //   places: values.places as Place[],
+  //   isToBePublished: values.isToBePublished as boolean,
+  //   isExpiresAtRequired: values.isExpiresAtRequired as boolean,
+  //   expiresAt: values.expiresAt as Date | null,
+  //   //stage2
+  //   shortDescription: values.shortDescription,
+  //   longDescription: values.longDescription
+  //     ? (values.longDescription as string)
+  //     : null,
+  //   isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
+  //   customLinkToDetails: values.customLinkToDetails
+  //     ? values.customLinkToDetails
+  //     : null,
+  //   // author: {
+  //   //   connect: { id: authorId },
+  //   },
+  //   //images (if needed) added in if below
+  //   //stage3
+  //   occurrence: {
+  //     createMany: {
+  //       data: values.occurrence,
+  //     },
+  //   },
+  // };
 
-  if (!values.isCustomLinkToDetails) {
-    const imagesValuesPreparedForBg = values.images?.map((image) => {
-      const imageData: File | String = image.file as File | String;
-      return {
-        additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
-        alt: image.alt,
-        url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
-          imageData
-        ),
-      };
-    });
+  // if (!values.isCustomLinkToDetails) {
+  //   const imagesValuesPreparedForBg = values.images?.map((image) => {
+  //     const imageData: File | String = image.file as File | String;
+  //     return {
+  //       additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
+  //       alt: image.alt,
+  //       url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
+  //         imageData
+  //       ),
+  //     };
+  //   });
 
-    dataToBeSendToDb = {
-      ...dataToBeSendToDb,
-      images: { createMany: { data: imagesValuesPreparedForBg } },
-    };
-  }
+  //   dataToBeSendToDb = {
+  //     ...dataToBeSendToDb,
+  //     images: { createMany: { data: imagesValuesPreparedForBg } },
+  //   };
+  // }
 
-  try {
-    const response = await prisma.cyclicalActivity.create(dataToBeSendToDb);
-    console.log({ response });
-  } catch (error) {
-    logger.warn(dbWritingErrorMessage);
-    return { status: 'ERROR', response: dbWritingErrorMessage };
-  }
+  // try {
+  //   const response = await prisma.cyclicalActivity.create(dataToBeSendToDb);
+  //   console.log({ response });
+  // } catch (error) {
+  //   logger.warn(dbWritingErrorMessage);
+  //   return { status: 'ERROR', response: dbWritingErrorMessage };
+  // }
 
-  /** revalidation */
-  revalidatePath('/');
+  // /** revalidation */
+  // revalidatePath('/');
 
-  /* final success response */
-  const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
+  // /* final success response */
+  // const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
 
-  logger.info(successMessage);
+  // logger.info(successMessage);
+  // return {
+  //   status: 'SUCCESS',
+  //   response: successMessage,
+  // };
+
   return {
     status: 'SUCCESS',
-    response: successMessage,
+    response: '',
   };
 }
 
