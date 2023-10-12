@@ -5,7 +5,6 @@ import {
   badCyclicalActivitiesData,
   cyclicalActivityNotExistsMessage,
   dbReadingErrorMessage,
-  dbWritingErrorMessage,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
@@ -19,18 +18,13 @@ import {
   placesArraySchema,
 } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
-import {
-  TActionResponse,
-  TCyclicalActivitiesFormValues,
-  TGetAllCyclicalActivitiesResponse,
-  TImageCyclicalActivityFormValues,
-} from '@/types';
-import { ActivityType, CyclicalActivity, ForWhom, Place } from '@prisma/client';
+import { TActionResponse, TGetAllCyclicalActivitiesResponse } from '@/types';
+import { CyclicalActivity } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
-export async function addCyclicalActivity(
-  formData: FormData
+export async function addCyclicalActivity<T>(
+  values: T
 ): Promise<TActionResponse> {
   /** checking session */
   const session = await getServerSession(authOptions);
@@ -39,147 +33,150 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  // console.log([...formData]);
+  console.log('server action inside values:', { values });
+
+  /* data validation */
 
   // /** checking values eXistenZ */
   //TODO:  .... check everything here, starts to be a mess
-  const submittedName = formData.get('name') as string;
-  const submittedActivityTypes = formData.getAll(
-    'activityTypes'
-  ) as ActivityType[];
-  const submittedActivitiesForWhom = formData.getAll(
-    'activitiesForWhom'
-  ) as ForWhom[];
-  const submittedPlaces = formData.getAll('places') as Place[];
-  const submittedIsToBePublished =
-    (formData.get('isToBePublished') as string) === 'true' ? true : false;
-  const submittedIsCustomLinkToDetails =
-    (formData.get('isCustomLinkToDetails') as string) === 'true' ? true : false;
-  const submittedIsExpiresAtRequired =
-    (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
-  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
-  const submittedShortDescription = formData.get('shortDescription') as string;
-  const submittedLongDescription = formData.get('longDescription') as string;
-  const submittedCustomLinkToDetails = formData.get(
-    'longDescription'
-  ) as string;
-  const submittedImages = formData.get(
-    'images'
-  ) as unknown as TImageCyclicalActivityFormValues[];
+  // const submittedName = formData.get('name') as string;
+  // const submittedActivityTypes = formData.getAll(
+  //   'activityTypes'
+  // ) as ActivityType[];
+  // const submittedActivitiesForWhom = formData.getAll(
+  //   'activitiesForWhom'
+  // ) as ForWhom[];
+  // const submittedPlaces = formData.getAll('places') as Place[];
+  // const submittedIsToBePublished =
+  //   (formData.get('isToBePublished') as string) === 'true' ? true : false;
+  // const submittedIsCustomLinkToDetails =
+  //   (formData.get('isCustomLinkToDetails') as string) === 'true' ? true : false;
+  // const submittedIsExpiresAtRequired =
+  //   (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
+  // const submittedExpiresAt = formData.get('expiresAt') as Date & string;
+  // const submittedShortDescription = formData.get('shortDescription') as string;
+  // const submittedLongDescription = formData.get('longDescription') as string;
+  // const submittedCustomLinkToDetails = formData.get(
+  //   'longDescription'
+  // ) as string;
+  // const submittedImages = formData.get(
+  //   'images'
+  // ) as unknown as TImageCyclicalActivityFormValues[];
 
-  //TODO: maybe also with ZOD or YUP  .... check everything here, starts to be a mess
-  // if (
-  //   !submittedName ||
-  //   !submittedActivityTypes ||
-  //   !submittedActivitiesForWhom ||
-  //   !submittedPlaces ||
-  //   submittedIsToBePublished === undefined ||
-  //   submittedIsExpiresAtRequired === undefined ||
-  //   submittedShortDescription ||
-  //   submittedIsCustomLinkToDetails === undefined
-  // ) {
-  //   logger.warn(lackOfCyclicalActivitiesData);
-  //   return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
+  // //TODO: maybe also with ZOD or YUP  .... check everything here, starts to be a mess
+  // // if (
+  // //   !submittedName ||
+  // //   !submittedActivityTypes ||
+  // //   !submittedActivitiesForWhom ||
+  // //   !submittedPlaces ||
+  // //   submittedIsToBePublished === undefined ||
+  // //   submittedIsExpiresAtRequired === undefined ||
+  // //   submittedShortDescription ||
+  // //   submittedIsCustomLinkToDetails === undefined
+  // // ) {
+  // //   logger.warn(lackOfCyclicalActivitiesData);
+  // //   return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
+  // // }
+
+  // /* format validation */
+  // const formDataAsObject: TCyclicalActivitiesFormValues = {
+  //   name: submittedName,
+  //   activityTypes: submittedActivityTypes,
+  //   activitiesForWhom: submittedActivitiesForWhom,
+  //   places: submittedPlaces,
+  //   isExpiresAtRequired: submittedIsExpiresAtRequired,
+  //   expiresAt: submittedExpiresAt || null,
+  //   isToBePublished: submittedIsToBePublished,
+  //   shortDescription: submittedShortDescription,
+  //   longDescription: submittedLongDescription,
+  //   isCustomLinkToDetails: submittedIsCustomLinkToDetails,
+  //   customLinkToDetails: submittedCustomLinkToDetails,
+  //   images: submittedImages,
+  // };
+  // let validationResult = false;
+  // try {
+  //   //TODO: validation
+  //   // validationResult = validateCyclicalActivityData(formDataAsObject);
+  // } catch (error) {
+  //   logger.warn(badCyclicalActivitiesData);
+  //   return { status: 'ERROR', response: badCyclicalActivitiesData };
+  // }
+  // if (!validationResult) {
+  //   logger.warn(badCyclicalActivitiesData);
+  //   return { status: 'ERROR', response: badCyclicalActivitiesData };
   // }
 
-  /* format validation */
-  const formDataAsObject: TCyclicalActivitiesFormValues = {
-    name: submittedName,
-    activityTypes: submittedActivityTypes,
-    activitiesForWhom: submittedActivitiesForWhom,
-    places: submittedPlaces,
-    isExpiresAtRequired: submittedIsExpiresAtRequired,
-    expiresAt: submittedExpiresAt || null,
-    isToBePublished: submittedIsToBePublished,
-    shortDescription: submittedShortDescription,
-    longDescription: submittedLongDescription,
-    isCustomLinkToDetails: submittedIsCustomLinkToDetails,
-    customLinkToDetails: submittedCustomLinkToDetails,
-    images: submittedImages,
-  };
-  let validationResult = false;
-  try {
-    //TODO: validation
-    // validationResult = validateCyclicalActivityData(formDataAsObject);
-  } catch (error) {
-    logger.warn(badCyclicalActivitiesData);
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
-  }
-  if (!validationResult) {
-    logger.warn(badCyclicalActivitiesData);
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
-  }
+  // /* writing cyclical activity to db */
+  // const authorId = session.user?.id;
+  // try {
+  //   const response = await prisma.cyclicalActivity.create({
+  //     data: {
+  //       //stage1
+  //       name: submittedName,
+  //       activityTypes: submittedActivityTypes,
+  //       activitiesForWhom: submittedActivitiesForWhom,
+  //       places: submittedPlaces,
+  //       isToBePublished: submittedIsToBePublished,
+  //       isExpiresAtRequired: submittedIsExpiresAtRequired,
+  //       expiresAt: submittedExpiresAt,
+  //       //stage2
+  //       shortDescription: submittedShortDescription,
+  //       longDescription: 'long description',
+  //       isCustomLinkToDetails: submittedIsCustomLinkToDetails,
+  //       customLinkToDetails: 'customLinkToDetails',
+  //       author: {
+  //         connect: { id: authorId },
+  //       },
+  //       images: {
+  //         createMany: {
+  //           data: [
+  //             {
+  //               url: 'url1.jpg',
+  //               alt: 'alt1',
+  //               additionInfoThatMustBeDisplayed: 'additionalInfo',
+  //             },
+  //             {
+  //               url: 'url2.jpg',
+  //               alt: 'alt3',
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       occurrence: {
+  //         createMany: {
+  //           data: [
+  //             {
+  //               day: 'MONDAY',
+  //               activityStart: '2025-10-10T20:00:24.968Z',
+  //               activityEnd: '2025-10-10T22:00:24.968Z',
+  //             },
+  //             {
+  //               day: 'WEDNESDAY',
+  //               activityStart: '2025-10-10T16:00:24.968Z',
+  //               activityEnd: '2025-10-10T18:15:24.968Z',
+  //             },
+  //           ],
+  //         },
+  //       },
+  //     },
+  //     include: {
+  //       images: true,
+  //       occurrence: true,
+  //     },
+  //   });
 
-  /* writing cyclical activity to db */
-  const authorId = session.user?.id;
-  try {
-    const response = await prisma.cyclicalActivity.create({
-      data: {
-        //stage1
-        name: submittedName,
-        activityTypes: submittedActivityTypes,
-        activitiesForWhom: submittedActivitiesForWhom,
-        places: submittedPlaces,
-        isToBePublished: submittedIsToBePublished,
-        isExpiresAtRequired: submittedIsExpiresAtRequired,
-        expiresAt: submittedExpiresAt,
-        //stage2
-        shortDescription: submittedShortDescription,
-        longDescription: 'long description',
-        isCustomLinkToDetails: submittedIsCustomLinkToDetails,
-        customLinkToDetails: 'customLinkToDetails',
-        author: {
-          connect: { id: authorId },
-        },
-        images: {
-          createMany: {
-            data: [
-              {
-                url: 'url1.jpg',
-                alt: 'alt1',
-                additionInfoThatMustBeDisplayed: 'additionalInfo',
-              },
-              {
-                url: 'url2.jpg',
-                alt: 'alt3',
-              },
-            ],
-          },
-        },
-        occurrence: {
-          createMany: {
-            data: [
-              {
-                day: 'MONDAY',
-                activityStart: '2025-10-10T20:00:24.968Z',
-                activityEnd: '2025-10-10T22:00:24.968Z',
-              },
-              {
-                day: 'WEDNESDAY',
-                activityStart: '2025-10-10T16:00:24.968Z',
-                activityEnd: '2025-10-10T18:15:24.968Z',
-              },
-            ],
-          },
-        },
-      },
-      include: {
-        images: true,
-        occurrence: true,
-      },
-    });
+  //   console.log({ response });
+  // } catch (error) {
+  //   logger.warn(dbWritingErrorMessage);
+  //   return { status: 'ERROR', response: dbWritingErrorMessage };
+  // }
 
-    console.log({ response });
-  } catch (error) {
-    logger.warn(dbWritingErrorMessage);
-    return { status: 'ERROR', response: dbWritingErrorMessage };
-  }
-
-  /** revalidation */
-  revalidatePath('/');
+  // /** revalidation */
+  // revalidatePath('/');
 
   /* final success response */
-  const successMessage = `Zajęcia: (${submittedName}) zostały zapisane.`;
+  // const successMessage = `Zajęcia: (${submittedName}) zostały zapisane.`; //TODO: change to good success message including proper name
+  const successMessage = `Zajęcia zostały zapisane.`;
   logger.info(successMessage);
   return {
     status: 'SUCCESS',

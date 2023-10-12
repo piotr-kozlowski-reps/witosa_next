@@ -4,6 +4,7 @@ import RichTextEditorFormik from '@/app/(site)/components/forms/RichTextEditorFo
 import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
@@ -29,6 +30,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   const isCustomLinkToDetails = formik.getFieldProps(
     'isCustomLinkToDetails'
   ).value;
+  const isMounted = useIsMounted();
 
   function defineCurrentIndex() {
     const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
@@ -93,13 +95,16 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
           {!isCustomLinkToDetails ? (
             <ComponentTransitionFromRightToLeft>
               <Fragment>
-                <div className=" mt-[20px]">
-                  <RichTextEditorFormik<T>
-                    name="longDescription"
-                    label="szczegółowy opis:"
-                    formik={formik}
-                  />
-                </div>
+                {isMounted() ? (
+                  <div className=" mt-[20px]">
+                    <RichTextEditorFormik<T>
+                      name="longDescription"
+                      label="szczegółowy opis:"
+                      formik={formik}
+                    />
+                  </div>
+                ) : null}
+
                 <div className="mt-[20px]">
                   <ImagesUploadFormik<T>
                     formik={formik}

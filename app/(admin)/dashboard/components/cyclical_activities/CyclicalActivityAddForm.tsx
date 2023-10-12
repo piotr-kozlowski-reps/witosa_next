@@ -1,10 +1,12 @@
 'use client';
+import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
+import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
   TCyclicalActivityFormInputs,
   generateValidationForCyclicalActivities,
@@ -212,26 +214,31 @@ export default function CyclicalActivityAddForm() {
     // appendEnumTypes(formik, formData, 'activitiesForWhom');
     // appendEnumTypes(formik, formData, 'places');
 
-    ////post cyclical activity
-    // if (isCurrentFormToPOSTData) {
-    //   try {
-    //     response = await addCyclicalActivity(formData);
-    //   } catch (error) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //   }
-    //   if (!response || !response.status || !response.response) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //     return;
-    //   }
-    //   if (response.status === 'ERROR') {
-    //     setShowNotification('ERROR', response.response);
-    //     return;
-    //   }
-    //   setShowNotification('SUCCESS', response.response);
-    //   resetCyclicalActivityFormikDataForPUT();
-    //   formik.resetForm();
-    //   return;
-    // }
+    //post cyclical activity
+    if (isCurrentFormToPOSTData) {
+      try {
+        response = await addCyclicalActivity<TCyclicalActivityFormInputs>(
+          formik.values
+        );
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+
+      console.log({ response });
+
+      // if (!response || !response.status || !response.response) {
+      //   setShowNotification('ERROR', dbReadingErrorMessage);
+      //   return;
+      // }
+      // if (response.status === 'ERROR') {
+      //   setShowNotification('ERROR', response.response);
+      //   return;
+      // }
+      // setShowNotification('SUCCESS', response.response);
+      // resetCyclicalActivityFormikDataForPUT();
+      // formik.resetForm();
+      // return;
+    }
     // if (isCurrentFormToPUTData) {
     //   try {
     //     response = await updateUser(
