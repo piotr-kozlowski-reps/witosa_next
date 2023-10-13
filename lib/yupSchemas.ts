@@ -216,8 +216,6 @@ export const imagesArrayYupSchema = Yup.array(
   Yup.object().shape({
     //file
     file: Yup.lazy((val) => {
-      console.log({ val });
-
       if (typeof val === 'string') {
         return Yup.string().required('Pole jest wymagane.');
       } else {

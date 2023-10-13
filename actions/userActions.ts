@@ -153,6 +153,8 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
+  console.log({ ids });
+
   /** checking values eXistenZ */
   if (!ids || ids.length === 0) {
     logger.warn(badEmailFormatMessage);
@@ -174,6 +176,8 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
       return { status: 'ERROR', response: userNotExistsMessage };
     }
   }
+
+  console.log('jestem za exist');
 
   /* deleting users from db */
   try {
@@ -342,6 +346,8 @@ export async function updateUser(
 ////utils
 async function checkIfUserExists(id: string) {
   const exists = await prisma.user.findUnique({ where: { id } });
+  console.log({ exists });
+
   return exists;
 }
 

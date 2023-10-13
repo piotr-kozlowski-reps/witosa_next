@@ -6,6 +6,7 @@ import {
   cyclicalActivityNotExistsMessage,
   dbReadingErrorMessage,
   dbWritingErrorMessage,
+  imageCreationErrorMessage,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import {
@@ -13,6 +14,7 @@ import {
   validateValuesForCyclicalActivities,
 } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
+import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
@@ -23,11 +25,14 @@ import {
 import { CyclicalActivity, Day, Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
+import sharp from 'sharp';
 
 export async function addCyclicalActivity(
   values: TCyclicalActivityFormInputs
 ): Promise<TActionResponse> {
-  /** checking session */
+  /**
+   * checking session
+   * */
   const session = await getServerSession(authOptions);
   if (!session) {
     logger.warn(notLoggedIn);
@@ -38,7 +43,9 @@ export async function addCyclicalActivity(
   console.log('server action inside values, occurrence:', values.occurrence);
   console.log('server action inside values, images:', values.images);
 
-  /* data validation */
+  /* 
+  data validation 
+  */
   const validationResult = validateValuesForCyclicalActivities(
     values as Object
   );
@@ -47,29 +54,24 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
-  // /* writing cyclical activity to db */
+  /* 
+ writing cyclical activity to db 
+ */
   const authorId = session.user?.id;
   const isIncludeImages = !values.isCustomLinkToDetails;
 
-  const occurrencePreparedData: TOccurrence[] = values.occurrence!.map(
-    (occurrenceItem) => ({
-      day: occurrenceItem.day as Day,
-      activityStart: occurrenceItem.activityStart as Date,
-      activityEnd: occurrenceItem.activityStart as Date,
-    })
-  );
+  const occurrencePreparedData: TOccurrence[] =
+    prepareOccurrenceDataForSavingInDB(values);
 
-  const imagesPreparedData: TImageCyclicalActivityForDB[] = values.images!.map(
-    (image) => ({
-      url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
-        image.file as string | File
-      ),
-      alt: image.alt as string,
-      additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed
-        ? image.additionInfoThatMustBeDisplayed
-        : null,
-    })
-  );
+  let imagesPreparedData: TImageCyclicalActivityForDB[];
+  try {
+    imagesPreparedData = await prepareImageDataForSavingInDB(values);
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: imageCreationErrorMessage };
+  }
+
+  //TODO: create a array of created file names and delete them when any error occurred
 
   let cyclicalActivityPreparedForDb: Prisma.CyclicalActivityCreateInput = {
     //stage1
@@ -377,9 +379,80 @@ async function checkIfCyclicalActivityExists(id: string) {
   return exists;
 }
 
-////utils
-function generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
-  file: File | string
-): string {
-  return 'temporary_string.exe';
+function prepareOccurrenceDataForSavingInDB(
+  values: TCyclicalActivityFormInputs
+) {
+  return values.occurrence!.map((occurrenceItem) => ({
+    day: occurrenceItem.day as Day,
+    activityStart: occurrenceItem.activityStart as Date,
+    activityEnd: occurrenceItem.activityStart as Date,
+  }));
+}
+
+async function prepareImageDataForSavingInDB(
+  values: TCyclicalActivityFormInputs
+): Promise<TImageCyclicalActivityForDB[]> {
+  const originalImagesData = values.images;
+
+  let result: TImageCyclicalActivityForDB[] = [];
+  if (!originalImagesData) {
+    return result;
+  }
+  for (let i = 0; i < originalImagesData.length; i++) {
+    const imageUrl =
+      await generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
+        originalImagesData[i].file as string
+      );
+
+    result.push({
+      url: imageUrl,
+      alt: originalImagesData[i].alt as string,
+      additionInfoThatMustBeDisplayed: originalImagesData[i]
+        .additionInfoThatMustBeDisplayed
+        ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
+        : null,
+    });
+  }
+  return result;
+}
+async function generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
+  file: string
+): Promise<string> {
+  console.log({ file });
+
+  if (file.startsWith('data:image') && file.includes('base64')) {
+    const imageUrl = await proccessAndSaveImageOnServer(file);
+    return imageUrl;
+  }
+
+  return file;
+}
+
+async function proccessAndSaveImageOnServer(
+  fileAsBase64: string
+): Promise<string> {
+  if (!fileAsBase64) {
+    throw new Error('No base 64 image');
+  }
+
+  const fileName = `./public/${generateFileName()}.jpg`;
+
+  try {
+    const uri = fileAsBase64.split(';base64,').pop();
+    let buffer = Buffer.from(uri as string, 'base64');
+    const image = await sharp(buffer)
+      .resize({
+        width: 1140,
+        withoutEnlargement: true,
+      })
+      .toFormat('jpg', { compression: '80' })
+      .toFile(fileName);
+
+    console.log('saved image: ', { image });
+  } catch (error) {
+    logger.error(error);
+    throw new Error('Unable to save image on server.');
+  }
+
+  return fileName.replace('./public/', '');
 }

@@ -7,6 +7,7 @@ import {
   Place,
   UserRole,
 } from '@prisma/client';
+import { getMonthAlwaysInTwoDigits } from './dateHelpers';
 
 export function getPolishEventTypeName(type: EventType) {
   let polishTypeName = '';
@@ -195,6 +196,10 @@ export function getTwoDigitHours(date: Date) {
     ? `0${date.getUTCHours()}`
     : `${date.getUTCHours()}`;
 }
+
+export function getDayAlwaysInTwoDigits(date: Date) {
+  return date.getDate() <= 9 ? `0${date.getDate()}` : `${date.getDate()}`;
+}
 export function getCorrectTwoDigitsMonthNumber(date: Date) {
   const month = [
     '01',
@@ -350,4 +355,26 @@ export function createErrorsListInOneLineSeparatedWithVerticalLine(
   });
 
   return result;
+}
+
+export function generateFileName() {
+  let result = '';
+
+  const date = new Date(Date.now());
+  console.log({ date });
+
+  result = `${date.getFullYear()}_${getMonthAlwaysInTwoDigits(
+    date
+  )}_${getDayAlwaysInTwoDigits(
+    date
+  )}__cyclical_activity___${generateQuickGuid()}`;
+
+  return result;
+}
+
+function generateQuickGuid() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }

@@ -18,6 +18,10 @@ export const dbWritingErrorMessage =
 export const dbReadingErrorMessage =
   'Błąd podczas łączenia się z bazą danych. Spróbuj ponownie.';
 
+//creating image
+export const imageCreationErrorMessage =
+  'Błąd w trakcie zapisywania pliku graficznego na serwerze..';
+
 //login
 export const notLoggedIn = 'Nie jesteś zalogowany.';
 export const loggedIn = 'Jesteś zalogowany.';

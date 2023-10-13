@@ -287,7 +287,7 @@ export type TFormStage = {
 export type TImageCyclicalActivityFormValues = Pick<
   ImageCyclicalActivity,
   'alt' | 'additionInfoThatMustBeDisplayed'
-> & { file: TFileWithPreview; id: string | number };
+> & { file: TFileWithPreview | string; id: string };
 export type TImageCyclicalActivityForDB = Pick<
   ImageCyclicalActivity,
   'alt' | 'additionInfoThatMustBeDisplayed' | 'url'

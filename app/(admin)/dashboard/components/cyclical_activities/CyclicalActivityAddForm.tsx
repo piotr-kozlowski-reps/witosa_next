@@ -222,21 +222,25 @@ export default function CyclicalActivityAddForm() {
     //   image.
 
     // }))
-    const formikValues: TCyclicalActivityFormInputs = formik.values;
+    const formikValues: TCyclicalActivityFormInputs = { ...formik.values };
     const isIncludeImages = formikValues.isCustomLinkToDetails;
     const originalImages =
       formikValues.images as TImageCyclicalActivityFormValues[];
 
-    // let imagesRemapped: TImageCyclicalActivityFormValues[];
-    // if (isIncludeImages) {
-    //   imagesRemapped = originalImages.map((image) => ({
-    //     alt: image.alt,
-    //     additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
-    //     file: image.file!.preview,
-    //     id: image.id,
-    //   }));
-    // }
+    let imagesRemapped: TImageCyclicalActivityFormValues[] = [];
+    if (!isIncludeImages) {
+      imagesRemapped = originalImages.map((image) => ({
+        alt: image.alt,
+        additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
+        file:
+          typeof image.file! === 'string' ? image.file! : image.file!.preview,
+        id: image.id as string,
+      }));
+    }
 
+    console.log({ imagesRemapped });
+
+    formikValues.images = imagesRemapped;
     if (isCurrentFormToPOSTData) {
       //post cyclical activity
       try {
@@ -247,15 +251,15 @@ export default function CyclicalActivityAddForm() {
 
       console.log({ response });
 
-      // if (!response || !response.status || !response.response) {
-      //   setShowNotification('ERROR', dbReadingErrorMessage);
-      //   return;
-      // }
-      // if (response.status === 'ERROR') {
-      //   setShowNotification('ERROR', response.response);
-      //   return;
-      // }
-      // setShowNotification('SUCCESS', response.response);
+      if (!response || !response.status || !response.response) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+        return;
+      }
+      if (response.status === 'ERROR') {
+        setShowNotification('ERROR', response.response);
+        return;
+      }
+      setShowNotification('SUCCESS', response.response);
       // resetCyclicalActivityFormikDataForPUT();
       // formik.resetForm();
       // return;
