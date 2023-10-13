@@ -13,17 +13,14 @@ import {
   validateValuesForCyclicalActivities,
 } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
-import {
-  activityTypeArraySchema,
-  forWhomArraySchema,
-  isBooleanSchema,
-  isDateSchema,
-  nameSchema_Required_Min2,
-  placesArraySchema,
-} from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
-import { TActionResponse, TGetAllCyclicalActivitiesResponse } from '@/types';
-import { ActivityType, CyclicalActivity, ForWhom, Place } from '@prisma/client';
+import {
+  TActionResponse,
+  TGetAllCyclicalActivitiesResponse,
+  TImageCyclicalActivityForDB,
+  TOccurrence,
+} from '@/types';
+import { CyclicalActivity, Day, Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
@@ -38,6 +35,8 @@ export async function addCyclicalActivity(
   }
 
   console.log('server action inside values:', { values });
+  console.log('server action inside values, occurrence:', values.occurrence);
+  console.log('server action inside values, images:', values.images);
 
   /* data validation */
   const validationResult = validateValuesForCyclicalActivities(
@@ -48,80 +47,85 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
-  // // /* writing cyclical activity to db */
-  // const authorId = session.user?.id;
+  // /* writing cyclical activity to db */
+  const authorId = session.user?.id;
+  const isIncludeImages = !values.isCustomLinkToDetails;
 
-  // let dataToBeSendToDb: CyclicalActivity = {
-  //   //stage1
-  //   name: values.name,
-  //   activityTypes: values.activityTypes as ActivityType[],
-  //   activitiesForWhom: values.activitiesForWhom as ForWhom[],
-  //   places: values.places as Place[],
-  //   isToBePublished: values.isToBePublished as boolean,
-  //   isExpiresAtRequired: values.isExpiresAtRequired as boolean,
-  //   expiresAt: values.expiresAt as Date | null,
-  //   //stage2
-  //   shortDescription: values.shortDescription,
-  //   longDescription: values.longDescription
-  //     ? (values.longDescription as string)
-  //     : null,
-  //   isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
-  //   customLinkToDetails: values.customLinkToDetails
-  //     ? values.customLinkToDetails
-  //     : null,
-  //   // author: {
-  //   //   connect: { id: authorId },
-  //   },
-  //   //images (if needed) added in if below
-  //   //stage3
-  //   occurrence: {
-  //     createMany: {
-  //       data: values.occurrence,
-  //     },
-  //   },
-  // };
+  const occurrencePreparedData: TOccurrence[] = values.occurrence!.map(
+    (occurrenceItem) => ({
+      day: occurrenceItem.day as Day,
+      activityStart: occurrenceItem.activityStart as Date,
+      activityEnd: occurrenceItem.activityStart as Date,
+    })
+  );
 
-  // if (!values.isCustomLinkToDetails) {
-  //   const imagesValuesPreparedForBg = values.images?.map((image) => {
-  //     const imageData: File | String = image.file as File | String;
-  //     return {
-  //       additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
-  //       alt: image.alt,
-  //       url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
-  //         imageData
-  //       ),
-  //     };
-  //   });
+  const imagesPreparedData: TImageCyclicalActivityForDB[] = values.images!.map(
+    (image) => ({
+      url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
+        image.file as string | File
+      ),
+      alt: image.alt as string,
+      additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed
+        ? image.additionInfoThatMustBeDisplayed
+        : null,
+    })
+  );
 
-  //   dataToBeSendToDb = {
-  //     ...dataToBeSendToDb,
-  //     images: { createMany: { data: imagesValuesPreparedForBg } },
-  //   };
-  // }
+  let cyclicalActivityPreparedForDb: Prisma.CyclicalActivityCreateInput = {
+    //stage1
+    name: values.name,
+    activityTypes: values.activityTypes,
+    activitiesForWhom: values.activitiesForWhom,
+    places: values.places,
+    isToBePublished: values.isToBePublished as boolean,
+    isExpiresAtRequired: values.isExpiresAtRequired as boolean,
+    expiresAt: values.expiresAt as string | Date | null | undefined,
 
-  // try {
-  //   const response = await prisma.cyclicalActivity.create(dataToBeSendToDb);
-  //   console.log({ response });
-  // } catch (error) {
-  //   logger.warn(dbWritingErrorMessage);
-  //   return { status: 'ERROR', response: dbWritingErrorMessage };
-  // }
+    //stage2
+    shortDescription: values.shortDescription,
+    isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
+    longDescription: values.longDescription
+      ? (values.longDescription as string)
+      : null,
+    customLinkToDetails: values.customLinkToDetails
+      ? values.customLinkToDetails
+      : null,
+    author: {
+      connect: { id: authorId },
+    },
+    //stage3
+    occurrence: {
+      createMany: {
+        data: occurrencePreparedData,
+      },
+    },
+  };
 
-  // /** revalidation */
-  // revalidatePath('/');
+  if (isIncludeImages) {
+    cyclicalActivityPreparedForDb.images = {
+      createMany: { data: imagesPreparedData },
+    };
+  }
 
-  // /* final success response */
-  // const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
+  try {
+    const response = await prisma.cyclicalActivity.create({
+      data: cyclicalActivityPreparedForDb,
+    });
+    console.log({ response });
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-  // logger.info(successMessage);
-  // return {
-  //   status: 'SUCCESS',
-  //   response: successMessage,
-  // };
+  /** revalidation */
+  revalidatePath('/');
 
+  /* final success response */
+  const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
+  logger.info(successMessage);
   return {
     status: 'SUCCESS',
-    response: '',
+    response: successMessage,
   };
 }
 
@@ -373,27 +377,9 @@ async function checkIfCyclicalActivityExists(id: string) {
   return exists;
 }
 
-function validateCyclicalActivityData(
-  cyclicalActivity: TCyclicalActivityFormInputs
-) {
-  nameSchema_Required_Min2.parse(cyclicalActivity.name);
-  activityTypeArraySchema.parse(cyclicalActivity.activityTypes);
-  forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
-  placesArraySchema.parse(cyclicalActivity.places);
-  isBooleanSchema.parse(cyclicalActivity.isToBePublished);
-  isBooleanSchema.parse(cyclicalActivity.isExpiresAtRequired);
-  //expiresAt
-  if (cyclicalActivity.isExpiresAtRequired) {
-    isDateSchema.parse(cyclicalActivity.expiresAt);
-  }
-
-  return true;
-}
-//TODO: może szansa aby to także zrobić singe source of truth dzieki schematowi z ZODa
-
 ////utils
 function generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
-  file: File | String
-): String {
-  return 'temporary string';
+  file: File | string
+): string {
+  return 'temporary_string.exe';
 }

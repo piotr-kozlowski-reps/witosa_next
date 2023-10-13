@@ -914,6 +914,59 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-28T23:59:00.968Z'),
   },
+
+  {
+    id: '2wad8842-evc1-gt51-991v-fr6rrecd8wz0',
+    eventTypes: ['CONCERT'],
+    eventForWhom: ['ADULTS', 'TEENS', 'WOMEN', 'SENIORS'],
+    title: 'Koncert Joanny Stasińskiej z zespołem',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Koncert Joanny Stasińskiej z zespołem - Inicjatywa Lokalna Projektu DK+.',
+    eventStartDate: new Date('2023-10-27T19:00:00.968Z'),
+    eventEndDate: new Date('2023-10-27T22:00:00.968Z'),
+    createdAt: new Date('2023-10-13T22:20:24.968Z'),
+    updatedAt: new Date('2023-10-1T22:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_joanna_001.jpg',
+        alt: 'Młoda kobieta, długie i proste blond włosy, ubrana w czarną sukienkę z saksofonem w dłoniach.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+
+    detailedDescription:
+      '<div><p>Kolejna inicjatywa projektu Nowe otwarcie - Projekt DK+, to koncert znakomitej saksofonistki Joanny Stasińskiej z towarzyszeniem przyjaciół - muzyków polskiej sceny.</p><p>W repertuarze znajdą się utwory w klimacie funky i smooth jazz, m.in. takich artystów jak Stevie Wonder czy Candy Dufler.</p><p>W skład zespołu wchodzą:</p><ul><li>Joanna Stasińska - saksofon</li><li>Erwin Żebro - trąbka</li><li>Konstanty Janiak - puzon</li><li>Mariusz Orzełowski - gitara</li><li>Bartosz Kalicki - instrumenty klawiszowe</li><li>Piotr Zaufal - gitara basowa</li><li>Kamil Wójcik - perkusja</li><li>Łukasz Wicher - wokal</li></ul><p>Projekt dofinansowano ze środków Ministerstwo Kultury i Dziedzictwa Narodowego w ramach programu Narodowe Centrum Kultury na realizację projektu Dom Kultury + Edycja 2023 - Inicjatywy Lokalne.</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: false,
+    kindOfEnterInfo: 'Wstęp wolny, finansowany z projektu Dom Kultury+.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-joanna-001.jpg',
+    newsSectionImageAlt:
+      'Młoda kobieta, długie i proste blond włosy, ubrana w czarną sukienkę z saksofonem w dłoniach.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_joanna_001.jpg',
+    sliderImageAlt:
+      'Młoda kobieta, długie i proste blond włosy, ubrana w czarną sukienkę z saksofonem w dłoniach.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-27T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-27T23:59:00.968Z'),
+  },
 ];
 
 export const sliderGroupsHipnoteriaBisImages: TSliderGroupsImages = {

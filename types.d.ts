@@ -288,6 +288,10 @@ export type TImageCyclicalActivityFormValues = Pick<
   ImageCyclicalActivity,
   'alt' | 'additionInfoThatMustBeDisplayed'
 > & { file: TFileWithPreview; id: string | number };
+export type TImageCyclicalActivityForDB = Pick<
+  ImageCyclicalActivity,
+  'alt' | 'additionInfoThatMustBeDisplayed' | 'url'
+>;
 
 export type TFileWithPreview = (File & { preview: string }) | undefined;
 

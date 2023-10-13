@@ -208,54 +208,74 @@ const fileTypes = [
   'image/tiff',
 ];
 const imageYupSchema = Yup.mixed().nullable();
+// email: yup.lazy((val) =>
+//   Array.isArray(val) ? yup.array().of(yup.string()) : yup.string()
+// );
+// if (typeof userName === 'string') {
 export const imagesArrayYupSchema = Yup.array(
   Yup.object().shape({
     //file
-    file: imageYupSchema
-      .test(
-        'is there any file',
-        fileErrorMessages.NO_FILE,
-        (value, context) => {
-          const isCustomLinkToDetails =
-            context.options.context?.isCustomLinkToDetails;
+    file: Yup.lazy((val) => {
+      console.log({ val });
 
-          if (isCustomLinkToDetails) {
-            return true;
-          }
+      if (typeof val === 'string') {
+        return Yup.string().required('Pole jest wymagane.');
+      } else {
+        return imageYupSchema
+          .test(
+            'is there any file',
+            fileErrorMessages.NO_FILE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
 
-          if (!value) {
-            return false;
-          }
-          return true;
-        }
-      )
-      .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value, context) => {
-        const isCustomLinkToDetails =
-          context.options.context?.isCustomLinkToDetails;
+              if (isCustomLinkToDetails) {
+                return true;
+              }
 
-        if (isCustomLinkToDetails) {
-          return true;
-        }
+              if (!value) {
+                return false;
+              }
+              return true;
+            }
+          )
+          .test(
+            'fileType',
+            fileErrorMessages.ERROR_FILE_TYPE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
 
-        if (!value) {
-          return true;
-        }
-        return getIsFileTypesValid(value as File, fileTypes);
-      })
-      .test('file size', fileErrorMessages.FILE_TO_LARGE, (value, context) => {
-        const isCustomLinkToDetails =
-          context.options.context?.isCustomLinkToDetails;
+              if (isCustomLinkToDetails) {
+                return true;
+              }
 
-        if (isCustomLinkToDetails) {
-          return true;
-        }
+              if (!value) {
+                return true;
+              }
+              return getIsFileTypesValid(value as File, fileTypes);
+            }
+          )
+          .test(
+            'file size',
+            fileErrorMessages.FILE_TO_LARGE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
 
-        if (!value) {
-          return true;
-        }
+              if (isCustomLinkToDetails) {
+                return true;
+              }
 
-        return getIsFileSizeValid(value as File, maxFileSize);
-      }),
+              if (!value) {
+                return true;
+              }
+
+              return getIsFileSizeValid(value as File, maxFileSize);
+            }
+          );
+      }
+    }),
 
     //alt
     alt: Yup.string().test(

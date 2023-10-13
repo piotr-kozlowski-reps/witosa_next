@@ -16,9 +16,6 @@ type Props<T> = {
   formik: FormikProps<T>;
 };
 
-// const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
-//   (role) => ({ value: role, label: getPolishUserRoleName(role) })
-// );
 const optionsForCustomLinkToDetails = [
   { value: false, label: 'uzupełnię szczegółowy opis oraz obrazki' },
   { value: true, label: 'podam adres www do strony z detalami' },

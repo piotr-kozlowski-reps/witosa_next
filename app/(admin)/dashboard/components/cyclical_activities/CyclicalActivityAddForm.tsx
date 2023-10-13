@@ -13,7 +13,11 @@ import {
   validateValuesForCyclicalActivitiesStageOne,
   validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
-import { TActionResponse, TFormStage } from '@/types';
+import {
+  TActionResponse,
+  TFormStage,
+  TImageCyclicalActivityFormValues,
+} from '@/types';
 import {
   FormikProps,
   useFormik,
@@ -213,11 +217,30 @@ export default function CyclicalActivityAddForm() {
     // appendEnumTypes(formik, formData, 'activityTypes');
     // appendEnumTypes(formik, formData, 'activitiesForWhom');
     // appendEnumTypes(formik, formData, 'places');
+    // const images = formik.values.images as
+    // const mappedImages = formik.values.images?.map(image => ({
+    //   image.
 
-    //post cyclical activity
+    // }))
+    const formikValues: TCyclicalActivityFormInputs = formik.values;
+    const isIncludeImages = formikValues.isCustomLinkToDetails;
+    const originalImages =
+      formikValues.images as TImageCyclicalActivityFormValues[];
+
+    // let imagesRemapped: TImageCyclicalActivityFormValues[];
+    // if (isIncludeImages) {
+    //   imagesRemapped = originalImages.map((image) => ({
+    //     alt: image.alt,
+    //     additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
+    //     file: image.file!.preview,
+    //     id: image.id,
+    //   }));
+    // }
+
     if (isCurrentFormToPOSTData) {
+      //post cyclical activity
       try {
-        response = await addCyclicalActivity(formik.values);
+        response = await addCyclicalActivity(formikValues);
       } catch (error) {
         setShowNotification('ERROR', dbReadingErrorMessage);
       }
