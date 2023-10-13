@@ -121,19 +121,12 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
     },
     accessorKey: 'isToBePublished',
     cell: ({ row, table }) => {
-      const booleanValue = row.getValue('isToBePublished') as boolean;
-      const expirationData = table.getExpandedRowModel().flatRows[row.index]
+      const isToBePublished = row.getValue('isToBePublished') as boolean;
+      const expirationDate = table.getExpandedRowModel().flatRows[row.index]
         .original.expiresAt as Date;
-      const isExpirationBeforeToday = isFirstDateBeforeSecond(
-        expirationData,
-        new Date(Date.now())
-      );
 
-      const formattedText = booleanValue
-        ? isExpirationBeforeToday
-          ? 'NIE AKTUALNE'
-          : 'TAK'
-        : 'NIE';
+      let formattedText = definePublishedText(isToBePublished, expirationDate);
+
       return (
         <div
           className={clsx(
@@ -173,3 +166,23 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
     },
   },
 ];
+
+//utils
+function definePublishedText(
+  isToBePublished: boolean,
+  expirationDate: Date | undefined
+) {
+  let formattedText: string;
+
+  formattedText = isToBePublished ? 'TAK' : 'NIE';
+  if (expirationDate) {
+    const isExpirationBeforeToday = isFirstDateBeforeSecond(
+      expirationDate,
+      new Date(Date.now())
+    );
+
+    formattedText = isExpirationBeforeToday ? 'NIE AKTUALNE' : 'TAK';
+  }
+
+  return formattedText;
+}

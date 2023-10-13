@@ -4,7 +4,7 @@ import {
   customLinkToDetailsYupSchema,
   cyclicalActivityExpiresAtYupSchema,
   forWhomArrayYupSchema,
-  imagesYupSchema,
+  imagesArrayYupSchema,
   isBooleanYupSchema,
   longDescriptionYupSchema,
   nameSchemaYup_Required_Min2,
@@ -162,13 +162,6 @@ import {
 // });
 // }
 
-// export type TCyclicalActivityFormInputs = z.TypeOf<
-//   typeof cyclicalActivityValidationSchemaStageOne &
-//     typeof cyclicalActivityValidationSchemaStageTwo
-// >;
-
-// getCyclicalActivityValidationSchemaForStageOne;
-
 export const cyclicalActivityValidationSchemaStageOneWithYup = {
   name: nameSchemaYup_Required_Min2,
   activityTypes: activityTypeArrayYupSchema,
@@ -178,12 +171,13 @@ export const cyclicalActivityValidationSchemaStageOneWithYup = {
   isExpiresAtRequired: isBooleanYupSchema,
   expiresAt: cyclicalActivityExpiresAtYupSchema,
 };
+
 export const cyclicalActivityValidationSchemaStageTwoWithYup = {
   shortDescription: nameSchemaYup_Required_Min2,
   isCustomLinkToDetails: isBooleanYupSchema,
   customLinkToDetails: customLinkToDetailsYupSchema,
   longDescription: longDescriptionYupSchema,
-  images: imagesYupSchema,
+  images: imagesArrayYupSchema,
 };
 
 export const cyclicalActivityValidationSchemaStageThreeWithYup = {
@@ -202,12 +196,16 @@ export function generateValidationForCyclicalActivities() {
 export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
   return Yup.object({
     ...cyclicalActivityValidationSchemaStageOneWithYup,
-  }).isValidSync(values);
+  }).isValidSync(values, { context: values });
 }
 export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
   return Yup.object({
     ...cyclicalActivityValidationSchemaStageTwoWithYup,
-  }).isValidSync(values);
+  }).isValidSync(values, { context: values });
+}
+
+export function validateValuesForCyclicalActivities(values: Object) {
+  return yupSchema.isValidSync(values, { context: values });
 }
 
 export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;

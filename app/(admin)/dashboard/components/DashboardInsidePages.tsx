@@ -6,6 +6,7 @@ import {
   TNewsletterDataCombo,
 } from '@/types';
 import { useSession } from 'next-auth/react';
+import { Fragment } from 'react';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
 import DashboardCyclicalActivities from './cyclical_activities/DashboardCyclicalActivities';
@@ -34,32 +35,34 @@ export default function DashboardInsidePages(props: Props) {
 
   ////tsx
   return (
-    <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0">
-      <ComponentTransitionFromRightToLeft>
-        {isToShowEvents ? <DashboardEvents /> : null}
-      </ComponentTransitionFromRightToLeft>
+    <Fragment>
+      <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0">
+        <ComponentTransitionFromRightToLeft>
+          {isToShowEvents ? <DashboardEvents /> : null}
+        </ComponentTransitionFromRightToLeft>
 
-      <ComponentTransitionFromRightToLeft>
-        {isToShowCyclicalActivities ? (
-          <DashboardCyclicalActivities
-            cyclicalActivitiesData={cyclicalActivitiesData}
-          />
-        ) : null}
-      </ComponentTransitionFromRightToLeft>
+        <ComponentTransitionFromRightToLeft>
+          {isToShowCyclicalActivities ? (
+            <DashboardCyclicalActivities
+              cyclicalActivitiesData={cyclicalActivitiesData}
+            />
+          ) : null}
+        </ComponentTransitionFromRightToLeft>
 
-      <ComponentTransitionFromRightToLeft>
-        {isToShowNewsletter ? (
-          <DashboardNewsletter newsletterDataCombo={newsletterDataCombo} />
-        ) : null}
-      </ComponentTransitionFromRightToLeft>
+        <ComponentTransitionFromRightToLeft>
+          {isToShowNewsletter ? (
+            <DashboardNewsletter newsletterDataCombo={newsletterDataCombo} />
+          ) : null}
+        </ComponentTransitionFromRightToLeft>
 
-      <ComponentTransitionFromRightToLeft>
-        {isToShowUsers ? <DashboardUsers usersData={usersData} /> : null}
-      </ComponentTransitionFromRightToLeft>
+        <ComponentTransitionFromRightToLeft>
+          {isToShowUsers ? <DashboardUsers usersData={usersData} /> : null}
+        </ComponentTransitionFromRightToLeft>
 
-      <ComponentTransitionFromRightToLeft>
-        {isToShowLogs ? <DashboardLogs /> : null}
-      </ComponentTransitionFromRightToLeft>
-    </div>
+        <ComponentTransitionFromRightToLeft>
+          {isToShowLogs ? <DashboardLogs /> : null}
+        </ComponentTransitionFromRightToLeft>
+      </div>
+    </Fragment>
   );
 }

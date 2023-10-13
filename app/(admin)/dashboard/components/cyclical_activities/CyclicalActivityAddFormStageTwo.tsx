@@ -4,6 +4,7 @@ import RichTextEditorFormik from '@/app/(site)/components/forms/RichTextEditorFo
 import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
@@ -15,9 +16,6 @@ type Props<T> = {
   formik: FormikProps<T>;
 };
 
-// const optionsForUserRoles = (Object.keys(UserRole) as Array<UserRole>).map(
-//   (role) => ({ value: role, label: getPolishUserRoleName(role) })
-// );
 const optionsForCustomLinkToDetails = [
   { value: false, label: 'uzupełnię szczegółowy opis oraz obrazki' },
   { value: true, label: 'podam adres www do strony z detalami' },
@@ -29,6 +27,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   const isCustomLinkToDetails = formik.getFieldProps(
     'isCustomLinkToDetails'
   ).value;
+  const isMounted = useIsMounted();
 
   function defineCurrentIndex() {
     const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
@@ -56,7 +55,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
         </div>
 
         <div className=" mt-[20px] form-input-width">
-          <SelectFormik<Boolean, T>
+          <SelectFormik<boolean, T>
             name="isCustomLinkToDetails"
             label="wybierz, jak przekażesz szczegółowe informacje do zajęć:"
             options={optionsForCustomLinkToDetails}
@@ -93,13 +92,16 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
           {!isCustomLinkToDetails ? (
             <ComponentTransitionFromRightToLeft>
               <Fragment>
-                <div className=" mt-[20px]">
-                  <RichTextEditorFormik<T>
-                    name="longDescription"
-                    label="szczegółowy opis:"
-                    formik={formik}
-                  />
-                </div>
+                {isMounted() ? (
+                  <div className=" mt-[20px]">
+                    <RichTextEditorFormik<T>
+                      name="longDescription"
+                      label="szczegółowy opis:"
+                      formik={formik}
+                    />
+                  </div>
+                ) : null}
+
                 <div className="mt-[20px]">
                   <ImagesUploadFormik<T>
                     formik={formik}

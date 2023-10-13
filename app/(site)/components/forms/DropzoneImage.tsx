@@ -99,9 +99,6 @@ export default function DropzoneImage<T>(props: Props<T>) {
   }, [filesRejected, isDragActive, currentValue]);
 
   useEffect(() => {
-    console.log({ isFileDialogActive });
-    console.log({ isDragActive });
-
     const isFieldTouched = formik.getFieldMeta(name).touched;
 
     if ((isFileDialogActive || isDragActive) && !isFieldTouched) {

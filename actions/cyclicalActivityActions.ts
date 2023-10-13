@@ -8,29 +8,24 @@ import {
   dbWritingErrorMessage,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
-import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
-import logger from '@/lib/logger';
 import {
-  activityTypeArraySchema,
-  forWhomArraySchema,
-  isBooleanSchema,
-  isDateSchema,
-  nameSchema_Required_Min2,
-  placesArraySchema,
-} from '@/lib/zodSchemas';
+  TCyclicalActivityFormInputs,
+  validateValuesForCyclicalActivities,
+} from '@/lib/forms/cyclical-activities-form';
+import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
-  TCyclicalActivitiesFormValues,
   TGetAllCyclicalActivitiesResponse,
-  TImageCyclicalActivityFormValues,
+  TImageCyclicalActivityForDB,
+  TOccurrence,
 } from '@/types';
-import { ActivityType, CyclicalActivity, ForWhom, Place } from '@prisma/client';
+import { CyclicalActivity, Day, Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export async function addCyclicalActivity(
-  formData: FormData
+  values: TCyclicalActivityFormInputs
 ): Promise<TActionResponse> {
   /** checking session */
   const session = await getServerSession(authOptions);
@@ -39,136 +34,83 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  // console.log([...formData]);
+  console.log('server action inside values:', { values });
+  console.log('server action inside values, occurrence:', values.occurrence);
+  console.log('server action inside values, images:', values.images);
 
-  // /** checking values eXistenZ */
-  //TODO:  .... check everything here, starts to be a mess
-  const submittedName = formData.get('name') as string;
-  const submittedActivityTypes = formData.getAll(
-    'activityTypes'
-  ) as ActivityType[];
-  const submittedActivitiesForWhom = formData.getAll(
-    'activitiesForWhom'
-  ) as ForWhom[];
-  const submittedPlaces = formData.getAll('places') as Place[];
-  const submittedIsToBePublished =
-    (formData.get('isToBePublished') as string) === 'true' ? true : false;
-  const submittedIsCustomLinkToDetails =
-    (formData.get('isCustomLinkToDetails') as string) === 'true' ? true : false;
-  const submittedIsExpiresAtRequired =
-    (formData.get('isExpiresAtRequired') as string) === 'true' ? true : false;
-  const submittedExpiresAt = formData.get('expiresAt') as Date & string;
-  const submittedShortDescription = formData.get('shortDescription') as string;
-  const submittedLongDescription = formData.get('longDescription') as string;
-  const submittedCustomLinkToDetails = formData.get(
-    'longDescription'
-  ) as string;
-  const submittedImages = formData.get(
-    'images'
-  ) as unknown as TImageCyclicalActivityFormValues[];
-
-  //TODO: maybe also with ZOD or YUP  .... check everything here, starts to be a mess
-  // if (
-  //   !submittedName ||
-  //   !submittedActivityTypes ||
-  //   !submittedActivitiesForWhom ||
-  //   !submittedPlaces ||
-  //   submittedIsToBePublished === undefined ||
-  //   submittedIsExpiresAtRequired === undefined ||
-  //   submittedShortDescription ||
-  //   submittedIsCustomLinkToDetails === undefined
-  // ) {
-  //   logger.warn(lackOfCyclicalActivitiesData);
-  //   return { status: 'ERROR', response: lackOfCyclicalActivitiesData };
-  // }
-
-  /* format validation */
-  const formDataAsObject: TCyclicalActivitiesFormValues = {
-    name: submittedName,
-    activityTypes: submittedActivityTypes,
-    activitiesForWhom: submittedActivitiesForWhom,
-    places: submittedPlaces,
-    isExpiresAtRequired: submittedIsExpiresAtRequired,
-    expiresAt: submittedExpiresAt || null,
-    isToBePublished: submittedIsToBePublished,
-    shortDescription: submittedShortDescription,
-    longDescription: submittedLongDescription,
-    isCustomLinkToDetails: submittedIsCustomLinkToDetails,
-    customLinkToDetails: submittedCustomLinkToDetails,
-    images: submittedImages,
-  };
-  let validationResult = false;
-  try {
-    //TODO: validation
-    // validationResult = validateCyclicalActivityData(formDataAsObject);
-  } catch (error) {
-    logger.warn(badCyclicalActivitiesData);
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
-  }
+  /* data validation */
+  const validationResult = validateValuesForCyclicalActivities(
+    values as Object
+  );
   if (!validationResult) {
     logger.warn(badCyclicalActivitiesData);
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
-  /* writing cyclical activity to db */
+  // /* writing cyclical activity to db */
   const authorId = session.user?.id;
+  const isIncludeImages = !values.isCustomLinkToDetails;
+
+  const occurrencePreparedData: TOccurrence[] = values.occurrence!.map(
+    (occurrenceItem) => ({
+      day: occurrenceItem.day as Day,
+      activityStart: occurrenceItem.activityStart as Date,
+      activityEnd: occurrenceItem.activityStart as Date,
+    })
+  );
+
+  const imagesPreparedData: TImageCyclicalActivityForDB[] = values.images!.map(
+    (image) => ({
+      url: generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
+        image.file as string | File
+      ),
+      alt: image.alt as string,
+      additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed
+        ? image.additionInfoThatMustBeDisplayed
+        : null,
+    })
+  );
+
+  let cyclicalActivityPreparedForDb: Prisma.CyclicalActivityCreateInput = {
+    //stage1
+    name: values.name,
+    activityTypes: values.activityTypes,
+    activitiesForWhom: values.activitiesForWhom,
+    places: values.places,
+    isToBePublished: values.isToBePublished as boolean,
+    isExpiresAtRequired: values.isExpiresAtRequired as boolean,
+    expiresAt: values.expiresAt as string | Date | null | undefined,
+
+    //stage2
+    shortDescription: values.shortDescription,
+    isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
+    longDescription: values.longDescription
+      ? (values.longDescription as string)
+      : null,
+    customLinkToDetails: values.customLinkToDetails
+      ? values.customLinkToDetails
+      : null,
+    author: {
+      connect: { id: authorId },
+    },
+    //stage3
+    occurrence: {
+      createMany: {
+        data: occurrencePreparedData,
+      },
+    },
+  };
+
+  if (isIncludeImages) {
+    cyclicalActivityPreparedForDb.images = {
+      createMany: { data: imagesPreparedData },
+    };
+  }
+
   try {
     const response = await prisma.cyclicalActivity.create({
-      data: {
-        //stage1
-        name: submittedName,
-        activityTypes: submittedActivityTypes,
-        activitiesForWhom: submittedActivitiesForWhom,
-        places: submittedPlaces,
-        isToBePublished: submittedIsToBePublished,
-        isExpiresAtRequired: submittedIsExpiresAtRequired,
-        expiresAt: submittedExpiresAt,
-        //stage2
-        shortDescription: submittedShortDescription,
-        longDescription: 'long description',
-        isCustomLinkToDetails: submittedIsCustomLinkToDetails,
-        customLinkToDetails: 'customLinkToDetails',
-        author: {
-          connect: { id: authorId },
-        },
-        images: {
-          createMany: {
-            data: [
-              {
-                url: 'url1.jpg',
-                alt: 'alt1',
-                additionInfoThatMustBeDisplayed: 'additionalInfo',
-              },
-              {
-                url: 'url2.jpg',
-                alt: 'alt3',
-              },
-            ],
-          },
-        },
-        occurrence: {
-          createMany: {
-            data: [
-              {
-                day: 'MONDAY',
-                activityStart: '2025-10-10T20:00:24.968Z',
-                activityEnd: '2025-10-10T22:00:24.968Z',
-              },
-              {
-                day: 'WEDNESDAY',
-                activityStart: '2025-10-10T16:00:24.968Z',
-                activityEnd: '2025-10-10T18:15:24.968Z',
-              },
-            ],
-          },
-        },
-      },
-      include: {
-        images: true,
-        occurrence: true,
-      },
+      data: cyclicalActivityPreparedForDb,
     });
-
     console.log({ response });
   } catch (error) {
     logger.warn(dbWritingErrorMessage);
@@ -179,7 +121,7 @@ export async function addCyclicalActivity(
   revalidatePath('/');
 
   /* final success response */
-  const successMessage = `Zajęcia: (${submittedName}) zostały zapisane.`;
+  const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
   logger.info(successMessage);
   return {
     status: 'SUCCESS',
@@ -435,20 +377,9 @@ async function checkIfCyclicalActivityExists(id: string) {
   return exists;
 }
 
-function validateCyclicalActivityData(
-  cyclicalActivity: TCyclicalActivityFormInputs
-) {
-  nameSchema_Required_Min2.parse(cyclicalActivity.name);
-  activityTypeArraySchema.parse(cyclicalActivity.activityTypes);
-  forWhomArraySchema.parse(cyclicalActivity.activitiesForWhom);
-  placesArraySchema.parse(cyclicalActivity.places);
-  isBooleanSchema.parse(cyclicalActivity.isToBePublished);
-  isBooleanSchema.parse(cyclicalActivity.isExpiresAtRequired);
-  //expiresAt
-  if (cyclicalActivity.isExpiresAtRequired) {
-    isDateSchema.parse(cyclicalActivity.expiresAt);
-  }
-
-  return true;
+////utils
+function generateImagePathAfterCreatingImageIfNeeded_Or_PassPathString(
+  file: File | string
+): string {
+  return 'temporary_string.exe';
 }
-//TODO: może szansa aby to także zrobić singe source of truth dzieki schematowi z ZODa

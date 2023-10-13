@@ -97,11 +97,23 @@ export const isBooleanYupSchema = Yup.boolean();
 
 //
 /** date or null */
-export const isDateOrNullYupSchema = Yup.date().nullable();
-//
-
-/** date or null */
 export const isDateYupSchema = Yup.date().required('Data musi być określona.');
+export const isDateOrNullYupSchema = Yup.date()
+  .typeError('Data ma zły format.')
+  .nullable();
+export const isDateOrNullYupSchema_AndThenRequired = isDateOrNullYupSchema.test(
+  'date is required',
+  'Data musi być określona.',
+  (value) => {
+    const validation = isDateYupSchema.isValidSync(value);
+
+    if (!validation) {
+      return false;
+    }
+
+    return true;
+  }
+);
 
 //
 /** cyclicalActivityExpiresAt*/
@@ -127,11 +139,17 @@ export const cyclicalActivityExpiresAtYupSchema = Yup.mixed()
 //
 /** customLinkToDetails*/
 export const customLinkToDetailsYupSchema = Yup.string()
+  .nullable()
   .test(
     'customLinkToDetails has to be string when isCustomLinkToDetails equals true',
     'Pole jest wymagane.',
     (value, context) => {
-      const isCustomLinkToDetails = context.parent.isCustomLinkToDetails;
+      const isCustomLinkToDetails =
+        context.options.context?.isCustomLinkToDetails;
+
+      if (!isCustomLinkToDetails) {
+        return true;
+      }
 
       if (isCustomLinkToDetails) {
         const validation = stringRequiredYupSchema.isValidSync(value);
@@ -141,28 +159,35 @@ export const customLinkToDetailsYupSchema = Yup.string()
       }
       return true;
     }
-  )
-  .nullable();
+  );
 
 //
 /** longDescription*/
-export const longDescriptionYupSchema = Yup.string()
+export const longDescriptionYupSchema = Yup.mixed()
+  .nullable()
   .test(
     'longDescription has to be string and is required when isCustomLinkToDetails equals false',
     'Pole jest wymagane.',
     (value, context) => {
-      const isCustomLinkToDetails = context.parent.isCustomLinkToDetails;
+      const isCustomLinkToDetails =
+        context.options.context?.isCustomLinkToDetails;
+
+      if (isCustomLinkToDetails) {
+        return true;
+      }
 
       if (!isCustomLinkToDetails) {
         const validation = stringRequiredYupSchema.isValidSync(value);
+        // console.log({ validation });
+
         if (!validation) {
           return false;
         }
       }
+
       return true;
     }
-  )
-  .nullable();
+  );
 
 //
 /** images */
@@ -182,28 +207,81 @@ const fileTypes = [
   'image/bmp',
   'image/tiff',
 ];
-
-export const imagesYupSchema = Yup.array(
+const imageYupSchema = Yup.mixed().nullable();
+// email: yup.lazy((val) =>
+//   Array.isArray(val) ? yup.array().of(yup.string()) : yup.string()
+// );
+// if (typeof userName === 'string') {
+export const imagesArrayYupSchema = Yup.array(
   Yup.object().shape({
-    file: Yup.mixed()
-      .test(
-        'is there any file',
-        fileErrorMessages.NO_FILE,
-        (value, context) => {
-          const isCustomLinkToDetails =
-            context.options.context?.isCustomLinkToDetails;
+    //file
+    file: Yup.lazy((val) => {
+      console.log({ val });
 
-          if (isCustomLinkToDetails) {
-            return true;
-          }
+      if (typeof val === 'string') {
+        return Yup.string().required('Pole jest wymagane.');
+      } else {
+        return imageYupSchema
+          .test(
+            'is there any file',
+            fileErrorMessages.NO_FILE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
 
-          if (!value) {
-            return false;
-          }
-          return true;
-        }
-      )
-      .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value, context) => {
+              if (isCustomLinkToDetails) {
+                return true;
+              }
+
+              if (!value) {
+                return false;
+              }
+              return true;
+            }
+          )
+          .test(
+            'fileType',
+            fileErrorMessages.ERROR_FILE_TYPE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
+
+              if (isCustomLinkToDetails) {
+                return true;
+              }
+
+              if (!value) {
+                return true;
+              }
+              return getIsFileTypesValid(value as File, fileTypes);
+            }
+          )
+          .test(
+            'file size',
+            fileErrorMessages.FILE_TO_LARGE,
+            (value, context) => {
+              const isCustomLinkToDetails =
+                context.options.context?.isCustomLinkToDetails;
+
+              if (isCustomLinkToDetails) {
+                return true;
+              }
+
+              if (!value) {
+                return true;
+              }
+
+              return getIsFileSizeValid(value as File, maxFileSize);
+            }
+          );
+      }
+    }),
+
+    //alt
+    alt: Yup.string().test(
+      'needed only when isCustomLinkToDetails is false',
+      'Opis obrazka musi być podany.',
+      (value, context) => {
         const isCustomLinkToDetails =
           context.options.context?.isCustomLinkToDetails;
 
@@ -211,64 +289,40 @@ export const imagesYupSchema = Yup.array(
           return true;
         }
 
-        if (!value) {
-          return true;
-        }
-        return getIsFileTypesValid(value as File, fileTypes);
-      })
-      .test('file size', fileErrorMessages.FILE_TO_LARGE, (value, context) => {
-        const isCustomLinkToDetails =
-          context.options.context?.isCustomLinkToDetails;
-
-        if (isCustomLinkToDetails) {
-          return true;
+        const validation = stringRequiredYupSchema.isValidSync(value);
+        if (!validation) {
+          return false;
         }
 
-        if (!value) {
-          return true;
-        }
-
-        return getIsFileSizeValid(value as File, maxFileSize);
-      }),
-
-    //////////////////////
-    //     imageSourceFull: Yup.mixed().test(
-    //   "image type or string",
-    //   "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
-    //   (value) => {
-    //     if (!value) return;
-    //     if (
-    //       Object.prototype.toString.call(value) === "[object String]"
-    //     ) {
-    //       const isNotEmpty = value.trim().length > 0 ? true : false;
-    //       return isNotEmpty;
-    //     }
-    //     return (
-    //       value.type === "image/jpeg" ||
-    //       value.type === "image/png" ||
-    //       value.type === "image/jpg" ||
-    //       value.type === "image/gif"
-    //     );
-    //   }
-    // ),
-    //////////////////////
-
-    alt: Yup.string().when(
-      'isCustomLinkToDetails',
-      (isCustomLinkToDetails, schema) => {
-        if (!isCustomLinkToDetails) {
-          return schema.required('Opis obrazka musi być podany.');
-        }
-        return schema;
+        return true;
       }
     ),
     additionInfoThatMustBeDisplayed: Yup.string().nullable(),
-    id: Yup.string().required(),
+    id: Yup.string(),
   })
-).when('isCustomLinkToDetails', {
-  is: false,
-  then: (schema) => schema.min(1),
-});
+);
+
+//////////////////////
+//     imageSourceFull: Yup.mixed().test(
+//   "image type or string",
+//   "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+//   (value) => {
+//     if (!value) return;
+//     if (
+//       Object.prototype.toString.call(value) === "[object String]"
+//     ) {
+//       const isNotEmpty = value.trim().length > 0 ? true : false;
+//       return isNotEmpty;
+//     }
+//     return (
+//       value.type === "image/jpeg" ||
+//       value.type === "image/png" ||
+//       value.type === "image/jpg" ||
+//       value.type === "image/gif"
+//     );
+//   }
+// ),
+//////////////////////
 
 /** day type */
 export const dayYupSchema = Yup.mixed()
@@ -287,8 +341,8 @@ export const dayYupSchema = Yup.mixed()
 export const occurrenceYupSchema = Yup.array(
   Yup.object().shape({
     day: dayYupSchema,
-    activityStart: isDateYupSchema,
-    activityEnd: isDateYupSchema,
+    activityStart: isDateOrNullYupSchema_AndThenRequired,
+    activityEnd: isDateOrNullYupSchema_AndThenRequired,
   })
 );
 
