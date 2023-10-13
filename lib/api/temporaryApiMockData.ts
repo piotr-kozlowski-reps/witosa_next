@@ -532,7 +532,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleTo: new Date('2025-09-08T23:59:00.968Z'),
+    visibleTo: new Date('2023-09-08T23:59:00.968Z'),
   },
   {
     id: 'dadd8847-d3g1-ff81-8116-676rr7fd8aa3',
@@ -637,7 +637,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleTo: new Date('2025-09-08T23:59:00.968Z'),
+    visibleTo: new Date('2023-09-08T23:59:00.968Z'),
   },
   {
     id: 'f54d8847-d3g1-gt51-8116-6r6rr7fd8899',
@@ -914,7 +914,6 @@ export const allEventsMockData: TEventTemporary[] = [
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-28T23:59:00.968Z'),
   },
-
   {
     id: '2wad8842-evc1-gt51-991v-fr6rrecd8wz0',
     eventTypes: ['CONCERT'],
@@ -926,7 +925,7 @@ export const allEventsMockData: TEventTemporary[] = [
     eventStartDate: new Date('2023-10-27T19:00:00.968Z'),
     eventEndDate: new Date('2023-10-27T22:00:00.968Z'),
     createdAt: new Date('2023-10-13T22:20:24.968Z'),
-    updatedAt: new Date('2023-10-1T22:20:24.968Z'),
+    updatedAt: new Date('2023-10-13T22:20:24.968Z'),
     authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
 
     //details
@@ -966,6 +965,58 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-27T23:59:00.968Z'),
+  },
+
+  {
+    id: '222d8842-evc1-gt51-vf1v-fr6gbecd8wv1',
+    eventTypes: ['OTHERS'],
+    eventForWhom: ['CHILDREN'],
+    title: 'Bal z dynią dla dzieci ',
+    places: ['CONCERT_HALL'],
+    shortDescription:
+      'Zapraszamy dzieci na pełen atrakcyjnych zabaw bal, gdzie dynia będzie pełnić rolę główną!',
+    eventStartDate: new Date('2023-10-28T17:30:00.968Z'),
+    eventEndDate: new Date('2023-10-28T20:00:00.968Z'),
+    createdAt: new Date('2023-10-13T22:20:24.968Z'),
+    updatedAt: new Date('2023-10-13T22:20:24.968Z'),
+    authorId: '4943cb73-9db3-4055-b5d8-67ecd96a43ef',
+
+    //details
+    images: [
+      {
+        url: 'events_badyni_001.jpg',
+        alt: 'Plakat balu dyni.',
+        additionInfoThatMustBeDisplayed: null,
+      },
+    ],
+
+    detailedDescription:
+      '<div><p><b>28. października o 17:30</b> zapraszamy wszystkie dzieci na BAL z motywem dyni!</p><p>W programie:</p><ul><li>dyniowe animacje poprowadzone przez AnimatOlkę</li><li>pokaz dyniowych strojów</li><li>poszukiwanie ukrytych dyni</li><li>pomarańczowe mini disco</li><li>bańki mydlane</li><li>poczęstunek dla dzieci</li></ul><p>Zapisów dzieci możecie dokonać telefonicznie, dzwoniąc do nas od 12.00 do 20.00 pod telefon o numerze: 32 332 63 79 lub pisząc mail: [info@art-ck.pl](mailto:info@art-ck.pl)</p></div>',
+    customLinkToDetails: null,
+
+    //paying
+    isPayed: true,
+    kindOfEnterInfo: 'Bilet wstępu 40 zł.',
+    ticketBuyingUrl: null,
+
+    //news
+    isToBeInNewsSection: true,
+    isDateToBeHiddenInNewsSection: false,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    newsSectionImageUrl: 'news-img-badyni-001.jpg',
+    newsSectionImageAlt:
+      'Przebrane na bal dzieci wyciągają w zabawie ręcę w górę.',
+
+    //slider
+    isToBeInSlider: true,
+    sliderImageUrl: 'events_badyni_001.jpg',
+    sliderImageAlt: 'Plakat balu dyni.',
+    visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleInSLiderTo: new Date('2023-10-28T23:59:00.968Z'),
+    //publishing
+    isToBePublished: true,
+    visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
+    visibleTo: new Date('2023-10-28T23:59:00.968Z'),
   },
 ];
 
