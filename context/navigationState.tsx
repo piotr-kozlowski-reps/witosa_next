@@ -24,50 +24,12 @@ type TNavigationState = {
   isMobileGroupsSubMenuVisible: boolean;
   isMobileAboutSubMenuVisible: boolean;
   isMobileAccessibilitySubMenuVisible: boolean;
-  isCyclicalActivitiesMenuVisible: boolean;
   currentDevice: TCurrentDevice;
   //admin forms components
   isAddNewsletterVisible: boolean;
   newsletterFormikDataForPUT: string;
   isAddUserVisible: boolean;
   userFormikDataForPUT: TRegisterFormInputs_Plus_Id;
-  isAddCyclicalActivityVisible: boolean;
-  cyclicalActivityFormikDataForPUT: TCyclicalActivityFormInputs;
-};
-
-const cyclicaActivitiesFreshObject: TCyclicalActivityFormInputs = {
-  //stage1
-  id: new Date().getTime().toString(),
-  name: '',
-  activityTypes: [],
-  activitiesForWhom: [],
-  places: [],
-  isToBePublished: true,
-  isExpiresAtRequired: false,
-  expiresAt: null,
-
-  //stage2
-  shortDescription: '',
-  isCustomLinkToDetails: false,
-  customLinkToDetails: '',
-  longDescription: '',
-  images: [
-    {
-      file: null,
-      alt: '',
-      additionInfoThatMustBeDisplayed: '',
-      id: new Date().getTime().toString(),
-    },
-  ],
-
-  //stage3
-  occurrence: [
-    {
-      day: 'MONDAY',
-      activityStart: null,
-      activityEnd: null,
-    },
-  ],
 };
 
 const navigationStateData: TNavigationState = {
@@ -186,7 +148,6 @@ const navigationStateData: TNavigationState = {
   isMobileAboutSubMenuVisible: false,
   isMobileGroupsSubMenuVisible: false,
   isMobileAccessibilitySubMenuVisible: false,
-  isCyclicalActivitiesMenuVisible: false,
 
   //admin forms components
   isAddNewsletterVisible: false,
@@ -200,8 +161,6 @@ const navigationStateData: TNavigationState = {
     confirmPassword: '',
     userRole: 'EDITOR',
   },
-  isAddCyclicalActivityVisible: false,
-  cyclicalActivityFormikDataForPUT: cyclicaActivitiesFreshObject,
 };
 
 const navigationState = hookstate(
@@ -387,19 +346,6 @@ export function useNavigationState() {
       return state.isMobileAccessibilitySubMenuVisible.get();
     },
 
-    // cyclical activities menu
-    getIsCyclicalActivitiesMenuVisible() {
-      return state.isCyclicalActivitiesMenuVisible.get();
-    },
-    toggleIsCyclicalActivitiesMenuVisible() {
-      state.isCyclicalActivitiesMenuVisible.set(
-        !state.isCyclicalActivitiesMenuVisible.get()
-      );
-    },
-    setIsCyclicalActivitiesMenuToBeVisible() {
-      state.isCyclicalActivitiesMenuVisible.set(true);
-    },
-
     //// admin forms components
     //newsletter
     getIsAddNewsletterVisible() {
@@ -440,23 +386,6 @@ export function useNavigationState() {
         confirmPassword: '',
         userRole: 'EDITOR',
       });
-    },
-
-    //cyclicalActivities
-    getIsAddCyclicalActivityVisible() {
-      return state.isAddCyclicalActivityVisible.get();
-    },
-    setIsAddCyclicalActivityVisible(isToBeVisible: boolean) {
-      return state.isAddCyclicalActivityVisible.set(isToBeVisible);
-    },
-    getCyclicalActivityFormikDataForPUT() {
-      return state.cyclicalActivityFormikDataForPUT.get();
-    },
-    setCyclicalActivityFormikDataForPUT(data: TCyclicalActivityFormInputs) {
-      state.cyclicalActivityFormikDataForPUT.set(data);
-    },
-    resetCyclicalActivityFormikDataForPUT() {
-      state.cyclicalActivityFormikDataForPUT.set(cyclicaActivitiesFreshObject);
     },
   };
 }

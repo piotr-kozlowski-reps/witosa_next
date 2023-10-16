@@ -114,7 +114,7 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
       return (
         <div className="float-left ml-6">
           <span className="text-skin-inverted font-base-regular">
-            opublikowany?
+            publikowany?
           </span>
         </div>
       );
@@ -122,17 +122,13 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
     accessorKey: 'isToBePublished',
     cell: ({ row, table }) => {
       const isToBePublished = row.getValue('isToBePublished') as boolean;
-      const expirationDate = table.getExpandedRowModel().flatRows[row.index]
-        .original.expiresAt as Date;
-
-      let formattedText = definePublishedText(isToBePublished, expirationDate);
+      const formattedText = isToBePublished ? 'TAK' : 'NIE';
 
       return (
         <div
           className={clsx(
             formattedText === 'TAK' ? 'text-cta-secondary' : '',
-            formattedText === 'NIE' ? 'text-skin-error' : '',
-            formattedText === 'NIE AKTUALNE' ? 'text-skin-gray' : ''
+            formattedText === 'NIE' ? 'text-skin-error' : ''
           )}
         >
           {formattedText}

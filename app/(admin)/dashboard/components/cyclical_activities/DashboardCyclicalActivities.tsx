@@ -1,6 +1,6 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useNavigationState } from '@/context/navigationState';
+import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { TGetAllCyclicalActivitiesResponse } from '@/types';
 import { CyclicalActivity } from '@prisma/client';
 import { Fragment } from 'react';
@@ -16,7 +16,7 @@ export default function DashboardCyclicalActivities(props: Props) {
   ////vars
   const { cyclicalActivitiesData } = props;
   const { getIsAddCyclicalActivityVisible, setIsAddCyclicalActivityVisible } =
-    useNavigationState();
+    useCyclicalActivitiesState();
   ////tsx
   return (
     <Fragment>

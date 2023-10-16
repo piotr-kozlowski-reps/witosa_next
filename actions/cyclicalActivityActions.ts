@@ -10,15 +10,13 @@ import {
   imageCreationErrorMessage,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
-import {
-  TCyclicalActivityFormInputs,
-  validateValuesForCyclicalActivities,
-} from '@/lib/forms/cyclical-activities-form';
+import { validateValuesForCyclicalActivities } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
 import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
+  TCyclicalActivityFormInputs,
   TCyclicalActivityWithImageAndOccurrence,
   TGetAllCyclicalActivitiesResponse,
   TGetOneCyclicalActivityResponse,

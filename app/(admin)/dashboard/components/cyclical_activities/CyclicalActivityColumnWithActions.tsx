@@ -4,10 +4,9 @@ import { getCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
+import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useModalState } from '@/context/modalState';
-import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
-import { TCyclicalActivityWithImageAndOccurrence } from '@/types';
 import { CyclicalActivity } from '@prisma/client';
 
 type Props = {
@@ -23,25 +22,27 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
   const {
     setIsAddCyclicalActivityVisible,
     setCyclicalActivityFormikDataForPUT,
-  } = useNavigationState();
+  } = useCyclicalActivitiesState();
 
-  function mapCyclicalActivityIntoFormik(
-    cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-  ): TCyclicalActivityWithImageAndOccurrence {
-    return {
-      id: cyclicalActivity.response,
-    };
-  }
+  // function mapCyclicalActivityIntoFormik(
+  //   cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
+  // ): TCyclicalActivityWithImageAndOccurrence {
+  //   return {
+  //     id: cyclicalActivity.id,
+  //   };
+  // }
 
   async function editCyclicalActivityHandler(id: string) {
     const existingCyclicalActivity = await getCyclicalActivity(id);
     console.log({ existingCyclicalActivity });
 
-    const mappedGotCyclicalActivity: TCyclicalActivityFormInputs =
-      mapCyclicalActivityIntoFormik(existingCyclicalActivity.response);
+    // if(existingCyclicalActivity && )
 
-    setCyclicalActivityFormikDataForPUT(existingCyclicalActivity);
-    setIsAddCyclicalActivityVisible(true);
+    //     const mappedGotCyclicalActivity: TCyclicalActivityFormInputs =
+    //       mapCyclicalActivityIntoFormik(existingCyclicalActivity.response);
+
+    //     setCyclicalActivityFormikDataForPUT(existingCyclicalActivity);
+    //     setIsAddCyclicalActivityVisible(true);
   }
 
   ////tsx

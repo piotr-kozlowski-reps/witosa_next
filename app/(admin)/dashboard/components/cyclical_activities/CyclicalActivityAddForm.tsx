@@ -4,7 +4,7 @@ import CustomButton from '@/app/(site)/components/CustomButton';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useNavigationState } from '@/context/navigationState';
+import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
@@ -14,6 +14,7 @@ import {
 } from '@/lib/forms/cyclical-activities-form';
 import {
   TActionResponse,
+  TCyclicalActivityFormInputs,
   TFormStage,
   TImageCyclicalActivityFormValues,
 } from '@/types';
@@ -31,51 +32,59 @@ import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 export default function CyclicalActivityAddForm() {
   ////vars
   const validationSchema = generateValidationForCyclicalActivities();
-  const { setIsAddCyclicalActivityVisible, resetUserFormikDataForPUT } =
-    useNavigationState();
+  // const { setIsAddCyclicalActivityVisible, resetUserFormikDataForPUT } =
+  //   useNavigationState();
   const { setShowNotification } = useNotificationState();
   const {
-    getCyclicalActivityFormikDataForPUT,
+    setIsAddCyclicalActivityVisible,
     resetCyclicalActivityFormikDataForPUT,
-  } = useNavigationState();
+    getCyclicalActivityFormikDataForPUT,
+  } = useCyclicalActivitiesState();
 
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
 
+  console.log(
+    'getCyclicalActivityFormikDataForPUT()',
+    getCyclicalActivityFormikDataForPUT()
+  );
+
   const formik = useFormik<TCyclicalActivityFormInputs>({
     initialValues: {
       //stage1
-      // name: '',
-      // activityTypes: [],
-      // activitiesForWhom: [],
-      // places: [],
-      // isToBePublished: true,
-      // isExpiresAtRequired: false,
-      // expiresAt: null,
-      // //stage2
-      // shortDescription: '',
-      // isCustomLinkToDetails: false,
-      // customLinkToDetails: '',
-      // longDescription: '',
-      // images: [
-      //   {
-      //     file: null,
-      //     alt: '',
-      //     additionInfoThatMustBeDisplayed: '',
-      //     id: new Date().getTime().toString(),
-      //   },
-      // ],
-      // //stage3
-      // occurrence: [
-      //   {
-      //     day: 'MONDAY',
-      //     activityStart: null,
-      //     activityEnd: null,
-      //   },
-      // ],
+      id: new Date().getTime().toString(),
+      name: '',
+      activityTypes: [],
+      activitiesForWhom: [],
+      places: [],
+      isToBePublished: true,
+      isExpiresAtRequired: false,
+      expiresAt: null,
+      //stage2
+      shortDescription: '',
+      isCustomLinkToDetails: false,
+      customLinkToDetails: '',
+      longDescription: '',
+      images: [
+        {
+          id: new Date().getTime().toString(),
+          file: undefined,
+          url: '',
+          alt: '',
+          additionInfoThatMustBeDisplayed: '',
+        },
+      ],
+      //stage3
+      occurrence: [
+        {
+          id: new Date().getTime().toString(),
+          day: 'MONDAY',
+          activityStart: null,
+          activityEnd: null,
+        },
+      ],
     },
     onSubmit: () => {},
-    // validationSchema: validationSchema,
     validate: (value) => {
       try {
         validateYupSchema(value, validationSchema, true, value);
@@ -218,6 +227,7 @@ export default function CyclicalActivityAddForm() {
     if (!isIncludeImages) {
       imagesRemapped = originalImages.map((image) => ({
         alt: image.alt,
+        url: image.url,
         additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
         file:
           typeof image.file! === 'string' ? image.file! : image.file!.preview,
