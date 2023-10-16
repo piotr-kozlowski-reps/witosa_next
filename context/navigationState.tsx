@@ -1,6 +1,5 @@
 // import { TLayoutState } from '@/types';
 import { useChangeCurrentLinkActive } from '@/hooks/useChangeCurrentLinkActive';
-import { TCyclicalActivityFormInputs } from '@/lib/forms/cyclical-activities-form';
 import { TRegisterFormInputs } from '@/lib/forms/user-form';
 import {
   TCurrentDevice,
@@ -38,18 +37,37 @@ type TNavigationState = {
 
 const cyclicaActivitiesFreshObject: TCyclicalActivityFormInputs = {
   //stage1
+  id: new Date().getTime().toString(),
   name: '',
-  activitiesForWhom: [],
   activityTypes: [],
+  activitiesForWhom: [],
   places: [],
   isToBePublished: true,
   isExpiresAtRequired: false,
   expiresAt: null,
-  //stage1
+
+  //stage2
   shortDescription: '',
   isCustomLinkToDetails: false,
   customLinkToDetails: '',
   longDescription: '',
+  images: [
+    {
+      file: null,
+      alt: '',
+      additionInfoThatMustBeDisplayed: '',
+      id: new Date().getTime().toString(),
+    },
+  ],
+
+  //stage3
+  occurrence: [
+    {
+      day: 'MONDAY',
+      activityStart: null,
+      activityEnd: null,
+    },
+  ],
 };
 
 const navigationStateData: TNavigationState = {
@@ -433,6 +451,9 @@ export function useNavigationState() {
     },
     getCyclicalActivityFormikDataForPUT() {
       return state.cyclicalActivityFormikDataForPUT.get();
+    },
+    setCyclicalActivityFormikDataForPUT(data: TCyclicalActivityFormInputs) {
+      state.cyclicalActivityFormikDataForPUT.set(data);
     },
     resetCyclicalActivityFormikDataForPUT() {
       state.cyclicalActivityFormikDataForPUT.set(cyclicaActivitiesFreshObject);

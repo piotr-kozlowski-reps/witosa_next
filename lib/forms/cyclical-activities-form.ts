@@ -13,6 +13,7 @@ import {
 } from '../yupSchemas';
 
 export const cyclicalActivityValidationSchemaStageOneWithYup = {
+  id: nameSchemaYup_Required_Min2,
   name: nameSchemaYup_Required_Min2,
   activityTypes: activityTypeArrayYupSchema,
   activitiesForWhom: forWhomArrayYupSchema,
@@ -58,4 +59,4 @@ export function validateValuesForCyclicalActivities(values: Object) {
   return yupSchema.isValidSync(values, { context: values });
 }
 
-export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;
+// export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;

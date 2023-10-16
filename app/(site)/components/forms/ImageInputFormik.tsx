@@ -1,6 +1,7 @@
 import AdditionalDescriptionComment from '@/app/(admin)/dashboard/components/form_comments/AdditionalDescriptionComment';
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
 import { useModalState } from '@/context/modalState';
+import { useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile } from '@/hooks/useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile';
 import { TImageCyclicalActivityFormValues } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -28,6 +29,8 @@ export default function ImageInputFormik<T>(props: Props<T>) {
   const { setShowModal, setHideModal } = useModalState();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
+  const { src, alt } =
+    useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(file);
 
   const currentValueOfImages = formik.getFieldMeta('images')
     .value as TImageCyclicalActivityFormValues[];
@@ -44,10 +47,10 @@ export default function ImageInputFormik<T>(props: Props<T>) {
           <div className="flex flex-col items-center justify-center">
             <div className="h-[352px]" style={{ width: width }}>
               <Image
-                src={file!.preview}
+                src={src}
                 width={500}
                 height={300}
-                alt={file!.name}
+                alt={alt}
                 className="object-cover object-center w-full h-full"
               />
             </div>

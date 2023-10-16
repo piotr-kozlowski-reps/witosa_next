@@ -15,6 +15,8 @@ export const userNotExistsMessage =
 //db
 export const dbWritingErrorMessage =
   'Błąd w trakcie zapisywania danych. Spróbuj ponownie.';
+export const dbDeletingErrorMessage =
+  'Błąd w trakcie kasowania danych. Spróbuj ponownie.';
 export const dbReadingErrorMessage =
   'Błąd podczas łączenia się z bazą danych. Spróbuj ponownie.';
 

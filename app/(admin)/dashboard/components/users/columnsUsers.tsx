@@ -191,8 +191,6 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
     },
     cell: ({ row }) => {
       const userRowData = row.original;
-      // const userId = userRowData.id;
-      // const name = userRowData.name;
       return <UserColumnWithActions user={userRowData} />;
     },
   },

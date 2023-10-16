@@ -8,7 +8,6 @@ import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
-  TCyclicalActivityFormInputs,
   generateValidationForCyclicalActivities,
   validateValuesForCyclicalActivitiesStageOne,
   validateValuesForCyclicalActivitiesStageTwo,
@@ -46,36 +45,34 @@ export default function CyclicalActivityAddForm() {
   const formik = useFormik<TCyclicalActivityFormInputs>({
     initialValues: {
       //stage1
-      name: '',
-      activityTypes: [],
-      activitiesForWhom: [],
-      places: [],
-      isToBePublished: true,
-      isExpiresAtRequired: false,
-      expiresAt: null,
-
-      //stage2
-      shortDescription: '',
-      isCustomLinkToDetails: false,
-      customLinkToDetails: '',
-      longDescription: '',
-      images: [
-        {
-          file: null,
-          alt: '',
-          additionInfoThatMustBeDisplayed: '',
-          id: new Date().getTime().toString(),
-        },
-      ],
-
-      //stage3
-      occurrence: [
-        {
-          day: 'MONDAY',
-          activityStart: null,
-          activityEnd: null,
-        },
-      ],
+      // name: '',
+      // activityTypes: [],
+      // activitiesForWhom: [],
+      // places: [],
+      // isToBePublished: true,
+      // isExpiresAtRequired: false,
+      // expiresAt: null,
+      // //stage2
+      // shortDescription: '',
+      // isCustomLinkToDetails: false,
+      // customLinkToDetails: '',
+      // longDescription: '',
+      // images: [
+      //   {
+      //     file: null,
+      //     alt: '',
+      //     additionInfoThatMustBeDisplayed: '',
+      //     id: new Date().getTime().toString(),
+      //   },
+      // ],
+      // //stage3
+      // occurrence: [
+      //   {
+      //     day: 'MONDAY',
+      //     activityStart: null,
+      //     activityEnd: null,
+      //   },
+      // ],
     },
     onSubmit: () => {},
     // validationSchema: validationSchema,
@@ -206,22 +203,12 @@ export default function CyclicalActivityAddForm() {
 
   ////formik
   async function submitFormHandler(
-    formData: FormData,
     formik: FormikProps<TCyclicalActivityFormInputs>
   ) {
     let response: TActionResponse | null = null;
 
     console.log('submitFormHandler', formik.values);
 
-    //append all arrays into formData
-    // appendEnumTypes(formik, formData, 'activityTypes');
-    // appendEnumTypes(formik, formData, 'activitiesForWhom');
-    // appendEnumTypes(formik, formData, 'places');
-    // const images = formik.values.images as
-    // const mappedImages = formik.values.images?.map(image => ({
-    //   image.
-
-    // }))
     const formikValues: TCyclicalActivityFormInputs = { ...formik.values };
     const isIncludeImages = formikValues.isCustomLinkToDetails;
     const originalImages =
@@ -313,7 +300,7 @@ export default function CyclicalActivityAddForm() {
       {/* form */}
       <form
         action={async (formData) => {
-          await submitFormHandler(formData, formik);
+          await submitFormHandler(formik);
         }}
       >
         <div className="flex mb-12 font-base-regular">

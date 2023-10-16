@@ -1,10 +1,13 @@
 'use client';
 
+import { getCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
 import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
 import { useNotificationState } from '@/context/notificationState';
+import { TCyclicalActivityWithImageAndOccurrence } from '@/types';
 import { CyclicalActivity } from '@prisma/client';
 
 type Props = {
@@ -17,24 +20,41 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
   const { id, name } = cyclicalActivity;
   const { setShowModal } = useModalState();
   const { setShowNotification } = useNotificationState();
-  const { setIsAddUserVisible, setUserFormikDataForPUT } = useNavigationState();
+  const {
+    setIsAddCyclicalActivityVisible,
+    setCyclicalActivityFormikDataForPUT,
+  } = useNavigationState();
+
+  function mapCyclicalActivityIntoFormik(
+    cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
+  ): TCyclicalActivityWithImageAndOccurrence {
+    return {
+      id: cyclicalActivity.response,
+    };
+  }
+
+  async function editCyclicalActivityHandler(id: string) {
+    const existingCyclicalActivity = await getCyclicalActivity(id);
+    console.log({ existingCyclicalActivity });
+
+    const mappedGotCyclicalActivity: TCyclicalActivityFormInputs =
+      mapCyclicalActivityIntoFormik(existingCyclicalActivity.response);
+
+    setCyclicalActivityFormikDataForPUT(existingCyclicalActivity);
+    setIsAddCyclicalActivityVisible(true);
+  }
 
   ////tsx
   return (
     <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
-      {/* <div>
+      <div>
         <EditIcon
           actionFn={() => {
-            setUserFormikDataForPUT({
-              ...user,
-              password: '!!!!!',
-              confirmPassword: '!!!!!',
-            });
-            setIsAddUserVisible(true);
+            editCyclicalActivityHandler(id);
           }}
-          alt="Edytuj email Newslettera."
+          alt="Edytuj zajęcia."
         />
-      </div> */}
+      </div>
 
       <div>
         <CloseIcon

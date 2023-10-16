@@ -4,6 +4,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badCyclicalActivitiesData,
   cyclicalActivityNotExistsMessage,
+  dbDeletingErrorMessage,
   dbReadingErrorMessage,
   dbWritingErrorMessage,
   imageCreationErrorMessage,
@@ -18,11 +19,19 @@ import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
+  TCyclicalActivityWithImageAndOccurrence,
   TGetAllCyclicalActivitiesResponse,
+  TGetOneCyclicalActivityResponse,
   TImageCyclicalActivityForDB,
   TOccurrence,
 } from '@/types';
-import { CyclicalActivity, Day, Prisma } from '@prisma/client';
+import {
+  CyclicalActivity,
+  Day,
+  ImageCyclicalActivity,
+  Prisma,
+} from '@prisma/client';
+import { unlink } from 'fs/promises';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import sharp from 'sharp';
@@ -38,10 +47,6 @@ export async function addCyclicalActivity(
     logger.warn(notLoggedIn);
     return { status: 'ERROR', response: notLoggedIn };
   }
-
-  console.log('server action inside values:', { values });
-  console.log('server action inside values, occurrence:', values.occurrence);
-  console.log('server action inside values, images:', values.images);
 
   /* 
   data validation 
@@ -59,19 +64,24 @@ export async function addCyclicalActivity(
  */
   const authorId = session.user?.id;
   const isIncludeImages = !values.isCustomLinkToDetails;
-
   const occurrencePreparedData: TOccurrence[] =
     prepareOccurrenceDataForSavingInDB(values);
 
+  //
+  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+
   let imagesPreparedData: TImageCyclicalActivityForDB[];
   try {
-    imagesPreparedData = await prepareImageDataForSavingInDB(values);
+    imagesPreparedData = await prepareImageDataForSavingInDB(
+      values,
+      currentlyCreatedImagesToBeDeletedWhenError
+    );
+    // throw new Error('test');
   } catch (error) {
     logger.warn(dbWritingErrorMessage);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
-
-  //TODO: create a array of created file names and delete them when any error occurred
 
   let cyclicalActivityPreparedForDb: Prisma.CyclicalActivityCreateInput = {
     //stage1
@@ -116,6 +126,7 @@ export async function addCyclicalActivity(
     console.log({ response });
   } catch (error) {
     logger.warn(dbWritingErrorMessage);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -134,24 +145,35 @@ export async function addCyclicalActivity(
 export async function deleteCyclicalActivities(
   ids: string[]
 ): Promise<TActionResponse> {
-  /** checking session */
+  /**
+   * checking session
+   * */
   const session = await getServerSession(authOptions);
   if (!session) {
     logger.warn(notLoggedIn);
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  /** checking values eXistenZ */
+  /**
+   * checking values eXistenZ
+   * */
   if (!ids || ids.length === 0) {
     logger.warn(badCyclicalActivitiesData);
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
-  /* validation if ids already exist in db */
+  const imagesToBeDeleted: string[] = [];
+  /* 
+  validation if ids already exist in db
+   */
   for (let i = 0; i < ids.length; i++) {
     let exists: unknown;
     try {
       exists = await checkIfCyclicalActivityExists(ids[i]);
+      if (exists && typeof exists === 'object' && 'images' in exists) {
+        const images = exists.images as ImageCyclicalActivity[];
+        images.forEach((image) => imagesToBeDeleted.push(image.url));
+      }
     } catch (error) {
       logger.warn(dbReadingErrorMessage);
       return { status: 'ERROR', response: dbReadingErrorMessage };
@@ -162,7 +184,9 @@ export async function deleteCyclicalActivities(
     }
   }
 
-  /* deleting users from db */
+  /* 
+  deleting users from db
+  */
   for (let i = 0; i < ids.length; i++) {
     console.log(ids[i]);
 
@@ -184,20 +208,26 @@ export async function deleteCyclicalActivities(
       },
     });
 
-    let transaction: unknown;
+    // let transaction: unknown;
     try {
-      transaction = await prisma.$transaction([
+      await prisma.$transaction([
         deleteCyclicalActivityImages,
         deleteCyclicalActivityOccurrence,
         deleteCyclicalActivity,
       ]);
     } catch (error) {
-      console.error(error);
+      logger.warn(dbDeletingErrorMessage);
+      return { status: 'ERROR', response: dbDeletingErrorMessage };
     }
+  }
 
-    console.log({ transaction });
-
-    //   if(transaction[transaction.length -1].co)
+  /* 
+  deleting images from server (from deleted cyclical activity)
+  */
+  try {
+    await deleteImagesFiles(imagesToBeDeleted);
+  } catch (error) {
+    logger.error((error as Error).stack);
   }
 
   /** revalidate all */
@@ -226,14 +256,32 @@ export async function getAllCyclicalActivities(): Promise<TGetAllCyclicalActivit
     logger.warn(dbReadingErrorMessage);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
-  // const usersPickedData: TUserPicked[] = users.map((user) => ({
-  //   id: user.id,
-  //   name: user.name,
-  //   email: user.email,
-  //   updatedAt: user.updatedAt,
-  //   userRole: user.userRole as UserRole,
-  // }));
   return { status: 'SUCCESS', response: cyclicalActivities };
+}
+
+export async function getCyclicalActivity(
+  id: string
+): Promise<TGetOneCyclicalActivityResponse> {
+  let cyclicalActivity: TCyclicalActivityWithImageAndOccurrence | null;
+
+  try {
+    cyclicalActivity = await prisma.cyclicalActivity.findFirst({
+      where: { id },
+      include: {
+        images: true,
+        occurrence: true,
+      },
+    });
+  } catch (error) {
+    logger.warn(dbReadingErrorMessage);
+    return { status: 'ERROR', response: dbReadingErrorMessage };
+  }
+
+  if (!cyclicalActivity) {
+    return { status: 'ERROR', response: cyclicalActivityNotExistsMessage };
+  }
+
+  return { status: 'SUCCESS', response: cyclicalActivity };
 }
 
 // export async function updateUser(
@@ -375,7 +423,10 @@ export async function getAllCyclicalActivities(): Promise<TGetAllCyclicalActivit
 
 ////utils
 async function checkIfCyclicalActivityExists(id: string) {
-  const exists = await prisma.cyclicalActivity.findUnique({ where: { id } });
+  const exists = await prisma.cyclicalActivity.findUnique({
+    where: { id },
+    include: { images: true },
+  });
   return exists;
 }
 
@@ -390,7 +441,8 @@ function prepareOccurrenceDataForSavingInDB(
 }
 
 async function prepareImageDataForSavingInDB(
-  values: TCyclicalActivityFormInputs
+  values: TCyclicalActivityFormInputs,
+  createdImagesArray: string[]
 ): Promise<TImageCyclicalActivityForDB[]> {
   const originalImagesData = values.images;
 
@@ -403,6 +455,9 @@ async function prepareImageDataForSavingInDB(
       await generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
         originalImagesData[i].file as string
       );
+
+    //adding created image url to be deleted when some error occur
+    createdImagesArray.push(imageUrl);
 
     result.push({
       url: imageUrl,
@@ -455,4 +510,18 @@ async function proccessAndSaveImageOnServer(
   }
 
   return fileName.replace('./public/', '');
+}
+
+async function deleteImagesFiles(filesArray: string[]): Promise<boolean> {
+  let result = true;
+  for (let i = 0; i < filesArray.length; i++) {
+    try {
+      await unlink(`public/${filesArray[i]}`);
+    } catch (error) {
+      logger.error(`Deleting file: ${filesArray[i]} unsuccessful.`);
+      result = false;
+    }
+  }
+
+  return result;
 }

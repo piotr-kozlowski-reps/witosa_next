@@ -1,3 +1,4 @@
+import { useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile } from '@/hooks/useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile';
 import {
   getErrorForField,
   getIsErrorPresentAndFieldWasTouched,
@@ -11,7 +12,7 @@ import DropzoneImage from './DropzoneImage';
 
 type Props<T> = {
   index: number;
-  file: TFileWithPreview;
+  file: TFileWithPreview | string;
   formik: FormikProps<T>;
   name: string;
 };
@@ -19,6 +20,8 @@ type Props<T> = {
 export function DropImageFormik<T>(props: Props<T>) {
   ////vars
   const { index, file, formik, name } = props;
+  const { src, alt, isFileATFileWithPreviewType } =
+    useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(file);
 
   ////formik
   const error = getErrorForField<T>(formik, name);
@@ -48,13 +51,18 @@ export function DropImageFormik<T>(props: Props<T>) {
         >
           {file ? (
             <Image
-              src={file.preview}
+              src={src}
               width={64}
               height={64}
-              alt={file.name}
+              alt={alt}
               className="object-fill w-full h-full"
               onLoad={() => {
-                URL.revokeObjectURL(file.preview);
+                if (isFileATFileWithPreviewType) {
+                  return;
+                }
+                const fileAsTFileWithPreview: TFileWithPreview =
+                  file as TFileWithPreview;
+                URL.revokeObjectURL(fileAsTFileWithPreview!.preview);
               }}
             />
           ) : null}

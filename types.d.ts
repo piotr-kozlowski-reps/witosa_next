@@ -248,6 +248,10 @@ export type TGetAllCyclicalActivitiesResponse = {
   status: TStatus;
   response: string | CyclicalActivity[];
 };
+export type TGetOneCyclicalActivityResponse = {
+  status: TStatus;
+  response: string | TCyclicalActivityWithImageAndOccurrence;
+};
 
 export type TNewsletterDataCombo = {
   allNewsletterAddresses: TGetAllNewsletterAddressesResponse;
@@ -284,18 +288,38 @@ export type TFormStage = {
   linkName: string;
 };
 
-export type TImageCyclicalActivityFormValues = Pick<
+export type TImageCyclicalActivityFormValues = Omit<
   ImageCyclicalActivity,
-  'alt' | 'additionInfoThatMustBeDisplayed'
-> & { file: TFileWithPreview | string; id: string };
+  'cyclicalActivityId'
+> & {
+  file?: TFileWithPreview | string;
+};
+
 export type TImageCyclicalActivityForDB = Pick<
   ImageCyclicalActivity,
   'alt' | 'additionInfoThatMustBeDisplayed' | 'url'
 >;
 
+export type TCyclicalActivityWithImageAndOccurrence = CyclicalActivity & {
+  images: ImageCyclicalActivity[];
+  occurrence: CyclicalActivityOccurrence[];
+};
+
 export type TFileWithPreview = (File & { preview: string }) | undefined;
 
-export type TOccurrence = Pick<
+export type TOccurrence = Omit<
   CyclicalActivityOccurrence,
-  'day' | 'activityStart' | 'activityEnd'
->;
+  'cyclicalActivityId' | 'activityStart' | 'activityEnd'
+> & {
+  activityStart: Date | null;
+  activityEnd: Date | null;
+};
+export type TCyclicalActivityFormInputs = Omit<
+  CyclicalActivity,
+  'authorId' | 'createdAt' | 'updatedAt'
+> & {
+  images: (Omit<ImageCyclicalActivity, 'cyclicalActivityId'> & {
+    file?: TFileWithPreview | string;
+  })[];
+  occurrence: TOccurrence[];
+};
