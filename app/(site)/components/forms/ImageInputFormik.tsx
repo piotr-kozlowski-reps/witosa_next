@@ -25,7 +25,7 @@ type Props<T> = {
 export default function ImageInputFormik<T>(props: Props<T>) {
   ////vars
   const { imageProps, index, formik, isCurrentFormToPUTData } = props;
-  const { file } = imageProps;
+  const { file, url } = imageProps;
   const { setShowModal, setHideModal } = useModalState();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
@@ -40,7 +40,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
     transition,
   };
 
-  function prevMobile(width: number) {
+  function prevImageInDifferentResolutions(width: number) {
     return (
       <div className="flex items-center justify-center w-full">
         {file ? (
@@ -142,7 +142,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
             disabled={!file}
             outlined={true}
             actionFn={() => {
-              setShowModal(true, prevMobile(244));
+              setShowModal(true, prevImageInDifferentResolutions(244));
             }}
           />
           <CustomButton
@@ -152,7 +152,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
             disabled={!file}
             outlined={true}
             actionFn={() => {
-              setShowModal(true, prevMobile(749));
+              setShowModal(true, prevImageInDifferentResolutions(749));
             }}
           />
           <CustomButton
@@ -162,7 +162,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
             disabled={!file}
             outlined={true}
             actionFn={() => {
-              setShowModal(true, prevMobile(1140));
+              setShowModal(true, prevImageInDifferentResolutions(1140));
             }}
           />
         </div>

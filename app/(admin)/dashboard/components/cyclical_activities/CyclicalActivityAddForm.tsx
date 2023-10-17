@@ -1,5 +1,8 @@
 'use client';
-import { addCyclicalActivity } from '@/actions/cyclicalActivityActions';
+import {
+  addCyclicalActivity,
+  updateCyclicalActivity,
+} from '@/actions/cyclicalActivityActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
@@ -32,8 +35,6 @@ import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 export default function CyclicalActivityAddForm() {
   ////vars
   const validationSchema = generateValidationForCyclicalActivities();
-  // const { setIsAddCyclicalActivityVisible, resetUserFormikDataForPUT } =
-  //   useNavigationState();
   const { setShowNotification } = useNotificationState();
   const {
     setIsAddCyclicalActivityVisible,
@@ -44,46 +45,9 @@ export default function CyclicalActivityAddForm() {
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
 
-  console.log(
-    'getCyclicalActivityFormikDataForPUT()',
-    getCyclicalActivityFormikDataForPUT()
-  );
-
   const formik = useFormik<TCyclicalActivityFormInputs>({
-    initialValues: {
-      //stage1
-      id: new Date().getTime().toString(),
-      name: '',
-      activityTypes: [],
-      activitiesForWhom: [],
-      places: [],
-      isToBePublished: true,
-      isExpiresAtRequired: false,
-      expiresAt: null,
-      //stage2
-      shortDescription: '',
-      isCustomLinkToDetails: false,
-      customLinkToDetails: '',
-      longDescription: '',
-      images: [
-        {
-          id: new Date().getTime().toString(),
-          file: undefined,
-          url: '',
-          alt: '',
-          additionInfoThatMustBeDisplayed: '',
-        },
-      ],
-      //stage3
-      occurrence: [
-        {
-          id: new Date().getTime().toString(),
-          day: 'MONDAY',
-          activityStart: null,
-          activityEnd: null,
-        },
-      ],
-    },
+    initialValues:
+      getCyclicalActivityFormikDataForPUT() as TCyclicalActivityFormInputs,
     onSubmit: () => {},
     validate: (value) => {
       try {
@@ -153,6 +117,9 @@ export default function CyclicalActivityAddForm() {
       return newState;
     });
   }
+  function goToFirstStage() {
+    setStage(stagesInitialStage);
+  }
   function checkIfNextIsEnabled() {
     //index number
     const currentIndex = getCurrentStageIndex();
@@ -174,6 +141,11 @@ export default function CyclicalActivityAddForm() {
     const currentIndex = getCurrentStageIndex();
     const isGoingPrevStagePossibleWithCurrentIndex = currentIndex !== 0;
     return isGoingPrevStagePossibleWithCurrentIndex;
+  }
+  function resetFormToInitialState() {
+    resetCyclicalActivityFormikDataForPUT();
+    formik.resetForm();
+    goToFirstStage();
   }
 
   useEffect(() => {
@@ -216,8 +188,6 @@ export default function CyclicalActivityAddForm() {
   ) {
     let response: TActionResponse | null = null;
 
-    console.log('submitFormHandler', formik.values);
-
     const formikValues: TCyclicalActivityFormInputs = { ...formik.values };
     const isIncludeImages = formikValues.isCustomLinkToDetails;
     const originalImages =
@@ -234,57 +204,46 @@ export default function CyclicalActivityAddForm() {
         id: image.id as string,
       }));
     }
-
-    console.log({ imagesRemapped });
-
     formikValues.images = imagesRemapped;
+
+    /**
+     * post
+     * */
     if (isCurrentFormToPOSTData) {
-      //post cyclical activity
       try {
         response = await addCyclicalActivity(formikValues);
       } catch (error) {
         setShowNotification('ERROR', dbReadingErrorMessage);
       }
-
-      console.log({ response });
-
-      if (!response || !response.status || !response.response) {
-        setShowNotification('ERROR', dbReadingErrorMessage);
-        return;
-      }
-      if (response.status === 'ERROR') {
-        setShowNotification('ERROR', response.response);
-        return;
-      }
-      setShowNotification('SUCCESS', response.response);
-      // resetCyclicalActivityFormikDataForPUT();
-      // formik.resetForm();
-      // return;
     }
-    // if (isCurrentFormToPUTData) {
-    //   try {
-    //     response = await updateUser(
-    //       getUserFormikDataForPUT().id,
-    //       isToChangePassword,
-    //       formData
-    //     );
-    //   } catch (error) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //   }
-    //   if (!response || !response.status || !response.response) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //     return;
-    //   }
-    //   if (response.status === 'ERROR') {
-    //     setShowNotification('ERROR', response.response);
-    //     return;
-    //   }
-    //   setShowNotification('SUCCESS', response.response);
-    //   resetUserFormikDataForPUT();
-    //   formik.resetForm();
-    //   setIsAddUserVisible(false);
-    //   return;
-    // }
+
+    /**
+     * put
+     * */
+    if (isCurrentFormToPUTData) {
+      const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
+      const changedCyclicalActivity = { ...formikValues };
+      try {
+        response = await updateCyclicalActivity(
+          originalCyclicalActivity as TCyclicalActivityFormInputs,
+          changedCyclicalActivity
+        );
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+    }
+
+    if (!response || !response.status || !response.response) {
+      setShowNotification('ERROR', dbReadingErrorMessage);
+      return;
+    }
+    if (response.status === 'ERROR') {
+      setShowNotification('ERROR', response.response);
+      return;
+    }
+    setShowNotification('SUCCESS', response.response);
+    resetFormToInitialState();
+    return;
   }
 
   ////tsx
@@ -375,29 +334,8 @@ export default function CyclicalActivityAddForm() {
             onSubmit={true}
             disabled={!formik.dirty || !formik.isValid}
           />
-          {/* <CustomButton
-            text="wróć do listy"
-            descriptionText="Wróć do listy użytkowników."
-            additionalClasses="mt-[4px]"
-            disabled={false}
-            outlined={true}
-            actionFn={() => setIsAddCyclicalActivityVisible(false)}
-          /> */}
         </div>
       </form>
     </Fragment>
-  );
-}
-
-//utils
-function appendEnumTypes(
-  formik: FormikProps<TCyclicalActivityFormInputs>,
-  formData: FormData,
-  valueName: string
-) {
-  (formik.getFieldProps(valueName).value as Array<string>).forEach(
-    (activity) => {
-      formData.append(valueName, activity);
-    }
   );
 }

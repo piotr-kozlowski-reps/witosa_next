@@ -92,7 +92,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
           {!isCustomLinkToDetails ? (
             <ComponentTransitionFromRightToLeft>
               <Fragment>
-                {isMounted() ? (
+                {/* {isMounted() ? (
                   <div className=" mt-[20px]">
                     <RichTextEditorFormik<T>
                       name="longDescription"
@@ -100,7 +100,14 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
                       formik={formik}
                     />
                   </div>
-                ) : null}
+                ) : null} */}
+                <div className=" mt-[20px]">
+                  <RichTextEditorFormik<T>
+                    name="longDescription"
+                    label="szczegółowy opis:"
+                    formik={formik}
+                  />
+                </div>
 
                 <div className="mt-[20px]">
                   <ImagesUploadFormik<T>

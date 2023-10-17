@@ -77,7 +77,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
     }
 
     if (!isDragActive && filesRejected.length) {
-      const responseTextToErrors = createTextResponseText(filesRejected);
+      const responseTextToErrors = createResponseText(filesRejected);
       setDropZoneText(responseTextToErrors);
       clearErrorDropZOneText();
       return;
@@ -89,7 +89,9 @@ export default function DropzoneImage<T>(props: Props<T>) {
     }
 
     if (!isDragActive && currentValue) {
-      setDropZoneText(currentValue.name);
+      setDropZoneText(
+        typeof currentValue === 'string' ? currentValue : currentValue.name
+      );
       return;
     }
 
@@ -143,7 +145,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
 }
 
 //// utils
-function createTextResponseText(filesRejected: FileRejection[]) {
+function createResponseText(filesRejected: FileRejection[]) {
   const allErrorCodes: string[] = [];
   filesRejected.forEach((fileRejected) => {
     fileRejected.errors.forEach((error) => allErrorCodes.push(error.code));

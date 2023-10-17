@@ -7,7 +7,8 @@ import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/
 import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
-import { CyclicalActivity } from '@prisma/client';
+import { TCyclicalActivityWithImageAndOccurrence } from '@/types';
+import { CyclicalActivity, ImageCyclicalActivity } from '@prisma/client';
 
 type Props = {
   cyclicalActivity: CyclicalActivity;
@@ -24,25 +25,28 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
     setCyclicalActivityFormikDataForPUT,
   } = useCyclicalActivitiesState();
 
-  // function mapCyclicalActivityIntoFormik(
-  //   cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-  // ): TCyclicalActivityWithImageAndOccurrence {
-  //   return {
-  //     id: cyclicalActivity.id,
-  //   };
-  // }
-
   async function editCyclicalActivityHandler(id: string) {
     const existingCyclicalActivity = await getCyclicalActivity(id);
-    console.log({ existingCyclicalActivity });
 
-    // if(existingCyclicalActivity && )
+    if (
+      existingCyclicalActivity.status === 'SUCCESS' &&
+      typeof existingCyclicalActivity.response === 'object'
+    ) {
+      const cyclicalActivityWithRewrittenUrlIntoFileProperty =
+        rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
+          existingCyclicalActivity.response
+        );
 
-    //     const mappedGotCyclicalActivity: TCyclicalActivityFormInputs =
-    //       mapCyclicalActivityIntoFormik(existingCyclicalActivity.response);
+      console.log({ cyclicalActivityWithRewrittenUrlIntoFileProperty });
 
-    //     setCyclicalActivityFormikDataForPUT(existingCyclicalActivity);
-    //     setIsAddCyclicalActivityVisible(true);
+      setCyclicalActivityFormikDataForPUT(
+        cyclicalActivityWithRewrittenUrlIntoFileProperty
+      );
+      setIsAddCyclicalActivityVisible(true);
+      return;
+    }
+
+    setShowNotification('ERROR', 'Nie znaleziono zajęć.');
   }
 
   ////tsx
@@ -72,4 +76,19 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
       </div>
     </div>
   );
+
+  ////utils
+  function rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
+    cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
+  ) {
+    const images = cyclicalActivity.images as ImageCyclicalActivity[];
+
+    let imagesRemapped: ImageCyclicalActivity[];
+    if (images && images.length > 0) {
+      imagesRemapped = images.map((image) => ({ ...image, file: image.url }));
+      return { ...cyclicalActivity, images: imagesRemapped };
+    }
+
+    return cyclicalActivity;
+  }
 }

@@ -12,6 +12,7 @@ import {
 } from '@/lib/api/apiTextResponses';
 import { validateValuesForCyclicalActivities } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
+import { getDifferencesBetweenTwoObjects } from '@/lib/objectHelpers';
 import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
@@ -21,7 +22,9 @@ import {
   TGetAllCyclicalActivitiesResponse,
   TGetOneCyclicalActivityResponse,
   TImageCyclicalActivityForDB,
-  TOccurrence,
+  TImageCyclicalActivityFormValues,
+  TOccurrenceWithRequiredDates,
+  TOccurrenceWithRequiredDatesAndCyclicalActivityID,
 } from '@/types';
 import {
   CyclicalActivity,
@@ -57,24 +60,26 @@ export async function addCyclicalActivity(
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
+  //
+  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+
   /* 
  writing cyclical activity to db 
  */
   const authorId = session.user?.id;
   const isIncludeImages = !values.isCustomLinkToDetails;
-  const occurrencePreparedData: TOccurrence[] =
+
+  //occurrence
+  const occurrencePreparedData: TOccurrenceWithRequiredDates[] =
     prepareOccurrenceDataForSavingInDB(values);
 
-  //
-  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
-
+  //images
   let imagesPreparedData: TImageCyclicalActivityForDB[];
   try {
     imagesPreparedData = await prepareImageDataForSavingInDB(
       values,
       currentlyCreatedImagesToBeDeletedWhenError
     );
-    // throw new Error('test');
   } catch (error) {
     logger.warn(dbWritingErrorMessage);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
@@ -123,7 +128,9 @@ export async function addCyclicalActivity(
     });
     console.log({ response });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    console.log((error as Error).stack);
+
+    logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
@@ -282,142 +289,180 @@ export async function getCyclicalActivity(
   return { status: 'SUCCESS', response: cyclicalActivity };
 }
 
-// export async function updateUser(
-//   id: string,
-//   isToUpdateAlsoPassword: boolean,
-//   formData: FormData
-// ): Promise<TActionResponse> {
-//   /** checking session */
-//   const session = await getServerSession(authOptions);
-//   if (!session) {
-//     logger.warn(notLoggedIn);
-//     return { status: 'ERROR', response: notLoggedIn };
-//   }
+export async function updateCyclicalActivity(
+  originalCyclicalActivity: TCyclicalActivityFormInputs,
+  changedCyclicalActivity: TCyclicalActivityFormInputs
+): Promise<TActionResponse> {
+  /**
+   * checking session
+   * */
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    logger.warn(notLoggedIn);
+    return { status: 'ERROR', response: notLoggedIn };
+  }
 
-//   /** check if User exists in DB */
-//   let exists: unknown;
-//   try {
-//     exists = await checkIfUserExists(id);
-//   } catch (error) {
-//     logger.warn(dbReadingErrorMessage);
-//     return { status: 'ERROR', response: dbReadingErrorMessage };
-//   }
-//   if (!exists) {
-//     logger.warn(userNotExistsMessage);
-//     return { status: 'ERROR', response: userNotExistsMessage };
-//   }
+  /* 
+  data validation 
+  */
+  const validationResult = validateValuesForCyclicalActivities(
+    changedCyclicalActivity as Object
+  );
+  if (!validationResult) {
+    logger.warn(badCyclicalActivitiesData);
+    return { status: 'ERROR', response: badCyclicalActivitiesData };
+  }
 
-//   /** reading all values from formData */
-//   const submittedName = formData.get('name') as string;
-//   const submittedEmail = formData.get('email') as string;
-//   const submittedPassword = formData.get('password') as string;
-//   const submittedConfirmPassword = formData.get('confirmPassword') as string;
-//   const submittedUserRole = formData.get('userRole') as UserRole;
+  /**
+   * CyclicalActivity diff object
+   * */
+  const differencesCyclicalActivity = getDifferencesBetweenTwoObjects(
+    originalCyclicalActivity,
+    changedCyclicalActivity
+  );
+  delete differencesCyclicalActivity.images;
+  delete differencesCyclicalActivity.occurrence;
 
-//   ////
-//   /** update without password and password confirmation inputs  */
-//   if (!isToUpdateAlsoPassword) {
-//     /** check if values exist */
-//     if (!submittedName || !submittedEmail || !submittedUserRole) {
-//       logger.warn(lackOfUserData);
-//       return { status: 'ERROR', response: lackOfUserData };
-//     }
+  const cyclicalActivityPreparedForUpdateInDB: Prisma.CyclicalActivityUncheckedUpdateInput =
+    getProperDataForCyclicalActivityUpdate(
+      changedCyclicalActivity,
+      differencesCyclicalActivity
+    );
 
-//     /* format validation */
-//     try {
-//       nameSchema_Required_Min2.parse(submittedName);
-//       emailSchema.parse(submittedEmail);
-//       useRoleSchema.parse(submittedUserRole);
-//     } catch (error) {
-//       logger.warn(badUserData);
-//       return { status: 'ERROR', response: badUserData };
-//     }
+  const updateCyclicalActivity_ForPrismaTransaction =
+    prisma.cyclicalActivity.update({
+      where: { id: changedCyclicalActivity.id },
+      data: cyclicalActivityPreparedForUpdateInDB,
+    });
 
-//     /* updating user in db */
-//     try {
-//       await prisma.user.update({
-//         where: {
-//           id: id,
-//         },
-//         data: {
-//           name: submittedName,
-//           email: submittedEmail,
-//           userRole: submittedUserRole,
-//         },
-//       });
-//     } catch (error) {
-//       logger.warn(dbWritingErrorMessage);
-//       return { status: 'ERROR', response: dbWritingErrorMessage };
-//     }
-//   }
+  /**
+   * Occurrence
+   * */
+  const differencesOccurrence = getDifferencesBetweenTwoObjects(
+    originalCyclicalActivity.occurrence,
+    changedCyclicalActivity.occurrence
+  );
 
-//   ////
-//   /** update with password and password confirmation inputs  */
-//   if (isToUpdateAlsoPassword) {
-//     /** check if values exist */
-//     if (
-//       !submittedName ||
-//       !submittedEmail ||
-//       !submittedUserRole ||
-//       !submittedPassword ||
-//       !submittedConfirmPassword
-//     ) {
-//       logger.warn(lackOfUserData);
-//       return { status: 'ERROR', response: lackOfUserData };
-//     }
+  const isOccurrencesToBeUpdated = differencesOccurrence.length;
+  let occurrencePreparedDataForDb: TOccurrenceWithRequiredDatesAndCyclicalActivityID[] =
+    [];
+  let occurrencesToBeDeletedIDs: string[] = [];
 
-//     /* format validation */
-//     let validationResult = false;
-//     try {
-//       validationResult = validateUserData(
-//         submittedName,
-//         submittedEmail,
-//         submittedPassword,
-//         submittedConfirmPassword,
-//         submittedUserRole
-//       );
-//     } catch (error) {
-//       logger.warn(badUserData);
-//       return { status: 'ERROR', response: badUserData };
-//     }
+  if (isOccurrencesToBeUpdated) {
+    occurrencePreparedDataForDb = prepareOccurrenceDataForSavingInDB(
+      changedCyclicalActivity,
+      changedCyclicalActivity.id
+    ) as TOccurrenceWithRequiredDatesAndCyclicalActivityID[];
 
-//     if (!validationResult) {
-//       logger.warn(badUserData);
-//       return { status: 'ERROR', response: badUserData };
-//     }
+    occurrencesToBeDeletedIDs = originalCyclicalActivity.occurrence.map(
+      (occurrence) => occurrence.id!
+    );
+  }
 
-//     console.log('tutaj');
+  const occurrencePreparedDataForDb_ForPrismaTransaction =
+    prisma.cyclicalActivityOccurrence.createMany({
+      data: occurrencePreparedDataForDb,
+    });
 
-//     /* updating user in db */
-//     const hashedPassword = await bcryptjs.hash(submittedPassword, 10);
-//     try {
-//       await prisma.user.update({
-//         where: {
-//           id: id,
-//         },
-//         data: {
-//           name: submittedName,
-//           email: submittedEmail,
-//           userRole: submittedUserRole,
-//           hashedPassword,
-//         },
-//       });
-//     } catch (error) {
-//       logger.warn(dbWritingErrorMessage);
-//       return { status: 'ERROR', response: dbWritingErrorMessage };
-//     }
-//   }
+  const deleteOccurrencesForPrismaTransaction =
+    prisma.cyclicalActivityOccurrence.deleteMany({
+      where: {
+        id: {
+          in: occurrencesToBeDeletedIDs,
+        },
+      },
+    });
 
-//   revalidatePath('/dashboard');
+  /**
+   * Images
+   * */
+  const originalImages: TImageCyclicalActivityForDB[] =
+    getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
+      originalCyclicalActivity.images
+    );
+  const changedImages: TImageCyclicalActivityForDB[] =
+    changedCyclicalActivity.images;
+  const differencesImages = getDifferencesBetweenTwoObjects(
+    originalImages,
+    changedImages
+  );
 
-//   /* final success response */
-//   const responseText = `Dane użytkownika zostały zmienione.`;
-//   logger.info(responseText);
-//   return {
-//     status: 'SUCCESS',
-//     response: responseText,
-//   };
-// }
+  //images
+  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+  let imagesPreparedData: TImageCyclicalActivityForDB[] = [];
+  try {
+    imagesPreparedData = await prepareImageDataForSavingInDB(
+      changedCyclicalActivity,
+      currentlyCreatedImagesToBeDeletedWhenError
+    );
+  } catch (error) {
+    logger.warn(dbWritingErrorMessage);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: imageCreationErrorMessage };
+  }
+
+  console.log('originalImages: ', originalImages);
+  console.log('changedImages: ', changedImages);
+  console.log('differencesImages: ', differencesImages);
+  console.log('imagesPreparedData: ', imagesPreparedData);
+  console.log(
+    'currentlyCreatedImagesToBeDeletedWhenError: ',
+    currentlyCreatedImagesToBeDeletedWhenError
+  );
+
+  //create local images from base64
+  //create array of images to be deleted when error occurrs
+  //create array of images that needs to be deleted because are no longer needed
+
+  /**
+   *
+   * updating cyclical activity elements in db
+   *
+   */
+  let transaction: unknown;
+  const transactionsArray: any[] = [
+    updateCyclicalActivity_ForPrismaTransaction,
+  ];
+  if (isOccurrencesToBeUpdated) {
+    transactionsArray.push(occurrencePreparedDataForDb_ForPrismaTransaction);
+    transactionsArray.push(deleteOccurrencesForPrismaTransaction);
+  }
+  try {
+    transaction = await prisma.$transaction(transactionsArray);
+  } catch (error) {
+    logger.warn(dbDeletingErrorMessage);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
+
+  console.log({ transaction });
+
+  /** revalidate all */
+  revalidatePath('/');
+
+  /////////////////////////////////////
+  // for (let i = 0; i < ids.length; i++) {
+  //   console.log(ids[i]);
+
+  //   const deleteCyclicalActivityImages =
+  //     prisma.imageCyclicalActivity.deleteMany({
+  //       where: {
+  //         cyclicalActivityId: ids[i],
+  //       },
+  //     });
+
+  //   const deleteCyclicalActivityOccurrence =
+  //     prisma.cyclicalActivityOccurrence.deleteMany({
+  //       where: { cyclicalActivityId: ids[i] },
+  //     });
+
+  //   const deleteCyclicalActivity = prisma.cyclicalActivity.deleteMany({
+  //     where: {
+  //       id: ids[i],
+  //     },
+  //   });
+
+  return { status: 'ERROR', response: notLoggedIn };
+}
 
 ////utils
 async function checkIfCyclicalActivityExists(id: string) {
@@ -429,13 +474,28 @@ async function checkIfCyclicalActivityExists(id: string) {
 }
 
 function prepareOccurrenceDataForSavingInDB(
-  values: TCyclicalActivityFormInputs
-) {
-  return values.occurrence!.map((occurrenceItem) => ({
-    day: occurrenceItem.day as Day,
-    activityStart: occurrenceItem.activityStart as Date,
-    activityEnd: occurrenceItem.activityStart as Date,
-  }));
+  values: TCyclicalActivityFormInputs,
+  idOfMainCyclicalActivity?: string
+):
+  | TOccurrenceWithRequiredDatesAndCyclicalActivityID[]
+  | TOccurrenceWithRequiredDates[] {
+  return values.occurrence!.map((occurrenceItem) => {
+    const resultOccurrenceWithoutCyclicalID: TOccurrenceWithRequiredDates = {
+      day: occurrenceItem.day as Day,
+      activityStart: occurrenceItem.activityStart as Date,
+      activityEnd: occurrenceItem.activityEnd as Date,
+    };
+
+    if (idOfMainCyclicalActivity) {
+      const resultOccurrenceWithCyclicalID: TOccurrenceWithRequiredDatesAndCyclicalActivityID =
+        {
+          ...resultOccurrenceWithoutCyclicalID,
+          cyclicalActivityId: idOfMainCyclicalActivity,
+        };
+      return resultOccurrenceWithCyclicalID;
+    }
+    return resultOccurrenceWithoutCyclicalID;
+  });
 }
 
 async function prepareImageDataForSavingInDB(
@@ -523,3 +583,32 @@ async function deleteImagesFiles(filesArray: string[]): Promise<boolean> {
 
   return result;
 }
+
+function getProperDataForCyclicalActivityUpdate(
+  changedCyclicalActivity: TCyclicalActivityFormInputs,
+  differencesCyclicalActivity: Partial<TCyclicalActivityFormInputs>
+): Prisma.CyclicalActivityUncheckedUpdateInput {
+  const resultObject: Partial<TCyclicalActivityFormInputs> = {};
+  // const resultObject: Prisma.CyclicalActivityUncheckedUpdateInput = {};
+
+  for (let [key, value] of Object.entries(differencesCyclicalActivity)) {
+    (resultObject as any)[key] = (changedCyclicalActivity as any)[key];
+  }
+
+  return resultObject as Prisma.CyclicalActivityUncheckedUpdateInput;
+}
+
+function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
+  originalImages: TImageCyclicalActivityFormValues[]
+): TImageCyclicalActivityForDB[] {
+  return originalImages.map((imageProps) => ({
+    id: imageProps.id,
+    additionInfoThatMustBeDisplayed: imageProps.additionInfoThatMustBeDisplayed,
+    alt: imageProps.alt,
+    url: imageProps.url,
+  }));
+}
+// const originalImages: TImageCyclicalActivityForDB[] =
+//   getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
+//     originalCyclicalActivity.images
+//   );

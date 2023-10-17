@@ -309,17 +309,35 @@ export type TFileWithPreview = (File & { preview: string }) | undefined;
 
 export type TOccurrence = Omit<
   CyclicalActivityOccurrence,
-  'cyclicalActivityId' | 'activityStart' | 'activityEnd'
+  'cyclicalActivityId' | 'activityStart' | 'activityEnd' | 'id'
 > & {
   activityStart: Date | null;
   activityEnd: Date | null;
+  id?: string;
 };
+export type TOccurrenceWithRequiredDates = Omit<
+  CyclicalActivityOccurrence,
+  'cyclicalActivityId' | 'activityStart' | 'activityEnd' | 'id'
+> & {
+  activityStart: Date;
+  activityEnd: Date;
+  id?: string;
+};
+export type TOccurrenceWithRequiredDatesAndCyclicalActivityID = Omit<
+  CyclicalActivityOccurrence,
+  'activityStart' | 'activityEnd' | 'id'
+> & {
+  activityStart: Date;
+  activityEnd: Date;
+  id?: string;
+};
+
+// export type TImageCyclicalActivityFormValues
+
 export type TCyclicalActivityFormInputs = Omit<
   CyclicalActivity,
   'authorId' | 'createdAt' | 'updatedAt'
 > & {
-  images: (Omit<ImageCyclicalActivity, 'cyclicalActivityId'> & {
-    file?: TFileWithPreview | string;
-  })[];
+  images: TImageCyclicalActivityFormValues[];
   occurrence: TOccurrence[];
 };

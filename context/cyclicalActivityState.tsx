@@ -68,13 +68,10 @@ export function useCyclicalActivitiesState() {
       return state.isAddCyclicalActivityVisible.set(isToBeVisible);
     },
     getCyclicalActivityFormikDataForPUT() {
-      // return state.get({ noproxy: true, stealth: true })
-      //   .cyclicalActivityFormikDataForPUT;
-      // return state.cyclicalActivityFormikDataForPUT.get({
-      //   noproxy: true,
-      //   stealth: true,
-      // })
-      return state.cyclicalActivityFormikDataForPUT.get();
+      return state.cyclicalActivityFormikDataForPUT.get({
+        noproxy: true,
+        stealth: true,
+      });
     },
     setCyclicalActivityFormikDataForPUT(data: TCyclicalActivityFormInputs) {
       state.cyclicalActivityFormikDataForPUT.set(data);

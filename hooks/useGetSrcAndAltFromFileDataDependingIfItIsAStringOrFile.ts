@@ -1,16 +1,19 @@
 import { TFileWithPreview } from '@/types';
 
 export function useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(
-  file: TFileWithPreview | string
+  fileOrURLString: TFileWithPreview | string
 ) {
   let src = '';
   let alt = '';
   let isFileATFileWithPreviewType = false;
-  if (file && typeof file === 'string') {
-    src = alt = file;
+
+  if (fileOrURLString && typeof fileOrURLString === 'string') {
+    alt = fileOrURLString;
+    src = `${process.env.NEXT_PUBLIC_BASE_URL}${fileOrURLString}`;
   }
-  if (file && typeof file !== 'string') {
-    const fileAsTFileWithPreview: TFileWithPreview = file as TFileWithPreview;
+  if (fileOrURLString && typeof fileOrURLString !== 'string') {
+    const fileAsTFileWithPreview: TFileWithPreview =
+      fileOrURLString as TFileWithPreview;
     src = fileAsTFileWithPreview!.preview;
     alt = fileAsTFileWithPreview!.name;
     isFileATFileWithPreviewType = true;

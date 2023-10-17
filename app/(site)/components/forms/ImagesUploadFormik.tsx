@@ -90,6 +90,7 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
     const resultImagesArray = [
       ...currentImagesValue,
       {
+        url: '',
         file: undefined,
         alt: '',
         additionInfoThatMustBeDisplayed: '',
