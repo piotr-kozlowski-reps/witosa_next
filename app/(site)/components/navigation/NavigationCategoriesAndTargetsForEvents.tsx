@@ -1,4 +1,4 @@
-import { useNavigationState } from '@/context/navigationState';
+import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { pageVariant } from '@/lib/animations/variants';
 import { EventType, ForWhom } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -36,7 +36,7 @@ export default function NavigationCategoriesAndTargetsForEvents(props: Props) {
     getIsCyclicalActivitiesMenuVisible,
     toggleIsCyclicalActivitiesMenuVisible,
     setIsCyclicalActivitiesMenuToBeVisible,
-  } = useNavigationState();
+  } = useCyclicalActivitiesState();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
