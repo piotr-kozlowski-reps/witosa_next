@@ -89,6 +89,7 @@ model ImageCyclicalActivity {
   id String @id @default(uuid())
   url String
   alt String
+  index Int
   additionInfoThatMustBeDisplayed String?
   cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
   cyclicalActivityId String

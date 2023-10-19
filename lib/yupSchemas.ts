@@ -295,7 +295,17 @@ export const imagesArrayYupSchema = Yup.array(
         return true;
       }
     ),
+
+    // additionInfo
     additionInfoThatMustBeDisplayed: Yup.string().nullable(),
+
+    //index
+    index: Yup.number()
+      .typeError('Index musi być numerem.')
+      .min(0)
+      .required('Index jest wymagany.'),
+
+    //id
     id: Yup.string(),
   })
 );

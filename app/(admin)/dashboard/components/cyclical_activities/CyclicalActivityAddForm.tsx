@@ -197,6 +197,7 @@ export default function CyclicalActivityAddForm() {
       imagesRemapped = originalImages.map((image) => ({
         alt: image.alt,
         url: image.url,
+        index: image.index,
         additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
         file:
           typeof image.file! === 'string' ? image.file! : image.file!.preview,

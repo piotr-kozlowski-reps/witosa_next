@@ -28,6 +28,7 @@ const cyclicalActivitiesFreshObject: TCyclicalActivityFormInputs = {
   images: [
     {
       id: new Date().getTime().toString(),
+      index: 0,
       file: undefined,
       url: '',
       alt: '',

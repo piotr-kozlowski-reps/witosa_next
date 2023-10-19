@@ -613,6 +613,7 @@ async function prepareImageDataForSavingInDB(
     result.push({
       url: imageUrl,
       alt: originalImagesData[i].alt as string,
+      index: originalImagesData[i].index,
       additionInfoThatMustBeDisplayed: originalImagesData[i]
         .additionInfoThatMustBeDisplayed
         ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
@@ -700,6 +701,7 @@ function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
     additionInfoThatMustBeDisplayed: imageProps.additionInfoThatMustBeDisplayed,
     alt: imageProps.alt,
     url: imageProps.url,
+    index: imageProps.index,
   }));
 }
 

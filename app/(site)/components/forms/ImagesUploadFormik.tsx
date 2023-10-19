@@ -67,20 +67,28 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
         (el) => el.id === active.id
       );
       const overIndex = currentImagesValue.findIndex((el) => el.id === over.id);
+      const properlySwitchedItemsArray = arrayMove(
+        currentImagesValue,
+        activeIndex,
+        overIndex
+      );
+      properlySwitchedItemsArray;
+      const resultArrayWithProperIndexes = properlySwitchedItemsArray.map(
+        (imageObject, index) => ({ ...imageObject, index: index })
+      );
 
-      const resultArray = arrayMove(currentImagesValue, activeIndex, overIndex);
-
-      formik.setFieldValue(name, resultArray);
+      formik.setFieldValue(name, resultArrayWithProperIndexes);
     }
   }
 
   function addNewImage() {
-    const resultImagesArray = [
+    const resultImagesArray: TImageCyclicalActivityFormValues[] = [
       ...currentImagesValue,
       {
         url: '',
         file: undefined,
         alt: '',
+        index: currentImagesValue.length,
         additionInfoThatMustBeDisplayed: '',
         id: new Date().getTime().toString(),
       },

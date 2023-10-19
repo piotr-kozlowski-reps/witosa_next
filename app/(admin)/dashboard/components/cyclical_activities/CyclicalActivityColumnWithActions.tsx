@@ -37,10 +37,13 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
           existingCyclicalActivity.response
         );
 
-      console.log({ cyclicalActivityWithRewrittenUrlIntoFileProperty });
+      const cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TCyclicalActivityWithImageAndOccurrence =
+        sortImagesObjectsByIndex(
+          cyclicalActivityWithRewrittenUrlIntoFileProperty
+        );
 
       setCyclicalActivityFormikDataForPUT(
-        cyclicalActivityWithRewrittenUrlIntoFileProperty
+        cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex
       );
       setIsAddCyclicalActivityVisible(true);
       return;
@@ -91,4 +94,18 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
 
     return cyclicalActivity;
   }
+}
+
+function sortImagesObjectsByIndex(
+  cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
+): TCyclicalActivityWithImageAndOccurrence {
+  const imageObjects = [...cyclicalActivity.images];
+  imageObjects.sort((imageObject1, imageObject2) => {
+    return imageObject1.index < imageObject2.index ? -1 : 1;
+  });
+
+  const resultCyclicalImagesObject = { ...cyclicalActivity };
+  resultCyclicalImagesObject.images = imageObjects;
+
+  return resultCyclicalImagesObject;
 }
