@@ -298,7 +298,9 @@ export type TImageCyclicalActivityFormValues = Omit<
 export type TImageCyclicalActivityForDB = Pick<
   ImageCyclicalActivity,
   'alt' | 'additionInfoThatMustBeDisplayed' | 'url'
->;
+> & { id?: string };
+
+export type TImageCyclicalActivityAllOptional = Partial<ImageCyclicalActivity>;
 
 export type TCyclicalActivityWithImageAndOccurrence = CyclicalActivity & {
   images: ImageCyclicalActivity[];

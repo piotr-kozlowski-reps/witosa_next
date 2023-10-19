@@ -47,18 +47,6 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  // const valueOfImagesToBePassedFurther: TFormImageType =
-  //   currentImagesValue.length > 0
-  //     ? currentImagesValue
-  //     : [
-  //         {
-  //           file: undefined,
-  //           alt: '',
-  //           additionInfoThatMustBeDisplayed: '',
-  //           id: new Date().getTime().toString(),
-  //         },
-  //       ];
-
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {

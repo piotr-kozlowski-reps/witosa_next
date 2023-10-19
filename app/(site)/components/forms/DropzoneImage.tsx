@@ -60,7 +60,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
       onDrop,
       accept: { 'image/*': [] },
       maxFiles: 1,
-      maxSize: 4096 * 1000,
+      maxSize: 2048 * 1000,
     });
 
   let timer: ReturnType<typeof setTimeout>;

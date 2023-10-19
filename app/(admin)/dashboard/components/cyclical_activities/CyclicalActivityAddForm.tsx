@@ -145,7 +145,6 @@ export default function CyclicalActivityAddForm() {
   function resetFormToInitialState() {
     resetCyclicalActivityFormikDataForPUT();
     formik.resetForm();
-    goToFirstStage();
   }
 
   useEffect(() => {
@@ -242,8 +241,15 @@ export default function CyclicalActivityAddForm() {
       return;
     }
     setShowNotification('SUCCESS', response.response);
-    resetFormToInitialState();
-    return;
+
+    if (isCurrentFormToPOSTData) {
+      resetFormToInitialState();
+      goToFirstStage();
+    }
+    if (isCurrentFormToPUTData) {
+      resetFormToInitialState();
+      setIsAddCyclicalActivityVisible(false);
+    }
   }
 
   ////tsx

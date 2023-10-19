@@ -1,6 +1,8 @@
-import { describe } from 'vitest';
+import { describe, it } from 'vitest';
 
 describe('getIsFileSizeValid()', () => {
+  it('stub', () => {});
+
   // it('should return true when file is not provided', () => {
   //   const file = undefined;
   //   const maxFileSize = 100;

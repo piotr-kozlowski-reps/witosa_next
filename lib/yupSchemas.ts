@@ -197,7 +197,7 @@ const fileErrorMessages = {
   ERROR_FILE_TYPE: 'Zły format pliku.',
   NO_FILE: 'Brakuje pliku graficznego.',
 };
-const maxFileSize = 4096 * 1000;
+const maxFileSize = 2048 * 1000;
 const fileTypes = [
   'image/png',
   'image/jpg',
@@ -351,7 +351,6 @@ export function getIsFileSizeValid(file: File, maxFileSize: number) {
 }
 export function getIsFileTypesValid(file: File, fileTypes: string[]) {
   if (!file) return true;
-  let valid = true;
   if (!fileTypes.includes(file.type)) {
     return false;
   }

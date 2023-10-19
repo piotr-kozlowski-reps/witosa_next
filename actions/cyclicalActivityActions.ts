@@ -12,7 +12,10 @@ import {
 } from '@/lib/api/apiTextResponses';
 import { validateValuesForCyclicalActivities } from '@/lib/forms/cyclical-activities-form';
 import logger from '@/lib/logger';
-import { getDifferencesBetweenTwoObjects } from '@/lib/objectHelpers';
+import {
+  getDifferencesBetweenTwoObjects,
+  getIfImagesShouldBeProcessedFurther,
+} from '@/lib/objectHelpers';
 import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
@@ -21,6 +24,7 @@ import {
   TCyclicalActivityWithImageAndOccurrence,
   TGetAllCyclicalActivitiesResponse,
   TGetOneCyclicalActivityResponse,
+  TImageCyclicalActivityAllOptional,
   TImageCyclicalActivityForDB,
   TImageCyclicalActivityFormValues,
   TOccurrenceWithRequiredDates,
@@ -129,7 +133,6 @@ export async function addCyclicalActivity(
     console.log({ response });
   } catch (error) {
     console.log((error as Error).stack);
-
     logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
@@ -382,10 +385,6 @@ export async function updateCyclicalActivity(
     );
   const changedImages: TImageCyclicalActivityForDB[] =
     changedCyclicalActivity.images;
-  const differencesImages = getDifferencesBetweenTwoObjects(
-    originalImages,
-    changedImages
-  );
 
   //images
   const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
@@ -401,18 +400,111 @@ export async function updateCyclicalActivity(
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
 
-  console.log('originalImages: ', originalImages);
-  console.log('changedImages: ', changedImages);
-  console.log('differencesImages: ', differencesImages);
-  console.log('imagesPreparedData: ', imagesPreparedData);
-  console.log(
-    'currentlyCreatedImagesToBeDeletedWhenError: ',
-    currentlyCreatedImagesToBeDeletedWhenError
+  const differencesImages = getDifferencesBetweenTwoObjects(
+    originalImages,
+    imagesPreparedData
   );
 
-  //create local images from base64
-  //create array of images to be deleted when error occurrs
-  //create array of images that needs to be deleted because are no longer needed
+  // console.log('originalImages: ', originalImages);
+  // console.log('changedImages: ', changedImages);
+  // console.log('differencesImages: ', differencesImages);
+  // console.log('imagesPreparedData: ', imagesPreparedData);
+  // console.log(
+  //   'currentlyCreatedImagesToBeDeletedWhenError: ',
+  //   currentlyCreatedImagesToBeDeletedWhenError
+  // );
+
+  let imagesToBeUpdatedPreparedForDB: Prisma.ImageCyclicalActivityUpdateManyMutationInput[] =
+    [];
+  let imagesToBeCreatedPreparedForDB: Prisma.ImageCyclicalActivityCreateManyInput[] =
+    [];
+  let imagesObjectsIDisToBeDeletedPreparedForDB: string[] = [];
+  let imagesURLsBeDeleted: string[] = [];
+
+  const isImagesToBeUpdated = getIfImagesShouldBeProcessedFurther(
+    originalImages,
+    changedImages,
+    differencesImages as TImageCyclicalActivityAllOptional[]
+  );
+
+  if (isImagesToBeUpdated) {
+    const { imagesToBeCreated, imagesToBeUpdated, imagesToBeDeleted } =
+      processImagesToDivideThemInArraysWithDifferentPurpose(
+        originalImages,
+        imagesPreparedData
+      );
+
+    if (imagesToBeDeleted.length) {
+      imagesToBeDeleted.forEach((imageObject) => {
+        imagesObjectsIDisToBeDeletedPreparedForDB.push(imageObject.id!);
+        imagesURLsBeDeleted.push(imageObject.url);
+      });
+    }
+
+    if (imagesToBeCreated.length) {
+      imagesToBeCreated.forEach((imageObject) => {
+        const newImageObjectWithoutId = {
+          ...imageObject,
+          cyclicalActivityId: originalCyclicalActivity.id,
+        };
+        delete newImageObjectWithoutId.id;
+        imagesToBeCreatedPreparedForDB.push(newImageObjectWithoutId);
+      });
+    }
+
+    if (imagesToBeUpdated.length) {
+      for (let i = 0; i < imagesToBeUpdated.length; i++) {
+        const imageObjectID = imagesToBeUpdated[i].id;
+        const originalImageObject = originalImages.find(
+          (imageObject) => imageObject.id === imageObjectID
+        );
+        const changedImageObject = imagesToBeUpdated[i];
+
+        const differenceBetweenObjects = getDifferencesBetweenTwoObjects(
+          originalImageObject,
+          changedImageObject
+        );
+
+        const imageObjectId = originalImageObject!.id;
+
+        const imageObjectToBeUpdatedData = {
+          id: imageObjectId,
+          ...differenceBetweenObjects,
+        };
+        imagesToBeUpdatedPreparedForDB.push(imageObjectToBeUpdatedData);
+
+        if (differenceBetweenObjects.url) {
+          imagesURLsBeDeleted.push(originalImageObject!.url);
+        }
+
+        console.log(differenceBetweenObjects);
+      }
+    }
+  }
+
+  const deleteCyclicalActivitiesImagesPrismaTransaction =
+    prisma.imageCyclicalActivity.deleteMany({
+      where: {
+        id: {
+          in: imagesObjectsIDisToBeDeletedPreparedForDB,
+        },
+      },
+    });
+
+  const createCyclicalActivitiesImagesPrismaTransaction =
+    prisma.imageCyclicalActivity.createMany({
+      data: imagesToBeCreatedPreparedForDB,
+    });
+
+  const updateCyclicalActivitiesImagesPrismaTransaction =
+    imagesToBeUpdatedPreparedForDB.map((imageObject) =>
+      prisma.imageCyclicalActivity.update({
+        where: {
+          id: imageObject.id as string,
+        },
+        data: imageObject,
+      })
+    );
 
   /**
    *
@@ -427,11 +519,28 @@ export async function updateCyclicalActivity(
     transactionsArray.push(occurrencePreparedDataForDb_ForPrismaTransaction);
     transactionsArray.push(deleteOccurrencesForPrismaTransaction);
   }
+  if (isImagesToBeUpdated) {
+    transactionsArray.push(deleteCyclicalActivitiesImagesPrismaTransaction);
+    transactionsArray.push(createCyclicalActivitiesImagesPrismaTransaction);
+    transactionsArray.push(...updateCyclicalActivitiesImagesPrismaTransaction);
+  }
   try {
     transaction = await prisma.$transaction(transactionsArray);
   } catch (error) {
-    logger.warn(dbDeletingErrorMessage);
+    logger.warn((error as Error).stack);
+    console.log((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
+
+  /* 
+  deleting unused images from server
+  */
+  try {
+    await deleteImagesFiles(imagesURLsBeDeleted);
+  } catch (error) {
+    logger.error((error as Error).stack);
+    console.log((error as Error).stack);
   }
 
   console.log({ transaction });
@@ -439,29 +548,13 @@ export async function updateCyclicalActivity(
   /** revalidate all */
   revalidatePath('/');
 
-  /////////////////////////////////////
-  // for (let i = 0; i < ids.length; i++) {
-  //   console.log(ids[i]);
-
-  //   const deleteCyclicalActivityImages =
-  //     prisma.imageCyclicalActivity.deleteMany({
-  //       where: {
-  //         cyclicalActivityId: ids[i],
-  //       },
-  //     });
-
-  //   const deleteCyclicalActivityOccurrence =
-  //     prisma.cyclicalActivityOccurrence.deleteMany({
-  //       where: { cyclicalActivityId: ids[i] },
-  //     });
-
-  //   const deleteCyclicalActivity = prisma.cyclicalActivity.deleteMany({
-  //     where: {
-  //       id: ids[i],
-  //     },
-  //   });
-
-  return { status: 'ERROR', response: notLoggedIn };
+  /* final success response */
+  const successMessage = `Zajęcia: (${originalCyclicalActivity.name}) zostały zmienione.`;
+  logger.info(successMessage);
+  return {
+    status: 'SUCCESS',
+    response: successMessage,
+  };
 }
 
 ////utils
@@ -524,6 +617,7 @@ async function prepareImageDataForSavingInDB(
         .additionInfoThatMustBeDisplayed
         ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
         : null,
+      id: originalImagesData[i].id,
     });
   }
   return result;
@@ -608,7 +702,36 @@ function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
     url: imageProps.url,
   }));
 }
-// const originalImages: TImageCyclicalActivityForDB[] =
-//   getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
-//     originalCyclicalActivity.images
-//   );
+
+function processImagesToDivideThemInArraysWithDifferentPurpose(
+  originalImages: TImageCyclicalActivityForDB[],
+  changedImages: TImageCyclicalActivityForDB[]
+) {
+  let imagesToBeUpdated: TImageCyclicalActivityForDB[] = [];
+  let imagesToBeCreated: TImageCyclicalActivityForDB[] = [];
+  let imagesToBeDeleted: TImageCyclicalActivityForDB[] = [];
+
+  const originalImagesToBeProcessed = [...originalImages];
+  const changedImagesToBeProcessed = [...changedImages];
+
+  //initial selection to deleted array / updated array
+  for (let i = 0; i < originalImagesToBeProcessed.length; i++) {
+    const existingItemId = originalImagesToBeProcessed[i].id;
+    const changedImageIndex = changedImagesToBeProcessed.findIndex(
+      (element) => element.id === existingItemId
+    );
+
+    //changed image not found -> delete
+    if (changedImageIndex === -1) {
+      imagesToBeDeleted.push(originalImagesToBeProcessed[i]);
+      continue;
+    }
+
+    imagesToBeUpdated.push(changedImagesToBeProcessed[changedImageIndex]);
+    changedImagesToBeProcessed.splice(changedImageIndex, 1);
+  }
+
+  imagesToBeCreated = [...changedImagesToBeProcessed];
+
+  return { imagesToBeUpdated, imagesToBeCreated, imagesToBeDeleted };
+}

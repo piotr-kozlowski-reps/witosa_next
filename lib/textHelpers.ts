@@ -331,7 +331,7 @@ export function getPolishErrorNamesForDropZoneArea(errorCode: string) {
       return 'Zły format pliku.';
 
     case 'file-too-large':
-      return 'Plik jest zbyt duży - limit 4Mb.';
+      return 'Plik jest zbyt duży - limit 2Mb.';
 
     case 'too-many-files':
       return 'Zbyt dużo plików - wymagany tylko jeden plik.';
