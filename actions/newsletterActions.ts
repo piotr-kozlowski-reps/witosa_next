@@ -41,7 +41,7 @@ export async function addNewsletterAddress(
   try {
     emailSchema.parse(email);
   } catch (error) {
-    logger.warn(badEmailFormatMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
@@ -50,11 +50,11 @@ export async function addNewsletterAddress(
   try {
     exists = await checkIfEmailExists(email);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (exists) {
-    logger.warn(emailAlreadyExistsMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: emailAlreadyExistsMessage };
   }
 
@@ -63,8 +63,7 @@ export async function addNewsletterAddress(
     await prisma.newsletter.create({ data: { email } });
   } catch (error) {
     console.log({ error });
-
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -91,7 +90,7 @@ export const getAllNewsletterAddresses =
     try {
       emailsInNewsletter = await prisma.newsletter.findMany();
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -120,7 +119,7 @@ export async function deleteNewsletterAddresses(
     try {
       exists = await checkIfEmailExists(emailsArray[i]);
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -139,7 +138,7 @@ export async function deleteNewsletterAddresses(
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -184,7 +183,7 @@ export async function updateNewsletterAddress(
     emailSchema.parse(oldAddress);
     emailSchema.parse(updatedAddress);
   } catch (error) {
-    logger.warn(badEmailFormatMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
@@ -193,7 +192,7 @@ export async function updateNewsletterAddress(
   try {
     exists = await checkIfEmailExists(oldAddress);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (!exists) {
@@ -212,7 +211,7 @@ export async function updateNewsletterAddress(
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 

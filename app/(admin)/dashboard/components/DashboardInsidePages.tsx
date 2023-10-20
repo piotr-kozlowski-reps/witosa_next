@@ -1,11 +1,11 @@
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useNavigationStateAdmin } from '@/context/navigationStateAdmin';
+import { useDashboardPagesController } from '@/hooks/useDashboardPagesController';
 import {
   TGetAllCyclicalActivitiesResponse,
+  TGetAllEventsResponse,
   TGetAllUsersResponse,
   TNewsletterDataCombo,
 } from '@/types';
-import { useSession } from 'next-auth/react';
 import { Fragment } from 'react';
 import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
@@ -17,21 +17,19 @@ type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
   usersData: TGetAllUsersResponse;
   cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
+  eventsData: TGetAllEventsResponse;
 };
 
 export default function DashboardInsidePages(props: Props) {
   ////vars
   const { cyclicalActivitiesData, newsletterDataCombo, usersData } = props;
-  const session = useSession();
-  const isAdmin = session?.data?.user?.userRole === 'ADMIN';
-  const { getAdminLink, setAdminLinkToBeActive, getAllAdminLinks } =
-    useNavigationStateAdmin();
-  const isToShowUsers = isAdmin && getAdminLink('USERS')?.isCurrentlyUsed;
-  const isToShowLogs = isAdmin && getAdminLink('LOGS')?.isCurrentlyUsed;
-  const isToShowNewsletter = getAdminLink('NEWSLETTER')?.isCurrentlyUsed;
-  const isToShowCyclicalActivities =
-    getAdminLink('CYCLICAL_ACTIVITY')?.isCurrentlyUsed;
-  const isToShowEvents = getAdminLink('EVENTS')?.isCurrentlyUsed;
+  const {
+    isToShowUsers,
+    isToShowCyclicalActivities,
+    isToShowEvents,
+    isToShowLogs,
+    isToShowNewsletter,
+  } = useDashboardPagesController();
 
   ////tsx
   return (

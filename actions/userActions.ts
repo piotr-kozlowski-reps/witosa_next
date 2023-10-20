@@ -63,7 +63,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       submittedUserRole
     );
   } catch (error) {
-    logger.warn(badUserData);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: badUserData };
   }
   if (validationResult) {
@@ -80,7 +80,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (exists) {
@@ -100,7 +100,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -130,7 +130,7 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
   try {
     users = await prisma.user.findMany();
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
 
@@ -167,7 +167,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     try {
       exists = await checkIfUserExists(ids[i]);
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -189,7 +189,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -223,7 +223,7 @@ export async function updateUser(
   try {
     exists = await checkIfUserExists(id);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (!exists) {
@@ -253,7 +253,7 @@ export async function updateUser(
       emailSchema.parse(submittedEmail);
       useRoleSchema.parse(submittedUserRole);
     } catch (error) {
-      logger.warn(badUserData);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: badUserData };
     }
 
@@ -270,7 +270,7 @@ export async function updateUser(
         },
       });
     } catch (error) {
-      logger.warn(dbWritingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbWritingErrorMessage };
     }
   }
@@ -301,7 +301,7 @@ export async function updateUser(
         submittedUserRole
       );
     } catch (error) {
-      logger.warn(badUserData);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: badUserData };
     }
 
@@ -327,7 +327,7 @@ export async function updateUser(
         },
       });
     } catch (error) {
-      logger.warn(dbWritingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbWritingErrorMessage };
     }
   }

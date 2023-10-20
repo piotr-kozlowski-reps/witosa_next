@@ -4,6 +4,7 @@ import {
   Day,
   Event,
   ImageCyclicalActivity,
+  ImageEvent,
   Newsletter,
   User,
   UserRole,
@@ -248,9 +249,15 @@ export type TGetAllCyclicalActivitiesResponse = {
   status: TStatus;
   response: string | CyclicalActivity[];
 };
+
 export type TGetOneCyclicalActivityResponse = {
   status: TStatus;
   response: string | TCyclicalActivityWithImageAndOccurrence;
+};
+
+export type TGetAllEventsResponse = {
+  status: TStatus;
+  response: string | Event[];
 };
 
 export type TNewsletterDataCombo = {
@@ -334,12 +341,36 @@ export type TOccurrenceWithRequiredDatesAndCyclicalActivityID = Omit<
   id?: string;
 };
 
-// export type TImageCyclicalActivityFormValues
-
 export type TCyclicalActivityFormInputs = Omit<
   CyclicalActivity,
   'authorId' | 'createdAt' | 'updatedAt'
 > & {
   images: TImageCyclicalActivityFormValues[];
   occurrence: TOccurrence[];
+};
+
+//events
+export type TImageEventFormValues = Omit<ImageEvent, 'eventId'> & {
+  file?: TFileWithPreview | string;
+};
+
+export type TEventWithImages = Event & {
+  images: ImageEvent[];
+};
+
+export type TEventFormInputs = Omit<
+  Event,
+  | 'authorId'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'eventStartDate'
+  | 'newsSectionImageUrl'
+  | 'visibleFrom'
+  | 'visibleTo'
+> & {
+  eventStartDate: Date | null;
+  newsSectionImageUrl: TFileWithPreview | string | null;
+  images: TImageEventFormValues[];
+  visibleFrom: Date | null;
+  visibleTo: Date | null;
 };

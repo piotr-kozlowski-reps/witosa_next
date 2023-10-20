@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
           emailSchema.parse(credentials.email);
           passwordSchema_Required_Min5_Max20.parse(credentials.password);
         } catch (error) {
-          logger.warn(badLoginCredentialsMessage);
+          logger.warn((error as Error).stack);
           throw new Error(badLoginCredentialsMessage);
         }
 

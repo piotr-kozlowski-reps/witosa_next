@@ -85,7 +85,7 @@ export async function addCyclicalActivity(
       currentlyCreatedImagesToBeDeletedWhenError
     );
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack));
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
@@ -183,11 +183,11 @@ export async function deleteCyclicalActivities(
         images.forEach((image) => imagesToBeDeleted.push(image.url));
       }
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
     if (!exists) {
-      logger.warn(cyclicalActivityNotExistsMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: cyclicalActivityNotExistsMessage };
     }
   }
@@ -224,7 +224,7 @@ export async function deleteCyclicalActivities(
         deleteCyclicalActivity,
       ]);
     } catch (error) {
-      logger.warn(dbDeletingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbDeletingErrorMessage };
     }
   }
@@ -261,7 +261,7 @@ export async function getAllCyclicalActivities(): Promise<TGetAllCyclicalActivit
       },
     });
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   return { status: 'SUCCESS', response: cyclicalActivities };
@@ -281,7 +281,7 @@ export async function getCyclicalActivity(
       },
     });
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
 
@@ -395,7 +395,7 @@ export async function updateCyclicalActivity(
       currentlyCreatedImagesToBeDeletedWhenError
     );
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
