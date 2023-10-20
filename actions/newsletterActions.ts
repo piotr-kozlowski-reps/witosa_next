@@ -54,7 +54,7 @@ export async function addNewsletterAddress(
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (exists) {
-    logger.warn((error as Error).stack);
+    logger.warn(emailAlreadyExistsMessage);
     return { status: 'ERROR', response: emailAlreadyExistsMessage };
   }
 
