@@ -26,6 +26,7 @@ export default async function Dashboard() {
           newsletterDataCombo={newsletterDataCombo}
           usersData={usersData}
           cyclicalActivitiesData={cyclicalActivitiesData}
+          eventsData={eventsData}
         />
       </div>
     </Fragment>

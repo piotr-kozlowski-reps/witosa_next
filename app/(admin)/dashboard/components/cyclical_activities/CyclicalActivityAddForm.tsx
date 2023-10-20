@@ -9,9 +9,9 @@ import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useNotificationState } from '@/context/notificationState';
+import { useFormikForCyclicalActivities } from '@/hooks/useFormikForCyclicalActivities';
 import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
 import {
-  generateValidationForCyclicalActivities,
   validateValuesForCyclicalActivitiesStageOne,
   validateValuesForCyclicalActivitiesStageTwo,
 } from '@/lib/forms/cyclical-activities-form';
@@ -21,12 +21,7 @@ import {
   TFormStage,
   TImageCyclicalActivityFormValues,
 } from '@/types';
-import {
-  FormikProps,
-  useFormik,
-  validateYupSchema,
-  yupToFormErrors,
-} from 'formik';
+import { FormikProps } from 'formik';
 import { Fragment, useEffect, useState } from 'react';
 import CyclicalActivityAddFormStageOne from './CyclicalActivityAddFormStageOne';
 import CyclicalActivityAddFormStageThree from './CyclicalActivityAddFormStageThree';
@@ -34,7 +29,6 @@ import CyclicalActivityAddFormStageTwo from './CyclicalActivityAddFormStageTwo';
 
 export default function CyclicalActivityAddForm() {
   ////vars
-  const validationSchema = generateValidationForCyclicalActivities();
   const { setShowNotification } = useNotificationState();
   const {
     setIsAddCyclicalActivityVisible,
@@ -42,23 +36,10 @@ export default function CyclicalActivityAddForm() {
     getCyclicalActivityFormikDataForPUT,
   } = useCyclicalActivitiesState();
 
+  const formik = useFormikForCyclicalActivities();
+
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;
-
-  const formik = useFormik<TCyclicalActivityFormInputs>({
-    initialValues:
-      getCyclicalActivityFormikDataForPUT() as TCyclicalActivityFormInputs,
-    onSubmit: () => {},
-    validate: (value) => {
-      try {
-        validateYupSchema(value, validationSchema, true, value);
-      } catch (error) {
-        return yupToFormErrors(error);
-      }
-    },
-  });
-
-  console.log({ formik });
 
   //form stages logic
   const stagesInitialStage: TFormStage[] = [

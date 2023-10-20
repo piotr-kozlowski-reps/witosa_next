@@ -5,6 +5,7 @@ import Modal from '@/app/(site)/components/modal/Modal';
 import { useModalState } from '@/context/modalState';
 import {
   TGetAllCyclicalActivitiesResponse,
+  TGetAllEventsResponse,
   TGetAllUsersResponse,
   TNewsletterDataCombo,
 } from '@/types';
@@ -22,13 +23,15 @@ type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
   usersData: TGetAllUsersResponse;
   cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
+  eventsData: TGetAllEventsResponse;
 };
 
 export default function DashboardContent(props: Props) {
   ////vars
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
-  const { newsletterDataCombo, usersData, cyclicalActivitiesData } = props;
+  const { newsletterDataCombo, usersData, cyclicalActivitiesData, eventsData } =
+    props;
   const { getIsShowModal } = useModalState();
 
   const theme = createTheme({
@@ -99,6 +102,7 @@ export default function DashboardContent(props: Props) {
                     newsletterDataCombo={newsletterDataCombo}
                     usersData={usersData}
                     cyclicalActivitiesData={cyclicalActivitiesData}
+                    eventsData={eventsData}
                   />
                 </div>
                 {/* <FooterStamp /> */}

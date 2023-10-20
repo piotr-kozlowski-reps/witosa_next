@@ -85,7 +85,7 @@ export async function addCyclicalActivity(
       currentlyCreatedImagesToBeDeletedWhenError
     );
   } catch (error) {
-    logger.warn((error as Error).stack));
+    logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
@@ -187,7 +187,7 @@ export async function deleteCyclicalActivities(
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
     if (!exists) {
-      logger.warn((error as Error).stack);
+      logger.warn(cyclicalActivityNotExistsMessage);
       return { status: 'ERROR', response: cyclicalActivityNotExistsMessage };
     }
   }

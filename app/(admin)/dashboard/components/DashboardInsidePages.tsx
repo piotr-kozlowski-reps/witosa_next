@@ -7,9 +7,9 @@ import {
   TNewsletterDataCombo,
 } from '@/types';
 import { Fragment } from 'react';
-import DashboardEvents from './DashboardEvents';
 import DashboardLogs from './DashboardLogs';
 import DashboardCyclicalActivities from './cyclical_activities/DashboardCyclicalActivities';
+import DashboardEvents from './events/DashboardEvents';
 import DashboardNewsletter from './newsletter/DashboardNewsletter';
 import DashboardUsers from './users/DashboardUsers';
 
@@ -22,7 +22,8 @@ type Props = {
 
 export default function DashboardInsidePages(props: Props) {
   ////vars
-  const { cyclicalActivitiesData, newsletterDataCombo, usersData } = props;
+  const { cyclicalActivitiesData, newsletterDataCombo, usersData, eventsData } =
+    props;
   const {
     isToShowUsers,
     isToShowCyclicalActivities,
@@ -36,7 +37,7 @@ export default function DashboardInsidePages(props: Props) {
     <Fragment>
       <div className="absolute top-8 pt-8 left-[193px] pl-[34px] bg-skin-main-bg drop-shadow-big rounded-base pb-[66px] right-0">
         <ComponentTransitionFromRightToLeft>
-          {isToShowEvents ? <DashboardEvents /> : null}
+          {isToShowEvents ? <DashboardEvents eventsData={eventsData} /> : null}
         </ComponentTransitionFromRightToLeft>
 
         <ComponentTransitionFromRightToLeft>

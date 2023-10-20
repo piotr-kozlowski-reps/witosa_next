@@ -15,8 +15,11 @@ type Props = {
 export default function DashboardCyclicalActivities(props: Props) {
   ////vars
   const { cyclicalActivitiesData } = props;
-  const { getIsAddCyclicalActivityVisible, setIsAddCyclicalActivityVisible } =
-    useCyclicalActivitiesState();
+  const {
+    getIsAddCyclicalActivityVisible,
+    setIsAddCyclicalActivityVisible,
+    resetCyclicalActivityFormikDataForPUT,
+  } = useCyclicalActivitiesState();
   ////tsx
   return (
     <Fragment>
@@ -39,7 +42,7 @@ export default function DashboardCyclicalActivities(props: Props) {
                   text="dodaj zajęcia"
                   descriptionText="dodaj zajęcia"
                   actionFn={() => {
-                    // resetNewsletterFormikDataForPUT(); //TODO: add reset later
+                    resetCyclicalActivityFormikDataForPUT();
                     setIsAddCyclicalActivityVisible(true);
                   }}
                 />

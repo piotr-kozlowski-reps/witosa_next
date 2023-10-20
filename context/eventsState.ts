@@ -61,7 +61,7 @@ const eventsState = hookstate(
   devtools({ key: 'eventsState' })
 );
 
-export function useCyclicalActivitiesState() {
+export function useEventsState() {
   const state = useHookstate(eventsState);
 
   return {
