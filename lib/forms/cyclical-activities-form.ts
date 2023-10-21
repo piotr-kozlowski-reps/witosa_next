@@ -90,8 +90,8 @@ export function generateValidationForCyclicalActivities() {
   return yupSchema;
 }
 
-// export function validateValuesForCyclicalActivities(values: Object) {
-//   return yupSchema.isValidSync(values, { context: values });
-// }
+export function validateValuesForCyclicalActivities(values: Object) {
+  return yupSchema.isValidSync(values, { context: values });
+}
 
 // export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;
