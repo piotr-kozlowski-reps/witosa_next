@@ -289,11 +289,18 @@ export type TTypeDescriber = {
   isPlaceType: boolean;
 };
 
-export type TFormStage = {
+/**
+ * @prop isAccessToStage - initially true in first element of Array
+ * @prop isActive - initially true in first element of Array
+ * @prop linkName
+ * @callback callbackValidatingStage - callback of every stage -> validates values of that stage and gives promotion to next stage, if nothing passed the stage is considered valid (so last stage, can easily be ommited, because there's no need to check anything, becase we don't need any promotion further)
+ */
+export interface TFormStage {
   isAccessToStage: boolean;
   isActive: boolean;
   linkName: string;
-};
+  callbackValidatingStage?: (values: Object) => boolean;
+}
 
 export type TImageCyclicalActivityFormValues = Omit<
   ImageCyclicalActivity,

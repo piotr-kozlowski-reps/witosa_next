@@ -1,4 +1,4 @@
-import { ActivityType, Day, ForWhom, Place } from '@prisma/client';
+import { ActivityType, Day, EventType, ForWhom, Place } from '@prisma/client';
 import * as Yup from 'yup';
 
 //
@@ -30,6 +30,32 @@ export const activityTypeArrayYupSchema = Yup.array()
       let isValid = true;
       value!.forEach((el) => {
         if (Object.values(ActivityType).includes(el) === false) {
+          isValid = false;
+          return;
+        }
+      });
+
+      return isValid;
+    }
+  );
+
+//
+/** event type */
+export const eventTypeArrayYupSchema = Yup.array()
+  .test(
+    "array can't be empty",
+    'Chociaż jeden typ wydarzenia musi być wybrany.',
+    (value) => {
+      return value!.length === 0 ? false : true;
+    }
+  )
+  .test(
+    'array has to incude only EventTypes',
+    'Wybrany rodzaj wydarzenia jest niepoprawny.',
+    (value) => {
+      let isValid = true;
+      value!.forEach((el) => {
+        if (Object.values(EventType).includes(el) === false) {
           isValid = false;
           return;
         }

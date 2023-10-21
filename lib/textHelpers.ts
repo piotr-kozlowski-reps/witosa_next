@@ -222,15 +222,15 @@ export function getPolishPlaceName(place: Place) {
 
   switch (place) {
     case 'DANCING_ROOM':
-      polishPlaceName = 'Sala taneczna';
+      polishPlaceName = 'sala taneczna';
       break;
 
     case 'ART_ROOM':
-      polishPlaceName = 'Sala plastyczna';
+      polishPlaceName = 'sala plastyczna';
       break;
 
     case 'CONCERT_HALL':
-      polishPlaceName = 'Sala koncertowa';
+      polishPlaceName = 'sala koncertowa';
       break;
 
     default:
@@ -320,6 +320,10 @@ export function getPolishNameForEnumItem<T>(
 
   if (typeDescriber.isPlaceType) {
     return getPolishPlaceName(item as Place);
+  }
+
+  if (typeDescriber.isEventType) {
+    return getPolishEventTypeName(item as EventType);
   }
 
   throw new Error('getPolishNameForEnumItem - something went wrong');

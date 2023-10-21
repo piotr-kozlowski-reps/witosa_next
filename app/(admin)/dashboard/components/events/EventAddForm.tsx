@@ -1,9 +1,15 @@
+import CustomButton from '@/app/(site)/components/CustomButton';
+import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useEventsState } from '@/context/eventsState';
-import { generateValidationForEvents } from '@/lib/forms/events-form';
-import { TEventFormInputs } from '@/types';
-import { useFormik, validateYupSchema, yupToFormErrors } from 'formik';
+import { useFormStages } from '@/hooks/useFormStages';
+import { useFormikForEvents } from '@/hooks/useFormikForEvents';
+import { getInitialFormStagesForEventsObject } from '@/lib/forms/events-form';
+import { TEventFormInputs, TFormStage } from '@/types';
+import { FormikProps } from 'formik';
 import { Fragment } from 'react';
+import EventAddFormStageOne from './EventAddFormStageOne';
 
 export default function EventAddForm() {
   ////vars
@@ -12,22 +18,28 @@ export default function EventAddForm() {
     resetEventFormikDataForPUT,
     setIsAddEventVisible,
   } = useEventsState();
+
   const isCurrentFormToPOSTData = !getEventFormikDataForPUT().title;
   const isCurrentFormToPUTData = getEventFormikDataForPUT().title;
 
-  //formik
-  const validationSchema = generateValidationForEvents();
-  const formik = useFormik<TEventFormInputs>({
-    initialValues: getEventFormikDataForPUT() as TEventFormInputs,
-    onSubmit: () => {},
-    validate: (value) => {
-      try {
-        validateYupSchema(value, validationSchema, true, value);
-      } catch (error) {
-        return yupToFormErrors(error);
-      }
-    },
-  });
+  const formik = useFormikForEvents();
+
+  const stagesInitialStage: TFormStage[] = getInitialFormStagesForEventsObject(
+    formik.values
+  );
+
+  const {
+    goToFirstStage,
+    stage,
+    goToNextGivenStageOrJustNextStageOfForm,
+    goToPrevGivenStageOrJustPrevStageOfForm,
+    checkIfPrevIsEnabled,
+    checkIfNextIsEnabled,
+  } = useFormStages<TEventFormInputs>(stagesInitialStage, formik);
+
+  const submitFormHandler = (formik: FormikProps<TEventFormInputs>) => {
+    console.log('formik submitted', formik);
+  };
 
   ////tsx
   return (
@@ -49,8 +61,10 @@ export default function EventAddForm() {
         </div>
       </div>
 
-      {/* form */}
-      {/* <form
+      {/**
+       * form start
+       */}
+      <form
         action={async (formData) => {
           await submitFormHandler(formik);
         }}
@@ -67,20 +81,22 @@ export default function EventAddForm() {
         </div>
 
         {stage[0].isActive ? (
-          <CyclicalActivityAddFormStageOne<TCyclicalActivityFormInputs>
-            isCurrentFormToPUTData={isCurrentFormToPUTData}
-            formik={formik}
-          />
+          <ComponentTransitionFromRightToLeft>
+            <EventAddFormStageOne<TEventFormInputs>
+              isCurrentFormToPUTData={isCurrentFormToPUTData}
+              formik={formik}
+            />
+          </ComponentTransitionFromRightToLeft>
         ) : null}
 
-        {stage[1].isActive ? (
+        {/* {stage[1].isActive ? (
           <CyclicalActivityAddFormStageTwo<TCyclicalActivityFormInputs>
             isCurrentFormToPUTData={isCurrentFormToPUTData}
             formik={formik}
           />
-        ) : null}
+        ) : null} */}
 
-        {stage[2].isActive ? (
+        {/* {stage[2].isActive ? (
           <ComponentTransitionFromRightToLeft>
             <Fragment>
               <CyclicalActivityAddFormStageThree<TCyclicalActivityFormInputs>
@@ -89,12 +105,12 @@ export default function EventAddForm() {
               />
             </Fragment>
           </ComponentTransitionFromRightToLeft>
-        ) : null}
+        ) : null} */}
 
         <div className="mt-[40px] flex gap-8">
           <CustomButton
             text="poprzedni etap"
-            descriptionText="Przejdź dalej."
+            descriptionText="Poprzedni etap."
             additionalClasses="mt-[4px]"
             disabled={!checkIfPrevIsEnabled()}
             actionFn={() => goToPrevGivenStageOrJustPrevStageOfForm()}
@@ -111,14 +127,19 @@ export default function EventAddForm() {
           />
 
           <CustomButton
-            text={isCurrentFormToPUTData ? 'zmień zajęcia' : 'dodaj zajęcia'}
-            descriptionText="Dodaj użytkownika."
+            text={
+              isCurrentFormToPUTData ? 'zmień wydarzenie' : 'dodaj wydarzenie'
+            }
+            descriptionText="Dodaj wydarzenie."
             additionalClasses="mt-[4px]"
             onSubmit={true}
             disabled={!formik.dirty || !formik.isValid}
           />
         </div>
-      </form> */}
+      </form>
+      {/**
+       * form end
+       */}
     </Fragment>
   );
 }
