@@ -119,7 +119,9 @@ export const placesYupSchema = Yup.array()
 
 //
 /** boolean*/
-export const isBooleanYupSchema = Yup.boolean();
+export const isBooleanYupSchema = Yup.boolean().required(
+  'Pole musi mieć określoną wartość.'
+);
 
 //
 /** date or null */

@@ -87,15 +87,6 @@ export default function CyclicalActivityAddFormStageOne<T>(props: Props<T>) {
             isToBeUsedAsPartFormik={true}
             formik={formik}
           />
-          {/* <CheckboxFormik
-                  name="isExpirationDateToBeAdded"
-                  label="Czy chcesz dodać datę zakończenia publikacji?"
-                  isCommentPopupVisible={true}
-                  commentContent="Gdy pole będzie odznaczone i zarazem data nie będzie określona, zajęcia będą widoczne na stronie internetowej bez ograniczeń czasowych. Gdy pole będzie zaznaczone, należy podać datę, po której automatycznie zajęcia przestaną się wyświetlać na stronie."
-                  isToBeUsedAsPartFormik={false}
-                  actionFn={toggleExpiresAtVisibility}
-                  passedValue={isExpiresAtVisible}
-                /> */}
         </div>
 
         <AnimatePresence mode="wait">

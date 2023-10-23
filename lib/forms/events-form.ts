@@ -3,6 +3,9 @@ import * as Yup from 'yup';
 import {
   eventTypeArrayYupSchema,
   forWhomArrayYupSchema,
+  isBooleanYupSchema,
+  isDateOrNullYupSchema_AndThenRequired,
+  isDateYupSchema,
   nameSchemaYup_Required_Min2,
   placesYupSchema,
 } from '../yupSchemas';
@@ -57,6 +60,9 @@ export const eventsValidationSchemaStageOneWithYup = {
   eventTypes: eventTypeArrayYupSchema,
   eventForWhom: forWhomArrayYupSchema,
   places: placesYupSchema,
+  eventStartDate: isDateOrNullYupSchema_AndThenRequired,
+  isToBePublished: isBooleanYupSchema,
+  visibleFrom: isDateYupSchema,
 };
 export function validateValuesForEventsStageOne(values: Object) {
   return Yup.object({

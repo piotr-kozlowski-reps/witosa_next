@@ -1,8 +1,16 @@
+import CustomButton from '@/app/(site)/components/CustomButton';
+import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
+import DateAndTimePickerFormik from '@/app/(site)/components/forms/DateAndTimePickerFormik';
+import DatePickerFormik from '@/app/(site)/components/forms/DatePickerFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
+import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { EventType, ForWhom, Place } from '@prisma/client';
 import { FormikProps } from 'formik';
+import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
+import IsEventToBePublished from '../form_comments/IsEventToBePublished';
+import VisibleFromComment from '../form_comments/VisibleFromComment';
 
 type Props<T> = {
   isCurrentFormToPUTData: string;
@@ -12,6 +20,7 @@ type Props<T> = {
 export default function EventAddFormStageOne<T>(props: Props<T>) {
   ////vars
   const { isCurrentFormToPUTData, formik } = props;
+  const isIsToBePublished = formik.getFieldProps('isToBePublished').value;
 
   return (
     <Fragment>
@@ -25,7 +34,7 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
         />
       </div>
 
-      <div className=" mt-[20px]">
+      <div className="mt-[28px]">
         <MultipleSelectAsSeparateButtonsFormik<EventType, T>
           name="eventTypes"
           label={
@@ -38,7 +47,7 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
         />
       </div>
 
-      <div className="mt-[22px]">
+      <div className="mt-[27px]">
         <MultipleSelectAsSeparateButtonsFormik<ForWhom, T>
           name="eventForWhom"
           label={isCurrentFormToPUTData ? 'zmień dla kogo:' : 'dla kogo:'}
@@ -47,7 +56,7 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
         />
       </div>
 
-      <div className="mt-[22px]">
+      <div className="mt-[27px]">
         <MultipleSelectAsSeparateButtonsFormik<Place, T>
           name="places"
           label={
@@ -57,6 +66,64 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
           formik={formik}
         />
       </div>
+
+      <div className="mt-[28px]">
+        <DateAndTimePickerFormik<T>
+          name="eventStartDate"
+          label="data i godzina wydarzenia:"
+          formik={formik}
+          isErrorValidationTurnedOn={true}
+          errorText="Data musi być określona."
+        />
+      </div>
+
+      <div className="w-8 mt-[31px] mb-[0px] separator-horizontal"></div>
+
+      <div className="mt-[6px]">
+        <CheckboxFormik<T>
+          name="isToBePublished"
+          label="Czy wydarzenie ma być opublikowane?"
+          isCommentPopupVisible={true}
+          commentContent={<IsEventToBePublished />}
+          isToBeUsedAsPartFormik={true}
+          formik={formik}
+        />
+      </div>
+
+      <AnimatePresence mode="wait">
+        {isIsToBePublished ? (
+          <ComponentTransitionFromRightToLeft>
+            <div className="flex items-center justify-start">
+              <div className="mt-[26px]">
+                <DatePickerFormik<T>
+                  name="visibleFrom"
+                  label={
+                    isCurrentFormToPUTData
+                      ? 'zmień datę rozpoczęcia publikacji:'
+                      : 'data rozpoczęcia publikacji:'
+                  }
+                  formik={formik}
+                  isErrorValidationTurnedOn={true}
+                  isCommentPopupVisible={true}
+                  commentContent={<VisibleFromComment />}
+                />
+              </div>
+              <div className="mt-[46px] ml-4">
+                <CustomButton
+                  text="ustaw pole na dzisiejszą datę"
+                  descriptionText="Ustaw pole na dzisiejszą datę."
+                  disabled={false}
+                  actionFn={() => {
+                    formik.getFieldHelpers('visibleFrom').setValue(new Date());
+                  }}
+                  outlined={true}
+                  currentlyActive={false}
+                />
+              </div>
+            </div>
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
+      </AnimatePresence>
     </Fragment>
   );
 }
