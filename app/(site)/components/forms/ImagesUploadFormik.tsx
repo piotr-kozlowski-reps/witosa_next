@@ -99,13 +99,7 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   ////tsx
   return (
     <Fragment>
-      <label
-        htmlFor={name}
-        className={clsx(
-          'font-base-regular'
-          // isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
-        )}
-      >
+      <label htmlFor={name} className={clsx('font-base-regular')}>
         {label}
       </label>
       <DndContext

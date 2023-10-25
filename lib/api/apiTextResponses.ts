@@ -39,6 +39,10 @@ export const badCyclicalActivitiesData = 'Otrzymane dane są nieprawidłowe.';
 export const cyclicalActivityNotExistsMessage =
   'Nie można znaleźć takich zajęć w bazie danych.';
 
+//events
+export const dateOfEventIsNotDefined =
+  'Data wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
+
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
   email: string
 ) {

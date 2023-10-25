@@ -9,7 +9,10 @@ import { getInitialFormStagesForEventsObject } from '@/lib/forms/events-form';
 import { TEventFormInputs, TFormStage } from '@/types';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
+import EventAddFormStageFour from './EventAddFormStageFour';
 import EventAddFormStageOne from './EventAddFormStageOne';
+import EventAddFormStageThree from './EventAddFormStageThree';
+import EventAddFormStageTwo from './EventAddFormStageTwo';
 
 export default function EventAddForm() {
   ////vars
@@ -47,7 +50,9 @@ export default function EventAddForm() {
       <div className="flex items-center justify-between mb-[22px] mr-8 -mt-[18px]">
         <div className="prose">
           <h3>
-            {isCurrentFormToPUTData ? 'Zmień szczegóły zajęć' : 'Dodaj zajęcia'}
+            {isCurrentFormToPUTData
+              ? 'Zmień szczegóły wydarzenia'
+              : 'Dodaj wydarzenie'}
           </h3>
         </div>
         <div>
@@ -89,12 +94,32 @@ export default function EventAddForm() {
           </ComponentTransitionFromRightToLeft>
         ) : null}
 
-        {/* {stage[1].isActive ? (
-          <CyclicalActivityAddFormStageTwo<TCyclicalActivityFormInputs>
-            isCurrentFormToPUTData={isCurrentFormToPUTData}
-            formik={formik}
-          />
-        ) : null} */}
+        {stage[1].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <EventAddFormStageTwo<TEventFormInputs>
+              isCurrentFormToPUTData={isCurrentFormToPUTData}
+              formik={formik}
+            />
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
+
+        {stage[2].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <EventAddFormStageThree<TEventFormInputs>
+              isCurrentFormToPUTData={isCurrentFormToPUTData}
+              formik={formik}
+            />
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
+
+        {stage[3].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <EventAddFormStageFour<TEventFormInputs>
+              isCurrentFormToPUTData={isCurrentFormToPUTData}
+              formik={formik}
+            />
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
 
         {/* {stage[2].isActive ? (
           <ComponentTransitionFromRightToLeft>

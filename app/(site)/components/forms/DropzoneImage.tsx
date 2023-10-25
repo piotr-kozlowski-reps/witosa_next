@@ -113,7 +113,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
     <div
       {...getRootProps({
         className: clsx(
-          'flex-grow h-16 ml-8 w-max base-container-look hover:diagonal-lines-fill',
+          'flex-grow h-16 ml-8 w-auto base-container-look hover:diagonal-lines-fill cursor-pointer',
           currentValue && !isDragActive
             ? 'diagonal-lines-fill-secondary'
             : 'diagonal-lines-fill-gray',

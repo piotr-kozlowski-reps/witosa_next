@@ -11,15 +11,27 @@ type TCyclicalActivityState = {
 const eventFreshObject: TEventFormInputs = {
   //stage1
   id: new Date().getTime().toString(),
-
-  //
+  title: '',
   eventTypes: [],
   eventForWhom: [],
-  title: '',
   places: [],
-  shortDescription: '',
   eventStartDate: null,
-  eventEndDate: null,
+  eventEndDate: null, // omited
+  isToBePublished: true,
+  visibleFrom: null,
+  visibleTo: null,
+
+  //stage2
+  isToBeInNewsSection: true,
+  isToBeOnlyInNewsSection_NotSeenInEvents: false,
+  isDateToBeHiddenInNewsSection: false,
+  newsSectionImageUrl: null,
+  newsSectionImageAlt: '',
+
+  //stage3
+  isCustomLinkToDetails: false,
+  shortDescription: '',
+
   images: [
     {
       id: new Date().getTime().toString(),
@@ -35,19 +47,11 @@ const eventFreshObject: TEventFormInputs = {
   isPayed: false,
   kindOfEnterInfo: '',
   ticketBuyingUrl: null,
-  isToBeInNewsSection: true,
-  isToBeOnlyInNewsSection_NotSeenInEvents: false,
-  isDateToBeHiddenInNewsSection: false,
-  newsSectionImageUrl: null,
-  newsSectionImageAlt: null,
   isToBeInSlider: true,
   sliderImageUrl: null,
   sliderImageAlt: null,
   visibleInSliderFrom: null,
   visibleInSLiderTo: null,
-  isToBePublished: true,
-  visibleFrom: null,
-  visibleTo: null,
 };
 
 const eventsStateData: TCyclicalActivityState = {

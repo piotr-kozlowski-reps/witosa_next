@@ -69,6 +69,9 @@ export default function InputFormik<T>(props: Props<T>) {
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
+  // console.log({ isErrorPresentAndFieldWasTouched });
+  // console.log({ isErrorNotPresentAndFieldWasTouched });
+
   const currentValue = formik.getFieldMeta(name).value as string;
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;

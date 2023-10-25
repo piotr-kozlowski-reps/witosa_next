@@ -1,14 +1,25 @@
-import { TEventFormInputs, TFormStage } from '@/types';
+import { TEventFormInputs, TFormStage, TOptionsForFormikSelect } from '@/types';
 import * as Yup from 'yup';
 import {
+  altFieldNameYupSchema,
+  customLinkToDetailsEventYupSchema,
+  detailedDescriptionYupSchema,
+  eventIsToBeOnlyInNewsSection_NotSeenInEvents__And__IsDateToBeHiddenInNewsSection_YupSchema,
   eventTypeArrayYupSchema,
+  eventVisibleFromAndVisibleToYupSchema,
   forWhomArrayYupSchema,
+  imagesArrayEventsYupSchema,
   isBooleanYupSchema,
   isDateOrNullYupSchema_AndThenRequired,
-  isDateYupSchema,
   nameSchemaYup_Required_Min2,
+  newsSectionImageUrlYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
+import { serveOptionsForCustomLinkToDetails } from './cyclical-activities-form';
+
+export function serveOptionsForCustomLinkToDetailsInEvents(): TOptionsForFormikSelect<boolean>[] {
+  return serveOptionsForCustomLinkToDetails();
+}
 
 /**
  * initial stages
@@ -62,7 +73,8 @@ export const eventsValidationSchemaStageOneWithYup = {
   places: placesYupSchema,
   eventStartDate: isDateOrNullYupSchema_AndThenRequired,
   isToBePublished: isBooleanYupSchema,
-  visibleFrom: isDateYupSchema,
+  visibleFrom: eventVisibleFromAndVisibleToYupSchema,
+  visibleTo: eventVisibleFromAndVisibleToYupSchema,
 };
 export function validateValuesForEventsStageOne(values: Object) {
   return Yup.object({
@@ -72,7 +84,13 @@ export function validateValuesForEventsStageOne(values: Object) {
 
 //stage2
 export const eventsValidationSchemaStageTwoWithYup = {
-  IsPayed: nameSchemaYup_Required_Min2, //TODO: wywal - to tylko tymczasowe
+  isToBeInNewsSection: isBooleanYupSchema,
+  isToBeOnlyInNewsSection_NotSeenInEvents:
+    eventIsToBeOnlyInNewsSection_NotSeenInEvents__And__IsDateToBeHiddenInNewsSection_YupSchema,
+  isDateToBeHiddenInNewsSection:
+    eventIsToBeOnlyInNewsSection_NotSeenInEvents__And__IsDateToBeHiddenInNewsSection_YupSchema,
+  newsSectionImageUrl: newsSectionImageUrlYupSchema,
+  newsSectionImageAlt: altFieldNameYupSchema,
 };
 export function validateValuesForEventsStageTwo(values: Object) {
   return Yup.object({
@@ -82,11 +100,15 @@ export function validateValuesForEventsStageTwo(values: Object) {
 
 //stage3
 export const eventsValidationSchemaStageThreeWithYup = {
-  IsPayed: nameSchemaYup_Required_Min2, //TODO: wywal - to tylko tymczasowe
+  isCustomLinkToDetails: isBooleanYupSchema,
+  shortDescription: nameSchemaYup_Required_Min2,
+  customLinkToDetails: customLinkToDetailsEventYupSchema,
+  detailedDescription: detailedDescriptionYupSchema,
+  images: imagesArrayEventsYupSchema,
 };
 export function validateValuesForEventsStageThree(values: Object) {
   return Yup.object({
-    ...eventsValidationSchemaStageTwoWithYup,
+    ...eventsValidationSchemaStageThreeWithYup,
   }).isValidSync(values, { context: values });
 }
 
@@ -96,7 +118,7 @@ export const eventsValidationSchemaStageFourWithYup = {
 };
 export function validateValuesForEventsStageFour(values: Object) {
   return Yup.object({
-    ...eventsValidationSchemaStageTwoWithYup,
+    ...eventsValidationSchemaStageFourWithYup,
   }).isValidSync(values, { context: values });
 }
 

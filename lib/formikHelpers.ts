@@ -8,6 +8,7 @@ export function getIsErrorPresentAndFieldWasTouched<T>(
   fieldName: string
 ) {
   const error = getErrorForField<T>(formik, fieldName);
+
   return error && formik.getFieldMeta(fieldName).touched;
 }
 export function getIsErrorNOTPresentAndFieldWasTouched<T>(

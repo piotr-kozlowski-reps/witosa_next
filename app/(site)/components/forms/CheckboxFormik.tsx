@@ -81,7 +81,7 @@ export default function CheckboxFormik<T = void>(props: Props<T>) {
             </div>
           </div>
           {isCommentPopupVisible ? (
-            <div className="px-2">
+            <div className="px-2 z-60">
               <CommentPopup
                 size="EXTRA_SMALL"
                 alt={`${name} - komentarz.`}

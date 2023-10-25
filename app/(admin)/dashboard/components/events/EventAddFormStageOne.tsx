@@ -5,12 +5,16 @@ import DatePickerFormik from '@/app/(site)/components/forms/DatePickerFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms/MultipleSelectAsSeparateButtonsFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
+import { useNotificationState } from '@/context/notificationState';
+import { dateOfEventIsNotDefined } from '@/lib/api/apiTextResponses';
+import { isDateYupSchema } from '@/lib/yupSchemas';
 import { EventType, ForWhom, Place } from '@prisma/client';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
 import IsEventToBePublished from '../form_comments/IsEventToBePublished';
 import VisibleFromComment from '../form_comments/VisibleFromComment';
+import VisibleToComment from '../form_comments/VisibleToComment';
 
 type Props<T> = {
   isCurrentFormToPUTData: string;
@@ -19,8 +23,24 @@ type Props<T> = {
 
 export default function EventAddFormStageOne<T>(props: Props<T>) {
   ////vars
+  const { setShowNotification } = useNotificationState();
   const { isCurrentFormToPUTData, formik } = props;
   const isIsToBePublished = formik.getFieldProps('isToBePublished').value;
+
+  function visibleToHandler(formik: FormikProps<T>) {
+    const eventStartDateValue = formik.getFieldMeta('eventStartDate').value;
+
+    console.log({ eventStartDateValue });
+
+    if (
+      !eventStartDateValue ||
+      !isDateYupSchema.isValidSync(eventStartDateValue)
+    ) {
+      setShowNotification('ERROR', dateOfEventIsNotDefined);
+      return;
+    }
+    formik.getFieldHelpers('visibleTo').setValue(eventStartDateValue);
+  }
 
   return (
     <Fragment>
@@ -93,34 +113,65 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
       <AnimatePresence mode="wait">
         {isIsToBePublished ? (
           <ComponentTransitionFromRightToLeft>
-            <div className="flex items-center justify-start">
-              <div className="mt-[26px]">
-                <DatePickerFormik<T>
-                  name="visibleFrom"
-                  label={
-                    isCurrentFormToPUTData
-                      ? 'zmień datę rozpoczęcia publikacji:'
-                      : 'data rozpoczęcia publikacji:'
-                  }
-                  formik={formik}
-                  isErrorValidationTurnedOn={true}
-                  isCommentPopupVisible={true}
-                  commentContent={<VisibleFromComment />}
-                />
+            <Fragment>
+              <div className="flex items-center justify-start">
+                <div className="mt-[26px]">
+                  <DatePickerFormik<T>
+                    name="visibleFrom"
+                    label={
+                      isCurrentFormToPUTData
+                        ? 'zmień datę rozpoczęcia publikacji:'
+                        : 'data rozpoczęcia publikacji:'
+                    }
+                    formik={formik}
+                    isErrorValidationTurnedOn={true}
+                    isCommentPopupVisible={true}
+                    commentContent={<VisibleFromComment />}
+                  />
+                </div>
+                <div className="mt-[46px] ml-4">
+                  <CustomButton
+                    text="ustaw pole na dzisiejszą datę"
+                    descriptionText="Ustaw pole na dzisiejszą datę."
+                    disabled={false}
+                    actionFn={() => {
+                      formik
+                        .getFieldHelpers('visibleFrom')
+                        .setValue(new Date());
+                    }}
+                    outlined={true}
+                    currentlyActive={false}
+                  />
+                </div>
               </div>
-              <div className="mt-[46px] ml-4">
-                <CustomButton
-                  text="ustaw pole na dzisiejszą datę"
-                  descriptionText="Ustaw pole na dzisiejszą datę."
-                  disabled={false}
-                  actionFn={() => {
-                    formik.getFieldHelpers('visibleFrom').setValue(new Date());
-                  }}
-                  outlined={true}
-                  currentlyActive={false}
-                />
+
+              <div className="flex items-center justify-start">
+                <div className="mt-[26px]">
+                  <DatePickerFormik<T>
+                    name="visibleTo"
+                    label={
+                      isCurrentFormToPUTData
+                        ? 'zmień datę zakończenia publikacji:'
+                        : 'data zakończenia publikacji:'
+                    }
+                    formik={formik}
+                    isErrorValidationTurnedOn={true}
+                    isCommentPopupVisible={true}
+                    commentContent={<VisibleToComment />}
+                  />
+                </div>
+                <div className="mt-[46px] ml-4">
+                  <CustomButton
+                    text="ustaw datę na dzień wydarzenia"
+                    descriptionText="Ustaw datę na dzień wydarzenia."
+                    disabled={false}
+                    actionFn={() => visibleToHandler(formik)}
+                    outlined={true}
+                    currentlyActive={false}
+                  />
+                </div>
               </div>
-            </div>
+            </Fragment>
           </ComponentTransitionFromRightToLeft>
         ) : null}
       </AnimatePresence>

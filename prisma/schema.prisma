@@ -111,6 +111,7 @@ model Event{
   authorId String
 
   //details
+  isCustomLinkToDetails Boolean
   images ImageEvent[]
   detailedDescription String
   customLinkToDetails String?
@@ -123,7 +124,7 @@ model Event{
   //news
   isToBeInNewsSection Boolean
   isToBeOnlyInNewsSection_NotSeenInEvents Boolean
-  isDateToBeHiddenInNewsSection Boolean
+  isDateToBeHiddenInNewsSection Boolean?
   newsSectionImageUrl String?
   newsSectionImageAlt String?
 

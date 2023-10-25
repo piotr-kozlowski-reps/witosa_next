@@ -1,4 +1,9 @@
-import { TCyclicalActivityFormInputs, TFormStage } from '@/types';
+import {
+  TCyclicalActivityFormInputs,
+  TFormStage,
+  TOptionsForFormikSelect,
+} from '@/types';
+import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
   activityTypeArrayYupSchema,
@@ -12,6 +17,25 @@ import {
   occurrenceYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
+
+export function serveOptionsForCustomLinkToDetails(): TOptionsForFormikSelect<boolean>[] {
+  return [
+    { value: false, label: 'uzupełnię szczegółowy opis oraz obrazki' },
+    { value: true, label: 'podam adres www do strony z detalami' },
+  ];
+}
+
+export function defineCurrentIndex<T>(
+  formik: FormikProps<T>,
+  options: TOptionsForFormikSelect<boolean>[]
+) {
+  const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
+  const indexOfOptionsThatContainsCurrentValue = options.findIndex(
+    (item) => item.value === currentValue
+  );
+
+  return indexOfOptionsThatContainsCurrentValue;
+}
 
 /**
  * initial stages

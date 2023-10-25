@@ -11,13 +11,21 @@ type Props = {
   size?: TIconSize;
   commentContent: React.ReactNode;
   isShowCommentToTheLeft?: boolean;
+  isShowCommentInMiddle?: boolean;
+
   // additionalClasses?: string;
   // actionFn: () => void;
 };
 
 export default function CommentPopup(props: Props) {
   ////vars
-  const { alt, size, commentContent, isShowCommentToTheLeft = false } = props;
+  const {
+    alt,
+    size,
+    commentContent,
+    isShowCommentToTheLeft = false,
+    isShowCommentInMiddle = false,
+  } = props;
   const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
   const [isCommentVisible, setIsCommentVisible] = useState(false);
 
@@ -33,7 +41,6 @@ export default function CommentPopup(props: Props) {
     <div style={{ width: width, height: height }} className="relative">
       <span className="sr-only">{alt}</span>
       <button
-        // className="icon-active"
         type="button"
         onMouseOver={turnOnCommentVisibility}
         onMouseLeave={turnOffCommentVisibility}
@@ -48,7 +55,7 @@ export default function CommentPopup(props: Props) {
             animate="visible"
             exit="exit"
             className={clsx(
-              'absolute bottom-0 w-64 p-4  bg-skin-main-bg font-base-regular drop-shadow-big rounded-base',
+              'absolute bottom-0 w-80 p-4 bg-skin-main-bg font-base-regular drop-shadow-big rounded-base z-60',
               isShowCommentToTheLeft ? 'right-8' : 'left-8'
             )}
           >

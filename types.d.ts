@@ -381,3 +381,8 @@ export type TEventFormInputs = Omit<
   visibleFrom: Date | null;
   visibleTo: Date | null;
 };
+
+export type TOptionsForFormikSelect<T> = {
+  value: T;
+  label: string;
+};

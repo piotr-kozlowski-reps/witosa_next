@@ -36,8 +36,6 @@ export default function DatePickerFormik<T>(props: Props<T>) {
 
   const error = getErrorForField<T>(formik, name);
 
-  console.log({ error });
-
   const isErrorPresentAndFieldWasTouched =
     getIsErrorPresentAndFieldWasTouched<T>(formik, name);
   const isErrorNotPresentAndFieldWasTouched =

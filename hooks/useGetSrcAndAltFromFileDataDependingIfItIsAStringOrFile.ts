@@ -7,7 +7,11 @@ export function useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(
   let alt = '';
   let isFileATFileWithPreviewType = false;
 
-  if (fileOrURLString && typeof fileOrURLString === 'string') {
+  if (
+    fileOrURLString &&
+    typeof fileOrURLString === 'string' &&
+    fileOrURLString !== ''
+  ) {
     alt = fileOrURLString;
     src = `${process.env.NEXT_PUBLIC_BASE_URL}${fileOrURLString}`;
   }
