@@ -78,6 +78,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              <b>Marcin Wyrostek</b> - wirtuoz akordeonu, kompozytor i aranżer,\r\n              absolwent i obecnie wykładowca Akademii Muzycznej w Katowicach na\r\n              Wydziale Instrumentalnym oraz Wydziale Jazzu i Muzyki Rozrywkowej.\r\n            </p>\r\n            <p>\r\n              Zwycięzca polskiej edycji programu Mam Talent TVN. Zdobywca 7\r\n              Platynowych Płyt, nagroda Prezydenta RP 2010, Nagroda Ministra\r\n              Kultury 2004, Bestseller Empiku 2012, Statuetka Top Trendy 2011,\r\n              Promotor Polski 2017 - to tylko nieliczne sukcesy i tytuły jakie\r\n              Marcin Wyrostek zdobył na polskiej scenie muzycznej. Ponadto jest\r\n              laureatem i zwycięzcą wielu Międzynarodowych Konkursów\r\n              Akordeonowych: AAA Festival Detroit (USA), Coupe Mondiale\r\n              (Słowacja, Węgry), Reinach AG (Szwajcaria), Rzym (Włochy).\r\n            </p>\r\n            <p>\r\n              Podczas Festiwalu Otwarcia Art. CK, artysta wystąpi z recitalem\r\n              solowym opartym na muzyce baroku, romantyzmu (transkrypcje utworów\r\n              organowych, orkiestrowych, fortepianowych), muzyce współczesnej\r\n              oraz własnych kompozycjach, w których wyraźnie słychać inspiracje\r\n              muzyką ilustracyjną, popularną, filmową, argentyńską, hiszpańską,\r\n              bałkańską, francuską, polską i żydowską. Usłyszymy tu akordeon\r\n              zarówno w wersji akustycznej jak i elektronicznej.\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -136,6 +137,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div>\r\n            <p>\r\n              Zapraszamy naszych <b>MŁODYCH GOŚCI</b> na uroczyste otwarcie\r\n              <b> Art CK!</b>\r\n            </p>\r\n            <p>\r\n              Spotykamy się o <b>15.30</b> przy\r\n              <b> Miejskiej Szkole Podstawowej nr 9</b> w Knurowie i cudownym\r\n              korowodem prowadzonym przez fantastycznych artystów z\r\n              <b> Teatru LUFCIK NA KORBKĘ</b> dotrzemy do nas, gdzie na\r\n              powitanie będzie czekała na Was pierwsza niespodzianka!\r\n            </p>\r\n            <p>\r\n              W dalszej kolejności na naszej scenie pojawi się artysta, który\r\n              zaczaruje nas pokazem magicznych świateł <b>LED SHOW</b>.\r\n            </p>\r\n            <p>\r\n              Po pokazie świateł będziecie mogli wziąć udział w grach\r\n              prowadzonych przez Teatr LUFCIK NA KORBKĘ, zabawach tanecznych,\r\n              które nasze cudowne instruktorki tańca przygotują je specjalnie\r\n              dla Was w sali tanecznej oraz zabawach plastycznych,\r\n              przygotowanych przez nasze instruktorki działań twórczych w\r\n              pracowni plastycznej.\r\n            </p>\r\n            <p>\r\n              Około godziny <b>19.00</b> zapraszamy na <b>dobranockę filmową</b>\r\n              , którą się tego dnia pożegnamy i będziemy czekać na Was z\r\n              niecierpliwością w kolejne dni na spotkaniach organizacyjnych do\r\n              zajęć tanecznych i na realizowanych już od 4 września zajęć\r\n              plastycznych!\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -192,6 +194,7 @@ export const allEventsMockData: TEventTemporary[] = [
 
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Akcja Narodowego Czytania została zainicjowana w 2012 roku wspólną\r\n              lekturą Pana Tadeusza Adama Mickiewicza. W 2013 roku w całej\r\n              Polsce odbyło się czytanie dzieł Aleksandra Fredry, a w rok\r\n              później przeczytano Trylogię Henryka Sienkiewicza.\r\n            </p>\r\n            <p>\r\n              Nad Niemnem to najbardziej znana powieść Elizy Orzeszkowej.\r\n              Powstawała w latach 1886-1887, a w formie książka ukazała się w\r\n              1888 roku. Ze względu na barwne opisy, wyrazistych bohaterów i\r\n              odwołania historyczne dzieło porównywano do Mickiewiczowskiego\r\n              &quot;Pana Tadeusza&quot;. Powieścią zainteresowała się również X\r\n              Muza, pierwszą ekranizację książki ukończono w 1939 roku, ale\r\n              obraz zaginął w czasie II wojny światowej. Kolejny film nakręcono\r\n              w połowie lat 80. XX wieku. Nad Niemnem to jeden najważniejszych\r\n              utworów literatury polskiej podejmujący tematykę Powstania\r\n              Styczniowego, którego 160-lecie obchodzone jest właśnie w 2023\r\n              roku.\r\n            </p>\r\n            <p>\r\n              Centrum Kultury w Knurowie połączyło siły z Zespołem Szkół\r\n              Zawodowych nr 2 w Knurowie i wspólnie zapraszają do udziału w tym\r\n              literackim wydarzeniu.\r\n            </p>\r\n            <p>\r\n              W programie poza oczywistym czytaniem fragmentów powieści\r\n              &quot;Nad Niemnem&quot; Elizy Orzeszkowej odbędą się warsztaty\r\n              artystyczne dla dzieci, akcja „Wymień Książkę z Biblioteką”,\r\n              możliwość ostemplowania własnego egzemplarza „Nad Niemnem”\r\n              dedykowaną pieczątką Narodowego Czytania i oczywiście wśród nas\r\n              będzie również Moluś Książkow.\r\n            </p>\r\n            <p>\r\n              Każdy otrzyma tematyczny upominek w postaci pamiątkowej widokówki\r\n              z cytatem.\r\n            </p>\r\n            <p>\r\n              Ponadto uczestnikom spotkania będzie towarzyszył zapach kawy i\r\n              słodkości pochodzący z naszej Art Cafe!\r\n            </p>\r\n            <p>\r\n              <b>Zapraszamy serdecznie!</b>\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -244,6 +247,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Zapraszamy wszystkich chętnych młodych tancerzy do naszych grup\r\n              tanecznych: Marzenie Mini Mini, Marzenie Bis, Marzenie, Hipnoteria\r\n              Bis, Hipnoteria. Przed rozpoczęciem zajęć organizujemy spotkania\r\n              organizacyjne do każdej z grup, podczas których opowiemy jak,\r\n              gdzie i kiedy prowadzimy nasze zajęcia, będziecie również mieli\r\n              okazję poznać instruktorów, prowadzących poszczególne grupy.\r\n            </p>\r\n            <p>\r\n              Poniżej harmonogram spotkań organizacyjnych dla poszczególnych\r\n              grup:\r\n            </p>\r\n            <ul>\r\n              <li>\r\n                <b>04.09.2023 r., godz. 18:00</b> - Spotkanie organizacyjne dla\r\n                grupy pokazowej Marzenie\r\n              </li>\r\n              <li>\r\n                <b>06.09.2023 r., godz. 17:00</b> - Spotkanie organizacyjne dla\r\n                zespołów Hipnoteria i Hipnoteria Bis\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 16.00</b> - Spotkanie organizacyjne dla\r\n                dzieci początkujących w wieku 6-7 lat\r\n              </li>\r\n              <li>\r\n                <b>08.09.2023 r., godz. 17.30</b> - Spotkanie organizacyjne dla\r\n                grupy utaneczniającej z roku 2022/2023 oraz zespołu Marzenie\r\n                Mini Mini\r\n              </li>\r\n            </ul>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -297,6 +301,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '        <div>\r\n            <p>\r\n              Zapraszamy serdecznie na pełen energii, pasji i niesamowitości\r\n              koncert Duo Flamenco w wykonaniu Michała Czachowskiego i Anny\r\n              Mendak.\r\n            </p>\r\n            <p>\r\n              Flamenco jest najpopularniejszą muzyką etniczną na świecie,\r\n              powstała w Andaluzji, regionie południowej Hiszpanii, gdzie\r\n              przewijały się kultury różnych nacji. W wyniku wzajemnych wpływów,\r\n              na początku XIX wieku powstała niezwykle ekspresyjna muzyka, którą\r\n              znamy pod nazwą Flamenco.\r\n            </p>\r\n            <p>\r\n              <b>Michał Czachowski</b> - gitarzysta flamenco, kompozytor,\r\n              producent muzyczny. Swe umiejętności muzyczne rozwijał u boku\r\n              takich gitarzystów flamenco jak: Rafael Cortés, Gerardo Núñez i\r\n              Salva del Real. Dwukrotnie został uznany za najlepszego gitarzystę\r\n              Flamenco w Polsce. Założyciel zespołu muzyki flamenco Viva\r\n              Flamenco oraz międzynarodowego projektu Indialucia, za który był\r\n              nominowany do Fryderyków 2006.\r\n            </p>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka Flamenco w Polsce,\r\n              choreograf, pedagog, tancerka brzucha, psycholog. Przez ponad 10\r\n              lat była czołową tancerką polskich grup flamenco. Wraz z zespołami\r\n              występowała na wielu festiwalach tanecznych, gitarowych i\r\n              folkowych. W 2004 roku zajęła I miejsce w konkursie na najlepszą\r\n              polską tancerkę flamenco.\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -350,6 +355,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div>\r\n            <p>\r\n              <b>Anna Mendak</b> - czołowa tancerka flamenco poprowadzi\r\n              warsztaty tańca dla dzieci w wieku 7-14 lat.\r\n            </p>\r\n            <p>\r\n              Podczas warsztatów uczestnicy wykonają wachlarz flamenco,\r\n              zapoznają z się z podstawowymi technikami i krokami tańca\r\n              flamenco. Muzyczny klimat podczas warsztatów stworzy Michał\r\n              Czachowski wirtuoz gitary. Wszyscy uczestnicy niesamowitego\r\n              spotkania będą mogli zrobić sobie pamiątkowe zdjęcie z artystami\r\n              na scenie Art CK.\r\n            </p>\r\n            <p>\r\n              Rezerwacja telefoniczna pod nr telefonu 32/332 63 81 w godz. 15.00\r\n              -20.00.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Zapraszamy!</b>\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -398,6 +404,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div>\r\n            <p>\r\n              Zapraszamy na wieczór z kubańską muzyką w wykonaniu zespołu\r\n              Cumbancheros w składzie:\r\n            </p>\r\n            <p>\r\n              <b>Edi Sánchez</b> jest Kolumbijczykiem, który od kilku lat\r\n              mieszka w Polsce. Razem z zespołem zaprezentuje szeroki repertuar\r\n              muzyki latynoskiej, wywodzącej się z rejonu Morza Karaibskiego. W\r\n              jego repertuarze znajdują się utwory w stylu rumba, cha-cha,\r\n              mambo, salsa i inne. Ciągłe eksperymentowanie i łączenie różnych\r\n              gatunków salsowych jest oryginalną i emocjonującą propozycją dla\r\n              publiczności. Lider zespołu jest nie tylko wielkim orędownikiem\r\n              muzyki wywodzącej się z jego rodzinnych stron, ale także\r\n              prawdziwym showmanem, który z charakterystyczną dla kolumbijczyków\r\n              energią i pasją prezentuje latynoskie standardy, czym zaraża\r\n              publiczność, skłania do uśmiechu i tańca w gorących rytmach salsy.\r\n              Jego ideą jest przekazanie pozytywnych wibracji, które muzyka ta\r\n              stwarza i przenosi, oraz ukazanie jej niezwykle towarzyskiego\r\n              charakteru.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Paul Chapman</b>, Wenezuelski muzyk, muzycznie kształcił się w\r\n              swojej rodzimej Wenezueli. Od kilku lat mieszka i koncertuje w\r\n              Polsce i dzieli się z polskimi muzykami i słuchaczami muzyką\r\n              Ameryki Łacińskiej.\r\n            </p>\r\n\r\n            <p>\r\n              <b>Alberto Suazo Sanchez</b>, urodził się w Coscomatepec stan\r\n              Veracruz Meksyk. Swoja przygodę z muzyką rozpoczął w wieku 10 lat.\r\n              Gra na instrumentach strunowych (gitara,charango, jarama vihuela ,\r\n              guitarron, cuatro venezolano, tiple colombiano). Wielokorotnie\r\n              uczestniczył w festiwalach w Meksyku i Europie, zdobywając na nich\r\n              liczne nagrody. Występuje zarówno solowo jak i z zespołami (np.\r\n              Orizaba, Grupo Colibri, Grupo Tlahuiskalli ). Obecnie mieszka w\r\n              Polsce i zajmuje się programami artystycznymi związanymi z muzyka\r\n              latynoamerykañską.\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -456,6 +463,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '  <div>\r\n            <p>\r\n              Spektakl pełen walizek, a walizki pełne lalek, bajek, historii i\r\n              opowieści - z różnych krajów, czasów i miejsc (nawet takich, które\r\n              w ogóle nie istnieją!) Pojawiają się bardzo różne lalki a historie\r\n              są raz śmieszne innym razem trochę straszne! Spektakl nie ma\r\n              końca, gdyż nowe historie w nowych walizkach pojawiają się cały\r\n              czas! Aktualnie można spotkać się z: Najsmaczniejszą walizką - a w\r\n              niej aromatyczna historia z Krainy Sera, Walizką pełną\r\n              krasnoludków - historia o krasnoludku, który nauczył się latać.\r\n              Tajemnicza walizka, w której mieści się chyba z tysiąc historii,\r\n              ale lubi ona płatać figle… Walizka z czasów jaskiniowców - z\r\n              jedynym na świecie… a niech to będzie niespodzianką!\r\n            </p>\r\n\r\n            <p>\r\n              Teatr Lalek Marka Żyły powstał w 2016 r. z pasji i miłości do\r\n              lalek i rozśmieszania. Każdy temat starają się okrasić sporą dawką\r\n              dobrego humoru. Ideą tego teatru jest teatr wędrowny, jarmarczny,\r\n              który gra wszędzie tam, gdzie tylko można ustawić niewielką scenę,\r\n              pełną lalek!\r\n            </p>\r\n          </div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -510,6 +518,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '          <div><p>Zapraszamy na zajęcia akrobatyki. Rozpoczęliśmy zapisy.</p><p>Dzwońcie w godzinach popołudniowych na numery <b>32 332 63 97</b> lub <b>32 332 63 79.</b></p><p>Pierwsze zajęcia odbędą się w sobotę, <b>30 września</b>.</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -559,6 +568,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p>Serdecznie zapraszamy w piątek, <b>15 września o godz. 18:00</b> na <b>spotkania autorskie z Justyną Wydrą</b> do nowo otwartego Art CK w Knurowie, przy ul. Witosa 6.</p><p>Prowadzenie: <b>Szymon Szwajger</b>.</p><p><b>Justyna Wydra</b> - od zawsze kocha się w słowach. Szczególnie tych pisanych, śpiewanych i wypowiadanych na kinowym ekranie. Pracuje z nimi jako copywriter i autorka artykułów dla prasy drukowanej oraz internetowej. Pochodzi z Gliwic, gdzie dorastała i mieszka do dziś. Z rodzinnym miastem i Śląskiem czuje się silnie związana, co znajduje odzwierciedlenie także w jej twórczości. Współtwórczyni Klubu Książki Kobiecej. Justyna Wydra książki zaczęła wydawać w połowie zeszłej dekady i od tego czasu publikuje regularnie. Najnowsza powieść jej autorstwa pt. Ja matką? Ratunku! do księgarń trafiła pod koniec zeszłego roku. Po godzinach czyta książki, prowadzi bloga, słucha muzyki i stara się nadrobić filmowe zaległości. Gdy ma już naprawdę serdecznie dosyć słów, zamyka za sobą drzwi i udaje się tam, dokąd pokieruje ją instynkt Włóczykija - najczęściej ląduje na górskim szlaku, bądź w północnych Włoszech.</p><p>Autorka powieści „Esesman i Żydówka”, ”Zaniemówienie”, "Ponieważ wróciłam”, „Warkoczyk”, „Ja matką? Ratunku!”.</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -615,6 +625,7 @@ export const allEventsMockData: TEventTemporary[] = [
       // },
     ],
     detailedDescription: '',
+    isCustomLinkToDetails: true,
     customLinkToDetails: '/activities/83aw7r17-0uu4-41e1-fff5-c36bvendh878',
 
     //paying
@@ -673,6 +684,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p>Jeśli masz 13-16 lat i kochasz czytanie ten wieczór jest dla Ciebie!</p><p>W programie:</p><ul><li>czytanie fragmentów serii „Zwiadowcy” Johna Flanagana,</li><li>familiada książkowa (quizy, challenge, wyzwania),</li><li>wspólne kręcenie książkowego filmiku,</li><li>sjesta biblioteczna (pogawędka o bibliotece i czytaniu),</li><li>literacka uczta (poczęstunek).</li></ul><p>Wydarzenie jest realizowane w ramach projektu "Nowe otwarcie - Projekt DK+. Inicjatywy Lokalne ".</p><p>Dofinansowano ze środków Ministra Kultury i Dziedzictwa Narodowego w ramach programu Narodowego Centrum Kultury: Dom Kultury+ Edycja 2023</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -729,6 +741,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p><b>Alek Rogoziński</b> - Z zawodu dziennikarz, z pasji kryminalista… to znaczy - twórca kryminałów. Przez lata związany z mediami (Radio Plus i Radio Kolor).</p><p>Zadebiutował w marcu 2015 roku kryminałem „Ukochany z piekła rodem”, zdobywając pierwsze miejsce na liście bestsellerów kryminalnych EMPIK.com. Kolejną pierwszą pozycję zdobył w 2022 roku w kategorii literatura obyczajowa dzięki powieści „Przeklęta szkatułka”. Dwie jego powieści, „Jak Cie zabić, kochanie?” i „Do trzech razy śmierć”, zostały nominowane w plebiscycie „Książka roku” portalu Lubimy Czytać.</p><p>Za książkę „Lustereczko, powiedz przecie” nagrodzony 1-szą nagrodą w plebiscycie „Zbrodnia z przymrużeniem oka”. Ponownie zdobył tę nagrodę rok później za powieść „Zbrodnia w wielkim mieście”, a dwa lata później za komedię kryminalną „Raz, dwa, trzy… giniesz ty!”.W 2021 roku jego książka „Miasteczko morderców” została nominowana do Grand Prix Festiwalu Kryminalna Warszawa.</p><p>W październiku 2022 roku w czasie gali wręczenia nagród „Złoty Pocisk”, odbywającej się w ramach 25. Międzynarodowych Targów Książki w Krakowie, został wyróżniony za swoją twórczość nagrodą specjalną!</p><p>Spotkanie realizowane jest z programu Narodowego Centrum Kultury Dom Kultury + Edycja 2023.</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -780,6 +793,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p>Za nami już wieczór hiszpański (z flamenco), wieczór kubański, a przed nami wieczór włoski - chcieliśmy w naszym Art CK przedłużyć ten uroczy czas wakacyjnych podróży i wspomnień, dając Wam możliwość artystycznego przeniesienia się do tych pięknych, pełnych słońca i pozytywnej energii miejsc.</p><p>Zatem, planujcie już wieczór 20 października aby pobyć z nami trochę we włoskich klimatach!!!</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -829,6 +843,7 @@ export const allEventsMockData: TEventTemporary[] = [
     ],
     detailedDescription:
       '<div><p>Dynia bardzo lubi się z jesiennymi kwiatami! Będzie wyglądała świetnie  jako… oryginalny wazon na kwiaty. Uczestnicząc w naszym Kobiecym Wieczorze z DYNIĄ w tle przygotujemy dla Ciebie wszystkie materiały, które będą potrzebne Ci do stworzenia pięknej dekoracji dyniowo - kwiatowej, którą oczywiście weźmiesz do swojego domu! W naszej Art Cafe otrzymasz również profesjonalną pomoc i wsparcie w wykonaniu tej dekoracji.</p><p>Stworzymy dla Ciebie niezwykłą atmosferę wspierającą twórczą pracę:  świece, muzyka, uśmiech, pyszności dyniowe, świeża kawa - czy jeszcze o czymś zapomnieliśmy by dać Ci chwilę odprężenia?</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -887,6 +902,7 @@ export const allEventsMockData: TEventTemporary[] = [
 
     detailedDescription:
       '<div><p>  Jasiek - Założyciel studia Tutaj oraz studia Origin of, tancerz i choreograf prężnie działający na polskiej i zagranicznej scenie tanecznej.</p><p>Jego pasją jest przekazywanie swojej wiedzy kolejnym pokoleniom tancerzy. Szczególnie pociąga go hip hop, ale w swojej drodze tanecznej próbował wielu stylów, co dało mu solidną podstawę do eksperymentowania z ruchem.</p><p>  Jest zwycięzcą licznych polskich i zagranicznych wydarzeń tanecznych. W 2022 roku stworzył wraz z ekipą Co Jest Crew przy współpracy z francuskim choreografem Hamdim Dridi spektakl pt. "Step By Step", będący fuzją tańca współczesnego ze street dancem.</p><p> Na swoich zajęciach skupia się na indywidualnym rozwoju każdego z podopiecznych zwracając szczególną uwagę na rozwijanie kreatywności, budowanie charakteru oraz naukę techniki.</p><p>Godz. <b>11.00</b> - grupa młodsza<br/>Godz. <b>12.45</b> - grupa starsza</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -939,6 +955,7 @@ export const allEventsMockData: TEventTemporary[] = [
 
     detailedDescription:
       '<div><p>Kolejna inicjatywa projektu Nowe otwarcie - Projekt DK+, to koncert znakomitej saksofonistki Joanny Stasińskiej z towarzyszeniem przyjaciół - muzyków polskiej sceny.</p><p>W repertuarze znajdą się utwory w klimacie funky i smooth jazz, m.in. takich artystów jak Stevie Wonder czy Candy Dufler.</p><p>W skład zespołu wchodzą:</p><ul><li>Joanna Stasińska - saksofon</li><li>Erwin Żebro - trąbka</li><li>Konstanty Janiak - puzon</li><li>Mariusz Orzełowski - gitara</li><li>Bartosz Kalicki - instrumenty klawiszowe</li><li>Piotr Zaufal - gitara basowa</li><li>Kamil Wójcik - perkusja</li><li>Łukasz Wicher - wokal</li></ul><p>Projekt dofinansowano ze środków Ministerstwo Kultury i Dziedzictwa Narodowego w ramach programu Narodowe Centrum Kultury na realizację projektu Dom Kultury + Edycja 2023 - Inicjatywy Lokalne.</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
@@ -992,6 +1009,7 @@ export const allEventsMockData: TEventTemporary[] = [
 
     detailedDescription:
       '<div><p><b>28. października o 17:30</b> zapraszamy wszystkie dzieci na BAL z motywem dyni!</p><p>W programie:</p><ul><li>dyniowe animacje poprowadzone przez AnimatOlkę</li><li>pokaz dyniowych strojów</li><li>poszukiwanie ukrytych dyni</li><li>pomarańczowe mini disco</li><li>bańki mydlane</li><li>poczęstunek dla dzieci</li></ul><p>Zapisów dzieci możecie dokonać telefonicznie, dzwoniąc do nas od 12.00 do 20.00 pod telefon o numerze: 32 332 63 79 lub pisząc mail: [info@art-ck.pl](mailto:info@art-ck.pl)</p></div>',
+    isCustomLinkToDetails: false,
     customLinkToDetails: null,
 
     //paying
