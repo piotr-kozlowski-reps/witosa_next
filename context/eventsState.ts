@@ -30,8 +30,8 @@ const eventFreshObject: TEventFormInputs = {
 
   //stage3
   isCustomLinkToDetails: false,
+  customLinkToDetails: null,
   shortDescription: '',
-
   images: [
     {
       id: new Date().getTime().toString(),
@@ -43,15 +43,18 @@ const eventFreshObject: TEventFormInputs = {
     },
   ],
   detailedDescription: '',
-  customLinkToDetails: null,
-  isPayed: false,
-  kindOfEnterInfo: '',
-  ticketBuyingUrl: null,
+
+  //stage4
   isToBeInSlider: true,
   sliderImageUrl: null,
   sliderImageAlt: null,
   visibleInSliderFrom: null,
   visibleInSliderTo: null,
+
+  //stage5
+  kindOfEnterInfo: '',
+  isPayed: false,
+  ticketBuyingUrl: null,
 };
 
 const eventsStateData: TCyclicalActivityState = {

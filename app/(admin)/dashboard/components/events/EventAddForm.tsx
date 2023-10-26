@@ -48,7 +48,7 @@ export default function EventAddForm() {
   ////tsx
   return (
     <Fragment>
-      <div className="flex items-center justify-between mb-[22px] mr-8 -mt-[18px]">
+      <div className="flex items-center justify-between mb-[20px] mr-8 -mt-[18px]">
         <div className="prose">
           <h3>
             {isCurrentFormToPUTData
@@ -75,7 +75,7 @@ export default function EventAddForm() {
           await submitFormHandler(formik);
         }}
       >
-        <div className="flex mb-12 font-base-regular">
+        <div className="flex mb-12 font-base-regular ">
           {stage.map((stageItem, index) => (
             <FormStageLink
               key={index}

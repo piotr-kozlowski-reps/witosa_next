@@ -13,6 +13,8 @@ import {
   isBooleanYupSchema,
   isDateOrNullYupSchema_AndThenRequired,
   isDateYupSchema,
+  isPayedYupSchema,
+  kindOfEnterInfoYupSchema,
   nameSchemaYup_Required_Min2,
   newsSectionImageUrlYupSchema,
   placesYupSchema,
@@ -133,7 +135,8 @@ export function validateValuesForEventsStageFour(values: Object) {
 
 //stage5
 export const eventsValidationSchemaStageFiveWithYup = {
-  isWhatever: nameSchemaYup_Required_Min2, //TODO: wywal potem, tylko tymczas
+  kindOfEnterInfo: kindOfEnterInfoYupSchema,
+  isPayed: isPayedYupSchema,
 };
 
 const yupSchema = Yup.object({
@@ -151,7 +154,6 @@ export function generateValidationForEvents() {
 /**
  * helpers
  * */
-
 export const copyDateFromOneFormikFieldToAnother = <T>(
   formik: FormikProps<T>,
   fieldToCopyFrom: string,

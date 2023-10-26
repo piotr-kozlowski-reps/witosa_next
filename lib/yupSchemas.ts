@@ -645,6 +645,46 @@ export const visibleInSliderFromAndToYupSchema = Yup.mixed()
   )
   .nullable();
 
+export const kindOfEnterInfoYupSchema = Yup.mixed()
+  .test(
+    'has to be a string only when !isToBeOnlyInNewsSection_NotSeenInEvents',
+    imageDescriptionRequired,
+    (value, context) => {
+      const isToBeOnlyInNewsSection_NotSeenInEvents =
+        context.parent.isToBeOnlyInNewsSection_NotSeenInEvents;
+
+      if (!isToBeOnlyInNewsSection_NotSeenInEvents) {
+        const validation = stringRequiredYupSchema.isValidSync(value);
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+  )
+  .nullable();
+
+export const isPayedYupSchema = Yup.mixed()
+  .test(
+    'has to be a string only when !isToBeOnlyInNewsSection_NotSeenInEvents',
+    imageDescriptionRequired,
+    (value, context) => {
+      const isToBeOnlyInNewsSection_NotSeenInEvents =
+        context.parent.isToBeOnlyInNewsSection_NotSeenInEvents;
+
+      if (!isToBeOnlyInNewsSection_NotSeenInEvents) {
+        const validation = isBooleanYupSchema.isValidSync(value);
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+  )
+  .nullable();
+
 ////utils
 export function getIsFileSizeValid(file: File, maxFileSize: number) {
   if (!file) return true;

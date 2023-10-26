@@ -42,7 +42,7 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
 
   return (
     <Fragment>
-      <div className="form-input-width -mt-[13px]">
+      <div className="form-input-width -mt-[11px]">
         <InputFormik<T>
           name="title"
           type="text"
