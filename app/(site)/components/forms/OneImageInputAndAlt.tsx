@@ -1,11 +1,11 @@
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
-import { useModalState } from '@/context/modalState';
-import { useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile } from '@/hooks/useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile';
-import { TFileWithPreview } from '@/types';
+import { TFileWithPreview, TImagePreviewTypeKey } from '@/types';
+import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import Image from 'next/image';
-import CustomButton from '../CustomButton';
+import CopyImageFromImagesArray from './CopyImageFromImagesArray';
 import { DropImageFormik } from './DropImageFormik';
+import ImagePreviewForNews from './ImagePreviewForNews';
+import ImagePreviewForThreeDisplaysPreview from './ImagePreviewForThreeDisplaysPreview';
 import InputFormik from './InputFormik';
 
 type Props<T> =
@@ -16,6 +16,8 @@ type Props<T> =
       isCurrentFormToPUTData: string;
       isCommentPopupVisible?: false;
       commentContent?: never;
+      imagePreviewType: TImagePreviewTypeKey;
+      isToHaveCopyFromImagesButton?: boolean;
     }
   | {
       imageFieldName: string;
@@ -24,6 +26,8 @@ type Props<T> =
       isCurrentFormToPUTData: string;
       isCommentPopupVisible?: true;
       commentContent?: React.ReactNode;
+      imagePreviewType: TImagePreviewTypeKey;
+      isToHaveCopyFromImagesButton?: boolean;
     };
 
 export default function OneImageInputAndAlt<T>(props: Props<T>) {
@@ -33,45 +37,16 @@ export default function OneImageInputAndAlt<T>(props: Props<T>) {
     imageFieldName,
     formik,
     isCurrentFormToPUTData,
-    isCommentPopupVisible,
     commentContent,
+    imagePreviewType,
+    isToHaveCopyFromImagesButton = false,
   } = props;
-  const { setShowModal, setHideModal } = useModalState();
+
   const imageGotFromFormik = formik.getFieldMeta(imageFieldName).value;
 
   let image: TFileWithPreview | string = '';
   if (imageGotFromFormik) {
     image = imageGotFromFormik as unknown as TFileWithPreview | string;
-  }
-
-  const { src, alt } =
-    useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(image);
-
-  function prevImageInDifferentResolutions(width: number) {
-    return (
-      <div className="flex items-center justify-center w-full">
-        {image ? (
-          <div className="flex flex-col items-center justify-center">
-            <div className="h-[352px]" style={{ width: width }}>
-              <Image
-                src={src}
-                width={271}
-                height={271}
-                alt={alt}
-                className="w-[271px] h-[271px] rounded-full"
-              />
-            </div>
-            <CustomButton
-              text={'zamknij'}
-              descriptionText="zamknij podgląd"
-              additionalClasses="mt-4"
-              disabled={false}
-              actionFn={() => setHideModal()}
-            />
-          </div>
-        ) : null}
-      </div>
-    );
   }
 
   ////tsx
@@ -103,18 +78,27 @@ export default function OneImageInputAndAlt<T>(props: Props<T>) {
         />
       </div>
 
-      <div className="pl-8 mt-[40px] self-start">
-        <CustomButton
-          text={'podgląd obrazka'}
-          descriptionText="podgląd obrazka"
-          additionalClasses="mt-[4px]"
-          disabled={!image}
-          outlined={true}
-          actionFn={() => {
-            setShowModal(true, prevImageInDifferentResolutions(271));
-          }}
-        />
-      </div>
+      {isToHaveCopyFromImagesButton ? (
+        <div className="pl-8 mt-[37px] self-start">
+          <CopyImageFromImagesArray<T> formik={formik} />
+        </div>
+      ) : null}
+
+      {imagePreviewType === 'NEWS_IMAGE_PREVIEW' ? (
+        <div className="pl-8 mt-[40px] self-start">
+          <ImagePreviewForNews image={image} />
+        </div>
+      ) : null}
+      {imagePreviewType === 'THREE_DISPLAYS_PREVIEW' ? (
+        <div
+          className={clsx(
+            'pl-8  self-start flex justify-start items-center gap-8',
+            isToHaveCopyFromImagesButton ? 'mt-[26px]' : 'mt-[40px]'
+          )}
+        >
+          <ImagePreviewForThreeDisplaysPreview image={image} />
+        </div>
+      ) : null}
     </div>
   );
 }

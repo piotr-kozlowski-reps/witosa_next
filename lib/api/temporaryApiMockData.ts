@@ -97,7 +97,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_wyrostek_001.jpg',
     sliderImageAlt: 'Zdjęcie Marcina Wyrostka z akordeonem.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-03T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-03T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -158,7 +158,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Zdjęcie kolorowych postaci tworzących grupę o nazwie: Lufcik na korbkę.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-02T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-02T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -212,7 +212,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_nc_001.jpg',
     sliderImageAlt: 'Baner akcji Narodowego czytania.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-08T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-08T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -266,7 +266,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: null,
     sliderImageAlt: null,
     visibleInSliderFrom: null,
-    visibleInSLiderTo: null,
+    visibleInSliderTo: null,
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -320,7 +320,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_duoflamenco_002.jpg',
     sliderImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-09T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-09T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -374,7 +374,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_duoflamenco_001.jpg',
     sliderImageAlt: 'Tańcząca tancerka flamenco oraz gitarzysta.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-10T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-10T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -423,7 +423,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_kuba_001.jpg',
     sliderImageAlt: 'Postaci członków zespołu CUMBANCHEROS.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-23T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-23T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -484,7 +484,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_walizki_001.jpg',
     sliderImageAlt: 'Twórca Teatru Lalek oraz kilka postaci z jego spektakli.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-24T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-24T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -537,7 +537,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: null,
     sliderImageAlt: null,
     visibleInSliderFrom: null,
-    visibleInSLiderTo: null,
+    visibleInSliderTo: null,
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -591,7 +591,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Twarz autorki - młoda kobieta w okularach i długich, prostych włosach.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-15T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-15T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -644,7 +644,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: null,
     sliderImageAlt: null,
     visibleInSliderFrom: null,
-    visibleInSLiderTo: null,
+    visibleInSliderTo: null,
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -706,7 +706,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_zwiadowcy_001.jpg',
     sliderImageAlt: 'Plakat powieści "Zwiadowcy".',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-09-29T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-09-29T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -763,7 +763,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Portret młodego mężczyzny w kolorowej koszuli na tle zielonej ściany.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-13T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-13T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -813,7 +813,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_italia_002.jpg',
     sliderImageAlt: 'Plakat Andrea Lattari.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-20T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-20T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -866,7 +866,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Plakat na czarnym tle kolorowe liście i dynie oraz napis Kobiecy Wieczór z dynią, 14 października, godz. 18.00, Art CK.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-14T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-14T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -924,7 +924,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Czarno - białe zdjęcie ukazujące tańczącego hip hop młodego mężczyznę.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-28T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-28T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -977,7 +977,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageAlt:
       'Młoda kobieta, długie i proste blond włosy, ubrana w czarną sukienkę z saksofonem w dłoniach.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-27T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-27T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
@@ -1030,7 +1030,7 @@ export const allEventsMockData: TEventTemporary[] = [
     sliderImageUrl: 'events_badyni_001.jpg',
     sliderImageAlt: 'Plakat balu dyni.',
     visibleInSliderFrom: new Date('2023-08-26T15:20:24.968Z'),
-    visibleInSLiderTo: new Date('2023-10-28T23:59:00.968Z'),
+    visibleInSliderTo: new Date('2023-10-28T23:59:00.968Z'),
     //publishing
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),

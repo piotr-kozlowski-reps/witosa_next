@@ -9,6 +9,7 @@ import { getInitialFormStagesForEventsObject } from '@/lib/forms/events-form';
 import { TEventFormInputs, TFormStage } from '@/types';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
+import EventAddFormStageFive from './EventAddFormStageFive';
 import EventAddFormStageFour from './EventAddFormStageFour';
 import EventAddFormStageOne from './EventAddFormStageOne';
 import EventAddFormStageThree from './EventAddFormStageThree';
@@ -115,6 +116,15 @@ export default function EventAddForm() {
         {stage[3].isActive ? (
           <ComponentTransitionFromRightToLeft>
             <EventAddFormStageFour<TEventFormInputs>
+              isCurrentFormToPUTData={isCurrentFormToPUTData}
+              formik={formik}
+            />
+          </ComponentTransitionFromRightToLeft>
+        ) : null}
+
+        {stage[4].isActive ? (
+          <ComponentTransitionFromRightToLeft>
+            <EventAddFormStageFive<TEventFormInputs>
               isCurrentFormToPUTData={isCurrentFormToPUTData}
               formik={formik}
             />

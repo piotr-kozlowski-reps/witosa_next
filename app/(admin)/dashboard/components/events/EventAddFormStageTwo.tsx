@@ -61,6 +61,7 @@ export default function EventAddFormStageTwo<T>(props: Props<T>) {
                   formik={formik}
                   isCommentPopupVisible={true}
                   commentContent={<NewsSectionImageUrlComment />}
+                  imagePreviewType={'NEWS_IMAGE_PREVIEW'}
                 />
               </div>
             </Fragment>

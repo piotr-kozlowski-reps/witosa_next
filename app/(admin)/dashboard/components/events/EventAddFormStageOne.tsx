@@ -7,7 +7,7 @@ import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNotificationState } from '@/context/notificationState';
 import { dateOfEventIsNotDefined } from '@/lib/api/apiTextResponses';
-import { isDateYupSchema } from '@/lib/yupSchemas';
+import { copyDateFromOneFormikFieldToAnother } from '@/lib/forms/events-form';
 import { EventType, ForWhom, Place } from '@prisma/client';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
@@ -28,18 +28,16 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
   const isIsToBePublished = formik.getFieldProps('isToBePublished').value;
 
   function visibleToHandler(formik: FormikProps<T>) {
-    const eventStartDateValue = formik.getFieldMeta('eventStartDate').value;
-
-    console.log({ eventStartDateValue });
-
-    if (
-      !eventStartDateValue ||
-      !isDateYupSchema.isValidSync(eventStartDateValue)
-    ) {
+    try {
+      copyDateFromOneFormikFieldToAnother(
+        formik,
+        'eventStartDate',
+        'visibleTo'
+      );
+    } catch (error) {
       setShowNotification('ERROR', dateOfEventIsNotDefined);
       return;
     }
-    formik.getFieldHelpers('visibleTo').setValue(eventStartDateValue);
   }
 
   return (

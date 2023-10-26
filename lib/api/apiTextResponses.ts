@@ -42,6 +42,8 @@ export const cyclicalActivityNotExistsMessage =
 //events
 export const dateOfEventIsNotDefined =
   'Data wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
+export const dateOfVisibleFromIsNotDefined =
+  'Data rozpoczęcia publikacji wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
 
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
   email: string

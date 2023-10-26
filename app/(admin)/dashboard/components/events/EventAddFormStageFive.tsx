@@ -21,7 +21,7 @@ type Props<T> = {
 // const optionsForCustomLinkToDetails =
 //   serveOptionsForCustomLinkToDetailsInEvents();
 
-export default function EventAddFormStageFour<T>(props: Props<T>) {
+export default function EventAddFormStageFive<T>(props: Props<T>) {
   ////vars
   const { isCurrentFormToPUTData, formik } = props;
   const { setShowNotification } = useNotificationState();

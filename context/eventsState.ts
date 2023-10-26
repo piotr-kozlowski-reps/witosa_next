@@ -51,7 +51,7 @@ const eventFreshObject: TEventFormInputs = {
   sliderImageUrl: null,
   sliderImageAlt: null,
   visibleInSliderFrom: null,
-  visibleInSLiderTo: null,
+  visibleInSliderTo: null,
 };
 
 const eventsStateData: TCyclicalActivityState = {

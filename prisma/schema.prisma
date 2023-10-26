@@ -133,7 +133,7 @@ model Event{
   sliderImageUrl String?
   sliderImageAlt String?
   visibleInSliderFrom DateTime?
-  visibleInSLiderTo DateTime?
+  visibleInSliderTo DateTime?
 
   //publishing
   isToBePublished Boolean

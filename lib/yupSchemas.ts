@@ -572,6 +572,79 @@ export const detailedDescriptionYupSchema = Yup.mixed()
     }
   );
 
+export const sliderImageUrlYupSchema = Yup.mixed()
+  .test(
+    'has to be a string or image only when: !isToBeOnlyInNewsSection_NotSeenInEvents and isToBeInSlider',
+    imageIsRequired,
+    (value, context) => {
+      const isToBeOnlyInNewsSection_NotSeenInEvents =
+        context.parent.isToBeOnlyInNewsSection_NotSeenInEvents;
+      const isToBeInSlider = context.parent.isToBeInSlider;
+
+      const isToBeProcessed =
+        !isToBeOnlyInNewsSection_NotSeenInEvents && isToBeInSlider;
+
+      if (isToBeProcessed) {
+        const validation =
+          imageOrStringFieldGeneralYupSchema.isValidSync(value);
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+  )
+  .nullable();
+
+export const sliderImageAltYupSchema = Yup.mixed()
+  .test(
+    'has to be a string only when isToBeInNewsSection is true',
+    imageDescriptionRequired,
+    (value, context) => {
+      const isToBeOnlyInNewsSection_NotSeenInEvents =
+        context.parent.isToBeOnlyInNewsSection_NotSeenInEvents;
+      const isToBeInSlider = context.parent.isToBeInSlider;
+
+      const isToBeProcessed =
+        !isToBeOnlyInNewsSection_NotSeenInEvents && isToBeInSlider;
+
+      if (isToBeProcessed) {
+        const validation = stringRequiredYupSchema.isValidSync(value);
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+  )
+  .nullable();
+
+export const visibleInSliderFromAndToYupSchema = Yup.mixed()
+  .test(
+    'has to be a string only when isToBeInNewsSection is true',
+    imageDescriptionRequired,
+    (value, context) => {
+      const isToBeOnlyInNewsSection_NotSeenInEvents =
+        context.parent.isToBeOnlyInNewsSection_NotSeenInEvents;
+      const isToBeInSlider = context.parent.isToBeInSlider;
+
+      const isToBeProcessed =
+        !isToBeOnlyInNewsSection_NotSeenInEvents && isToBeInSlider;
+
+      if (isToBeProcessed) {
+        const validation = isDateYupSchema.isValidSync(value);
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+  )
+  .nullable();
+
 ////utils
 export function getIsFileSizeValid(file: File, maxFileSize: number) {
   if (!file) return true;

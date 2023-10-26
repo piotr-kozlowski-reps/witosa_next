@@ -1,3 +1,4 @@
+import { TImagePreviewTypeKey } from '@/types';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
@@ -12,6 +13,8 @@ type Props<T> =
       isCurrentFormToPUTData: string;
       isCommentPopupVisible?: false;
       commentContent?: never;
+      imagePreviewType: TImagePreviewTypeKey;
+      isToHaveCopyFromImagesButton?: boolean;
     }
   | {
       imageFieldName: string;
@@ -21,6 +24,8 @@ type Props<T> =
       isCurrentFormToPUTData: string;
       isCommentPopupVisible?: true;
       commentContent?: React.ReactNode;
+      imagePreviewType: TImagePreviewTypeKey;
+      isToHaveCopyFromImagesButton?: boolean;
     };
 
 // type TFormImageType = TImageCyclicalActivityFormValues[];
@@ -34,6 +39,8 @@ export default function ImageUploadFormik<T>(props: Props<T>) {
     isCurrentFormToPUTData,
     altFieldName,
     commentContent,
+    imagePreviewType,
+    isToHaveCopyFromImagesButton = false,
   } = props;
 
   ////tsx
@@ -61,6 +68,8 @@ export default function ImageUploadFormik<T>(props: Props<T>) {
           imageFieldName={imageFieldName}
           isCommentPopupVisible={true}
           commentContent={commentContent}
+          imagePreviewType={imagePreviewType}
+          isToHaveCopyFromImagesButton={isToHaveCopyFromImagesButton}
         />
       </div>
     </Fragment>

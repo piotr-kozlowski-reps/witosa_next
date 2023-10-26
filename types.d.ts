@@ -266,7 +266,7 @@ export type TNewsletterDataCombo = {
 
 export type TModalState = {
   isShowModal: boolean;
-  modalContent: JSX.Element;
+  modalContent: React.ReactNode;
 };
 
 export type TNotificationState = {
@@ -386,3 +386,10 @@ export type TOptionsForFormikSelect<T> = {
   value: T;
   label: string;
 };
+
+export const imagePreviewType = {
+  NEWS_IMAGE_PREVIEW: 'NEWS_IMAGE_PREVIEW',
+  THREE_DISPLAYS_PREVIEW: 'THREE_DISPLAYS_PREVIEW',
+} as const;
+export type TImagePreviewType = typeof imagePreviewType;
+export type TImagePreviewTypeKey = keyof TImagePreviewType;

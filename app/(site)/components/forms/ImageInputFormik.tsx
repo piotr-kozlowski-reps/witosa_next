@@ -11,6 +11,7 @@ import Image from 'next/image';
 import CustomButton from '../CustomButton';
 import CloseIcon from '../icons/CloseIcon';
 import { DropImageFormik } from './DropImageFormik';
+import ImagePreviewForThreeDisplaysPreview from './ImagePreviewForThreeDisplaysPreview';
 import InputFormik from './InputFormik';
 import TextareaFormik from './TextareaFormik';
 
@@ -135,36 +136,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
         </div>
 
         <div className="pl-[76px] mt-[40px] self-start flex justify-start items-center gap-8">
-          <CustomButton
-            text={'podgląd komórka'}
-            descriptionText="podgląd komórka"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevImageInDifferentResolutions(244));
-            }}
-          />
-          <CustomButton
-            text={'podgląd tablet'}
-            descriptionText="podgląd tablet"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevImageInDifferentResolutions(749));
-            }}
-          />
-          <CustomButton
-            text={'podgląd komputer'}
-            descriptionText="podgląd komputer"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevImageInDifferentResolutions(1140));
-            }}
-          />
+          <ImagePreviewForThreeDisplaysPreview image={file} />
         </div>
       </div>
     </div>

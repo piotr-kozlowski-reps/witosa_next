@@ -1,4 +1,5 @@
 import { TEventFormInputs, TFormStage, TOptionsForFormikSelect } from '@/types';
+import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
   altFieldNameYupSchema,
@@ -11,9 +12,13 @@ import {
   imagesArrayEventsYupSchema,
   isBooleanYupSchema,
   isDateOrNullYupSchema_AndThenRequired,
+  isDateYupSchema,
   nameSchemaYup_Required_Min2,
   newsSectionImageUrlYupSchema,
   placesYupSchema,
+  sliderImageAltYupSchema,
+  sliderImageUrlYupSchema,
+  visibleInSliderFromAndToYupSchema,
 } from '../yupSchemas';
 import { serveOptionsForCustomLinkToDetails } from './cyclical-activities-form';
 
@@ -114,7 +119,11 @@ export function validateValuesForEventsStageThree(values: Object) {
 
 //stage4
 export const eventsValidationSchemaStageFourWithYup = {
-  IsPayed: nameSchemaYup_Required_Min2, //TODO: wywal - to tylko tymczasowe
+  isToBeInSlider: isBooleanYupSchema,
+  sliderImageUrl: sliderImageUrlYupSchema,
+  sliderImageAlt: sliderImageAltYupSchema,
+  visibleInSliderFrom: visibleInSliderFromAndToYupSchema,
+  visibleInSliderTo: visibleInSliderFromAndToYupSchema,
 };
 export function validateValuesForEventsStageFour(values: Object) {
   return Yup.object({
@@ -124,7 +133,7 @@ export function validateValuesForEventsStageFour(values: Object) {
 
 //stage5
 export const eventsValidationSchemaStageFiveWithYup = {
-  // id: nameSchemaYup_Required_Min2,
+  isWhatever: nameSchemaYup_Required_Min2, //TODO: wywal potem, tylko tymczas
 };
 
 const yupSchema = Yup.object({
@@ -138,3 +147,20 @@ const yupSchema = Yup.object({
 export function generateValidationForEvents() {
   return yupSchema;
 }
+
+/**
+ * helpers
+ * */
+
+export const copyDateFromOneFormikFieldToAnother = <T>(
+  formik: FormikProps<T>,
+  fieldToCopyFrom: string,
+  fieldToCopyTo: string
+) => {
+  const dateToCopyFrom = formik.getFieldMeta(fieldToCopyFrom).value;
+
+  if (!dateToCopyFrom || !isDateYupSchema.isValidSync(dateToCopyFrom)) {
+    throw new Error('Bad date');
+  }
+  formik.getFieldHelpers(fieldToCopyTo).setValue(dateToCopyFrom);
+};
