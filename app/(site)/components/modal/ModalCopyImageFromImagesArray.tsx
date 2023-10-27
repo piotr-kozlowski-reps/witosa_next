@@ -1,5 +1,5 @@
 import { useModalState } from '@/context/modalState';
-import { TImageEventFormValues } from '@/types';
+import { TImageEventFormValue } from '@/types';
 import { FormikProps } from 'formik';
 import CustomButton from '../CustomButton';
 import ImagesListingForCopying from './ImagesListingForCopying';
@@ -13,8 +13,7 @@ export default function ModalCopyImageFromImagesArray<T>(props: Props<T>) {
   ////vars
   const { formik } = props;
   const { setHideModal } = useModalState();
-  const images = formik.getFieldProps('images')
-    .value as TImageEventFormValues[];
+  const images = formik.getFieldProps('images').value as TImageEventFormValue[];
 
   const copyDataOfDesiredImageHandler = (index: number) => {
     const imageItem = images[index];

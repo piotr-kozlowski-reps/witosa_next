@@ -11,13 +11,18 @@ import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useNotificationState } from '@/context/notificationState';
 import { useFormStages } from '@/hooks/useFormStages';
 import { useFormikForCyclicalActivities } from '@/hooks/useFormikForCyclicalActivities';
-import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
-import { getInitialFormStagesForCyclicalActivitiesObject } from '@/lib/forms/cyclical-activities-form';
+import {
+  dbReadingErrorMessage,
+  preparationDataError,
+} from '@/lib/api/apiTextResponses';
+import {
+  getInitialFormStagesForCyclicalActivitiesObject,
+  prepareCyclicalActivityValuesForBackend,
+} from '@/lib/forms/cyclical-activities-form';
 import {
   TActionResponse,
   TCyclicalActivityFormInputs,
   TFormStage,
-  TImageCyclicalActivityFormValues,
 } from '@/types';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
@@ -62,31 +67,27 @@ export default function CyclicalActivityAddForm() {
   ) {
     let response: TActionResponse | null = null;
 
-    const formikValues: TCyclicalActivityFormInputs = { ...formik.values };
-    const isIncludeImages = formikValues.isCustomLinkToDetails;
-    const originalImages =
-      formikValues.images as TImageCyclicalActivityFormValues[];
-
-    let imagesRemapped: TImageCyclicalActivityFormValues[] = [];
-    if (!isIncludeImages) {
-      imagesRemapped = originalImages.map((image) => ({
-        alt: image.alt,
-        url: image.url,
-        index: image.index,
-        additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
-        file:
-          typeof image.file! === 'string' ? image.file! : image.file!.preview,
-        id: image.id as string,
-      }));
+    let formikValuesPreparedForBackend: TCyclicalActivityFormInputs;
+    try {
+      formikValuesPreparedForBackend = prepareCyclicalActivityValuesForBackend(
+        formik.values
+      );
+    } catch (error) {
+      setShowNotification('ERROR', (error as Error).message);
+      return;
     }
-    formikValues.images = imagesRemapped;
+
+    if (!formikValuesPreparedForBackend) {
+      setShowNotification('ERROR', preparationDataError);
+      return;
+    }
 
     /**
      * post
      * */
     if (isCurrentFormToPOSTData) {
       try {
-        response = await addCyclicalActivity(formikValues);
+        response = await addCyclicalActivity(formikValuesPreparedForBackend);
       } catch (error) {
         setShowNotification('ERROR', dbReadingErrorMessage);
       }
@@ -97,7 +98,7 @@ export default function CyclicalActivityAddForm() {
      * */
     if (isCurrentFormToPUTData) {
       const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
-      const changedCyclicalActivity = { ...formikValues };
+      const changedCyclicalActivity = { ...formikValuesPreparedForBackend };
       try {
         response = await updateCyclicalActivity(
           originalCyclicalActivity as TCyclicalActivityFormInputs,

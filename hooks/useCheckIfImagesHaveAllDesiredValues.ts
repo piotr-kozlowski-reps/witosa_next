@@ -1,4 +1,4 @@
-import { TImageEventFormValues } from '@/types';
+import { TImageEventFormValue } from '@/types';
 import { FormikProps } from 'formik';
 
 export function useCheckIfImagesHaveAllDesiredValues<T>(
@@ -12,8 +12,7 @@ export function useCheckIfImagesHaveAllDesiredValues<T>(
   if (isCustomLinkToDetails) return false;
 
   //
-  const images = formik.getFieldProps('images')
-    .value as TImageEventFormValues[];
+  const images = formik.getFieldProps('images').value as TImageEventFormValue[];
   images.forEach((image) => {
     if (!image.alt || !(image.file || image.url)) {
       isEnabled = false;

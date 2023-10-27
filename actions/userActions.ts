@@ -1,6 +1,5 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badEmailFormatMessage,
   badUserData,
@@ -23,14 +22,14 @@ import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllUsersResponse, TUserPicked } from '@/types';
 import { User, UserRole } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
+import { checkIfLoggedIn } from './actionHelpers';
 
 export async function addUser(formData: FormData): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -120,9 +119,9 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
 
 export async function getAllUsers(): Promise<TGetAllUsersResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -147,9 +146,9 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
 
 export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -212,9 +211,9 @@ export async function updateUser(
   formData: FormData
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 

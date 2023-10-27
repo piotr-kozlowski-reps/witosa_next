@@ -1,4 +1,9 @@
-import { TEventFormInputs, TFormStage, TOptionsForFormikSelect } from '@/types';
+import {
+  TEventFormInputs,
+  TFormStage,
+  TImageEventFormValue,
+  TOptionsForFormikSelect,
+} from '@/types';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -23,10 +28,66 @@ import {
   visibleInSliderFromAndToYupSchema,
 } from '../yupSchemas';
 import { serveOptionsForCustomLinkToDetails } from './cyclical-activities-form';
+import {
+  prepareImageForBackend,
+  remapImagesIntoBackendPreparedData,
+} from './form-helpers';
 
 export function serveOptionsForCustomLinkToDetailsInEvents(): TOptionsForFormikSelect<boolean>[] {
   return serveOptionsForCustomLinkToDetails();
 }
+
+export const prepareEventValuesForBackend = (
+  formikValues: TEventFormInputs
+) => {
+  const values = { ...formikValues };
+
+  // news image
+  const isToBeInNewsSection = values.isToBeInNewsSection;
+  const originalNewsImage = values.newsSectionImageUrl;
+  let newsImagePreparedForBackend: string = '';
+  if (isToBeInNewsSection) {
+    try {
+      newsImagePreparedForBackend = prepareImageForBackend(originalNewsImage);
+    } catch (error) {
+      throw new Error(
+        'Brak obrazka (lub niepoprawny plik) w dziale aktualności.'
+      );
+    }
+  }
+  values.newsSectionImageUrl = newsImagePreparedForBackend;
+
+  // images
+  const isIncludeImages = values.isCustomLinkToDetails;
+  const originalImages = values.images as TImageEventFormValue[];
+  let imagesRemapped: TImageEventFormValue[] = [];
+  if (!isIncludeImages) {
+    try {
+      imagesRemapped = remapImagesIntoBackendPreparedData(originalImages);
+    } catch (error) {
+      throw new Error(
+        'Nastąpił błąd podczas procesowania obrazków, jakiegoś obrazka może brakować, lub jest uszkodzony.'
+      );
+    }
+  }
+  values.images = imagesRemapped;
+
+  //slider
+  const isToBeInSlider = values.isToBeInSlider;
+  const originalSliderImage = values.sliderImageUrl;
+  let sliderImagePreparedForBackend: string = '';
+  if (isToBeInSlider) {
+    try {
+      sliderImagePreparedForBackend =
+        prepareImageForBackend(originalSliderImage);
+    } catch (error) {
+      throw new Error('Brak obrazka (lub niepoprawny plik) w dziale slajder.');
+    }
+  }
+  values.sliderImageUrl = sliderImagePreparedForBackend;
+
+  return values;
+};
 
 /**
  * initial stages

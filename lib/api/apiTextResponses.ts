@@ -45,6 +45,10 @@ export const dateOfEventIsNotDefined =
 export const dateOfVisibleFromIsNotDefined =
   'Data rozpoczęcia publikacji wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
 
+//data preparation
+export const preparationDataError =
+  'Coś poszło nie tak z przygotowaniem danych, spróbuj ponownie.';
+
 export function generateNewsletterDbWritingSuccessMessageWithCurrentEmail(
   email: string
 ) {

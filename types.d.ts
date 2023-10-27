@@ -357,7 +357,7 @@ export type TCyclicalActivityFormInputs = Omit<
 };
 
 //events
-export type TImageEventFormValues = Omit<ImageEvent, 'eventId'> & {
+export type TImageEventFormValue = Omit<ImageEvent, 'eventId'> & {
   file?: TFileWithPreview | string;
 };
 
@@ -377,7 +377,7 @@ export type TEventFormInputs = Omit<
 > & {
   eventStartDate: Date | null;
   newsSectionImageUrl: TFileWithPreview | string | null;
-  images: TImageEventFormValues[];
+  images: TImageEventFormValue[];
   visibleFrom: Date | null;
   visibleTo: Date | null;
 };

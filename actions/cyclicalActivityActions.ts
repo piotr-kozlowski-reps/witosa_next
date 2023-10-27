@@ -1,6 +1,5 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badCyclicalActivitiesData,
   cyclicalActivityNotExistsMessage,
@@ -37,9 +36,10 @@ import {
   Prisma,
 } from '@prisma/client';
 import { unlink } from 'fs/promises';
-import { getServerSession } from 'next-auth';
+import { Session } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import sharp from 'sharp';
+import { checkIfLoggedIn } from './actionHelpers';
 
 export async function addCyclicalActivity(
   values: TCyclicalActivityFormInputs
@@ -47,9 +47,10 @@ export async function addCyclicalActivity(
   /**
    * checking session
    * */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  let session: Session;
+  try {
+    session = await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -156,9 +157,9 @@ export async function deleteCyclicalActivities(
   /**
    * checking session
    * */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -299,9 +300,9 @@ export async function updateCyclicalActivity(
   /**
    * checking session
    * */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 

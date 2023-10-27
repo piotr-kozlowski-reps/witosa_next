@@ -8,7 +8,6 @@
 // });
 import { revalidatePath } from 'next/cache';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badEmailFormatMessage,
   dbReadingErrorMessage,
@@ -24,7 +23,7 @@ import { emailSchema } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllNewsletterAddressesResponse } from '@/types';
 import { Newsletter } from '@prisma/client';
-import { getServerSession } from 'next-auth';
+import { checkIfLoggedIn } from './actionHelpers';
 
 export async function addNewsletterAddress(
   formData: FormData
@@ -80,9 +79,9 @@ export async function addNewsletterAddress(
 export const getAllNewsletterAddresses =
   async (): Promise<TGetAllNewsletterAddressesResponse> => {
     /** checking session */
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      logger.warn(notLoggedIn);
+    try {
+      await checkIfLoggedIn();
+    } catch (error) {
       return { status: 'ERROR', response: notLoggedIn };
     }
 
@@ -101,9 +100,9 @@ export async function deleteNewsletterAddresses(
   emailsArray: string[]
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -164,9 +163,9 @@ export async function updateNewsletterAddress(
   formData: FormData
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 

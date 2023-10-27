@@ -1,6 +1,7 @@
 import {
   TCyclicalActivityFormInputs,
   TFormStage,
+  TImageCyclicalActivityFormValues,
   TOptionsForFormikSelect,
 } from '@/types';
 import { FormikProps } from 'formik';
@@ -17,6 +18,38 @@ import {
   occurrenceYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
+import { remapImagesIntoBackendPreparedData } from './form-helpers';
+
+export const prepareCyclicalActivityValuesForBackend = (
+  formikValues: TCyclicalActivityFormInputs
+) => {
+  const values = { ...formikValues };
+  const isIncludeImages = values.isCustomLinkToDetails;
+  const originalImages = values.images as TImageCyclicalActivityFormValues[];
+
+  let imagesRemapped: TImageCyclicalActivityFormValues[] = [];
+  if (!isIncludeImages) {
+    try {
+      imagesRemapped = remapImagesIntoBackendPreparedData(originalImages);
+    } catch (error) {
+      throw new Error(
+        'Nastąpił błąd podczas procesowania obrazków, jakiegoś obrazka może brakować, lub jest uszkodzony.'
+      );
+    }
+
+    // imagesRemapped = originalImages.map((image) => ({
+    //   alt: image.alt,
+    //   url: image.url,
+    //   index: image.index,
+    //   additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
+    //   file: typeof image.file! === 'string' ? image.file! : image.file!.preview,
+    //   id: image.id as string,
+    // }));
+  }
+  values.images = imagesRemapped;
+
+  return values;
+};
 
 export function serveOptionsForCustomLinkToDetails(): TOptionsForFormikSelect<boolean>[] {
   return [

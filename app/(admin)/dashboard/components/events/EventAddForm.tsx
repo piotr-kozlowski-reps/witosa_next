@@ -1,12 +1,18 @@
+import { addEvent } from '@/actions/eventsActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useEventsState } from '@/context/eventsState';
+import { useNotificationState } from '@/context/notificationState';
 import { useFormStages } from '@/hooks/useFormStages';
 import { useFormikForEvents } from '@/hooks/useFormikForEvents';
-import { getInitialFormStagesForEventsObject } from '@/lib/forms/events-form';
-import { TEventFormInputs, TFormStage } from '@/types';
+import { dbReadingErrorMessage } from '@/lib/api/apiTextResponses';
+import {
+  getInitialFormStagesForEventsObject,
+  prepareEventValuesForBackend,
+} from '@/lib/forms/events-form';
+import { TActionResponse, TEventFormInputs, TFormStage } from '@/types';
 import { FormikProps } from 'formik';
 import { Fragment } from 'react';
 import EventAddFormStageFive from './EventAddFormStageFive';
@@ -22,6 +28,7 @@ export default function EventAddForm() {
     resetEventFormikDataForPUT,
     setIsAddEventVisible,
   } = useEventsState();
+  const { setShowNotification } = useNotificationState();
 
   const isCurrentFormToPOSTData = !getEventFormikDataForPUT().title;
   const isCurrentFormToPUTData = getEventFormikDataForPUT().title;
@@ -41,8 +48,69 @@ export default function EventAddForm() {
     checkIfNextIsEnabled,
   } = useFormStages<TEventFormInputs>(stagesInitialStage, formik);
 
-  const submitFormHandler = (formik: FormikProps<TEventFormInputs>) => {
-    console.log('formik submitted', formik);
+  function resetFormToInitialState() {
+    resetEventFormikDataForPUT();
+    formik.resetForm();
+  }
+
+  const submitFormHandler = async (formik: FormikProps<TEventFormInputs>) => {
+    let response: TActionResponse | null = null;
+
+    let formikValuesPreparedForBackend: TEventFormInputs;
+    try {
+      formikValuesPreparedForBackend = prepareEventValuesForBackend(
+        formik.values
+      );
+    } catch (error) {
+      setShowNotification('ERROR', (error as Error).message);
+      return;
+    }
+
+    /**
+     * post
+     * */
+    if (isCurrentFormToPOSTData) {
+      try {
+        response = await addEvent(formikValuesPreparedForBackend);
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+    }
+
+    /**
+     * put
+     * */
+    // if (isCurrentFormToPUTData) {
+    //   const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
+    //   const changedCyclicalActivity = { ...formikValuesPreparedForBackend };
+    //   try {
+    //     response = await updateCyclicalActivity(
+    //       originalCyclicalActivity as TCyclicalActivityFormInputs,
+    //       changedCyclicalActivity
+    //     );
+    //   } catch (error) {
+    //     setShowNotification('ERROR', dbReadingErrorMessage);
+    //   }
+    // }
+
+    if (!response || !response.status || !response.response) {
+      setShowNotification('ERROR', dbReadingErrorMessage);
+      return;
+    }
+    if (response.status === 'ERROR') {
+      setShowNotification('ERROR', response.response);
+      return;
+    }
+    setShowNotification('SUCCESS', response.response);
+
+    if (isCurrentFormToPOSTData) {
+      // resetFormToInitialState();
+      // goToFirstStage();
+    }
+    // if (isCurrentFormToPUTData) {
+    //   resetFormToInitialState();
+    //   setIsAddCyclicalActivityVisible(false);
+    // }
   };
 
   ////tsx
