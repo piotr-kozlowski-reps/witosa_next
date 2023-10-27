@@ -44,6 +44,7 @@ export const dateOfEventIsNotDefined =
   'Data wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
 export const dateOfVisibleFromIsNotDefined =
   'Data rozpoczęcia publikacji wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
+export const badEventData = 'Otrzymane dane są nieprawidłowe.';
 
 //data preparation
 export const preparationDataError =

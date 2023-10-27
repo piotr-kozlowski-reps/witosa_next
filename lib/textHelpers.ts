@@ -1,4 +1,4 @@
-import { TTypeDescriber } from '@/types';
+import { TStringToDistinguishCreatedImageName, TTypeDescriber } from '@/types';
 import {
   ActivityType,
   Day,
@@ -361,7 +361,9 @@ export function createErrorsListInOneLineSeparatedWithVerticalLine(
   return result;
 }
 
-export function generateFileName() {
+export function generateFileName(
+  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName
+) {
   let result = '';
 
   const date = new Date(Date.now());
@@ -371,7 +373,7 @@ export function generateFileName() {
     date
   )}_${getDayAlwaysInTwoDigits(
     date
-  )}__cyclical_activity___${generateQuickGuid()}`;
+  )}__${stringToDistinguishCreatedImageName}___${generateQuickGuid()}`;
 
   return result;
 }

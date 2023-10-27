@@ -314,7 +314,17 @@ export type TImageCyclicalActivityForDB = Pick<
   'alt' | 'additionInfoThatMustBeDisplayed' | 'url' | 'index'
 > & { id?: string };
 
+export type TImageEventForDB = Omit<ImageEvent, 'eventId' | 'id'> & {
+  id?: string;
+};
+
 export type TImageCyclicalActivityAllOptional = Partial<ImageCyclicalActivity>;
+
+export type TTypeOfImageToBeGenerated = 'IMAGE_REGULAR' | 'IMAGE_NEWS';
+export type TStringToDistinguishCreatedImageName =
+  | 'cyclical_activity'
+  | 'event'
+  | 'news';
 
 export type TCyclicalActivityWithImageAndOccurrence = CyclicalActivity & {
   images: ImageCyclicalActivity[];

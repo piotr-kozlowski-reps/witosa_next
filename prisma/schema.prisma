@@ -137,8 +137,8 @@ model Event{
 
   //publishing
   isToBePublished Boolean
-  visibleFrom DateTime
-  visibleTo DateTime
+  visibleFrom DateTime?
+  visibleTo DateTime?
 }
 
 

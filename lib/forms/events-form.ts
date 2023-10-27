@@ -212,6 +212,10 @@ export function generateValidationForEvents() {
   return yupSchema;
 }
 
+export function validateValuesForEvents(values: Object) {
+  return yupSchema.isValidSync(values, { context: values });
+}
+
 /**
  * helpers
  * */

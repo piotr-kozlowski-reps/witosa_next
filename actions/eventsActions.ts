@@ -1,15 +1,26 @@
 'use server';
 
-import { dbReadingErrorMessage, notLoggedIn } from '@/lib/api/apiTextResponses';
+import {
+  badEventData,
+  dbReadingErrorMessage,
+  notLoggedIn,
+} from '@/lib/api/apiTextResponses';
 import logger from '@/lib/logger';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
   TEventFormInputs,
   TGetAllEventsResponse,
+  TImageEventForDB,
 } from '@/types';
 import { Event } from '@prisma/client';
-import { checkIfLoggedIn } from './actionHelpers';
+import { Session } from 'next-auth';
+import {
+  checkIfLoggedIn,
+  prepareImageDataForSavingInDB,
+  prepareImageForDB,
+  validateEventData,
+} from './actionHelpers';
 
 export async function getAllEvents(): Promise<TGetAllEventsResponse> {
   let events: Event[] = [];
@@ -29,8 +40,9 @@ export async function addEvent(
   /**
    * checking session
    * */
+  let session: Session;
   try {
-    await checkIfLoggedIn();
+    session = await checkIfLoggedIn();
   } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
@@ -38,21 +50,53 @@ export async function addEvent(
   /*
     data validation
     */
-  //   const validationResult = validateValuesForCyclicalActivities(
-  //     values as Object
-  //   );
-  //   if (!validationResult) {
-  //     logger.warn(badCyclicalActivitiesData);
-  //     return { status: 'ERROR', response: badCyclicalActivitiesData };
-  //   }
+  try {
+    validateEventData(values);
+  } catch (error) {
+    return { status: 'ERROR', response: badEventData };
+  }
 
-  //   //
-  //   const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+  //
+  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
 
-  //   /*
-  //  writing cyclical activity to db
-  //  */
-  //   const authorId = session.user?.id;
+  /*
+   preparing event data for db
+   */
+  const authorId = session.user?.id;
+
+  // newsSectionImage
+  let newsSectionImageUrlPreparedForDB: string | null = await prepareImageForDB(
+    values.newsSectionImageUrl as string | null,
+    currentlyCreatedImagesToBeDeletedWhenError,
+    'IMAGE_NEWS',
+    'news'
+  );
+
+  // sliderImageUrl
+  let sliderImageUrlPreparedForDB: string | null = await prepareImageForDB(
+    values.sliderImageUrl as string | null,
+    currentlyCreatedImagesToBeDeletedWhenError,
+    'IMAGE_REGULAR',
+    'event'
+  );
+
+  //images
+  let imagesPreparedForDB: TImageEventForDB[];
+  try {
+    imagesPreparedForDB = await prepareImageDataForSavingInDB(
+      values,
+      currentlyCreatedImagesToBeDeletedWhenError
+    );
+  } catch (error) {
+    // logger.warn((error as Error).stack);
+    // await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    // return { status: 'ERROR', response: imageCreationErrorMessage };
+  }
+
+  console.log({ newsSectionImageUrlPreparedForDB });
+  console.log({ sliderImageUrlPreparedForDB });
+  console.log({ currentlyCreatedImagesToBeDeletedWhenError });
+
   //   const isIncludeImages = !values.isCustomLinkToDetails;
 
   //   //occurrence
@@ -72,42 +116,59 @@ export async function addEvent(
   //     return { status: 'ERROR', response: imageCreationErrorMessage };
   //   }
 
-  //   let cyclicalActivityPreparedForDb: Prisma.CyclicalActivityCreateInput = {
-  //     //stage1
-  //     name: values.name,
-  //     activityTypes: values.activityTypes,
-  //     activitiesForWhom: values.activitiesForWhom,
-  //     places: values.places,
-  //     isToBePublished: values.isToBePublished as boolean,
-  //     isExpiresAtRequired: values.isExpiresAtRequired as boolean,
-  //     expiresAt: values.expiresAt as string | Date | null | undefined,
+  // let eventPreparedForDb: Prisma.EventCreateInput = {
+  //   //stage1
+  //   title: values.title,
+  //   eventTypes: values.eventTypes,
+  //   eventForWhom: values.eventForWhom,
+  //   places: values.places,
+  //   eventStartDate: values.eventStartDate as string | Date,
+  //   eventEndDate: null,
+  //   isToBePublished: values.isToBePublished,
+  //   visibleFrom: values.visibleFrom,
+  //   visibleTo: values.visibleTo,
+  //   author: {
+  //     connect: { id: authorId },
+  //   },
 
-  //     //stage2
-  //     shortDescription: values.shortDescription,
-  //     isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
-  //     longDescription: values.longDescription
-  //       ? (values.longDescription as string)
-  //       : null,
-  //     customLinkToDetails: values.customLinkToDetails
-  //       ? values.customLinkToDetails
-  //       : null,
-  //     author: {
-  //       connect: { id: authorId },
-  //     },
-  //     //stage3
-  //     occurrence: {
-  //       createMany: {
-  //         data: occurrencePreparedData,
-  //       },
-  //     },
-  //   };
+  //   //stage2
+  //   isToBeInNewsSection: values.isToBeInNewsSection,
+  //   isToBeOnlyInNewsSection_NotSeenInEvents:
+  //     values.isToBeOnlyInNewsSection_NotSeenInEvents,
+  //   isDateToBeHiddenInNewsSection: values.isDateToBeHiddenInNewsSection,
+
+  //   ///////////////////////////////////////////////
+  //   // newsSectionImageUrl: null,
+  //   // newsSectionImageAlt: '',
+
+  //   // //stage2
+  //   // shortDescription: values.shortDescription,
+  //   // isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
+  //   // longDescription: values.longDescription
+  //   //   ? (values.longDescription as string)
+  //   //   : null,
+  //   // customLinkToDetails: values.customLinkToDetails
+  //   //   ? values.customLinkToDetails
+  //   //   : null,
+  //   // author: {
+  //   //   connect: { id: authorId },
+  //   // },
+  //   // //stage3
+  //   // occurrence: {
+  //   //   createMany: {
+  //   //     data: occurrencePreparedData,
+  //   //   },
+  //   // },
+  // };
 
   //   if (isIncludeImages) {
   //     cyclicalActivityPreparedForDb.images = {
   //       createMany: { data: imagesPreparedData },
   //     };
   //   }
-
+  //   /*
+  //  writing cyclical activity to db
+  //  */
   //   try {
   //     const response = await prisma.cyclicalActivity.create({
   //       data: cyclicalActivityPreparedForDb,

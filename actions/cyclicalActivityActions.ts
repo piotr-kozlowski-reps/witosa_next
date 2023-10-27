@@ -15,7 +15,6 @@ import {
   getDifferencesBetweenTwoObjects,
   getIfImagesShouldBeProcessedFurther,
 } from '@/lib/objectHelpers';
-import { generateFileName } from '@/lib/textHelpers';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
@@ -35,11 +34,14 @@ import {
   ImageCyclicalActivity,
   Prisma,
 } from '@prisma/client';
-import { unlink } from 'fs/promises';
 import { Session } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import sharp from 'sharp';
-import { checkIfLoggedIn } from './actionHelpers';
+import {
+  checkIfLoggedIn,
+  deleteImagesFiles,
+  prepareImageDataForSavingInDB,
+  validateCyclicalActivityData,
+} from './actionHelpers';
 
 export async function addCyclicalActivity(
   values: TCyclicalActivityFormInputs
@@ -57,11 +59,9 @@ export async function addCyclicalActivity(
   /* 
   data validation 
   */
-  const validationResult = validateValuesForCyclicalActivities(
-    values as Object
-  );
-  if (!validationResult) {
-    logger.warn(badCyclicalActivitiesData);
+  try {
+    validateCyclicalActivityData(values);
+  } catch (error) {
     return { status: 'ERROR', response: badCyclicalActivitiesData };
   }
 
@@ -590,94 +590,6 @@ function prepareOccurrenceDataForSavingInDB(
     }
     return resultOccurrenceWithoutCyclicalID;
   });
-}
-
-async function prepareImageDataForSavingInDB(
-  values: TCyclicalActivityFormInputs,
-  createdImagesArray: string[]
-): Promise<TImageCyclicalActivityForDB[]> {
-  const originalImagesData = values.images;
-
-  let result: TImageCyclicalActivityForDB[] = [];
-  if (!originalImagesData) {
-    return result;
-  }
-  for (let i = 0; i < originalImagesData.length; i++) {
-    const imageUrl =
-      await generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
-        originalImagesData[i].file as string
-      );
-
-    //adding created image url to be deleted when some error occur
-    createdImagesArray.push(imageUrl);
-
-    result.push({
-      url: imageUrl,
-      alt: originalImagesData[i].alt as string,
-      index: originalImagesData[i].index,
-      additionInfoThatMustBeDisplayed: originalImagesData[i]
-        .additionInfoThatMustBeDisplayed
-        ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
-        : null,
-      id: originalImagesData[i].id,
-    });
-  }
-  return result;
-}
-async function generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
-  file: string
-): Promise<string> {
-  console.log({ file });
-
-  if (file.startsWith('data:image') && file.includes('base64')) {
-    const imageUrl = await proccessAndSaveImageOnServer(file);
-    return imageUrl;
-  }
-
-  return file;
-}
-
-async function proccessAndSaveImageOnServer(
-  fileAsBase64: string
-): Promise<string> {
-  if (!fileAsBase64) {
-    throw new Error('No base 64 image');
-  }
-
-  const fileName = `./public/${generateFileName()}.jpg`;
-
-  try {
-    const uri = fileAsBase64.split(';base64,').pop();
-    let buffer = Buffer.from(uri as string, 'base64');
-    const image = await sharp(buffer)
-      .resize({
-        width: 1140,
-        withoutEnlargement: true,
-      })
-      .toFormat('jpg', { compression: '80' })
-      .toFile(fileName);
-
-    console.log('saved image: ', { image });
-  } catch (error) {
-    logger.error(error);
-    throw new Error('Unable to save image on server.');
-  }
-
-  return fileName.replace('./public/', '');
-}
-
-async function deleteImagesFiles(filesArray: string[]): Promise<boolean> {
-  let result = true;
-  for (let i = 0; i < filesArray.length; i++) {
-    try {
-      await unlink(`public/${filesArray[i]}`);
-    } catch (error) {
-      logger.error(`Deleting file: ${filesArray[i]} unsuccessful.`);
-      result = false;
-    }
-  }
-
-  return result;
 }
 
 function getProperDataForCyclicalActivityUpdate(
