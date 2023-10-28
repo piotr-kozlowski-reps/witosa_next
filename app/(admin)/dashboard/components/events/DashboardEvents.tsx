@@ -2,8 +2,11 @@ import CustomButton from '@/app/(site)/components/CustomButton';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useEventsState } from '@/context/eventsState';
 import { TGetAllEventsResponse } from '@/types';
+import { Event } from '@prisma/client';
 import { Fragment } from 'react';
 import EventAddForm from './EventAddForm';
+import EventsDataTable from './EventsDataTable';
+import { columnsEvents } from './columnsEvents';
 
 type Props = {
   eventsData: TGetAllEventsResponse;
@@ -46,10 +49,10 @@ export default function DashboardEvents(props: Props) {
                 />
               </div>
             </div>
-            {/* <CyclicalActivitiesDataTable
-              columns={columnsCyclicalActivities}
-              data={cyclicalActivitiesData.response as CyclicalActivity[]}
-            /> */}
+            <EventsDataTable
+              columns={columnsEvents}
+              data={eventsData.response as Event[]}
+            />
           </Fragment>
         </ComponentTransitionFromRightToLeft>
       ) : null}

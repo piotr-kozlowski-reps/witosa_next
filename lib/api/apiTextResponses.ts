@@ -35,7 +35,7 @@ export const userAlreadyExists = 'Użytkownik o takim e-mailu już istnieje.';
 
 //cyclical activities
 export const lackOfCyclicalActivitiesData = 'Brakuje danych, by dodać zajęcia.';
-export const badCyclicalActivitiesData = 'Otrzymane dane są nieprawidłowe.';
+export const badReceivedData = 'Otrzymane dane są nieprawidłowe.';
 export const cyclicalActivityNotExistsMessage =
   'Nie można znaleźć takich zajęć w bazie danych.';
 
@@ -45,6 +45,8 @@ export const dateOfEventIsNotDefined =
 export const dateOfVisibleFromIsNotDefined =
   'Data rozpoczęcia publikacji wydarzenie nie została jeszcze przez Ciebie określona lub jest błędna.';
 export const badEventData = 'Otrzymane dane są nieprawidłowe.';
+export const eventNotExistsMessage =
+  'Nie ma takiego wydarzenia w bazie danych.';
 
 //data preparation
 export const preparationDataError =

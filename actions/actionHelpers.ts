@@ -2,8 +2,8 @@
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
-  badCyclicalActivitiesData,
   badEventData,
+  badReceivedData,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import { validateValuesForCyclicalActivities } from '@/lib/forms/cyclical-activities-form';
@@ -11,10 +11,10 @@ import { validateValuesForEvents } from '@/lib/forms/events-form';
 import logger from '@/lib/logger';
 import { generateFileName } from '@/lib/textHelpers';
 import {
-  TCyclicalActivityFormInputs,
-  TEventFormInputs,
   TImageCyclicalActivityForDB,
+  TImageCyclicalActivityFormValues,
   TImageEventForDB,
+  TImageEventFormValue,
   TStringToDistinguishCreatedImageName,
   TTypeOfImageToBeGenerated,
 } from '@/types';
@@ -41,8 +41,8 @@ export async function validateEventData(values: Object) {
 export async function validateCyclicalActivityData(values: Object) {
   const validationResult = validateValuesForCyclicalActivities(values);
   if (!validationResult) {
-    logger.warn(badCyclicalActivitiesData);
-    throw new Error(badCyclicalActivitiesData);
+    logger.warn(badReceivedData);
+    throw new Error(badReceivedData);
   }
 }
 
@@ -122,13 +122,20 @@ export async function prepareImageForDB(
   return imageUrl;
 }
 
-export async function prepareImageDataForSavingInDB(
-  values: TCyclicalActivityFormInputs | TEventFormInputs,
-  createdImagesArray: string[]
-): Promise<TImageCyclicalActivityForDB[] | TImageEventForDB[]> {
+export async function prepareImagesForDB<
+  T extends {
+    images: TImageCyclicalActivityFormValues[] | TImageEventFormValue[];
+  },
+  K extends TImageEventForDB | TImageCyclicalActivityForDB
+>(
+  values: T,
+  createdImagesArray: string[],
+  typeOfImageToBeGenerated: TTypeOfImageToBeGenerated,
+  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName
+): Promise<K[]> {
   const originalImagesData = values.images;
 
-  let result: TImageCyclicalActivityForDB[] = [];
+  let result: K[] = [];
   if (!originalImagesData) {
     return result;
   }
@@ -136,8 +143,8 @@ export async function prepareImageDataForSavingInDB(
     const imageUrl =
       await generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString(
         originalImagesData[i].file as string,
-        'IMAGE_REGULAR',
-        'cyclical_activity'
+        typeOfImageToBeGenerated,
+        stringToDistinguishCreatedImageName
       );
 
     //adding created image url to be deleted when some error occur
@@ -145,14 +152,13 @@ export async function prepareImageDataForSavingInDB(
 
     result.push({
       url: imageUrl,
-      alt: originalImagesData[i].alt as string,
+      alt: originalImagesData[i].alt,
       index: originalImagesData[i].index,
       additionInfoThatMustBeDisplayed: originalImagesData[i]
         .additionInfoThatMustBeDisplayed
         ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
         : null,
-      id: originalImagesData[i].id,
-    });
+    } as K);
   }
   return result;
 }

@@ -104,8 +104,8 @@ export default function EventAddForm() {
     setShowNotification('SUCCESS', response.response);
 
     if (isCurrentFormToPOSTData) {
-      // resetFormToInitialState();
-      // goToFirstStage();
+      resetFormToInitialState();
+      goToFirstStage();
     }
     // if (isCurrentFormToPUTData) {
     //   resetFormToInitialState();

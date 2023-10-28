@@ -2,7 +2,12 @@
 
 import {
   badEventData,
+  badReceivedData,
+  dbDeletingErrorMessage,
   dbReadingErrorMessage,
+  dbWritingErrorMessage,
+  eventNotExistsMessage,
+  imageCreationErrorMessage,
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import logger from '@/lib/logger';
@@ -13,12 +18,14 @@ import {
   TGetAllEventsResponse,
   TImageEventForDB,
 } from '@/types';
-import { Event } from '@prisma/client';
+import { Event, ImageEvent, Prisma } from '@prisma/client';
 import { Session } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 import {
   checkIfLoggedIn,
-  prepareImageDataForSavingInDB,
+  deleteImagesFiles,
   prepareImageForDB,
+  prepareImagesForDB,
   validateEventData,
 } from './actionHelpers';
 
@@ -81,114 +88,232 @@ export async function addEvent(
   );
 
   //images
-  let imagesPreparedForDB: TImageEventForDB[];
+  //TODO: add looking for duplicates in images/sliderImage - if so - copy image from slider to desired one in images
+  let imagesPreparedForDB: TImageEventForDB[] = [];
   try {
-    imagesPreparedForDB = await prepareImageDataForSavingInDB(
+    imagesPreparedForDB = await prepareImagesForDB<
+      TEventFormInputs,
+      TImageEventForDB
+    >(
       values,
-      currentlyCreatedImagesToBeDeletedWhenError
+      currentlyCreatedImagesToBeDeletedWhenError,
+      'IMAGE_REGULAR',
+      'event'
     );
   } catch (error) {
-    // logger.warn((error as Error).stack);
-    // await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
-    // return { status: 'ERROR', response: imageCreationErrorMessage };
+    logger.warn((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: imageCreationErrorMessage };
   }
 
-  console.log({ newsSectionImageUrlPreparedForDB });
-  console.log({ sliderImageUrlPreparedForDB });
-  console.log({ currentlyCreatedImagesToBeDeletedWhenError });
+  // console.log({ newsSectionImageUrlPreparedForDB });
+  // console.log({ sliderImageUrlPreparedForDB });
+  // console.log({ imagesPreparedForDB });
+  // console.log({ currentlyCreatedImagesToBeDeletedWhenError });
 
-  //   const isIncludeImages = !values.isCustomLinkToDetails;
+  let eventPreparedForDb: Prisma.EventCreateInput = {
+    //stage1
+    title: values.title,
+    eventTypes: values.eventTypes,
+    eventForWhom: values.eventForWhom,
+    places: values.places,
+    eventStartDate: values.eventStartDate as string | Date,
+    eventEndDate: null,
+    isToBePublished: values.isToBePublished,
+    visibleFrom: values.visibleFrom,
+    visibleTo: values.visibleTo,
+    author: {
+      connect: { id: authorId },
+    },
 
-  //   //occurrence
-  //   const occurrencePreparedData: TOccurrenceWithRequiredDates[] =
-  //     prepareOccurrenceDataForSavingInDB(values);
+    //stage2
+    isToBeInNewsSection: values.isToBeInNewsSection,
+    isToBeOnlyInNewsSection_NotSeenInEvents:
+      values.isToBeOnlyInNewsSection_NotSeenInEvents,
+    isDateToBeHiddenInNewsSection: values.isDateToBeHiddenInNewsSection,
+    newsSectionImageUrl: newsSectionImageUrlPreparedForDB,
+    newsSectionImageAlt: values.newsSectionImageAlt,
 
-  //   //images
-  //   let imagesPreparedData: TImageCyclicalActivityForDB[];
-  //   try {
-  //     imagesPreparedData = await prepareImageDataForSavingInDB(
-  //       values,
-  //       currentlyCreatedImagesToBeDeletedWhenError
-  //     );
-  //   } catch (error) {
-  //     logger.warn((error as Error).stack);
-  //     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
-  //     return { status: 'ERROR', response: imageCreationErrorMessage };
-  //   }
+    //stage3
+    isCustomLinkToDetails: values.isCustomLinkToDetails,
+    customLinkToDetails: values.customLinkToDetails,
+    shortDescription: values.shortDescription,
+    // images: imagesPreparedForDB,
+    detailedDescription: values.detailedDescription,
 
-  // let eventPreparedForDb: Prisma.EventCreateInput = {
-  //   //stage1
-  //   title: values.title,
-  //   eventTypes: values.eventTypes,
-  //   eventForWhom: values.eventForWhom,
-  //   places: values.places,
-  //   eventStartDate: values.eventStartDate as string | Date,
-  //   eventEndDate: null,
-  //   isToBePublished: values.isToBePublished,
-  //   visibleFrom: values.visibleFrom,
-  //   visibleTo: values.visibleTo,
-  //   author: {
-  //     connect: { id: authorId },
-  //   },
+    //stage4
+    isToBeInSlider: values.isToBeInSlider,
+    sliderImageUrl: sliderImageUrlPreparedForDB,
+    sliderImageAlt: values.sliderImageAlt,
+    visibleInSliderFrom: values.visibleInSliderFrom,
+    visibleInSliderTo: values.visibleInSliderTo,
 
-  //   //stage2
-  //   isToBeInNewsSection: values.isToBeInNewsSection,
-  //   isToBeOnlyInNewsSection_NotSeenInEvents:
-  //     values.isToBeOnlyInNewsSection_NotSeenInEvents,
-  //   isDateToBeHiddenInNewsSection: values.isDateToBeHiddenInNewsSection,
+    //stage5
+    kindOfEnterInfo: values.kindOfEnterInfo,
+    isPayed: values.isPayed,
+    ticketBuyingUrl: values.ticketBuyingUrl,
+  };
 
-  //   ///////////////////////////////////////////////
-  //   // newsSectionImageUrl: null,
-  //   // newsSectionImageAlt: '',
+  //add images when needed
+  const isIncludeImages = !values.isCustomLinkToDetails;
+  if (isIncludeImages) {
+    eventPreparedForDb.images = {
+      createMany: { data: imagesPreparedForDB },
+    };
+  }
 
-  //   // //stage2
-  //   // shortDescription: values.shortDescription,
-  //   // isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
-  //   // longDescription: values.longDescription
-  //   //   ? (values.longDescription as string)
-  //   //   : null,
-  //   // customLinkToDetails: values.customLinkToDetails
-  //   //   ? values.customLinkToDetails
-  //   //   : null,
-  //   // author: {
-  //   //   connect: { id: authorId },
-  //   // },
-  //   // //stage3
-  //   // occurrence: {
-  //   //   createMany: {
-  //   //     data: occurrencePreparedData,
-  //   //   },
-  //   // },
-  // };
+  /*
+   writing cyclical activity to db
+   */
+  try {
+    console.log('writing to db');
 
-  //   if (isIncludeImages) {
-  //     cyclicalActivityPreparedForDb.images = {
-  //       createMany: { data: imagesPreparedData },
-  //     };
-  //   }
-  //   /*
-  //  writing cyclical activity to db
-  //  */
-  //   try {
-  //     const response = await prisma.cyclicalActivity.create({
-  //       data: cyclicalActivityPreparedForDb,
-  //     });
-  //     console.log({ response });
-  //   } catch (error) {
-  //     console.log((error as Error).stack);
-  //     logger.warn((error as Error).stack);
-  //     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
-  //     return { status: 'ERROR', response: dbWritingErrorMessage };
-  //   }
+    const response = await prisma.event.create({
+      data: eventPreparedForDb,
+    });
+    console.log({ response });
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
 
-  //   /** revalidation */
-  //   revalidatePath('/');
+  /**
+   * revalidation
+   * */
+  revalidatePath('/');
 
-  /* final success response */
+  /**
+   *  final success response
+   * */
   const successMessage = `Wydarzenie: (${values.title}) zostały zapisane.`;
   logger.info(successMessage);
   return {
     status: 'SUCCESS',
     response: successMessage,
   };
+}
+
+export async function deleteEvents(ids: string[]): Promise<TActionResponse> {
+  /**
+   * checking session
+   * */
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
+    return { status: 'ERROR', response: notLoggedIn };
+  }
+
+  /**
+   * checking values eXistenZ
+   * */
+  if (!ids || ids.length === 0) {
+    logger.warn(badReceivedData);
+    return { status: 'ERROR', response: badReceivedData };
+  }
+
+  const imagesToBeDeleted: string[] = [];
+  /*
+  validation if ids already exist in db
+   */
+  for (let i = 0; i < ids.length; i++) {
+    let exists: unknown;
+    try {
+      exists = await checkIfEventExists(ids[i]);
+      findAllImagesToBeDeletedAndFillWithThemPassedArray(
+        exists as Event,
+        imagesToBeDeleted
+      );
+    } catch (error) {
+      logger.warn((error as Error).stack);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
+    if (!exists) {
+      logger.warn(eventNotExistsMessage);
+      return { status: 'ERROR', response: eventNotExistsMessage };
+    }
+  }
+
+  /*
+  deleting event from db
+  */
+  for (let i = 0; i < ids.length; i++) {
+    //images
+    const deleteEventImages = prisma.imageEvent.deleteMany({
+      where: {
+        eventId: ids[i],
+      },
+    });
+
+    //
+    const deleteEvent = prisma.event.deleteMany({
+      where: {
+        id: ids[i],
+      },
+    });
+
+    try {
+      await prisma.$transaction([deleteEventImages, deleteEvent]);
+    } catch (error) {
+      logger.warn((error as Error).stack);
+      return { status: 'ERROR', response: dbDeletingErrorMessage };
+    }
+  }
+
+  /*
+  deleting images from server (from deleted event)
+  */
+  try {
+    await deleteImagesFiles(imagesToBeDeleted);
+  } catch (error) {
+    logger.error((error as Error).stack);
+  }
+
+  /**
+   * revalidate all
+   * */
+  revalidatePath('/');
+
+  /**
+   * final response
+   * */
+  const successMessage = `Zajęcia zostały usunięte.`;
+  logger.info(successMessage);
+  return {
+    status: 'SUCCESS',
+    response: successMessage,
+  };
+}
+
+////
+//utils
+async function checkIfEventExists(id: string) {
+  const exists = await prisma.event.findUnique({
+    where: { id },
+    include: { images: true },
+  });
+  return exists;
+}
+
+function findAllImagesToBeDeletedAndFillWithThemPassedArray(
+  exists: Event,
+  imagesToBeDeleted: string[]
+) {
+  console.log({ exists });
+
+  //newsSectionImageUrl
+  if (exists.newsSectionImageUrl) {
+    imagesToBeDeleted.push(exists.newsSectionImageUrl);
+  }
+
+  //sliderImageUrl
+  if (exists.sliderImageUrl) {
+    imagesToBeDeleted.push(exists.sliderImageUrl);
+  }
+
+  //images
+  if ('images' in exists) {
+    const images = exists.images as ImageEvent[];
+    images.forEach((image) => imagesToBeDeleted.push(image.url));
+  }
 }

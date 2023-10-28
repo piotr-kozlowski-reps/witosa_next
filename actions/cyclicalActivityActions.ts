@@ -1,7 +1,7 @@
 'use server';
 
 import {
-  badCyclicalActivitiesData,
+  badReceivedData,
   cyclicalActivityNotExistsMessage,
   dbDeletingErrorMessage,
   dbReadingErrorMessage,
@@ -39,7 +39,7 @@ import { revalidatePath } from 'next/cache';
 import {
   checkIfLoggedIn,
   deleteImagesFiles,
-  prepareImageDataForSavingInDB,
+  prepareImagesForDB,
   validateCyclicalActivityData,
 } from './actionHelpers';
 
@@ -62,7 +62,7 @@ export async function addCyclicalActivity(
   try {
     validateCyclicalActivityData(values);
   } catch (error) {
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
+    return { status: 'ERROR', response: badReceivedData };
   }
 
   //
@@ -81,9 +81,14 @@ export async function addCyclicalActivity(
   //images
   let imagesPreparedData: TImageCyclicalActivityForDB[];
   try {
-    imagesPreparedData = await prepareImageDataForSavingInDB(
+    imagesPreparedData = await prepareImagesForDB<
+      TCyclicalActivityFormInputs,
+      TImageCyclicalActivityForDB
+    >(
       values,
-      currentlyCreatedImagesToBeDeletedWhenError
+      currentlyCreatedImagesToBeDeletedWhenError,
+      'IMAGE_REGULAR',
+      'cyclical_activity'
     );
   } catch (error) {
     logger.warn((error as Error).stack);
@@ -167,8 +172,8 @@ export async function deleteCyclicalActivities(
    * checking values eXistenZ
    * */
   if (!ids || ids.length === 0) {
-    logger.warn(badCyclicalActivitiesData);
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
+    logger.warn(badReceivedData);
+    return { status: 'ERROR', response: badReceivedData };
   }
 
   const imagesToBeDeleted: string[] = [];
@@ -313,8 +318,8 @@ export async function updateCyclicalActivity(
     changedCyclicalActivity as Object
   );
   if (!validationResult) {
-    logger.warn(badCyclicalActivitiesData);
-    return { status: 'ERROR', response: badCyclicalActivitiesData };
+    logger.warn(badReceivedData);
+    return { status: 'ERROR', response: badReceivedData };
   }
 
   /**
@@ -391,9 +396,14 @@ export async function updateCyclicalActivity(
   const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
   let imagesPreparedData: TImageCyclicalActivityForDB[] = [];
   try {
-    imagesPreparedData = await prepareImageDataForSavingInDB(
+    imagesPreparedData = await prepareImagesForDB<
+      TCyclicalActivityFormInputs,
+      TImageCyclicalActivityForDB
+    >(
       changedCyclicalActivity,
-      currentlyCreatedImagesToBeDeletedWhenError
+      currentlyCreatedImagesToBeDeletedWhenError,
+      'IMAGE_REGULAR',
+      'cyclical_activity'
     );
   } catch (error) {
     logger.warn((error as Error).stack);
