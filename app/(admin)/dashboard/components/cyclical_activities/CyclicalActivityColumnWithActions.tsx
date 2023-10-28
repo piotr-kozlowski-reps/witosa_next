@@ -1,6 +1,10 @@
 'use client';
 
 import { getCyclicalActivity } from '@/actions/cyclicalActivityActions';
+import {
+  rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated,
+  sortImagesObjectsByIndexInCyclicalActivity,
+} from '@/actions/syncActionHelpers';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
@@ -33,12 +37,13 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
       typeof existingCyclicalActivity.response === 'object'
     ) {
       const cyclicalActivityWithRewrittenUrlIntoFileProperty =
-        rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
-          existingCyclicalActivity.response
-        );
+        rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
+          TCyclicalActivityWithImageAndOccurrence,
+          ImageCyclicalActivity
+        >(existingCyclicalActivity.response);
 
       const cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TCyclicalActivityWithImageAndOccurrence =
-        sortImagesObjectsByIndex(
+        await sortImagesObjectsByIndexInCyclicalActivity(
           cyclicalActivityWithRewrittenUrlIntoFileProperty
         );
 
@@ -79,33 +84,4 @@ export default function CyclicalActivityColumnWithActions(props: Props) {
       </div>
     </div>
   );
-
-  ////utils
-  function rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
-    cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-  ) {
-    const images = cyclicalActivity.images as ImageCyclicalActivity[];
-
-    let imagesRemapped: ImageCyclicalActivity[];
-    if (images && images.length > 0) {
-      imagesRemapped = images.map((image) => ({ ...image, file: image.url }));
-      return { ...cyclicalActivity, images: imagesRemapped };
-    }
-
-    return cyclicalActivity;
-  }
-}
-
-function sortImagesObjectsByIndex(
-  cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-): TCyclicalActivityWithImageAndOccurrence {
-  const imageObjects = [...cyclicalActivity.images];
-  imageObjects.sort((imageObject1, imageObject2) => {
-    return imageObject1.index < imageObject2.index ? -1 : 1;
-  });
-
-  const resultCyclicalImagesObject = { ...cyclicalActivity };
-  resultCyclicalImagesObject.images = imageObjects;
-
-  return resultCyclicalImagesObject;
 }

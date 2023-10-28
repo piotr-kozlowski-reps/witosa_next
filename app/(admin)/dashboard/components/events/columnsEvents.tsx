@@ -143,9 +143,9 @@ export const columnsEvents: ColumnDef<Event>[] = [
         <div className="float-right mr-8">
           <input
             placeholder="wyszukaj wydarzenie"
-            value={(table.getColumn('name')?.getFilterValue() as string) || ''}
+            value={(table.getColumn('title')?.getFilterValue() as string) || ''}
             onChange={(e) => {
-              table.getColumn('name')?.setFilterValue(e.target.value);
+              table.getColumn('title')?.setFilterValue(e.target.value);
             }}
             className="mt-0 form-input"
           ></input>

@@ -392,6 +392,11 @@ export type TEventFormInputs = Omit<
   visibleTo: Date | null;
 };
 
+export type TGetOneEventResponse = {
+  status: TStatus;
+  response: string | TEventWithImages;
+};
+
 export type TOptionsForFormikSelect<T> = {
   value: T;
   label: string;

@@ -15,7 +15,9 @@ import prisma from '@/prisma/client';
 import {
   TActionResponse,
   TEventFormInputs,
+  TEventWithImages,
   TGetAllEventsResponse,
+  TGetOneEventResponse,
   TImageEventForDB,
 } from '@/types';
 import { Event, ImageEvent, Prisma } from '@prisma/client';
@@ -192,6 +194,28 @@ export async function addEvent(
     status: 'SUCCESS',
     response: successMessage,
   };
+}
+
+export async function getEvent(id: string): Promise<TGetOneEventResponse> {
+  let event: TEventWithImages | null;
+
+  try {
+    event = await prisma.event.findFirst({
+      where: { id },
+      include: {
+        images: true,
+      },
+    });
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    return { status: 'ERROR', response: dbReadingErrorMessage };
+  }
+
+  if (!event) {
+    return { status: 'ERROR', response: eventNotExistsMessage };
+  }
+
+  return { status: 'SUCCESS', response: event };
 }
 
 export async function deleteEvents(ids: string[]): Promise<TActionResponse> {

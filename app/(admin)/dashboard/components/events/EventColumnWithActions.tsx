@@ -1,11 +1,18 @@
 'use client';
 
+import { getEvent } from '@/actions/eventsActions';
+import {
+  rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated,
+  sortImagesObjectsByIndexInEvent,
+} from '@/actions/syncActionHelpers';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
+import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteEventsContent from '@/app/(site)/components/modal/ModalDeleteEventsContent';
-import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
+import { useEventsState } from '@/context/eventsState';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
-import { Event } from '@prisma/client';
+import { TEventWithImages } from '@/types';
+import { Event, ImageEvent } from '@prisma/client';
 
 type Props = {
   event: Event;
@@ -17,49 +24,46 @@ export default function EventColumnWithActions(props: Props) {
   const { id, title } = event;
   const { setShowModal } = useModalState();
   const { setShowNotification } = useNotificationState();
-  const {
-    setIsAddCyclicalActivityVisible,
-    setCyclicalActivityFormikDataForPUT,
-  } = useCyclicalActivitiesState();
+  const { setEventFormikDataForPUT, setIsAddEventVisible } = useEventsState();
 
-  // async function editCyclicalActivityHandler(id: string) {
-  //   const existingCyclicalActivity = await getCyclicalActivity(id);
+  async function editEventHandler(id: string) {
+    console.log({ id });
+    const existingEvent = await getEvent(id);
 
-  //   if (
-  //     existingCyclicalActivity.status === 'SUCCESS' &&
-  //     typeof existingCyclicalActivity.response === 'object'
-  //   ) {
-  //     const cyclicalActivityWithRewrittenUrlIntoFileProperty =
-  //       rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
-  //         existingCyclicalActivity.response
-  //       );
+    if (
+      existingEvent.status === 'SUCCESS' &&
+      typeof existingEvent.response === 'object'
+    ) {
+      const eventWithRewrittenUrlIntoFileProperty =
+        rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
+          TEventWithImages,
+          ImageEvent
+        >(existingEvent.response);
 
-  //     const cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TCyclicalActivityWithImageAndOccurrence =
-  //       sortImagesObjectsByIndex(
-  //         cyclicalActivityWithRewrittenUrlIntoFileProperty
-  //       );
+      const eventWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TEventWithImages =
+        sortImagesObjectsByIndexInEvent(eventWithRewrittenUrlIntoFileProperty);
 
-  //     setCyclicalActivityFormikDataForPUT(
-  //       cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex
-  //     );
-  //     setIsAddCyclicalActivityVisible(true);
-  //     return;
-  //   }
+      setEventFormikDataForPUT(
+        eventWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex
+      );
+      setIsAddEventVisible(true);
+      return;
+    }
 
-  //   setShowNotification('ERROR', 'Nie znaleziono zajęć.');
-  // }
+    setShowNotification('ERROR', 'Nie znaleziono wydarzenia.');
+  }
 
   ////tsx
   return (
     <div className="float-right mr-8 h-[42px] pt-[6px] flex justify-end items-center">
-      {/* <div>
+      <div>
         <EditIcon
           actionFn={() => {
-            editCyclicalActivityHandler(id);
+            editEventHandler(id);
           }}
           alt="Edytuj zajęcia."
         />
-      </div> */}
+      </div>
 
       <div>
         <CloseIcon
@@ -74,33 +78,4 @@ export default function EventColumnWithActions(props: Props) {
       </div>
     </div>
   );
-
-  ////utils
-  //   function rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated(
-  //     cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-  //   ) {
-  //     const images = cyclicalActivity.images as ImageCyclicalActivity[];
-
-  //     let imagesRemapped: ImageCyclicalActivity[];
-  //     if (images && images.length > 0) {
-  //       imagesRemapped = images.map((image) => ({ ...image, file: image.url }));
-  //       return { ...cyclicalActivity, images: imagesRemapped };
-  //     }
-
-  //     return cyclicalActivity;
-  //   }
-  // }
-
-  // function sortImagesObjectsByIndex(
-  //   cyclicalActivity: TCyclicalActivityWithImageAndOccurrence
-  // ): TCyclicalActivityWithImageAndOccurrence {
-  //   const imageObjects = [...cyclicalActivity.images];
-  //   imageObjects.sort((imageObject1, imageObject2) => {
-  //     return imageObject1.index < imageObject2.index ? -1 : 1;
-  //   });
-
-  //   const resultCyclicalImagesObject = { ...cyclicalActivity };
-  //   resultCyclicalImagesObject.images = imageObjects;
-
-  //   return resultCyclicalImagesObject;
 }
