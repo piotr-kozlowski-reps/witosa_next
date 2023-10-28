@@ -11,12 +11,16 @@ export async function getNewsDataSorted() {
 
   const eventsMappedForNewsSection: TEventInNewsSection[] = eventsData
     .filter((event) => checkIfEventIsToBePublished(event))
-    .filter((event) =>
-      isFirstDateBeforeSecond(event.visibleFrom, new Date(Date.now()))
-    )
-    .filter((event) =>
-      isFirstDateAfterSecond(event.visibleTo, new Date(Date.now()))
-    )
+    .filter((event) => {
+      if (event.visibleFrom) {
+        return isFirstDateBeforeSecond(event.visibleFrom, new Date(Date.now()));
+      }
+    })
+    .filter((event) => {
+      if (event.visibleTo) {
+        return isFirstDateAfterSecond(event.visibleTo, new Date(Date.now()));
+      }
+    })
     .map((event) => {
       return {
         id: event.id,
