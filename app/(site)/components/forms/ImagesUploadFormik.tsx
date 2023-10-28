@@ -47,18 +47,6 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
-  // const valueOfImagesToBePassedFurther: TFormImageType =
-  //   currentImagesValue.length > 0
-  //     ? currentImagesValue
-  //     : [
-  //         {
-  //           file: undefined,
-  //           alt: '',
-  //           additionInfoThatMustBeDisplayed: '',
-  //           id: new Date().getTime().toString(),
-  //         },
-  //       ];
-
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -79,19 +67,28 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
         (el) => el.id === active.id
       );
       const overIndex = currentImagesValue.findIndex((el) => el.id === over.id);
+      const properlySwitchedItemsArray = arrayMove(
+        currentImagesValue,
+        activeIndex,
+        overIndex
+      );
+      properlySwitchedItemsArray;
+      const resultArrayWithProperIndexes = properlySwitchedItemsArray.map(
+        (imageObject, index) => ({ ...imageObject, index: index })
+      );
 
-      const resultArray = arrayMove(currentImagesValue, activeIndex, overIndex);
-
-      formik.setFieldValue(name, resultArray);
+      formik.setFieldValue(name, resultArrayWithProperIndexes);
     }
   }
 
   function addNewImage() {
-    const resultImagesArray = [
+    const resultImagesArray: TImageCyclicalActivityFormValues[] = [
       ...currentImagesValue,
       {
+        url: '',
         file: undefined,
         alt: '',
+        index: currentImagesValue.length,
         additionInfoThatMustBeDisplayed: '',
         id: new Date().getTime().toString(),
       },
@@ -102,13 +99,7 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
   ////tsx
   return (
     <Fragment>
-      <label
-        htmlFor={name}
-        className={clsx(
-          'font-base-regular'
-          // isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
-        )}
-      >
+      <label htmlFor={name} className={clsx('font-base-regular')}>
         {label}
       </label>
       <DndContext

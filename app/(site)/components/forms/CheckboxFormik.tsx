@@ -39,7 +39,7 @@ export default function CheckboxFormik<T = void>(props: Props<T>) {
 
   ////tsx
   return (
-    <div className="flex flex-col items-start justify-start">
+    <div className="flex flex-col items-start justify-start ">
       {isToBeUsedAsPartFormik && formik ? (
         <div className="flex mt-[23px]">
           <div className=" font-base-regular hover:font-base-bold">
@@ -81,7 +81,7 @@ export default function CheckboxFormik<T = void>(props: Props<T>) {
             </div>
           </div>
           {isCommentPopupVisible ? (
-            <div className="px-2">
+            <div className="px-2 z-60">
               <CommentPopup
                 size="EXTRA_SMALL"
                 alt={`${name} - komentarz.`}

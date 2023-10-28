@@ -1,6 +1,7 @@
 import AdditionalDescriptionComment from '@/app/(admin)/dashboard/components/form_comments/AdditionalDescriptionComment';
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
 import { useModalState } from '@/context/modalState';
+import { useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile } from '@/hooks/useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile';
 import { TImageCyclicalActivityFormValues } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -10,6 +11,7 @@ import Image from 'next/image';
 import CustomButton from '../CustomButton';
 import CloseIcon from '../icons/CloseIcon';
 import { DropImageFormik } from './DropImageFormik';
+import ImagePreviewForThreeDisplaysPreview from './ImagePreviewForThreeDisplaysPreview';
 import InputFormik from './InputFormik';
 import TextareaFormik from './TextareaFormik';
 
@@ -24,10 +26,12 @@ type Props<T> = {
 export default function ImageInputFormik<T>(props: Props<T>) {
   ////vars
   const { imageProps, index, formik, isCurrentFormToPUTData } = props;
-  const { file } = imageProps;
+  const { file, url } = imageProps;
   const { setShowModal, setHideModal } = useModalState();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
+  const { src, alt } =
+    useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(file);
 
   const currentValueOfImages = formik.getFieldMeta('images')
     .value as TImageCyclicalActivityFormValues[];
@@ -37,17 +41,17 @@ export default function ImageInputFormik<T>(props: Props<T>) {
     transition,
   };
 
-  function prevMobile(width: number) {
+  function prevImageInDifferentResolutions(width: number) {
     return (
       <div className="flex items-center justify-center w-full">
         {file ? (
           <div className="flex flex-col items-center justify-center">
             <div className="h-[352px]" style={{ width: width }}>
               <Image
-                src={file!.preview}
+                src={src}
                 width={500}
                 height={300}
-                alt={file!.name}
+                alt={alt}
                 className="object-cover object-center w-full h-full"
               />
             </div>
@@ -132,36 +136,7 @@ export default function ImageInputFormik<T>(props: Props<T>) {
         </div>
 
         <div className="pl-[76px] mt-[40px] self-start flex justify-start items-center gap-8">
-          <CustomButton
-            text={'podgląd komórka'}
-            descriptionText="podgląd komórka"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevMobile(244));
-            }}
-          />
-          <CustomButton
-            text={'podgląd tablet'}
-            descriptionText="podgląd tablet"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevMobile(749));
-            }}
-          />
-          <CustomButton
-            text={'podgląd komputer'}
-            descriptionText="podgląd komputer"
-            additionalClasses="mt-[4px]"
-            disabled={!file}
-            outlined={true}
-            actionFn={() => {
-              setShowModal(true, prevMobile(1140));
-            }}
-          />
+          <ImagePreviewForThreeDisplaysPreview image={file} />
         </div>
       </div>
     </div>

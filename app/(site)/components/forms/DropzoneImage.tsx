@@ -60,7 +60,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
       onDrop,
       accept: { 'image/*': [] },
       maxFiles: 1,
-      maxSize: 4096 * 1000,
+      maxSize: 2048 * 1000,
     });
 
   let timer: ReturnType<typeof setTimeout>;
@@ -77,7 +77,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
     }
 
     if (!isDragActive && filesRejected.length) {
-      const responseTextToErrors = createTextResponseText(filesRejected);
+      const responseTextToErrors = createResponseText(filesRejected);
       setDropZoneText(responseTextToErrors);
       clearErrorDropZOneText();
       return;
@@ -89,7 +89,9 @@ export default function DropzoneImage<T>(props: Props<T>) {
     }
 
     if (!isDragActive && currentValue) {
-      setDropZoneText(currentValue.name);
+      setDropZoneText(
+        typeof currentValue === 'string' ? currentValue : currentValue.name
+      );
       return;
     }
 
@@ -111,7 +113,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
     <div
       {...getRootProps({
         className: clsx(
-          'flex-grow h-16 ml-8 w-max base-container-look hover:diagonal-lines-fill',
+          'flex-grow h-16 ml-8 w-auto base-container-look hover:diagonal-lines-fill cursor-pointer',
           currentValue && !isDragActive
             ? 'diagonal-lines-fill-secondary'
             : 'diagonal-lines-fill-gray',
@@ -143,7 +145,7 @@ export default function DropzoneImage<T>(props: Props<T>) {
 }
 
 //// utils
-function createTextResponseText(filesRejected: FileRejection[]) {
+function createResponseText(filesRejected: FileRejection[]) {
   const allErrorCodes: string[] = [];
   filesRejected.forEach((fileRejected) => {
     fileRejected.errors.forEach((error) => allErrorCodes.push(error.code));

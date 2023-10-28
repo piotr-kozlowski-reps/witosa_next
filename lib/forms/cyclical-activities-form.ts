@@ -1,3 +1,10 @@
+import {
+  TCyclicalActivityFormInputs,
+  TFormStage,
+  TImageCyclicalActivityFormValues,
+  TOptionsForFormikSelect,
+} from '@/types';
+import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
   activityTypeArrayYupSchema,
@@ -11,158 +18,92 @@ import {
   occurrenceYupSchema,
   placesYupSchema,
 } from '../yupSchemas';
+import { remapImagesIntoBackendPreparedData } from './form-helpers';
 
-// export function getCyclicalActivityValidationSchema(
-//   isExpiresAtShouldBePresent: boolean
-// ) {
-//   const cyclicalActivityValidationSchema: z.ZodType<TCyclicalActivitiesFormValues> =
-//     z.object({
-//       name: nameSchema_Required_Min2,
-//       activityTypes: activityTypeArraySchema,
-//       activitiesForWhom: forWhomArraySchema,
-//       places: placesArraySchema,
-//       isToBePublished: isBooleanSchema,
+export const prepareCyclicalActivityValuesForBackend = (
+  formikValues: TCyclicalActivityFormInputs
+) => {
+  const values = { ...formikValues };
+  const isIncludeImages = values.isCustomLinkToDetails;
+  const originalImages = values.images as TImageCyclicalActivityFormValues[];
 
-//       expiresAt: isExpiresAtShouldBePresent ? isDateSchema : isDateOrNullSchema,
-//     });
+  let imagesRemapped: TImageCyclicalActivityFormValues[] = [];
+  if (!isIncludeImages) {
+    try {
+      imagesRemapped = remapImagesIntoBackendPreparedData(originalImages);
+    } catch (error) {
+      throw new Error(
+        'Nastąpił błąd podczas procesowania obrazków, jakiegoś obrazka może brakować, lub jest uszkodzony.'
+      );
+    }
 
-//   return cyclicalActivityValidationSchema;
-// }
+    // imagesRemapped = originalImages.map((image) => ({
+    //   alt: image.alt,
+    //   url: image.url,
+    //   index: image.index,
+    //   additionInfoThatMustBeDisplayed: image.additionInfoThatMustBeDisplayed,
+    //   file: typeof image.file! === 'string' ? image.file! : image.file!.preview,
+    //   id: image.id as string,
+    // }));
+  }
+  values.images = imagesRemapped;
 
-////stage one
-// export function getCyclicalActivityValidationSchemaForStageOne() {
-//   return cyclicalActivityValidationSchemaStageOne;
-// }
-// export const cyclicalActivityValidationSchemaStageOne: z.ZodType<TCyclicalActivitiesFormValuesStageOne> =
-//   z
-//     .object({
-//       name: nameSchema_Required_Min2,
-//       activityTypes: activityTypeArraySchema,
-//       activitiesForWhom: forWhomArraySchema,
-//       places: placesArraySchema,
-//       isToBePublished: isBooleanSchema,
-//       isExpiresAtRequired: isBooleanSchema,
-//       expiresAt: isDateOrNullSchema,
-//     })
-//     .superRefine((values, context) => {
-//       if (!values.isExpiresAtRequired) {
-//         return;
-//       }
+  return values;
+};
 
-//       const isValidated = isDateSchema.safeParse(values.expiresAt);
-//       if (!isValidated.success) {
-//         context.addIssue({
-//           code: z.ZodIssueCode.custom,
-//           message: 'Data musi być określona.',
-//           path: ['expiresAt'],
-//         });
-//       }
-//     });
+export function serveOptionsForCustomLinkToDetails(): TOptionsForFormikSelect<boolean>[] {
+  return [
+    { value: false, label: 'uzupełnię szczegółowy opis oraz obrazki' },
+    { value: true, label: 'podam adres www do strony z detalami' },
+  ];
+}
 
-// export function getCyclicalActivityValidationSchemaForStageTwo() {
-//   return cyclicalActivityValidationSchemaStageTwo;
-// }
-// export const cyclicalActivityValidationSchemaStageTwo: z.ZodType<TCyclicalActivitiesFormValuesStageTwo> =
-//   z
-//     .object({
-//       shortDescription: shortDescription_Required_Min5,
-//       isCustomLinkToDetails: isBooleanSchema,
-//       customLinkToDetails: customLinkToDetails_Required_Or_Null,
-//       longDescription: customLinkToDetails_Required_Or_Null,
-//     })
-//     .superRefine((values, context) => {
-//       if (values.isCustomLinkToDetails) {
-//         const isValidated = customLinkToDetails_Required.safeParse(
-//           values.customLinkToDetails
-//         );
+export function defineCurrentIndex<T>(
+  formik: FormikProps<T>,
+  options: TOptionsForFormikSelect<boolean>[]
+) {
+  const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
+  const indexOfOptionsThatContainsCurrentValue = options.findIndex(
+    (item) => item.value === currentValue
+  );
 
-//         if (!isValidated.success) {
-//           context.addIssue({
-//             code: z.ZodIssueCode.custom,
-//             message: 'błąd.',
-//             path: ['longDescription'],
-//           });
-//         }
-//       }
-//       if (!values.isCustomLinkToDetails) {
-//         const isValidated = customLinkToDetails_Required.safeParse(
-//           values.longDescription
-//         );
+  return indexOfOptionsThatContainsCurrentValue;
+}
 
-//         if (!isValidated.success) {
-//           context.addIssue({
-//             code: z.ZodIssueCode.custom,
-//             message: 'błąd.',
-//             path: ['longDescription'],
-//           });
-//         }
-//       }
-//     });
+/**
+ * initial stages
+ * */
+export function getInitialFormStagesForCyclicalActivitiesObject(
+  values: TCyclicalActivityFormInputs
+): TFormStage[] {
+  return [
+    {
+      isAccessToStage: true,
+      linkName: 'informacje ogólne',
+      isActive: true,
+      callbackValidatingStage: validateValuesForCyclicalActivitiesStageOne,
+    },
+    {
+      isAccessToStage: false,
+      linkName: 'opis zajęć oraz zdjęcia',
+      isActive: false,
+      callbackValidatingStage: validateValuesForCyclicalActivitiesStageTwo,
+    },
+    {
+      isAccessToStage: false,
+      linkName: 'godziny zajęć',
+      isActive: false,
+    },
+  ];
+}
 
-////union (unfortunately I have no idea how to do it dynamically)
-// export function getCyclicalActivityValidationSchema(): z.ZodType<TCyclicalActivitiesFormValues> {
-//   return z.object({
-//     //stage1
-//     name: nameSchema_Required_Min2,
-//     activityTypes: activityTypeArraySchema,
-//     activitiesForWhom: forWhomArraySchema,
-//     places: placesArraySchema,
-//     isToBePublished: isBooleanSchema,
-//     isExpiresAtRequired: isBooleanSchema,
-//     expiresAt: isDateOrNullSchema,
+/**
+ * stages validation
+ * */
 
-//     //stage2
-//     shortDescription: shortDescription_Required_Min5,
-//     isCustomLinkToDetails: isBooleanSchema,
-//     customLinkToDetails: customLinkToDetails_Required_Or_Null,
-//     longDescription: longDescription_Required_Or_Null,
-//   });
-// .superRefine((values, context) => {
-//   console.log('inside');
-//   // if (!values.isExpiresAtRequired) {
-//   //   // return;
-//   // }
-
-//   const isValidated = isDateSchema.safeParse(values.expiresAt);
-//   if (!isValidated.success) {
-//     context.addIssue({
-//       code: z.ZodIssueCode.custom,
-//       message: 'Data musi być określona.',
-//       path: ['expiresAt'],
-//     });
-//   }
-// })
-// .superRefine((values, context) => {
-//   if (values.isCustomLinkToDetails) {
-//     const isValidated = customLinkToDetails_Required.safeParse(
-//       values.customLinkToDetails
-//     );
-
-//     if (!isValidated.success) {
-//       context.addIssue({
-//         code: z.ZodIssueCode.custom,
-//         message: 'błąd.',
-//         path: ['longDescription'],
-//       });
-//     }
-//   }
-//   if (!values.isCustomLinkToDetails) {
-//     const isValidated = customLinkToDetails_Required.safeParse(
-//       values.longDescription
-//     );
-
-//     if (!isValidated.success) {
-//       context.addIssue({
-//         code: z.ZodIssueCode.custom,
-//         message: 'błąd.',
-//         path: ['longDescription'],
-//       });
-//     }
-//   }
-// });
-// }
-
+//stage1
 export const cyclicalActivityValidationSchemaStageOneWithYup = {
+  id: nameSchemaYup_Required_Min2,
   name: nameSchemaYup_Required_Min2,
   activityTypes: activityTypeArrayYupSchema,
   activitiesForWhom: forWhomArrayYupSchema,
@@ -171,7 +112,13 @@ export const cyclicalActivityValidationSchemaStageOneWithYup = {
   isExpiresAtRequired: isBooleanYupSchema,
   expiresAt: cyclicalActivityExpiresAtYupSchema,
 };
+export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
+  return Yup.object({
+    ...cyclicalActivityValidationSchemaStageOneWithYup,
+  }).isValidSync(values, { context: values });
+}
 
+//stage2
 export const cyclicalActivityValidationSchemaStageTwoWithYup = {
   shortDescription: nameSchemaYup_Required_Min2,
   isCustomLinkToDetails: isBooleanYupSchema,
@@ -179,7 +126,13 @@ export const cyclicalActivityValidationSchemaStageTwoWithYup = {
   longDescription: longDescriptionYupSchema,
   images: imagesArrayYupSchema,
 };
+export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
+  return Yup.object({
+    ...cyclicalActivityValidationSchemaStageTwoWithYup,
+  }).isValidSync(values, { context: values });
+}
 
+//stage3
 export const cyclicalActivityValidationSchemaStageThreeWithYup = {
   occurrence: occurrenceYupSchema,
 };
@@ -193,19 +146,9 @@ const yupSchema = Yup.object({
 export function generateValidationForCyclicalActivities() {
   return yupSchema;
 }
-export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
-  return Yup.object({
-    ...cyclicalActivityValidationSchemaStageOneWithYup,
-  }).isValidSync(values, { context: values });
-}
-export function validateValuesForCyclicalActivitiesStageTwo(values: Object) {
-  return Yup.object({
-    ...cyclicalActivityValidationSchemaStageTwoWithYup,
-  }).isValidSync(values, { context: values });
-}
 
 export function validateValuesForCyclicalActivities(values: Object) {
   return yupSchema.isValidSync(values, { context: values });
 }
 
-export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;
+// export type TCyclicalActivityFormInputs = Yup.InferType<typeof yupSchema>;

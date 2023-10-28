@@ -8,7 +8,6 @@
 // });
 import { revalidatePath } from 'next/cache';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badEmailFormatMessage,
   dbReadingErrorMessage,
@@ -24,7 +23,7 @@ import { emailSchema } from '@/lib/zodSchemas';
 import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllNewsletterAddressesResponse } from '@/types';
 import { Newsletter } from '@prisma/client';
-import { getServerSession } from 'next-auth';
+import { checkIfLoggedIn } from './actionHelpers';
 
 export async function addNewsletterAddress(
   formData: FormData
@@ -41,7 +40,7 @@ export async function addNewsletterAddress(
   try {
     emailSchema.parse(email);
   } catch (error) {
-    logger.warn(badEmailFormatMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
@@ -50,7 +49,7 @@ export async function addNewsletterAddress(
   try {
     exists = await checkIfEmailExists(email);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (exists) {
@@ -63,8 +62,7 @@ export async function addNewsletterAddress(
     await prisma.newsletter.create({ data: { email } });
   } catch (error) {
     console.log({ error });
-
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -81,9 +79,9 @@ export async function addNewsletterAddress(
 export const getAllNewsletterAddresses =
   async (): Promise<TGetAllNewsletterAddressesResponse> => {
     /** checking session */
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      logger.warn(notLoggedIn);
+    try {
+      await checkIfLoggedIn();
+    } catch (error) {
       return { status: 'ERROR', response: notLoggedIn };
     }
 
@@ -91,7 +89,7 @@ export const getAllNewsletterAddresses =
     try {
       emailsInNewsletter = await prisma.newsletter.findMany();
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -102,9 +100,9 @@ export async function deleteNewsletterAddresses(
   emailsArray: string[]
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -120,7 +118,7 @@ export async function deleteNewsletterAddresses(
     try {
       exists = await checkIfEmailExists(emailsArray[i]);
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -139,7 +137,7 @@ export async function deleteNewsletterAddresses(
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -165,9 +163,9 @@ export async function updateNewsletterAddress(
   formData: FormData
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -184,7 +182,7 @@ export async function updateNewsletterAddress(
     emailSchema.parse(oldAddress);
     emailSchema.parse(updatedAddress);
   } catch (error) {
-    logger.warn(badEmailFormatMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: badEmailFormatMessage };
   }
 
@@ -193,7 +191,7 @@ export async function updateNewsletterAddress(
   try {
     exists = await checkIfEmailExists(oldAddress);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (!exists) {
@@ -212,7 +210,7 @@ export async function updateNewsletterAddress(
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 

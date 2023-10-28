@@ -1,9 +1,9 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
-import ModalDeleteUserContent from '@/app/(site)/components/modal/ModalDeleteUserContent';
+import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
 import { useModalState } from '@/context/modalState';
-import { User } from '@prisma/client';
+import { CyclicalActivity } from '@prisma/client';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -171,15 +171,18 @@ export default function CyclicalActivitiesDataTable<TData, TValue>({
                       return row.original;
                     })
                     .map((originalObject) => {
-                      const originalUserObject: User = originalObject as User;
+                      const originalCyclicalActivityObject: CyclicalActivity =
+                        originalObject as CyclicalActivity;
                       return {
-                        id: originalUserObject.id,
-                        name: originalUserObject.name,
+                        id: originalCyclicalActivityObject.id,
+                        name: originalCyclicalActivityObject.name,
                       };
                     });
                   setShowModal(
                     true,
-                    <ModalDeleteUserContent users={filteredUsersIds} />
+                    <ModalDeleteCyclicalActivitiesContent
+                      cyclicalActivities={filteredUsersIds}
+                    />
                   );
                 }}
                 text="skasuj elementy"

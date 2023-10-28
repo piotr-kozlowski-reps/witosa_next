@@ -1,5 +1,5 @@
 import { createLogger, format, transports } from 'winston';
-import 'winston-daily-rotate-file';
+// import 'winston-daily-rotate-file';
 
 const getLogger = (fileName = 'witosa') => {
   // const fileLogTransport = new transports.DailyRotateFile({

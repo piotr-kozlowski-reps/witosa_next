@@ -1,4 +1,4 @@
-import { TTypeDescriber } from '@/types';
+import { TStringToDistinguishCreatedImageName, TTypeDescriber } from '@/types';
 import {
   ActivityType,
   Day,
@@ -7,6 +7,7 @@ import {
   Place,
   UserRole,
 } from '@prisma/client';
+import { getMonthAlwaysInTwoDigits } from './dateHelpers';
 
 export function getPolishEventTypeName(type: EventType) {
   let polishTypeName = '';
@@ -195,6 +196,10 @@ export function getTwoDigitHours(date: Date) {
     ? `0${date.getUTCHours()}`
     : `${date.getUTCHours()}`;
 }
+
+export function getDayAlwaysInTwoDigits(date: Date) {
+  return date.getDate() <= 9 ? `0${date.getDate()}` : `${date.getDate()}`;
+}
 export function getCorrectTwoDigitsMonthNumber(date: Date) {
   const month = [
     '01',
@@ -217,15 +222,15 @@ export function getPolishPlaceName(place: Place) {
 
   switch (place) {
     case 'DANCING_ROOM':
-      polishPlaceName = 'Sala taneczna';
+      polishPlaceName = 'sala taneczna';
       break;
 
     case 'ART_ROOM':
-      polishPlaceName = 'Sala plastyczna';
+      polishPlaceName = 'sala plastyczna';
       break;
 
     case 'CONCERT_HALL':
-      polishPlaceName = 'Sala koncertowa';
+      polishPlaceName = 'sala koncertowa';
       break;
 
     default:
@@ -317,6 +322,10 @@ export function getPolishNameForEnumItem<T>(
     return getPolishPlaceName(item as Place);
   }
 
+  if (typeDescriber.isEventType) {
+    return getPolishEventTypeName(item as EventType);
+  }
+
   throw new Error('getPolishNameForEnumItem - something went wrong');
 }
 
@@ -326,7 +335,7 @@ export function getPolishErrorNamesForDropZoneArea(errorCode: string) {
       return 'Zły format pliku.';
 
     case 'file-too-large':
-      return 'Plik jest zbyt duży - limit 4Mb.';
+      return 'Plik jest zbyt duży - limit 2Mb.';
 
     case 'too-many-files':
       return 'Zbyt dużo plików - wymagany tylko jeden plik.';
@@ -350,4 +359,28 @@ export function createErrorsListInOneLineSeparatedWithVerticalLine(
   });
 
   return result;
+}
+
+export function generateFileName(
+  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName
+) {
+  let result = '';
+
+  const date = new Date(Date.now());
+  console.log({ date });
+
+  result = `${date.getFullYear()}_${getMonthAlwaysInTwoDigits(
+    date
+  )}_${getDayAlwaysInTwoDigits(
+    date
+  )}__${stringToDistinguishCreatedImageName}___${generateQuickGuid()}`;
+
+  return result;
+}
+
+function generateQuickGuid() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }

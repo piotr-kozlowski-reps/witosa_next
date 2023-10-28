@@ -80,6 +80,7 @@ model ImageEvent {
   id String @id @default(uuid())
   url String
   alt String
+  index Int
   additionInfoThatMustBeDisplayed String?
   event Event @relation(fields: [eventId], references: [id])
   eventId String
@@ -89,6 +90,7 @@ model ImageCyclicalActivity {
   id String @id @default(uuid())
   url String
   alt String
+  index Int
   additionInfoThatMustBeDisplayed String?
   cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
   cyclicalActivityId String
@@ -109,6 +111,7 @@ model Event{
   authorId String
 
   //details
+  isCustomLinkToDetails Boolean
   images ImageEvent[]
   detailedDescription String
   customLinkToDetails String?
@@ -121,7 +124,7 @@ model Event{
   //news
   isToBeInNewsSection Boolean
   isToBeOnlyInNewsSection_NotSeenInEvents Boolean
-  isDateToBeHiddenInNewsSection Boolean
+  isDateToBeHiddenInNewsSection Boolean?
   newsSectionImageUrl String?
   newsSectionImageAlt String?
 
@@ -130,29 +133,13 @@ model Event{
   sliderImageUrl String?
   sliderImageAlt String?
   visibleInSliderFrom DateTime?
-  visibleInSLiderTo DateTime?
+  visibleInSliderTo DateTime?
 
   //publishing
   isToBePublished Boolean
-  visibleFrom DateTime
-  visibleTo DateTime
+  visibleFrom DateTime?
+  visibleTo DateTime?
 }
-
-// model Slide{
-//   id String @id @default(uuid())
-//   slideTitle String
-//   slideUrl String
-//   slideAlt String
-//   eventType EventsType[]
-//   eventDate DateTime
-//   visibleFrom DateTime
-//   visibleUntil DateTime
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   author User @relation(fields: [authorId], references: [id])
-//   authorId String
-// }
-
 
 
 model CyclicalActivityOccurrence {

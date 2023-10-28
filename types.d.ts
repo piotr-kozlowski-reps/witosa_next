@@ -4,6 +4,7 @@ import {
   Day,
   Event,
   ImageCyclicalActivity,
+  ImageEvent,
   Newsletter,
   User,
   UserRole,
@@ -249,13 +250,23 @@ export type TGetAllCyclicalActivitiesResponse = {
   response: string | CyclicalActivity[];
 };
 
+export type TGetOneCyclicalActivityResponse = {
+  status: TStatus;
+  response: string | TCyclicalActivityWithImageAndOccurrence;
+};
+
+export type TGetAllEventsResponse = {
+  status: TStatus;
+  response: string | Event[];
+};
+
 export type TNewsletterDataCombo = {
   allNewsletterAddresses: TGetAllNewsletterAddressesResponse;
 };
 
 export type TModalState = {
   isShowModal: boolean;
-  modalContent: JSX.Element;
+  modalContent: React.ReactNode;
 };
 
 export type TNotificationState = {
@@ -278,24 +289,122 @@ export type TTypeDescriber = {
   isPlaceType: boolean;
 };
 
-export type TFormStage = {
+/**
+ * @prop isAccessToStage - initially true in first element of Array
+ * @prop isActive - initially true in first element of Array
+ * @prop linkName
+ * @callback callbackValidatingStage - callback of every stage -> validates values of that stage and gives promotion to next stage, if nothing passed the stage is considered valid (so last stage, can easily be ommited, because there's no need to check anything, becase we don't need any promotion further)
+ */
+export interface TFormStage {
   isAccessToStage: boolean;
   isActive: boolean;
   linkName: string;
+  callbackValidatingStage?: (values: Object) => boolean;
+}
+
+export type TImageCyclicalActivityFormValues = Omit<
+  ImageCyclicalActivity,
+  'cyclicalActivityId'
+> & {
+  file?: TFileWithPreview | string;
 };
 
-export type TImageCyclicalActivityFormValues = Pick<
-  ImageCyclicalActivity,
-  'alt' | 'additionInfoThatMustBeDisplayed'
-> & { file: TFileWithPreview; id: string | number };
 export type TImageCyclicalActivityForDB = Pick<
   ImageCyclicalActivity,
-  'alt' | 'additionInfoThatMustBeDisplayed' | 'url'
->;
+  'alt' | 'additionInfoThatMustBeDisplayed' | 'url' | 'index'
+> & { id?: string };
+
+export type TImageEventForDB = Omit<ImageEvent, 'eventId' | 'id'> & {
+  id?: string;
+};
+
+export type TImageCyclicalActivityAllOptional = Partial<ImageCyclicalActivity>;
+
+export type TTypeOfImageToBeGenerated = 'IMAGE_REGULAR' | 'IMAGE_NEWS';
+export type TStringToDistinguishCreatedImageName =
+  | 'cyclical_activity'
+  | 'event'
+  | 'news';
+
+export type TCyclicalActivityWithImageAndOccurrence = CyclicalActivity & {
+  images: ImageCyclicalActivity[];
+  occurrence: CyclicalActivityOccurrence[];
+};
 
 export type TFileWithPreview = (File & { preview: string }) | undefined;
 
-export type TOccurrence = Pick<
+export type TOccurrence = Omit<
   CyclicalActivityOccurrence,
-  'day' | 'activityStart' | 'activityEnd'
->;
+  'cyclicalActivityId' | 'activityStart' | 'activityEnd' | 'id'
+> & {
+  activityStart: Date | null;
+  activityEnd: Date | null;
+  id?: string;
+};
+export type TOccurrenceWithRequiredDates = Omit<
+  CyclicalActivityOccurrence,
+  'cyclicalActivityId' | 'activityStart' | 'activityEnd' | 'id'
+> & {
+  activityStart: Date;
+  activityEnd: Date;
+  id?: string;
+};
+export type TOccurrenceWithRequiredDatesAndCyclicalActivityID = Omit<
+  CyclicalActivityOccurrence,
+  'activityStart' | 'activityEnd' | 'id'
+> & {
+  activityStart: Date;
+  activityEnd: Date;
+  id?: string;
+};
+
+export type TCyclicalActivityFormInputs = Omit<
+  CyclicalActivity,
+  'authorId' | 'createdAt' | 'updatedAt'
+> & {
+  images: TImageCyclicalActivityFormValues[];
+  occurrence: TOccurrence[];
+};
+
+//events
+export type TImageEventFormValue = Omit<ImageEvent, 'eventId'> & {
+  file?: TFileWithPreview | string;
+};
+
+export type TEventWithImages = Event & {
+  images: ImageEvent[];
+};
+
+export type TEventFormInputs = Omit<
+  Event,
+  | 'authorId'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'eventStartDate'
+  | 'newsSectionImageUrl'
+  | 'visibleFrom'
+  | 'visibleTo'
+> & {
+  eventStartDate: Date | null;
+  newsSectionImageUrl: TFileWithPreview | string | null;
+  images: TImageEventFormValue[];
+  visibleFrom: Date | null;
+  visibleTo: Date | null;
+};
+
+export type TGetOneEventResponse = {
+  status: TStatus;
+  response: string | TEventWithImages;
+};
+
+export type TOptionsForFormikSelect<T> = {
+  value: T;
+  label: string;
+};
+
+export const imagePreviewType = {
+  NEWS_IMAGE_PREVIEW: 'NEWS_IMAGE_PREVIEW',
+  THREE_DISPLAYS_PREVIEW: 'THREE_DISPLAYS_PREVIEW',
+} as const;
+export type TImagePreviewType = typeof imagePreviewType;
+export type TImagePreviewTypeKey = keyof TImagePreviewType;

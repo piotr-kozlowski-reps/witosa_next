@@ -567,4 +567,33 @@
     box-shadow: 28px 0 0px 0px var(--color-background-base),
       -28px 0 0px 0px var(--color-background-base);
   }
+
+  /* quill icons */
+  button.ql-header svg {
+    display: none;
+  }
+
+  .ql-header[value='3']:after {
+    clear: both;
+    content: 'H3';
+    display: table;
+    font-weight: 600;
+    margin-top: -2px;
+    margin-left: 1px;
+    font-size: 14px;
+  }
+
+  .ql-header[value='2']:after {
+    clear: both;
+    content: 'H2';
+    display: table;
+    font-weight: 600;
+    margin-top: -2px;
+    margin-left: 1px;
+    font-size: 14px;
+  }
+
+  button.ql-header.ql-active {
+    color: #3891d0;
+  }
 }

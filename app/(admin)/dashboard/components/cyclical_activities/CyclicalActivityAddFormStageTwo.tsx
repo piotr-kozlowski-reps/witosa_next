@@ -1,3 +1,5 @@
+'use client';
+
 import ImagesUploadFormik from '@/app/(site)/components/forms/ImagesUploadFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import RichTextEditorFormik from '@/app/(site)/components/forms/RichTextEditorFormik';
@@ -5,6 +7,10 @@ import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useIsMounted } from '@/hooks/useIsMounted';
+import {
+  defineCurrentIndex,
+  serveOptionsForCustomLinkToDetails,
+} from '@/lib/forms/cyclical-activities-form';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
@@ -16,10 +22,7 @@ type Props<T> = {
   formik: FormikProps<T>;
 };
 
-const optionsForCustomLinkToDetails = [
-  { value: false, label: 'uzupełnię szczegółowy opis oraz obrazki' },
-  { value: true, label: 'podam adres www do strony z detalami' },
-];
+const optionsForCustomLinkToDetails = serveOptionsForCustomLinkToDetails();
 
 export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   ////vars
@@ -29,15 +32,15 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   ).value;
   const isMounted = useIsMounted();
 
-  function defineCurrentIndex() {
-    const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
-    const indexOfOptionsThatContainsCurrentValue =
-      optionsForCustomLinkToDetails.findIndex(
-        (item) => item.value === currentValue
-      );
+  // function defineCurrentIndex() {
+  //   const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
+  //   const indexOfOptionsThatContainsCurrentValue =
+  //     optionsForCustomLinkToDetails.findIndex(
+  //       (item) => item.value === currentValue
+  //     );
 
-    return indexOfOptionsThatContainsCurrentValue;
-  }
+  //   return indexOfOptionsThatContainsCurrentValue;
+  // }
 
   ////tsx
   return (
@@ -54,7 +57,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
           />
         </div>
 
-        <div className=" mt-[20px] form-input-width">
+        <div className="mt-[20px] form-input-width">
           <SelectFormik<boolean, T>
             name="isCustomLinkToDetails"
             label="wybierz, jak przekażesz szczegółowe informacje do zajęć:"
@@ -62,7 +65,10 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
             formik={formik}
             isCommentPopupVisible={true}
             commentContent={<IsCustomLinkToDetailsComment />}
-            indexForChosenOptionWhenInitializing={defineCurrentIndex()}
+            indexForChosenOptionWhenInitializing={defineCurrentIndex(
+              formik,
+              optionsForCustomLinkToDetails
+            )}
           />
         </div>
 
@@ -92,7 +98,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
           {!isCustomLinkToDetails ? (
             <ComponentTransitionFromRightToLeft>
               <Fragment>
-                {isMounted() ? (
+                {/* {isMounted() ? (
                   <div className=" mt-[20px]">
                     <RichTextEditorFormik<T>
                       name="longDescription"
@@ -100,7 +106,14 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
                       formik={formik}
                     />
                   </div>
-                ) : null}
+                ) : null} */}
+                <div className=" mt-[20px]">
+                  <RichTextEditorFormik<T>
+                    name="longDescription"
+                    label="szczegółowy opis:"
+                    formik={formik}
+                  />
+                </div>
 
                 <div className="mt-[20px]">
                   <ImagesUploadFormik<T>

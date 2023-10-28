@@ -54,7 +54,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
   try {
     emailSchema.parse(email);
   } catch (error) {
-    logger.warn(badEmailFormatMessage);
+    logger.warn((error as Error).stack);
     return new NextResponse(
       stringifyObject({ message: badEmailFormatMessage }),
       addStatusAndAllowOriginContent(400, origin)
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
   try {
     exists = await prisma.newsletter.findUnique({ where: { email } });
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return new NextResponse(
       JSON.stringify({ message: dbReadingErrorMessage }),
       { status: 500 }
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
   try {
     await prisma.newsletter.create({ data: { email } });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return new NextResponse(
       JSON.stringify({ message: dbWritingErrorMessage }),
       { status: 500 }
@@ -111,7 +111,7 @@ export async function GET(req: NextRequest, _res: NextResponse) {
   try {
     emailsInNewsletter = await prisma.newsletter.findMany();
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return new NextResponse(
       JSON.stringify({
         message: dbReadingErrorMessage,

@@ -1,6 +1,6 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useNavigationState } from '@/context/navigationState';
+import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { TGetAllCyclicalActivitiesResponse } from '@/types';
 import { CyclicalActivity } from '@prisma/client';
 import { Fragment } from 'react';
@@ -15,8 +15,11 @@ type Props = {
 export default function DashboardCyclicalActivities(props: Props) {
   ////vars
   const { cyclicalActivitiesData } = props;
-  const { getIsAddCyclicalActivityVisible, setIsAddCyclicalActivityVisible } =
-    useNavigationState();
+  const {
+    getIsAddCyclicalActivityVisible,
+    setIsAddCyclicalActivityVisible,
+    resetCyclicalActivityFormikDataForPUT,
+  } = useCyclicalActivitiesState();
   ////tsx
   return (
     <Fragment>
@@ -39,7 +42,7 @@ export default function DashboardCyclicalActivities(props: Props) {
                   text="dodaj zajęcia"
                   descriptionText="dodaj zajęcia"
                   actionFn={() => {
-                    // resetNewsletterFormikDataForPUT(); //TODO: add reset later
+                    resetCyclicalActivityFormikDataForPUT();
                     setIsAddCyclicalActivityVisible(true);
                   }}
                 />

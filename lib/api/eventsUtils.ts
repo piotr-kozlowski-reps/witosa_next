@@ -16,12 +16,16 @@ export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_NotCurr
   const allEvents: TEventTemporary[] = allEventsMockData
     .filter((event) => event.isToBePublished)
     .filter((event) => event.isToBeOnlyInNewsSection_NotSeenInEvents !== true)
-    .filter((event) =>
-      isFirstDateBeforeSecond(event.visibleFrom, new Date(Date.now()))
-    )
-    .filter((event) =>
-      isFirstDateAfterSecond(event.visibleTo, new Date(Date.now()))
-    )
+    .filter((event) => {
+      if (event.visibleFrom) {
+        return isFirstDateBeforeSecond(event.visibleFrom, new Date(Date.now()));
+      }
+    })
+    .filter((event) => {
+      if (event.visibleTo) {
+        return isFirstDateAfterSecond(event.visibleTo, new Date(Date.now()));
+      }
+    })
     .sort(function (a, b) {
       return a.eventStartDate.getTime() - b.eventStartDate.getTime();
     });

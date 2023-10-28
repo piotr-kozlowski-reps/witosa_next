@@ -1,6 +1,5 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import {
   badEmailFormatMessage,
   badUserData,
@@ -23,14 +22,14 @@ import prisma from '@/prisma/client';
 import { TActionResponse, TGetAllUsersResponse, TUserPicked } from '@/types';
 import { User, UserRole } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
+import { checkIfLoggedIn } from './actionHelpers';
 
 export async function addUser(formData: FormData): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -69,11 +68,8 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       submittedUserRole
     );
   } catch (error) {
-    logger.warn(badUserData);
-    return {
-      status: 'ERROR',
-      response: `${badUserData} ${(error as Error).message}`,
-    };
+    logger.warn((error as Error).stack);
+    return { status: 'ERROR', response: badUserData };
   }
   if (!validationResult) {
     logger.warn(badUserData);
@@ -89,7 +85,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (exists) {
@@ -109,7 +105,7 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -129,9 +125,9 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
 
 export async function getAllUsers(): Promise<TGetAllUsersResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -139,7 +135,7 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
   try {
     users = await prisma.user.findMany();
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
 
@@ -156,11 +152,13 @@ export async function getAllUsers(): Promise<TGetAllUsersResponse> {
 
 export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
+
+  console.log({ ids });
 
   /** checking values eXistenZ */
   if (!ids || ids.length === 0) {
@@ -174,7 +172,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     try {
       exists = await checkIfUserExists(ids[i]);
     } catch (error) {
-      logger.warn(dbReadingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
 
@@ -183,6 +181,8 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
       return { status: 'ERROR', response: userNotExistsMessage };
     }
   }
+
+  console.log('jestem za exist');
 
   /* deleting users from db */
   try {
@@ -194,7 +194,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
       },
     });
   } catch (error) {
-    logger.warn(dbWritingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -217,9 +217,9 @@ export async function updateUser(
   formData: FormData
 ): Promise<TActionResponse> {
   /** checking session */
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    logger.warn(notLoggedIn);
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
@@ -228,7 +228,7 @@ export async function updateUser(
   try {
     exists = await checkIfUserExists(id);
   } catch (error) {
-    logger.warn(dbReadingErrorMessage);
+    logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
   if (!exists) {
@@ -258,7 +258,7 @@ export async function updateUser(
       emailSchema.parse(submittedEmail);
       useRoleSchema.parse(submittedUserRole);
     } catch (error) {
-      logger.warn(badUserData);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: badUserData };
     }
 
@@ -275,7 +275,7 @@ export async function updateUser(
         },
       });
     } catch (error) {
-      logger.warn(dbWritingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbWritingErrorMessage };
     }
   }
@@ -306,7 +306,7 @@ export async function updateUser(
         submittedUserRole
       );
     } catch (error) {
-      logger.warn(badUserData);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: badUserData };
     }
 
@@ -332,7 +332,7 @@ export async function updateUser(
         },
       });
     } catch (error) {
-      logger.warn(dbWritingErrorMessage);
+      logger.warn((error as Error).stack);
       return { status: 'ERROR', response: dbWritingErrorMessage };
     }
   }
@@ -351,6 +351,8 @@ export async function updateUser(
 ////utils
 async function checkIfUserExists(id: string) {
   const exists = await prisma.user.findUnique({ where: { id } });
+  console.log({ exists });
+
   return exists;
 }
 

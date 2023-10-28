@@ -285,3 +285,25 @@ describe('getPolishUserRoleName', () => {
     }).toThrowError('getPolishUserRoleName not defined');
   });
 });
+
+// describe('generateFileName()', () => {
+//   beforeEach(() => {
+//     // tell vitest we use mocked time
+//     vi.useFakeTimers();
+//     vi.mock('generateQuickGuid', () => {
+//       return '710o6pvxd7vva9tx04gnj';
+//     });
+//   });
+
+//   afterEach(() => {
+//     // restoring date after each test run
+//     vi.useRealTimers();
+//   });
+
+//   it('', () => {
+//     const date = new Date('2023-10-02');
+//     vi.setSystemTime(date);
+//     const result = generateFileName();
+//     expect(result).toBe('2023_10_02__');
+//   });
+// });

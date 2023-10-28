@@ -61,7 +61,7 @@ export default function NewsInside(props: Props) {
                     index={index}
                     currentDevice={getCurrentDevice()}
                     isDateToBeHiddenInNewsSection={
-                      newsEvent.isDateToBeHiddenInNewsSection
+                      newsEvent.isDateToBeHiddenInNewsSection || false
                     }
                   />
                 </div>

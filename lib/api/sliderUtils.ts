@@ -55,7 +55,7 @@ export async function getEventsMappedToMainSliderData_FilteredToBeSeenInNews() {
 
     /** check if event's dates of visibility are between Date.now()  */
     .filter((event) => {
-      if (!event.visibleInSliderFrom || !event.visibleInSLiderTo) {
+      if (!event.visibleInSliderFrom || !event.visibleInSliderTo) {
         throw new Error(
           'Wydarzenie powinno zawierać datę, od której ma się wyświetlać w sliderze oraz datę, z którą ma się zakończyć wyświetlanie wydarzenia w sliderze.'
         );
@@ -65,7 +65,7 @@ export async function getEventsMappedToMainSliderData_FilteredToBeSeenInNews() {
           event.visibleInSliderFrom,
           new Date(Date.now())
         ) &&
-        isFirstDateAfterSecond(event.visibleInSLiderTo, new Date(Date.now()))
+        isFirstDateAfterSecond(event.visibleInSliderTo, new Date(Date.now()))
       );
     });
 
@@ -82,7 +82,7 @@ const mapEventsForSlider = (events: TEventTemporary[]) => {
       sliderImageUrl: event.sliderImageUrl,
       sliderImageAlt: event.sliderImageAlt,
       visibleInSliderFrom: event.visibleInSliderFrom,
-      visibleInSLiderTo: event.visibleInSLiderTo,
+      visibleInSLiderTo: event.visibleInSliderTo,
     };
   });
 };
