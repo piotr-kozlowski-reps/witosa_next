@@ -31,11 +31,9 @@ export function getDifferencesBetweenTwoObjects(origObj: any, newObj: any) {
 // const areArraysLengthTheSame = originalImages.length === changedImages.length;
 // const isImagesToBeProcessedFurther: boolean =
 //   isDifferenceObjectFilledWithAnything || !areArraysLengthTheSame;
-export function getIfImagesShouldBeProcessedFurther(
-  originalImages: TImageCyclicalActivityAllOptional[],
-  changedImages: TImageCyclicalActivityAllOptional[],
-  differencesImages: TImageCyclicalActivityAllOptional[]
-): boolean {
+export function getIfImagesShouldBeProcessedFurther<
+  T extends TImageCyclicalActivityAllOptional
+>(originalImages: T[], changedImages: T[], differencesImages: T[]): boolean {
   if (originalImages.length !== changedImages.length) {
     return true;
   }
@@ -47,20 +45,32 @@ export function getIfImagesShouldBeProcessedFurther(
   let hasProperty = false;
   differencesImages.forEach((differenceObject) => {
     for (let key in differenceObject) {
-      console.log(key);
       hasProperty = true;
     }
   });
 
   return hasProperty;
 }
-
-// function isObjectEmpty(object: Object) {
-//   for (let key in object) {
-//     // if (object.hasOwnProperty(key)) {
-//     if (Object.prototype.isPrototypeOf.call(object, key)) {
-//       return false;
-//     }
+// export function getIfImagesShouldBeProcessedFurther(
+//   originalImages: TImageCyclicalActivityAllOptional[],
+//   changedImages: TImageCyclicalActivityAllOptional[],
+//   differencesImages: TImageCyclicalActivityAllOptional[]
+// ): boolean {
+//   if (originalImages.length !== changedImages.length) {
+//     return true;
 //   }
-//   return true;
+
+//   if (!differencesImages.length) {
+//     return false;
+//   }
+
+//   let hasProperty = false;
+//   differencesImages.forEach((differenceObject) => {
+//     for (let key in differenceObject) {
+//       console.log(key);
+//       hasProperty = true;
+//     }
+//   });
+
+//   return hasProperty;
 // }

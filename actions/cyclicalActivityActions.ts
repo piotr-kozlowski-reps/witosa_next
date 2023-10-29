@@ -22,9 +22,7 @@ import {
   TCyclicalActivityWithImageAndOccurrence,
   TGetAllCyclicalActivitiesResponse,
   TGetOneCyclicalActivityResponse,
-  TImageCyclicalActivityAllOptional,
   TImageCyclicalActivityForDB,
-  TImageCyclicalActivityFormValues,
   TOccurrenceWithRequiredDates,
   TOccurrenceWithRequiredDatesAndCyclicalActivityID,
 } from '@/types';
@@ -42,6 +40,11 @@ import {
   prepareImagesForDB,
   validateCyclicalActivityData,
 } from './actionHelpers';
+import {
+  getProperDataForCyclicalActivityUpdate,
+  getRidOfFileDataAndPrepareObjectToComparisonToChangedData,
+  processImagesToDivideThemInArraysWithDifferentPurpose,
+} from './syncActionHelpers';
 
 export async function addCyclicalActivity(
   values: TCyclicalActivityFormInputs
@@ -435,7 +438,7 @@ export async function updateCyclicalActivity(
   const isImagesToBeUpdated = getIfImagesShouldBeProcessedFurther(
     originalImages,
     changedImages,
-    differencesImages as TImageCyclicalActivityAllOptional[]
+    differencesImages
   );
 
   if (isImagesToBeUpdated) {
@@ -493,6 +496,7 @@ export async function updateCyclicalActivity(
     }
   }
 
+  ///
   const deleteCyclicalActivitiesImagesPrismaTransaction =
     prisma.imageCyclicalActivity.deleteMany({
       where: {
@@ -548,6 +552,7 @@ export async function updateCyclicalActivity(
   deleting unused images from server
   */
   try {
+    console.log({ imagesURLsBeDeleted });
     await deleteImagesFiles(imagesURLsBeDeleted);
   } catch (error) {
     logger.error((error as Error).stack);
@@ -602,61 +607,16 @@ function prepareOccurrenceDataForSavingInDB(
   });
 }
 
-function getProperDataForCyclicalActivityUpdate(
-  changedCyclicalActivity: TCyclicalActivityFormInputs,
-  differencesCyclicalActivity: Partial<TCyclicalActivityFormInputs>
-): Prisma.CyclicalActivityUncheckedUpdateInput {
-  const resultObject: Partial<TCyclicalActivityFormInputs> = {};
-  // const resultObject: Prisma.CyclicalActivityUncheckedUpdateInput = {};
+// function getProperDataForCyclicalActivityUpdate(
+//   changedCyclicalActivity: TCyclicalActivityFormInputs,
+//   differencesCyclicalActivity: Partial<TCyclicalActivityFormInputs>
+// ): Prisma.CyclicalActivityUncheckedUpdateInput {
+//   const resultObject: Partial<TCyclicalActivityFormInputs> = {};
+//   // const resultObject: Prisma.CyclicalActivityUncheckedUpdateInput = {};
 
-  for (let [key, value] of Object.entries(differencesCyclicalActivity)) {
-    (resultObject as any)[key] = (changedCyclicalActivity as any)[key];
-  }
+//   for (let [key, value] of Object.entries(differencesCyclicalActivity)) {
+//     (resultObject as any)[key] = (changedCyclicalActivity as any)[key];
+//   }
 
-  return resultObject as Prisma.CyclicalActivityUncheckedUpdateInput;
-}
-
-function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
-  originalImages: TImageCyclicalActivityFormValues[]
-): TImageCyclicalActivityForDB[] {
-  return originalImages.map((imageProps) => ({
-    id: imageProps.id,
-    additionInfoThatMustBeDisplayed: imageProps.additionInfoThatMustBeDisplayed,
-    alt: imageProps.alt,
-    url: imageProps.url,
-    index: imageProps.index,
-  }));
-}
-
-function processImagesToDivideThemInArraysWithDifferentPurpose(
-  originalImages: TImageCyclicalActivityForDB[],
-  changedImages: TImageCyclicalActivityForDB[]
-) {
-  let imagesToBeUpdated: TImageCyclicalActivityForDB[] = [];
-  let imagesToBeCreated: TImageCyclicalActivityForDB[] = [];
-  let imagesToBeDeleted: TImageCyclicalActivityForDB[] = [];
-
-  const originalImagesToBeProcessed = [...originalImages];
-  const changedImagesToBeProcessed = [...changedImages];
-
-  //initial selection to deleted array / updated array
-  for (let i = 0; i < originalImagesToBeProcessed.length; i++) {
-    const existingItemId = originalImagesToBeProcessed[i].id;
-    const changedImageIndex = changedImagesToBeProcessed.findIndex(
-      (element) => element.id === existingItemId
-    );
-
-    //changed image not found -> delete
-    if (changedImageIndex === -1) {
-      imagesToBeDeleted.push(originalImagesToBeProcessed[i]);
-      continue;
-    }
-
-    imagesToBeUpdated.push(changedImagesToBeProcessed[changedImageIndex]);
-    changedImagesToBeProcessed.splice(changedImageIndex, 1);
-  }
-
-  imagesToBeCreated = [...changedImagesToBeProcessed];
-
-  return { imagesToBeUpdated, imagesToBeCreated, imagesToBeDeleted };
-}
+//   return resultObject as Prisma.CyclicalActivityUncheckedUpdateInput;
+// }

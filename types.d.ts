@@ -6,6 +6,7 @@ import {
   ImageCyclicalActivity,
   ImageEvent,
   Newsletter,
+  Prisma,
   User,
   UserRole,
 } from '@prisma/client';
@@ -408,3 +409,11 @@ export const imagePreviewType = {
 } as const;
 export type TImagePreviewType = typeof imagePreviewType;
 export type TImagePreviewTypeKey = keyof TImagePreviewType;
+
+export type TImagesToBeUpdatedDeletedCreated = {
+  createdImages: string[];
+  imagesToBeDeleted: string[];
+  imagesToBeUpdatedPreparedForDB: Prisma.ImageEventUpdateManyMutationInput[];
+  imagesToBeCreatedPreparedForDB: Prisma.ImageEventCreateManyInput[];
+  imagesObjectsIDisToBeDeletedPreparedForDB: string[];
+};

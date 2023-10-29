@@ -11,6 +11,10 @@ import {
   notLoggedIn,
 } from '@/lib/api/apiTextResponses';
 import logger from '@/lib/logger';
+import {
+  getDifferencesBetweenTwoObjects,
+  getIfImagesShouldBeProcessedFurther,
+} from '@/lib/objectHelpers';
 import prisma from '@/prisma/client';
 import {
   TActionResponse,
@@ -28,8 +32,14 @@ import {
   deleteImagesFiles,
   prepareImageForDB,
   prepareImagesForDB,
+  updateImageDataAndAddToProperArraysOfImagesToBeProcessed,
   validateEventData,
 } from './actionHelpers';
+import {
+  getProperDataForEventUpdate,
+  getRidOfFileDataAndPrepareObjectToComparisonToChangedData,
+  processImagesToDivideThemInArraysWithDifferentPurpose,
+} from './syncActionHelpers';
 
 export async function getAllEvents(): Promise<TGetAllEventsResponse> {
   let events: Event[] = [];
@@ -301,7 +311,252 @@ export async function deleteEvents(ids: string[]): Promise<TActionResponse> {
   /**
    * final response
    * */
-  const successMessage = `Zajęcia zostały usunięte.`;
+  const successMessage = `Wydarzenie zostało usunięte.`;
+  logger.info(successMessage);
+  return {
+    status: 'SUCCESS',
+    response: successMessage,
+  };
+}
+
+export async function updateEvent(
+  originalEvent: TEventFormInputs,
+  changedEvent: TEventFormInputs
+): Promise<TActionResponse> {
+  /**
+   * checking session
+   * */
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
+    return { status: 'ERROR', response: notLoggedIn };
+  }
+
+  /*
+    data validation
+    */
+  try {
+    validateEventData(changedEvent);
+  } catch (error) {
+    return { status: 'ERROR', response: badEventData };
+  }
+
+  /**
+   * Event diff object
+   * */
+  const differencesInEvent = getDifferencesBetweenTwoObjects(
+    originalEvent,
+    changedEvent
+  );
+  delete differencesInEvent.images;
+
+  const eventPreparedForUpdateInDB: Prisma.EventUncheckedUpdateInput =
+    getProperDataForEventUpdate(changedEvent, differencesInEvent);
+
+  /**
+   * All possible images logic
+   */
+  const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+  let imagesToBeUpdatedPreparedForDB: Prisma.ImageEventUpdateManyMutationInput[] =
+    [];
+  let imagesToBeCreatedPreparedForDB: Prisma.ImageEventCreateManyInput[] = [];
+  let imagesObjectsIDisToBeDeletedPreparedForDB: string[] = [];
+  let imagesURLsToBeDeleted: string[] = [];
+
+  //newsSectionImageUrl
+  if (originalEvent.newsSectionImageUrl !== changedEvent.newsSectionImageUrl) {
+    let newlyCreatedImage = '';
+    try {
+      newlyCreatedImage =
+        await updateImageDataAndAddToProperArraysOfImagesToBeProcessed(
+          originalEvent.newsSectionImageUrl,
+          changedEvent.newsSectionImageUrl,
+          currentlyCreatedImagesToBeDeletedWhenError,
+          imagesURLsToBeDeleted,
+          'IMAGE_NEWS',
+          'news'
+        );
+    } catch (error) {
+      await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+      return { status: 'ERROR', response: imageCreationErrorMessage };
+    }
+    eventPreparedForUpdateInDB.newsSectionImageUrl = newlyCreatedImage;
+  }
+
+  //sliderImageUrl
+  if (originalEvent.sliderImageUrl !== changedEvent.sliderImageUrl) {
+    let newlyCreatedImage = '';
+    try {
+      newlyCreatedImage =
+        await updateImageDataAndAddToProperArraysOfImagesToBeProcessed(
+          originalEvent.sliderImageUrl,
+          changedEvent.sliderImageUrl,
+          currentlyCreatedImagesToBeDeletedWhenError,
+          imagesURLsToBeDeleted,
+          'IMAGE_REGULAR',
+          'event'
+        );
+    } catch (error) {
+      await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+      return { status: 'ERROR', response: imageCreationErrorMessage };
+    }
+    eventPreparedForUpdateInDB.sliderImageUrl = newlyCreatedImage;
+  }
+
+  const updateEvent_ForPrismaTransaction = prisma.event.update({
+    where: { id: changedEvent.id },
+    data: eventPreparedForUpdateInDB,
+  });
+
+  //images object
+  const originalImages: TImageEventForDB[] =
+    getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
+      originalEvent.images
+    );
+  const changedImages: TImageEventForDB[] = changedEvent.images;
+
+  let imagesPreparedData: TImageEventForDB[] = [];
+  try {
+    imagesPreparedData = await prepareImagesForDB<
+      TEventFormInputs,
+      TImageEventForDB
+    >(
+      changedEvent,
+      currentlyCreatedImagesToBeDeletedWhenError,
+      'IMAGE_REGULAR',
+      'event'
+    );
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: imageCreationErrorMessage };
+  }
+
+  const differencesImages = getDifferencesBetweenTwoObjects(
+    originalImages,
+    imagesPreparedData
+  );
+
+  const isImagesToBeUpdated = getIfImagesShouldBeProcessedFurther(
+    originalImages,
+    changedImages,
+    differencesImages
+  );
+
+  if (isImagesToBeUpdated) {
+    const { imagesToBeCreated, imagesToBeUpdated, imagesToBeDeleted } =
+      processImagesToDivideThemInArraysWithDifferentPurpose(
+        originalImages,
+        imagesPreparedData
+      );
+
+    if (imagesToBeDeleted.length) {
+      imagesToBeDeleted.forEach((imageObject) => {
+        imagesObjectsIDisToBeDeletedPreparedForDB.push(imageObject.id!);
+        imagesURLsToBeDeleted.push(imageObject.url);
+      });
+    }
+
+    if (imagesToBeCreated.length) {
+      imagesToBeCreated.forEach((imageObject) => {
+        const newImageObjectWithoutId = {
+          ...imageObject,
+          eventId: originalEvent.id,
+        };
+        delete newImageObjectWithoutId.id;
+        imagesToBeCreatedPreparedForDB.push(newImageObjectWithoutId);
+      });
+    }
+
+    if (imagesToBeUpdated.length) {
+      for (let i = 0; i < imagesToBeUpdated.length; i++) {
+        const imageObjectID = imagesToBeUpdated[i].id;
+        const originalImageObject = originalImages.find(
+          (imageObject) => imageObject.id === imageObjectID
+        );
+        const changedImageObject = imagesToBeUpdated[i];
+
+        const differenceBetweenObjects = getDifferencesBetweenTwoObjects(
+          originalImageObject,
+          changedImageObject
+        );
+
+        const imageObjectId = originalImageObject!.id;
+
+        const imageObjectToBeUpdatedData = {
+          id: imageObjectId,
+          ...differenceBetweenObjects,
+        };
+        imagesToBeUpdatedPreparedForDB.push(imageObjectToBeUpdatedData);
+
+        if (differenceBetweenObjects.url) {
+          imagesURLsToBeDeleted.push(originalImageObject!.url);
+        }
+      }
+    }
+  }
+
+  const deleteEventImagesPrismaTransaction = prisma.imageEvent.deleteMany({
+    where: {
+      id: {
+        in: imagesObjectsIDisToBeDeletedPreparedForDB,
+      },
+    },
+  });
+
+  const createEventImagesPrismaTransaction = prisma.imageEvent.createMany({
+    data: imagesToBeCreatedPreparedForDB,
+  });
+
+  const updateEventsImagesPrismaTransaction =
+    imagesToBeUpdatedPreparedForDB.map((imageObject) =>
+      prisma.imageEvent.update({
+        where: {
+          id: imageObject.id as string,
+        },
+        data: imageObject,
+      })
+    );
+
+  /**
+   *
+   * updating event elements in db
+   *
+   */
+  let transaction: unknown;
+  const transactionsArray: any[] = [updateEvent_ForPrismaTransaction];
+
+  if (isImagesToBeUpdated) {
+    transactionsArray.push(deleteEventImagesPrismaTransaction);
+    transactionsArray.push(createEventImagesPrismaTransaction);
+    transactionsArray.push(...updateEventsImagesPrismaTransaction);
+  }
+  try {
+    transaction = await prisma.$transaction(transactionsArray);
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    console.log((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: dbWritingErrorMessage };
+  }
+
+  /*
+  deleting unused images from server
+  */
+  try {
+    await deleteImagesFiles(imagesURLsToBeDeleted);
+  } catch (error) {
+    logger.error((error as Error).stack);
+    console.log((error as Error).stack);
+  }
+
+  console.log({ transaction });
+
+  /** revalidate all */
+  revalidatePath('/');
+
+  /* final success response */
+  const successMessage = `Wydarzenie: (${originalEvent.title}) zostało zmienione.`;
   logger.info(successMessage);
   return {
     status: 'SUCCESS',
@@ -323,7 +578,7 @@ function findAllImagesToBeDeletedAndFillWithThemPassedArray(
   exists: Event,
   imagesToBeDeleted: string[]
 ) {
-  console.log({ exists });
+  // console.log({ exists });
 
   //newsSectionImageUrl
   if (exists.newsSectionImageUrl) {
