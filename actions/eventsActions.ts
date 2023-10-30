@@ -311,7 +311,7 @@ export async function deleteEvents(ids: string[]): Promise<TActionResponse> {
   /**
    * final response
    * */
-  const successMessage = `Wydarzenie zostało usunięte.`;
+  const successMessage = `Wydarzenie/a zostało/y usunięte.`;
   logger.info(successMessage);
   return {
     status: 'SUCCESS',

@@ -199,17 +199,6 @@ export default function EventAddForm() {
           </ComponentTransitionFromRightToLeft>
         ) : null}
 
-        {/* {stage[2].isActive ? (
-          <ComponentTransitionFromRightToLeft>
-            <Fragment>
-              <CyclicalActivityAddFormStageThree<TCyclicalActivityFormInputs>
-                isCurrentFormToPUTData={isCurrentFormToPUTData}
-                formik={formik}
-              />
-            </Fragment>
-          </ComponentTransitionFromRightToLeft>
-        ) : null} */}
-
         <div className="mt-[40px] flex gap-8">
           <CustomButton
             text="poprzedni etap"
