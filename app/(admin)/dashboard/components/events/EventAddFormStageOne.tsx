@@ -7,6 +7,7 @@ import MultipleSelectAsSeparateButtonsFormik from '@/app/(site)/components/forms
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useNotificationState } from '@/context/notificationState';
 import { dateOfEventIsNotDefined } from '@/lib/api/apiTextResponses';
+import { setTodaysDateFromMidnight } from '@/lib/dateHelpers';
 import { copyDateFromOneFormikFieldToAnother } from '@/lib/forms/events-form';
 import { EventType, ForWhom, Place } from '@prisma/client';
 import { FormikProps } from 'formik';
@@ -135,7 +136,7 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
                     actionFn={() => {
                       formik
                         .getFieldHelpers('visibleFrom')
-                        .setValue(new Date());
+                        .setValue(setTodaysDateFromMidnight());
                     }}
                     outlined={true}
                     currentlyActive={false}

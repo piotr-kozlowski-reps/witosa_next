@@ -216,14 +216,14 @@ describe('getPolishTypeName()', () => {
 describe('createListingOfAllPlacesSeparatedWithCommas()', () => {
   it('returns only one place with no comma in the end', () => {
     expect(createListingOfAllPlacesSeparatedWithCommas(['ART_ROOM'])).toEqual(
-      'Sala plastyczna'
+      'sala plastyczna'
     );
   });
 
   it('returns 2 places with no comma in the end', () => {
     expect(
       createListingOfAllPlacesSeparatedWithCommas(['ART_ROOM', 'CONCERT_HALL'])
-    ).toEqual('Sala plastyczna, Sala koncertowa');
+    ).toEqual('sala plastyczna, sala koncertowa');
   });
 
   it('returns all places with no comma in the end', () => {
@@ -233,7 +233,7 @@ describe('createListingOfAllPlacesSeparatedWithCommas()', () => {
         'CONCERT_HALL',
         'DANCING_ROOM',
       ])
-    ).toEqual('Sala plastyczna, Sala koncertowa, Sala taneczna');
+    ).toEqual('sala plastyczna, sala koncertowa, sala taneczna');
   });
 });
 
