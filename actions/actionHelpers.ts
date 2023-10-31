@@ -9,18 +9,29 @@ import {
 import { validateValuesForCyclicalActivities } from '@/lib/forms/cyclical-activities-form';
 import { validateValuesForEvents } from '@/lib/forms/events-form';
 import logger from '@/lib/logger';
+import {
+  getDifferencesBetweenTwoObjects,
+  getIfImagesShouldBeProcessedFurther,
+} from '@/lib/objectHelpers';
 import { generateFileName } from '@/lib/textHelpers';
 import {
+  TEventFormInputs,
+  TFileWithPreview,
   TImageCyclicalActivityForDB,
   TImageCyclicalActivityFormValues,
   TImageEventForDB,
   TImageEventFormValue,
+  TImagesToBeUpdatedDeletedCreated,
   TStringToDistinguishCreatedImageName,
   TTypeOfImageToBeGenerated,
 } from '@/types';
 import { unlink } from 'fs/promises';
 import { getServerSession } from 'next-auth';
 import sharp from 'sharp';
+import {
+  createNewImageIfNeededAndAddToProperArraysToBeFurtherProcessed,
+  processImagesToDivideThemInArraysWithDifferentPurposeChanged,
+} from './syncActionHelpers';
 
 export async function checkIfLoggedIn() {
   const session = await getServerSession(authOptions);
@@ -148,9 +159,12 @@ export async function prepareImagesForDB<
       );
 
     //adding created image url to be deleted when some error occur
-    createdImagesArray.push(imageUrl);
+    if ((originalImagesData[i].file as string) !== imageUrl) {
+      createdImagesArray.push(imageUrl);
+    }
 
     result.push({
+      id: originalImagesData[i].id,
       url: imageUrl,
       alt: originalImagesData[i].alt,
       index: originalImagesData[i].index,
@@ -177,4 +191,71 @@ export async function deleteImagesFiles(
   }
 
   return result;
+}
+
+export async function dealWithImagesDividingThemToProperArrays(
+  originalEvent: TEventFormInputs,
+  changedEvent: TEventFormInputs,
+  imagesToBeUpdated_or_Deleted_or_Created: TImagesToBeUpdatedDeletedCreated
+) {
+  ////prepare images data
+  const imagesPreparedData: TImageEventForDB[] = await prepareImagesForDB<
+    TEventFormInputs,
+    TImageEventForDB
+  >(
+    changedEvent,
+    imagesToBeUpdated_or_Deleted_or_Created.createdImages,
+    'IMAGE_REGULAR',
+    'event'
+  );
+
+  ////create differences object
+  const differencesImages = getDifferencesBetweenTwoObjects(
+    originalEvent.images,
+    imagesPreparedData
+  );
+
+  const isImagesToBeUpdated = getIfImagesShouldBeProcessedFurther(
+    originalEvent.images,
+    imagesPreparedData,
+    differencesImages
+  );
+
+  if (!isImagesToBeUpdated) {
+    return;
+  }
+
+  processImagesToDivideThemInArraysWithDifferentPurposeChanged(
+    originalEvent.images,
+    imagesPreparedData,
+    imagesToBeUpdated_or_Deleted_or_Created
+  );
+}
+
+export async function updateImageDataAndAddToProperArraysOfImagesToBeProcessed(
+  originalImage: string | TFileWithPreview | null,
+  changedImage: string | TFileWithPreview | null,
+  currentlyCreatedImagesToBeDeletedWhenError: string[],
+  imagesURLsToBeDeleted: string[],
+  typeOfImageToBeGenerated: TTypeOfImageToBeGenerated,
+  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName
+) {
+  let newlyCreatedImage = '';
+  try {
+    newlyCreatedImage =
+      await createNewImageIfNeededAndAddToProperArraysToBeFurtherProcessed(
+        changedImage,
+        originalImage,
+        currentlyCreatedImagesToBeDeletedWhenError,
+        typeOfImageToBeGenerated,
+        stringToDistinguishCreatedImageName
+      );
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    throw new Error("Image couldn't be created.");
+  }
+
+  imagesURLsToBeDeleted.push(originalImage as string);
+
+  return newlyCreatedImage;
 }

@@ -1,9 +1,9 @@
 import CustomButton from '@/app/(site)/components/CustomButton';
 import GoToStartIcon from '@/app/(site)/components/icons/GoToStartIcon';
 import PrevIcon from '@/app/(site)/components/icons/PrevIcon';
-import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
+import ModalDeleteEventsContent from '@/app/(site)/components/modal/ModalDeleteEventsContent';
 import { useModalState } from '@/context/modalState';
-import { CyclicalActivity } from '@prisma/client';
+import { Event } from '@prisma/client';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -165,24 +165,22 @@ export default function EventsDataTable<TData, TValue>({
             <div className="inline-block ml-2">
               <CustomButton
                 actionFn={() => {
-                  const filteredUsersIds = table
+                  const filteredEventsIds = table
                     .getFilteredSelectedRowModel()
                     .rows.map((row) => {
                       return row.original;
                     })
                     .map((originalObject) => {
-                      const originalCyclicalActivityObject: CyclicalActivity =
-                        originalObject as CyclicalActivity;
+                      const originalEventObject: Event =
+                        originalObject as Event;
                       return {
-                        id: originalCyclicalActivityObject.id,
-                        name: originalCyclicalActivityObject.name,
+                        id: originalEventObject.id,
+                        title: originalEventObject.title,
                       };
                     });
                   setShowModal(
                     true,
-                    <ModalDeleteCyclicalActivitiesContent
-                      cyclicalActivities={filteredUsersIds}
-                    />
+                    <ModalDeleteEventsContent events={filteredEventsIds} />
                   );
                 }}
                 text="skasuj elementy"

@@ -1,5 +1,9 @@
-import { describe, expect, it } from 'vitest';
-import { getMonthAlwaysInTwoDigits } from './dateHelpers';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  getMonthAlwaysInTwoDigits,
+  setDateWith_23_59minutes,
+  setTodaysDateFromMidnight,
+} from './dateHelpers';
 
 describe('getMonthAlwaysInTwoDigits()', () => {
   it('should return month in two digits format when month number is greater than 10', () => {
@@ -30,5 +34,61 @@ describe('getMonthAlwaysInTwoDigits()', () => {
   // it('should return month in two digits format when input date is null', () => {
   //   const date = null;
   //   expect(getMonthAlwaysInTwoDigits(date)).toBe(null);
+  // });
+});
+
+describe('setTodaysDateFromMidnight()', () => {
+  beforeEach(() => {
+    // tell vitest we use mocked time
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    // restoring date after each test run
+    vi.useRealTimers();
+  });
+
+  it('should return date 2023-12-12 00:00:00', () => {
+    const date = new Date(2023, 11, 12, 14, 52);
+    vi.setSystemTime(date);
+    expect(setTodaysDateFromMidnight().toISOString()).toEqual(
+      '2023-12-12T00:00:00.000Z'
+    );
+  });
+
+  it('should return date 2025-05-05 00:00:00', () => {
+    const date = new Date('2025-05-05T15:55:12.000Z');
+    console.log({ date });
+
+    vi.setSystemTime(date);
+    expect(setTodaysDateFromMidnight().toISOString()).toEqual(
+      '2025-05-05T00:00:00.000Z'
+    );
+  });
+});
+
+describe('setDateWith_23_59minutes()', () => {
+  it('should return date 2023-12-12 23:59:00', () => {
+    const date = new Date('2023-12-12T00:00:00.000Z');
+    expect(setDateWith_23_59minutes(date).toISOString()).toEqual(
+      '2023-12-12T23:59:00.000Z'
+    );
+  });
+
+  it('should return date: 2100-01-01T23:59:00', () => {
+    const date = new Date('2100-01-01T12:59:11.000Z');
+    expect(setDateWith_23_59minutes(date).toISOString()).toEqual(
+      '2100-01-01T23:59:00.000Z'
+    );
+  });
+
+  // it('should return date 2025-05-05 00:00:00', () => {
+  //   const date = new Date('2025-05-05T15:55:12.000Z');
+  //   console.log({ date });
+
+  //   vi.setSystemTime(date);
+  //   expect(setTodaysDateFromMidnight().toISOString()).toEqual(
+  //     '2025-05-05T00:00:00.000Z'
+  //   );
   // });
 });

@@ -14,3 +14,21 @@ export function getDayAlwaysInTwoDigits(date: Date) {
   const dayNumber = date.getDate();
   return dayNumber <= 9 ? `0${dayNumber}` : `${dayNumber}`;
 }
+
+export function setTodaysDateFromMidnight() {
+  const todaysDate = new Date();
+  const todaysDateAsString = todaysDate.toISOString();
+  const correctedDateAsString = todaysDateAsString.replace(
+    /T\w{2}:\w{2}:\w{2}/g,
+    'T00:00:00'
+  );
+  return new Date(correctedDateAsString);
+}
+export function setDateWith_23_59minutes(date: Date) {
+  const todaysDateAsString = date.toISOString();
+  const correctedDateAsString = todaysDateAsString.replace(
+    /T\w{2}:\w{2}:\w{2}/g,
+    'T23:59:00'
+  );
+  return new Date(correctedDateAsString);
+}

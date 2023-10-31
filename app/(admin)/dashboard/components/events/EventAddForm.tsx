@@ -1,4 +1,4 @@
-import { addEvent } from '@/actions/eventsActions';
+import { addEvent, updateEvent } from '@/actions/eventsActions';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import FormStageLink from '@/app/(site)/components/forms/FormStageLink';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
@@ -80,18 +80,18 @@ export default function EventAddForm() {
     /**
      * put
      * */
-    // if (isCurrentFormToPUTData) {
-    //   const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
-    //   const changedCyclicalActivity = { ...formikValuesPreparedForBackend };
-    //   try {
-    //     response = await updateCyclicalActivity(
-    //       originalCyclicalActivity as TCyclicalActivityFormInputs,
-    //       changedCyclicalActivity
-    //     );
-    //   } catch (error) {
-    //     setShowNotification('ERROR', dbReadingErrorMessage);
-    //   }
-    // }
+    if (isCurrentFormToPUTData) {
+      const originalEvent = getEventFormikDataForPUT();
+      const changedEvent = { ...formikValuesPreparedForBackend };
+      try {
+        response = await updateEvent(
+          originalEvent as TEventFormInputs,
+          changedEvent
+        );
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+    }
 
     if (!response || !response.status || !response.response) {
       setShowNotification('ERROR', dbReadingErrorMessage);
@@ -107,10 +107,10 @@ export default function EventAddForm() {
       resetFormToInitialState();
       goToFirstStage();
     }
-    // if (isCurrentFormToPUTData) {
-    //   resetFormToInitialState();
-    //   setIsAddCyclicalActivityVisible(false);
-    // }
+    if (isCurrentFormToPUTData) {
+      resetFormToInitialState();
+      setIsAddEventVisible(false);
+    }
   };
 
   ////tsx
@@ -198,17 +198,6 @@ export default function EventAddForm() {
             />
           </ComponentTransitionFromRightToLeft>
         ) : null}
-
-        {/* {stage[2].isActive ? (
-          <ComponentTransitionFromRightToLeft>
-            <Fragment>
-              <CyclicalActivityAddFormStageThree<TCyclicalActivityFormInputs>
-                isCurrentFormToPUTData={isCurrentFormToPUTData}
-                formik={formik}
-              />
-            </Fragment>
-          </ComponentTransitionFromRightToLeft>
-        ) : null} */}
 
         <div className="mt-[40px] flex gap-8">
           <CustomButton
