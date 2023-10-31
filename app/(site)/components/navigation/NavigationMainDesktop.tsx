@@ -12,6 +12,7 @@ import {
 import { ImmutableObject } from '@hookstate/core';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+// import  from 'next/config';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
@@ -20,6 +21,8 @@ import InstagramIcon from '../icons/InstagramIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
+// const { publicRuntimeConfig } = getConfig();
+// const { processEnv } = publicRuntimeConfig;
 
 interface Props {
   getSocialLinkData: (
@@ -49,6 +52,8 @@ export default function NavigationMainDesktop(props: Props) {
     getSocialLinkData,
   } = props;
 
+  // console.log(getConfig());
+
   ////tsx
   return (
     <Fragment>
@@ -63,6 +68,16 @@ export default function NavigationMainDesktop(props: Props) {
           <li>
             <span aria-hidden="true">
               <Link href={'/'}>
+                {/* <Image
+                  src={
+                    process.env.NEXT_PUBLIC_BASE_URL
+                      ? `${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`
+                      : `${processEnv.NEXT_PUBLIC_BASE_URL}artck_logo.svg`
+                  }
+                  width={77}
+                  height={24}
+                  alt="ART CK logo"
+                /> */}
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
                   width={77}

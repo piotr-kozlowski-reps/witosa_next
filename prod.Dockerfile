@@ -13,7 +13,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 RUN rm -rf node_modules
+RUN chown root.root .
 RUN npm install --production --ignore-scripts --prefer-offline
+
+# Extra instalation of sharp that needs --ignore-scripts=false
+RUN rm -rf node_modules/sharp
+RUN npm install --verbose --ignore-scripts=false sharp
+
 # Generate Prisma client.
 RUN npx prisma generate
 # end of container handling the build
