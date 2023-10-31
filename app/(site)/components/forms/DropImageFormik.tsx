@@ -68,7 +68,7 @@ export function DropImageFormik<T>(props: Props<T>) {
         >
           {file ? (
             <Image
-              unoptimized
+              // unoptimized
               src={src}
               width={64}
               height={64}

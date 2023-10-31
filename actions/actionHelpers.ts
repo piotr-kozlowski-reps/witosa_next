@@ -103,6 +103,8 @@ export async function processAndSaveImageOnServer(
       .toFile(fileName);
 
     console.log('saved image: ', { image });
+    console.log('saved image name: ', { fileName });
+    console.log('process.cwd() ', process.cwd());
   } catch (error) {
     logger.error(error);
     throw new Error('Unable to save image on server.');
