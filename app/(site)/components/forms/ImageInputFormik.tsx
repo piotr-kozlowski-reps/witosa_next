@@ -7,8 +7,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import Image from 'next/image';
-import CustomButton from '../CustomButton';
 import CloseIcon from '../icons/CloseIcon';
 import { DropImageFormik } from './DropImageFormik';
 import ImagePreviewForThreeDisplaysPreview from './ImagePreviewForThreeDisplaysPreview';
@@ -41,32 +39,33 @@ export default function ImageInputFormik<T>(props: Props<T>) {
     transition,
   };
 
-  function prevImageInDifferentResolutions(width: number) {
-    return (
-      <div className="flex items-center justify-center w-full">
-        {file ? (
-          <div className="flex flex-col items-center justify-center">
-            <div className="h-[352px]" style={{ width: width }}>
-              <Image
-                src={src}
-                width={500}
-                height={300}
-                alt={alt}
-                className="object-cover object-center w-full h-full"
-              />
-            </div>
-            <CustomButton
-              text={'zamknij'}
-              descriptionText="zamknij podgląd"
-              additionalClasses="mt-4"
-              disabled={false}
-              actionFn={() => setHideModal()}
-            />
-          </div>
-        ) : null}
-      </div>
-    );
-  }
+  // function prevImageInDifferentResolutions(width: number) {
+  //   return (
+  //     <div className="flex items-center justify-center w-full">
+  //       {file ? (
+  //         <div className="flex flex-col items-center justify-center">
+  //           <div className="h-[352px]" style={{ width: width }}>
+  //             <Image
+  //               unoptimized={true}
+  //               src={src}
+  //               width={500}
+  //               height={300}
+  //               alt={alt}
+  //               className="object-cover object-center w-full h-full"
+  //             />
+  //           </div>
+  //           <CustomButton
+  //             text={'zamknij'}
+  //             descriptionText="zamknij podgląd"
+  //             additionalClasses="mt-4"
+  //             disabled={false}
+  //             actionFn={() => setHideModal()}
+  //           />
+  //         </div>
+  //       ) : null}
+  //     </div>
+  //   );
+  // }
 
   function deleteImageItem() {
     const resultImagesArray = [...currentValueOfImages];

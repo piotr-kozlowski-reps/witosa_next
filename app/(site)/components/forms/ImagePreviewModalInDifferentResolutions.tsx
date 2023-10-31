@@ -25,6 +25,7 @@ export default function ImagePreviewModalInDifferentResolutions(props: Props) {
         <div className="flex flex-col items-center justify-center">
           <div className="h-[352px]" style={{ width: width }}>
             <Image
+              unoptimized={true}
               src={src}
               width={1140}
               height={1000}

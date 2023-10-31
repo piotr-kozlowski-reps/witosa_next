@@ -6,7 +6,6 @@ import {
 import { TFileWithPreview } from '@/types';
 import clsx from 'clsx';
 import { FormikProps } from 'formik';
-import Image from 'next/image';
 import { Fragment } from 'react';
 import CommentPopup from '../comment-popus/CommentPopup';
 import DropzoneImage from './DropzoneImage';
@@ -67,23 +66,31 @@ export function DropImageFormik<T>(props: Props<T>) {
           )}
         >
           {file ? (
-            <Image
-              // unoptimized
-              src={src}
-              width={64}
-              height={64}
-              alt={alt}
-              className="object-fill w-full h-full"
-              onLoad={() => {
-                if (isFileATFileWithPreviewType) {
-                  return;
-                }
-                const fileAsTFileWithPreview: TFileWithPreview =
-                  file as TFileWithPreview;
-                URL.revokeObjectURL(fileAsTFileWithPreview!.preview);
+            <div
+              className="w-16 h-16 bg-red-400"
+              style={{
+                backgroundImage: `url(${src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'fill',
               }}
-            />
-          ) : null}
+            ></div>
+          ) : //   <Image
+          //     // unoptimized
+          //     src={src}
+          //     width={64}
+          //     height={64}
+          //     alt={alt}
+          //     className="object-fill w-full h-full"
+          //     onLoad={() => {
+          //       if (isFileATFileWithPreviewType) {
+          //         return;
+          //       }
+          //       const fileAsTFileWithPreview: TFileWithPreview =
+          //         file as TFileWithPreview;
+          //       URL.revokeObjectURL(fileAsTFileWithPreview!.preview);
+          //     }}
+          //   />
+          null}
         </div>
         <div className="relative grow">
           <DropzoneImage<T>
