@@ -2,7 +2,11 @@ import { NextResponse } from 'next/server';
 
 const allowedOrigins =
   process.env.NODE_ENV === 'production'
-    ? ['https://www.art-ck.pl', 'https://art-ck.pl']
+    ? [
+        'https://www.art-ck.pl',
+        'https://art-ck.pl',
+        'https://witosa.onrender.com',
+      ]
     : ['http://localhost:3000'];
 
 export function middleware(request: Request) {
