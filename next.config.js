@@ -25,7 +25,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'https://witosa.onrender.com',
+        hostname: 'witosa.onrender.com',
       },
     ],
   },
