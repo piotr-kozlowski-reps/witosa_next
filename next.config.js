@@ -23,6 +23,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.art-ck.pl',
       },
+      {
+        protocol: 'https',
+        hostname: 'https://witosa.onrender.com/',
+      },
     ],
   },
   // async headers() {
