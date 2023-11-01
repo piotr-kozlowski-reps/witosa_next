@@ -11,10 +11,10 @@ const allowedOrigins =
 
 export function middleware(request: Request) {
   const origin = request.headers.get('origin');
-  console.log(origin);
+  // console.log(origin);
   if (origin && !allowedOrigins.includes(origin)) {
     //TODO: add also || !origin - to block also postman and others, so the condition would be: (origin && !allowedOrigins.includes(origin)) || !origin
-    console.log("I'm inside not allowed origins block");
+    // console.log("I'm inside not allowed origins block");
     return new NextResponse(null, {
       status: 400,
       statusText: 'Bad request',
@@ -28,5 +28,5 @@ export function middleware(request: Request) {
 }
 
 export const config = {
-  matcher: ['/api/:path*', '/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/api/:path*'],
 };
