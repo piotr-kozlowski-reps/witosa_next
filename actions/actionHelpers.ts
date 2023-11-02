@@ -13,6 +13,7 @@ import {
   getDifferencesBetweenTwoObjects,
   getIfImagesShouldBeProcessedFurther,
 } from '@/lib/objectHelpers';
+import { s3Client } from '@/lib/s3/s3-client';
 import { generateFileName } from '@/lib/textHelpers';
 import {
   TEventFormInputs,
@@ -25,7 +26,7 @@ import {
   TStringToDistinguishCreatedImageName,
   TTypeOfImageToBeGenerated,
 } from '@/types';
-import { unlink } from 'fs/promises';
+import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getServerSession } from 'next-auth';
 import sharp from 'sharp';
 import {
@@ -83,14 +84,17 @@ export async function processAndSaveImageOnServer(
     throw new Error('No base 64 image');
   }
 
-  const fileName = `./public/${generateFileName(
+  // const fileName = `./public/${generateFileName(
+  //   stringToDistinguishCreatedImageName
+  // )}.jpg`;
+  const fileName = `${generateFileName(
     stringToDistinguishCreatedImageName
   )}.jpg`;
 
   try {
     const uri = fileAsBase64.split(';base64,').pop();
     let buffer = Buffer.from(uri as string, 'base64');
-    const image = await sharp(buffer)
+    const imageBuffer = await sharp(buffer)
       .resize(
         typeOfImageToBeGenerated === 'IMAGE_REGULAR'
           ? {
@@ -100,17 +104,29 @@ export async function processAndSaveImageOnServer(
           : { width: 271, height: 271, withoutEnlargement: false }
       )
       .toFormat('jpg', { compression: '80' })
-      .toFile(fileName);
+      .toBuffer();
 
-    console.log('saved image: ', { image });
-    console.log('saved image name: ', { fileName });
-    console.log('process.cwd() ', process.cwd());
+    const params = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: fileName,
+      Body: imageBuffer,
+      ContentType: 'image/img',
+    };
+
+    const command = new PutObjectCommand(params);
+    s3Client.send(command, function (error, data) {
+      if (error) {
+        throw new Error('Unable to save image on server.');
+      }
+      console.log('Create in s3 response: ', data);
+    });
+    // console.log('Create in s3 response: ', response);
   } catch (error) {
     logger.error(error);
     throw new Error('Unable to save image on server.');
   }
 
-  return fileName.replace('./public/', '');
+  return fileName;
 }
 
 export async function prepareImageForDB(
@@ -185,7 +201,21 @@ export async function deleteImagesFiles(
   let result = true;
   for (let i = 0; i < filesArray.length; i++) {
     try {
-      await unlink(`public/${filesArray[i]}`);
+      // await unlink(`public/${filesArray[i]}`); //worked when images were deleted from public folder on server
+
+      const input = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: filesArray[i],
+      };
+      const command = new DeleteObjectCommand(input);
+      s3Client.send(command, function (error, data) {
+        if (error) {
+          throw new Error('Unable to save image on server.');
+        }
+        console.log('Delete from s3 response: ', data);
+      });
+
+      // console.log('Delete from s3 response: ', { response });
     } catch (error) {
       logger.error(`Deleting file: ${filesArray[i]} unsuccessful.`);
       result = false;

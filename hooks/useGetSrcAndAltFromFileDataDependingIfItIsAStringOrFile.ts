@@ -13,7 +13,7 @@ export function useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(
     fileOrURLString !== ''
   ) {
     alt = fileOrURLString;
-    src = `${process.env.NEXT_PUBLIC_BASE_URL}${fileOrURLString}`;
+    src = `${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${fileOrURLString}`;
   }
   if (fileOrURLString && typeof fileOrURLString !== 'string') {
     const fileAsTFileWithPreview: TFileWithPreview =

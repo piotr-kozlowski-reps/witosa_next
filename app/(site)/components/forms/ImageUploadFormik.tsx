@@ -28,8 +28,6 @@ type Props<T> =
       isToHaveCopyFromImagesButton?: boolean;
     };
 
-// type TFormImageType = TImageCyclicalActivityFormValues[];
-
 export default function ImageUploadFormik<T>(props: Props<T>) {
   ////vars
   const {
@@ -46,21 +44,10 @@ export default function ImageUploadFormik<T>(props: Props<T>) {
   ////tsx
   return (
     <Fragment>
-      <label
-        htmlFor={label}
-        className={clsx(
-          'font-base-regular'
-          // isErrorPresentAndFieldWasTouched ? 'text-skin-error' : ''
-        )}
-      >
+      <label htmlFor={label} className={clsx('font-base-regular')}>
         {label}
       </label>
-      <div
-        className={clsx(
-          'mr-8 base-container-look'
-          // error ? 'border-2 border-error' : ''
-        )}
-      >
+      <div className={clsx('mr-8 base-container-look')}>
         <OneImageInputAndAlt<T>
           formik={formik}
           isCurrentFormToPUTData={isCurrentFormToPUTData}
