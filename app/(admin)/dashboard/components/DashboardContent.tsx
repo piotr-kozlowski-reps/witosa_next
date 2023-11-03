@@ -103,7 +103,6 @@ export default function DashboardContent(props: Props) {
   return (
     <Fragment>
       {session?.status === 'unauthenticated' ? <NotAuthenticatedError /> : null}
-      {/* {isToShowModal ? <div>sdgvg</div> : null} */}
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
           {session && session?.data?.user ? (
