@@ -1,5 +1,5 @@
-import { getCyclicalActivities } from '@/lib/api/cyclicalActivitiesUtils';
-import { CyclicalActivityTemporary } from '@/types';
+import { getAllCyclicalActivities } from '@/actions/cyclicalActivityActions';
+import { TGetAllCyclicalActivitiesResponse } from '@/types';
 import { Metadata } from 'next';
 import FooterMain from '../components/footer/FooterMain';
 import CyclicalActivitiesContent from './components/CyclicalActivitiesContent';
@@ -10,13 +10,15 @@ export const metadata: Metadata = {
 
 export default async function ActivitiesPage() {
   ////vars
-  const cyclicalActivities: CyclicalActivityTemporary[] =
-    await getCyclicalActivities();
+  const cyclicalActivitiesResponse: TGetAllCyclicalActivitiesResponse =
+    await getAllCyclicalActivities();
 
   ////tsx
   return (
     <section>
-      <CyclicalActivitiesContent cyclicalActivities={cyclicalActivities} />
+      <CyclicalActivitiesContent
+        cyclicalActivitiesResponse={cyclicalActivitiesResponse}
+      />
       <FooterMain />
     </section>
   );

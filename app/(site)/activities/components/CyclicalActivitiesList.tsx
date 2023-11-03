@@ -24,6 +24,8 @@ export default function CyclicalActivitiesList(props: Props) {
     getCyclicalActivitiesByDayOfTheWeekSortedByDate,
   } = props;
 
+  // console.log({ chosenCyclicalActivities });
+
   ////tsx
   return (
     <AnimatePresence mode="wait">
@@ -64,6 +66,8 @@ export default function CyclicalActivitiesList(props: Props) {
                         day as Day
                       );
 
+                    // console.log({ activitiesForToday });
+
                     return (
                       <AnimatePresence mode="wait" key={day}>
                         {activitiesForToday.length !== 0 ? (
@@ -79,6 +83,7 @@ export default function CyclicalActivitiesList(props: Props) {
                                   activity.occurrence.filter(
                                     (item) => item.day === day
                                   );
+
                                 const todaysInfo = todaysInfoAsArray[0];
 
                                 const isLastActivityToDisplay =
@@ -94,10 +99,8 @@ export default function CyclicalActivitiesList(props: Props) {
                                     >
                                       <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
                                         {createBetweenHoursText(
-                                          todaysInfo.duration[0].activityStart,
-                                          todaysInfo.duration[
-                                            todaysInfo.duration.length - 1
-                                          ].activityEnd
+                                          todaysInfo.activityStart,
+                                          todaysInfo.activityEnd
                                         )}
                                       </div>
                                       <div className="ml-[80px]">

@@ -38,22 +38,22 @@ describe('getTwoDigitMinutes()', () => {
 
 describe('getTwoDigitHours()', () => {
   it('returns 00', () => {
-    expect(getTwoDigitHours(new Date('2023-08-10T00:00:24.968Z'))).toEqual(
+    expect(getTwoDigitHours(new Date('2023-11-02T23:00:00.000Z'))).toEqual(
       '00'
     );
   });
   it('returns 09', () => {
-    expect(getTwoDigitHours(new Date('2023-08-10T09:00:24.968Z'))).toEqual(
+    expect(getTwoDigitHours(new Date('2023-11-02T08:00:00.000Z'))).toEqual(
       '09'
     );
   });
   it('returns 12', () => {
-    expect(getTwoDigitHours(new Date('2023-08-10T12:00:24.968Z'))).toEqual(
+    expect(getTwoDigitHours(new Date('2023-11-02T11:00:00.000Z'))).toEqual(
       '12'
     );
   });
   it('returns 23', () => {
-    expect(getTwoDigitHours(new Date('2023-08-10T23:00:24.968Z'))).toEqual(
+    expect(getTwoDigitHours(new Date('2023-11-02T22:00:00.000Z'))).toEqual(
       '23'
     );
   });
@@ -63,26 +63,26 @@ describe('createBetweenHoursText()', () => {
   it('returns 17:45-19:45', () => {
     expect(
       createBetweenHoursText(
-        new Date('2000-01-01T17:45:00.968Z'),
-        new Date('2000-01-01T19:45:00.968Z')
+        new Date('2023-11-02T16:45:00.000Z'),
+        new Date('2023-11-02T18:45:00.000Z')
       )
     ).toEqual('17:45-19:45');
   });
   it('returns 16:00-17:30', () => {
     expect(
       createBetweenHoursText(
-        new Date('2000-01-01T16:00:00.968Z'),
-        new Date('2000-01-01T17:30:00.968Z')
+        new Date('2023-11-02T15:00:00.000Z'),
+        new Date('2023-11-02T16:30:00.000Z')
       )
     ).toEqual('16:00-17:30');
   });
-  it('returns 17:00-20:00', () => {
+  it('returns 09:00-20:00', () => {
     expect(
       createBetweenHoursText(
-        new Date('2000-01-01T17:00:00.968Z'),
-        new Date('2000-01-01T20:00:00.968Z')
+        new Date('2023-11-02T08:00:00.000Z'),
+        new Date('2023-11-02T19:45:00.000Z')
       )
-    ).toEqual('17:00-20:00');
+    ).toEqual('09:00-20:45');
   });
 });
 
@@ -153,7 +153,7 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
   it('returns g. 17:45', () => {
     expect(
       getHoursAndMinutesWithGInFrontFromDateObject(
-        new Date('2023-08-21T17:45:00.968Z')
+        new Date('2023-11-02T16:45:00.000Z')
       )
     ).toEqual('g. 17:45');
   });
@@ -161,7 +161,7 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
   it('returns g. 00:15', () => {
     expect(
       getHoursAndMinutesWithGInFrontFromDateObject(
-        new Date('2023-08-21T00:15:00.968Z')
+        new Date('2023-11-01T23:15:00.000Z')
       )
     ).toEqual('g. 00:15');
   });
@@ -169,7 +169,7 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
   it('returns g. 02:08', () => {
     expect(
       getHoursAndMinutesWithGInFrontFromDateObject(
-        new Date('2023-08-21T02:08:00.968Z')
+        new Date('2023-11-02T01:08:00.000Z')
       )
     ).toEqual('g. 02:08');
   });
@@ -177,7 +177,7 @@ describe('getHoursAndMinutesWithGInFrontFromDateObject()', () => {
   it('returns g. 23:59', () => {
     expect(
       getHoursAndMinutesWithGInFrontFromDateObject(
-        new Date('2023-08-21T23:59:00.968Z')
+        new Date('2023-11-02T22:59:00.000Z')
       )
     ).toEqual('g. 23:59');
   });
@@ -241,7 +241,7 @@ describe('createDateInFormat_DateSeparatorFullDayNameSeparatorTime()', () => {
   it('returns only one place with no comma in the end', () => {
     expect(
       createDateInFormat_DateSeparatorFullDayNameSeparatorTime(
-        new Date('2023-08-29T10:45:00.968Z')
+        new Date('2023-08-29T08:45:00.000Z')
       )
     ).toEqual('29.08.2023 | wtorek | g. 10:45');
   });

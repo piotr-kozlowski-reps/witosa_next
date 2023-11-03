@@ -2,7 +2,10 @@
 
 import NotAuthenticatedError from '@/app/(site)/components/NotAuthenticatedError';
 import Modal from '@/app/(site)/components/modal/Modal';
+import ModalNotEnoughWidthForAdmin from '@/app/(site)/components/modal/ModalNotEnoughWidthForAdmin';
 import { useModalState } from '@/context/modalState';
+import { useNavigationState } from '@/context/navigationState';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import {
   TGetAllCyclicalActivitiesResponse,
   TGetAllEventsResponse,
@@ -32,7 +35,11 @@ export default function DashboardContent(props: Props) {
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { newsletterDataCombo, usersData, cyclicalActivitiesData, eventsData } =
     props;
-  const { getIsShowModal } = useModalState();
+  const { getIsShowModal, setShowModal } = useModalState();
+  const { getCurrentDevice } = useNavigationState();
+
+  const [isModalNotEnoughWidthToBeSeen, setIsModalNotEnoughWidthToBeSeen] =
+    useLocalStorage('isModalNotEnoughWidthToBeSeen', true);
 
   const theme = createTheme({
     palette: {
@@ -84,10 +91,19 @@ export default function DashboardContent(props: Props) {
     },
   });
 
+  const isToShowModal =
+    (getCurrentDevice() === 'TABLET' || getCurrentDevice() === 'MOBILE') &&
+    isModalNotEnoughWidthToBeSeen;
+  if (isToShowModal) {
+    setIsModalNotEnoughWidthToBeSeen(false);
+    setShowModal(true, <ModalNotEnoughWidthForAdmin />);
+  }
+
   ////tsx
   return (
     <Fragment>
       {session?.status === 'unauthenticated' ? <NotAuthenticatedError /> : null}
+      {/* {isToShowModal ? <div>sdgvg</div> : null} */}
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
           {session && session?.data?.user ? (

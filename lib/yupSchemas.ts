@@ -148,6 +148,20 @@ export const isDateOrNullYupSchema_AndThenRequired = isDateOrNullYupSchema.test(
     return true;
   }
 );
+export const isDateOrNullYupSchemaForOccurrenceHours_AndThenRequired =
+  isDateOrNullYupSchema.test(
+    'date is required',
+    'Godzina musi być określona.',
+    (value) => {
+      const validation = isDateYupSchema.isValidSync(value);
+
+      if (!validation) {
+        return false;
+      }
+
+      return true;
+    }
+  );
 
 //
 /** cyclicalActivityExpiresAt */
@@ -371,8 +385,8 @@ export const dayYupSchema = Yup.mixed()
 export const occurrenceYupSchema = Yup.array(
   Yup.object().shape({
     day: dayYupSchema,
-    activityStart: isDateOrNullYupSchema_AndThenRequired,
-    activityEnd: isDateOrNullYupSchema_AndThenRequired,
+    activityStart: isDateOrNullYupSchemaForOccurrenceHours_AndThenRequired,
+    activityEnd: isDateOrNullYupSchemaForOccurrenceHours_AndThenRequired,
   })
 );
 

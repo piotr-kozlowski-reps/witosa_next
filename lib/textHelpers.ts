@@ -192,9 +192,7 @@ export function getTwoDigitMinutes(date: Date) {
     : `${date.getMinutes()}`;
 }
 export function getTwoDigitHours(date: Date) {
-  return date.getUTCHours() <= 9
-    ? `0${date.getUTCHours()}`
-    : `${date.getUTCHours()}`;
+  return date.getHours() <= 9 ? `0${date.getHours()}` : `${date.getHours()}`;
 }
 
 export function getDayAlwaysInTwoDigits(date: Date) {
@@ -240,6 +238,9 @@ export function getPolishPlaceName(place: Place) {
   return polishPlaceName;
 }
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
+  console.log(startDate.toISOString());
+  console.log(endDate.toISOString());
+
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
   )}-${getTwoDigitHours(endDate)}:${getTwoDigitMinutes(endDate)}`;

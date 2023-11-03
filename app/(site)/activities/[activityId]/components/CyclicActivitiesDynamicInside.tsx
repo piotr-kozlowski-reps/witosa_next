@@ -1,10 +1,6 @@
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import {
-  createBetweenHoursText,
-  createListingOfAllPlacesSeparatedWithCommas,
-  getPolishDayName,
-} from '@/lib/textHelpers';
+import { createBetweenHoursText, getPolishDayName } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
@@ -79,42 +75,12 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
                     <li key={item.id}>
                       <span>{getPolishDayName(item.day)}</span>
                       <span>: </span>
-                      {item.duration.length === 1 ? (
-                        <Fragment>
-                          <span>
-                            {createBetweenHoursText(
-                              item.duration[0].activityStart,
-                              item.duration[0].activityEnd
-                            )}
-                          </span>
-                          <span>&nbsp;&nbsp;&nbsp;</span>
-                          <span>-&nbsp;&nbsp;&nbsp;</span>
-                          <span>
-                            {createListingOfAllPlacesSeparatedWithCommas(
-                              activity.places
-                            )}
-                          </span>
-                        </Fragment>
-                      ) : null}
-                      {item.duration.length > 1 ? (
-                        <ul>
-                          {item.duration.map((durationItem, index) => (
-                            <li key={index}>
-                              {createBetweenHoursText(
-                                durationItem.activityStart,
-                                durationItem.activityEnd
-                              )}
-                              <span>&nbsp;&nbsp;&nbsp;</span>
-                              <span>-&nbsp;&nbsp;&nbsp;</span>
-                              <span>
-                                {createListingOfAllPlacesSeparatedWithCommas(
-                                  activity.places
-                                )}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
+                      <span>
+                        {createBetweenHoursText(
+                          item.activityStart,
+                          item.activityEnd
+                        )}
+                      </span>
                     </li>
                   );
                 })}

@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     'Art CK to miejsce, które zostało stworzone z myślą nie tylko o pasjonatach szeroko pojętej kultury i sztuki, ale o wszystkich, którzy marzą o swobodnym spędzaniu czasu w przyjaznej, pełnej ciepła atmosferze.',
 };
 
+export const revalidate = 60 * 60 * 12; //12h
+
 export default async function Home() {
   ////vars
   const sliderData: TSlide[] =

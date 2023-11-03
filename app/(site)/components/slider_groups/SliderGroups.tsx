@@ -51,7 +51,7 @@ export default function SliderGroups(props: Props) {
                 <div
                   className="h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10 proper-container-classes"
                   style={{
-                    backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URL}${sliderImage.url})`,
+                    backgroundImage: `url(${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${sliderImage.url})`,
                   }}
                   aria-label={`${sliderImage.alt}`}
                 ></div>

@@ -1,7 +1,6 @@
 import {
   CyclicalActivity,
   CyclicalActivityOccurrence,
-  Day,
   Event,
   ImageCyclicalActivity,
   ImageEvent,
@@ -185,14 +184,14 @@ export type TDuration = {
   activityEnd: Date;
 };
 
-export type TCyclicalActivityOccurrenceTemporary = {
-  id: string;
-  day: Day;
-  duration: TDuration[];
-};
+// export type TCyclicalActivityOccurrenceTemporary = {
+//   id: string;
+//   day: Day;
+//   duration: TDuration[];
+// };
 
 export type CyclicalActivityTemporary = CyclicalActivity & {
-  occurrence: TCyclicalActivityOccurrenceTemporary[];
+  occurrence: CyclicalActivityOccurrence[];
   images: TSliderGroupImage[];
   // extendedInfo?: {
   //   images: TSliderGroupImage[];
@@ -248,7 +247,7 @@ export type TGetAllUsersResponse = {
 
 export type TGetAllCyclicalActivitiesResponse = {
   status: TStatus;
-  response: string | CyclicalActivity[];
+  response: string | CyclicalActivityTemporary[];
 };
 
 export type TGetOneCyclicalActivityResponse = {

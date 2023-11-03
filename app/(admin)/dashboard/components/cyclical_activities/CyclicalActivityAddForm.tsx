@@ -40,6 +40,7 @@ export default function CyclicalActivityAddForm() {
   } = useCyclicalActivitiesState();
 
   const formik = useFormikForCyclicalActivities();
+  console.log(formik);
 
   const isCurrentFormToPOSTData = !getCyclicalActivityFormikDataForPUT().name;
   const isCurrentFormToPUTData = getCyclicalActivityFormikDataForPUT().name;

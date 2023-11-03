@@ -2,20 +2,25 @@
 
 import { useActivitiesCategoriesChoosingHandler } from '@/hooks/useActivitiesCategoriesChoosingHandler';
 import { useChosenCyclicalActivitiesHandler } from '@/hooks/useChosenCyclicalActivitiesHandler';
+import { useCyclicalActivityResponseHandler } from '@/hooks/useCyclicalActivityResponseHandler';
 import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
-import { CyclicalActivityTemporary } from '@/types';
+import { TGetAllCyclicalActivitiesResponse } from '@/types';
 import { Day } from '@prisma/client';
 import { Fragment } from 'react';
 import NavigationCategoriesAndTargetsForCyclicalActivities from '../../components/navigation/NavigationCategoriesAndTargetsForCyclicalActivities';
 import CyclicalActivitiesList from './CyclicalActivitiesList';
 
 interface Props {
-  cyclicalActivities: CyclicalActivityTemporary[];
+  cyclicalActivitiesResponse: TGetAllCyclicalActivitiesResponse;
 }
 
 export default function CyclicalActivitiesContent(props: Props) {
   ////vars
-  const { cyclicalActivities } = props;
+  const { cyclicalActivitiesResponse } = props;
+  const cyclicalActivities = useCyclicalActivityResponseHandler(
+    cyclicalActivitiesResponse
+  );
+
   const {
     categories,
     toggleCategory,
@@ -46,10 +51,10 @@ export default function CyclicalActivitiesContent(props: Props) {
       .sort((a, b) => {
         const aStartDate = a.occurrence
           .find((item) => item.day === day)!
-          .duration[0].activityStart.getTime();
+          .activityStart.getTime();
         const bStartDate = b.occurrence
           .find((item) => item.day === day)!
-          .duration[0].activityStart.getTime();
+          .activityStart.getTime();
         return aStartDate - bStartDate;
       });
 

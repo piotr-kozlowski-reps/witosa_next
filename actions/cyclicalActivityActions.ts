@@ -17,6 +17,7 @@ import {
 } from '@/lib/objectHelpers';
 import prisma from '@/prisma/client';
 import {
+  CyclicalActivityTemporary,
   TActionResponse,
   TCyclicalActivityFormInputs,
   TCyclicalActivityWithImageAndOccurrence,
@@ -273,7 +274,10 @@ export async function getAllCyclicalActivities(): Promise<TGetAllCyclicalActivit
     logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbReadingErrorMessage };
   }
-  return { status: 'SUCCESS', response: cyclicalActivities };
+  return {
+    status: 'SUCCESS',
+    response: cyclicalActivities as CyclicalActivityTemporary[],
+  };
 }
 
 export async function getCyclicalActivity(
@@ -354,8 +358,17 @@ export async function updateCyclicalActivity(
     originalCyclicalActivity.occurrence,
     changedCyclicalActivity.occurrence
   );
+  const isOccurrencesArraysEqualInLength =
+    originalCyclicalActivity.occurrence.length ===
+    changedCyclicalActivity.occurrence.length;
 
-  const isOccurrencesToBeUpdated = differencesOccurrence.length;
+  console.log('original', originalCyclicalActivity.occurrence);
+  console.log('changed', changedCyclicalActivity.occurrence);
+  console.log({ differencesOccurrence });
+  console.log({ isOccurrencesArraysEqualInLength });
+
+  const isOccurrencesToBeUpdated =
+    differencesOccurrence.length || !isOccurrencesArraysEqualInLength;
   let occurrencePreparedDataForDb: TOccurrenceWithRequiredDatesAndCyclicalActivityID[] =
     [];
   let occurrencesToBeDeletedIDs: string[] = [];
