@@ -1,3 +1,4 @@
+import { getAllEvents } from '@/actions/eventsActions';
 import { TEventTemporary } from '@/types';
 import {
   isFirstDateAfterSecond,
@@ -13,7 +14,11 @@ export async function getAllEventsSorted() {
 }
 
 export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_NotCurrent_AndThoseNotToBePublished_Sorted() {
-  const allEvents: TEventTemporary[] = allEventsMockData
+  const allEventsResponse = await getAllEvents();
+
+  const allEvents: TEventTemporary[] = (
+    allEventsResponse.response as TEventTemporary[]
+  )
     .filter((event) => event.isToBePublished)
     .filter((event) => event.isToBeOnlyInNewsSection_NotSeenInEvents !== true)
     .filter((event) => {
@@ -29,6 +34,7 @@ export async function getEvents_ExcludingThoseNotToBeSeenInEventsSection_NotCurr
     .sort(function (a, b) {
       return a.eventStartDate.getTime() - b.eventStartDate.getTime();
     });
+
   return allEvents;
 }
 

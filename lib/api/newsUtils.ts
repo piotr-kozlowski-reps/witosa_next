@@ -1,13 +1,22 @@
+import { getAllEvents } from '@/actions/eventsActions';
 import { TEventInNewsSection, TEventTemporary } from '@/types';
 import {
   isFirstDateAfterSecond,
   isFirstDateBeforeSecond,
 } from '../dateHelpers';
-import { allEventsMockData } from './temporaryApiMockData';
+import logger from '../logger';
 
 export async function getNewsDataSorted() {
-  //TODO: finally api call - open to everyone - with fetch and tag
-  const eventsData: TEventTemporary[] = allEventsMockData;
+  const allEventsResponse = await getAllEvents();
+  if (!allEventsResponse || allEventsResponse.status === 'ERROR') {
+    logger.warn(
+      "Couldn't fetch events in getEventsMappedToMainSliderData_FilteredToBeSeenInNews()"
+    );
+    return [];
+  }
+
+  const eventsData: TEventTemporary[] =
+    allEventsResponse.response as TEventTemporary[];
 
   const eventsMappedForNewsSection: TEventInNewsSection[] = eventsData
     .filter((event) => checkIfEventIsToBePublished(event))

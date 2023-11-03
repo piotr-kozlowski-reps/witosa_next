@@ -1,5 +1,10 @@
-import { getSingleEvent } from '@/lib/api/eventsUtils';
-import { TEventTemporary } from '@/types';
+import { getEvent } from '@/actions/eventsActions';
+import logger from '@/lib/logger';
+import {
+  TEventTemporary,
+  TEventWithImages,
+  TGetOneEventResponse,
+} from '@/types';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
@@ -13,7 +18,14 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const id = props.params.eventId;
-  const event: TEventTemporary | undefined = await getSingleEvent(id);
+  const eventResponse: TGetOneEventResponse = await getEvent(id);
+  const event: TEventTemporary | undefined = await getEventFromResponse(
+    eventResponse
+  );
+
+  if (!event) {
+    notFound();
+  }
 
   const metadata: Metadata = event
     ? { title: `${event.title} | Wydarzenia | Art CK` }
@@ -28,9 +40,10 @@ export default async function EventsDynamicPage(props: Props) {
   ////vars
   const id = props.params.eventId;
 
-  const event: TEventTemporary | undefined = await getSingleEvent(id);
-
-  console.log('przeszedłem dalej');
+  const eventResponse: TGetOneEventResponse = await getEvent(id);
+  const event: TEventTemporary | undefined = await getEventFromResponse(
+    eventResponse
+  );
 
   if (!event) {
     notFound();
@@ -41,4 +54,13 @@ export default async function EventsDynamicPage(props: Props) {
       <EventDynamicInside event={event!} />
     </Fragment>
   );
+}
+
+async function getEventFromResponse(eventResponse: TGetOneEventResponse) {
+  if (!eventResponse || eventResponse.status === 'ERROR') {
+    logger.warn("Could't fetch event.");
+    return undefined;
+  }
+
+  return eventResponse.response as TEventWithImages;
 }

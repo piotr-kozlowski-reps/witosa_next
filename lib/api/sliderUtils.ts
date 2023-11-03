@@ -1,8 +1,10 @@
+import { getAllEvents } from '@/actions/eventsActions';
 import { TEventTemporary, TGroups, TSliderGroupImage } from '@/types';
 import {
   isFirstDateAfterSecond,
   isFirstDateBeforeSecond,
 } from '../dateHelpers';
+import logger from '../logger';
 import {
   allEventsMockData,
   sliderGroupsHipnoteriaBisImages,
@@ -48,7 +50,17 @@ export async function getGroupsSliderData(group: TGroups) {
 }
 
 export async function getEventsMappedToMainSliderData_FilteredToBeSeenInNews() {
-  const eventsToBeSeenInSlider = allEventsMockData
+  const allEventsResponse = await getAllEvents();
+  if (!allEventsResponse || allEventsResponse.status === 'ERROR') {
+    logger.warn(
+      "Couldn't fetch events in getEventsMappedToMainSliderData_FilteredToBeSeenInNews()"
+    );
+    return [];
+  }
+
+  const eventsToBeSeenInSlider: TEventTemporary[] = (
+    allEventsResponse.response as TEventTemporary[]
+  )
 
     /** check if event is to be visible in slider */
     .filter((event) => event.isToBeInSlider)

@@ -93,7 +93,7 @@ export default function SliderContent(props: Props) {
                   className="absolute object-cover object-center w-full h-full rounded-base"
                 >
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}${slide.sliderImageUrl}`}
+                    src={`${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${slide.sliderImageUrl}`}
                     width={1140}
                     height={900}
                     alt={slide.sliderImageAlt || ''}

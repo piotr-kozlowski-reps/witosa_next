@@ -135,7 +135,7 @@ export default function SingleNews(props: Props) {
           <div className="pt-[57px]">
             <div className="max-w-[271px] max-h-[271px] mx-auto">
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_AND_IMAGES_URL}${newsSectionImageUrl}`}
+                src={`${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${newsSectionImageUrl}`}
                 width={271}
                 height={271}
                 alt={title}

@@ -18,7 +18,7 @@ export default function NewsInside(props: Props) {
   return (
     <Fragment>
       {newsData.length === 0 ? (
-        <section className="proper-container-classes">
+        <section className="proper-container-classes mt-[128px]">
           <div className={clsx('w-full prose')}>
             <h4>Aktualności</h4>
             <p>Brak aktualności.</p>
