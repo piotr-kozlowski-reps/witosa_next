@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { Fragment } from 'react';
-// @ts-expect-error
-import { useFormStatus } from 'react-dom';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
 interface Props {
   text: string;
