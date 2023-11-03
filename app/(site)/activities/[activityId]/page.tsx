@@ -25,6 +25,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound();
   }
 
+  // log
+
   const metadata: Metadata = cyclicalActivity
     ? { title: `${cyclicalActivity.name} | Zajęcia stałe | Art CK` }
     : {
