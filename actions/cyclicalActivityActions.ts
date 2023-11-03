@@ -150,6 +150,7 @@ export async function addCyclicalActivity(
 
   /** revalidation */
   revalidatePath('/');
+  revalidatePath('/activities');
 
   /* final success response */
   const successMessage = `Zajęcia: (${values.name}) zostały zapisane.`;
