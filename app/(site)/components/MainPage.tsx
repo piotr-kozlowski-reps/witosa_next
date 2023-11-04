@@ -1,10 +1,8 @@
 'use client';
 
-import { useModalState } from '@/context/modalState';
 import { TEventInNewsSection, TSlide } from '@/types';
 import { motion } from 'framer-motion';
 import FooterMain from './footer/FooterMain';
-import ModalTechnicalBreak from './modal/ModalTechnicalBreak';
 import NewsMain from './news/NewsMain';
 import MainSlider from './slider_main/MainSlider';
 
@@ -16,9 +14,10 @@ type Props = {
 export default function MainPage(props: Props) {
   ////vars
   const { sliderData, newsData } = props;
-  const { setShowModal } = useModalState();
 
-  setShowModal(true, <ModalTechnicalBreak />);
+  //technical break modal -
+  // const { setShowModal } = useModalState();
+  // setShowModal(true, <ModalTechnicalBreak />, false);
 
   ////tsx
   return (

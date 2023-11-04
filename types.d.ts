@@ -267,6 +267,7 @@ export type TNewsletterDataCombo = {
 export type TModalState = {
   isShowModal: boolean;
   modalContent: React.ReactNode;
+  canBeClosed: boolean;
 };
 
 export type TNotificationState = {

@@ -1,6 +1,7 @@
 import AuthProvider from '@/context/AuthContext';
 import ToasterContext from '@/context/ToasterContext';
 import { Rubik } from 'next/font/google';
+import ModalTechnicalBreak from './(site)/components/modal/ModalTechnicalBreak';
 import Navigation from './(site)/components/navigation/Navigation';
 import './globals.css';
 const rubik = Rubik({ subsets: ['latin-ext'] });
@@ -17,6 +18,7 @@ export default function RootLayout({
         <Navigation />
         <AuthProvider>
           <ToasterContext />
+          <ModalTechnicalBreak />
           {children}
         </AuthProvider>
       </body>

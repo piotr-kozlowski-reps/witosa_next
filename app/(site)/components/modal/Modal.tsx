@@ -11,7 +11,8 @@ import { Fragment } from 'react';
 
 export default function Modal() {
   ////vars
-  const { getModalContent, setHideModal } = useModalState();
+  const { getModalContent, setHideModal, getCanModalBeClosed } =
+    useModalState();
 
   ////tsx
   return (
@@ -36,8 +37,9 @@ export default function Modal() {
           className={clsx(
             'fixed top-0 bottom-0 left-0 right-0 z-30 w-screen h-screen overlay opacity-90 overflow-clip'
           )}
-          // onClick={() => setHideModal()}
-          onClick={() => {}}
+          onClick={() => {
+            getCanModalBeClosed() ? setHideModal() : null;
+          }}
         ></motion.div>
       </AnimatePresence>
     </Fragment>

@@ -1,42 +1,32 @@
 'use client';
 
-import { useModalState } from '@/context/modalState';
+import { Fragment } from 'react';
 import ModalTitle from './ModalTitle';
 
-// type Props = {
-//   cyclicalActivities: { id: string; name: string }[];
-// };
-
 export default function ModalTechnicalBreak() {
-  ////vars
-  const { setHideModal } = useModalState();
-
   ////tsx
   return (
-    <div className="max-w-full prose">
-      <ModalTitle text="Przerwa techniczna" />
+    <Fragment>
+      <div className="fixed z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[25px] pb-[32px] ">
+        <div className="proper-container-classes">
+          <div className="max-w-full prose">
+            <ModalTitle text="Przerwa techniczna" />
+            <div>
+              <p>
+                Trwają prace konserwacyjne, strona niedługo znów będzie
+                dostępna.
+              </p>
 
-      <div>
-        <p>Trwają prace konserwacyjne, strona niedługo znów będzie dostępna.</p>
-
-        <p>
-          Pozdrawiamy,
-          <br />
-          Zespół Art CK
-        </p>
-      </div>
-
-      {/* <div className="flex flex-col tablet:flex-row justify-start items-start tablet:items-center gap-4 tablet:gap-8 mt-[25px]">
-        <div>
-          <CustomButton
-            text="jestem świadom - przejdź dalej"
-            descriptionText="Jestem świadom - przejdź dalej."
-            disabled={false}
-            actionFn={() => setHideModal()}
-            outlined={true}
-          />
+              <p>
+                Pozdrawiamy,
+                <br />
+                Zespół Art CK
+              </p>
+            </div>
+          </div>
         </div>
-      </div> */}
-    </div>
+      </div>
+      <div className="fixed top-0 bottom-0 left-0 right-0 z-30 w-screen h-screen overlay opacity-90 overflow-clip"></div>
+    </Fragment>
   );
 }
