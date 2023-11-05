@@ -110,7 +110,8 @@ export async function addEvent(
       values,
       currentlyCreatedImagesToBeDeletedWhenError,
       'IMAGE_REGULAR',
-      'event'
+      'event',
+      false
     );
   } catch (error) {
     logger.warn((error as Error).stack);
@@ -424,7 +425,8 @@ export async function updateEvent(
       changedEvent,
       currentlyCreatedImagesToBeDeletedWhenError,
       'IMAGE_REGULAR',
-      'event'
+      'event',
+      true
     );
   } catch (error) {
     logger.warn((error as Error).stack);

@@ -92,7 +92,8 @@ export async function addCyclicalActivity(
       values,
       currentlyCreatedImagesToBeDeletedWhenError,
       'IMAGE_REGULAR',
-      'cyclical_activity'
+      'cyclical_activity',
+      false
     );
   } catch (error) {
     logger.warn((error as Error).stack);
@@ -420,7 +421,8 @@ export async function updateCyclicalActivity(
       changedCyclicalActivity,
       currentlyCreatedImagesToBeDeletedWhenError,
       'IMAGE_REGULAR',
-      'cyclical_activity'
+      'cyclical_activity',
+      true
     );
   } catch (error) {
     logger.warn((error as Error).stack);
@@ -620,17 +622,3 @@ function prepareOccurrenceDataForSavingInDB(
     return resultOccurrenceWithoutCyclicalID;
   });
 }
-
-// function getProperDataForCyclicalActivityUpdate(
-//   changedCyclicalActivity: TCyclicalActivityFormInputs,
-//   differencesCyclicalActivity: Partial<TCyclicalActivityFormInputs>
-// ): Prisma.CyclicalActivityUncheckedUpdateInput {
-//   const resultObject: Partial<TCyclicalActivityFormInputs> = {};
-//   // const resultObject: Prisma.CyclicalActivityUncheckedUpdateInput = {};
-
-//   for (let [key, value] of Object.entries(differencesCyclicalActivity)) {
-//     (resultObject as any)[key] = (changedCyclicalActivity as any)[key];
-//   }
-
-//   return resultObject as Prisma.CyclicalActivityUncheckedUpdateInput;
-// }

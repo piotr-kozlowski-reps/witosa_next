@@ -160,7 +160,8 @@ export async function prepareImagesForDB<
   values: T,
   createdImagesArray: string[],
   typeOfImageToBeGenerated: TTypeOfImageToBeGenerated,
-  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName
+  stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName,
+  isIdToBeAdded: boolean
 ): Promise<K[]> {
   const originalImagesData = values.images;
 
@@ -181,8 +182,7 @@ export async function prepareImagesForDB<
       createdImagesArray.push(imageUrl);
     }
 
-    result.push({
-      id: originalImagesData[i].id,
+    const imageObjectPreparedToBeAdded: any = {
       url: imageUrl,
       alt: originalImagesData[i].alt,
       index: originalImagesData[i].index,
@@ -190,7 +190,13 @@ export async function prepareImagesForDB<
         .additionInfoThatMustBeDisplayed
         ? (originalImagesData[i].additionInfoThatMustBeDisplayed as string)
         : null,
-    } as K);
+    };
+
+    if (isIdToBeAdded) {
+      imageObjectPreparedToBeAdded.id = originalImagesData[i].id;
+    }
+
+    result.push(imageObjectPreparedToBeAdded as K);
   }
   return result;
 }
@@ -238,7 +244,8 @@ export async function dealWithImagesDividingThemToProperArrays(
     changedEvent,
     imagesToBeUpdated_or_Deleted_or_Created.createdImages,
     'IMAGE_REGULAR',
-    'event'
+    'event',
+    true
   );
 
   ////create differences object
