@@ -238,8 +238,10 @@ export function getPolishPlaceName(place: Place) {
   return polishPlaceName;
 }
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
-  console.log(startDate.toISOString());
-  console.log(endDate.toISOString());
+  console.log('startDate: ', startDate.toISOString());
+  console.log('getTwoDigitHours(startDate): ', getTwoDigitHours(startDate));
+  console.log('endDate: ', endDate.toISOString());
+  console.log('getTwoDigitHours(endDate): ', getTwoDigitHours(endDate));
 
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
