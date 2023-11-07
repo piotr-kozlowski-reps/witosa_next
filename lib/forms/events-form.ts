@@ -58,13 +58,26 @@ export const prepareEventValuesForBackend = (
   values.newsSectionImageUrl = newsImagePreparedForBackend;
 
   // images
-  const isIncludeImages = values.isCustomLinkToDetails;
+  console.log('values.isCustomLinkToDetails: ', values.isCustomLinkToDetails);
+  console.log(
+    'values.isToBeOnlyInNewsSection_NotSeenInEvents: ',
+    values.isToBeOnlyInNewsSection_NotSeenInEvents
+  );
+
+  let isIncludeImages = true;
+  values.isCustomLinkToDetails ? (isIncludeImages = false) : null;
+  values.isToBeOnlyInNewsSection_NotSeenInEvents
+    ? (isIncludeImages = false)
+    : null;
+
   const originalImages = values.images as TImageEventFormValue[];
   let imagesRemapped: TImageEventFormValue[] = [];
-  if (!isIncludeImages) {
+
+  if (isIncludeImages) {
     try {
       imagesRemapped = remapImagesIntoBackendPreparedData(originalImages);
     } catch (error) {
+      console.error((error as Error).stack);
       throw new Error(
         'Nastąpił błąd podczas procesowania obrazków, jakiegoś obrazka może brakować, lub jest uszkodzony.'
       );
@@ -73,7 +86,8 @@ export const prepareEventValuesForBackend = (
   values.images = imagesRemapped;
 
   //slider
-  const isToBeInSlider = values.isToBeInSlider;
+  const isToBeInSlider =
+    values.isToBeInSlider && !values.isToBeOnlyInNewsSection_NotSeenInEvents;
   const originalSliderImage = values.sliderImageUrl;
   let sliderImagePreparedForBackend: string = '';
   if (isToBeInSlider) {

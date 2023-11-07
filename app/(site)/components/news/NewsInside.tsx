@@ -63,6 +63,9 @@ export default function NewsInside(props: Props) {
                     isDateToBeHiddenInNewsSection={
                       newsEvent.isDateToBeHiddenInNewsSection || false
                     }
+                    isToBeOnlyInNewsSection_NoDetails={
+                      newsEvent.isToBeOnlyInNewsSection_NotSeenInEvents
+                    }
                   />
                 </div>
               );

@@ -22,6 +22,7 @@ interface Props {
   currentDevice: TCurrentDevice;
   isDateToBeHiddenInNewsSection: boolean;
   customLinkToDetails?: string | null;
+  isToBeOnlyInNewsSection_NoDetails: boolean;
 }
 
 export default function SingleNews(props: Props) {
@@ -37,6 +38,7 @@ export default function SingleNews(props: Props) {
     currentDevice,
     isDateToBeHiddenInNewsSection,
     customLinkToDetails = '',
+    isToBeOnlyInNewsSection_NoDetails,
   } = props;
 
   let isShowingBothSurroundingLines =
@@ -154,6 +156,7 @@ export default function SingleNews(props: Props) {
               visibleText="dowiedz się więcej ..."
               url={customLinkToDetails ? customLinkToDetails : `/events/${id}`}
               descriptionText={title}
+              inactiveLink={isToBeOnlyInNewsSection_NoDetails}
             />
           </div>
         </div>

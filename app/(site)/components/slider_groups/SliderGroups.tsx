@@ -45,9 +45,12 @@ export default function SliderGroups(props: Props) {
     >
       {sliderImages.map((sliderImage, index) => {
         return (
-          <Fragment key={index}>
+          <Fragment key={`${index}-${sliderImage.url}`}>
             <div className="relative">
-              <SwiperSlide>
+              <SwiperSlide
+                virtualIndex={index}
+                key={`${index}-${sliderImage.url}`}
+              >
                 <div
                   className="h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10 proper-container-classes"
                   style={{

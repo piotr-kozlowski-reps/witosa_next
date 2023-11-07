@@ -27,11 +27,41 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
   } = props;
 
   const error = getErrorForField<T>(formik, name);
+  const valueFromFormik = formik.getFieldProps(name).value;
 
   const isErrorPresentAndFieldWasTouched =
     getIsErrorPresentAndFieldWasTouched<T>(formik, name);
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
+
+  console.log(
+    'formik.getFieldProps(name).value: ',
+    formik.getFieldProps(name).value
+  );
+
+  function getDateValue(date: Date): Date {
+    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // console.log('getDateValue()');
+    // console.log('timeZone:', timeZone);
+
+    // const dateZoned = utcToZonedTime(date, timeZone);
+
+    // return dateZoned;
+    return date;
+  }
+
+  function setUTCDateValueForDB(date: Date): Date {
+    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // const utcDate = zonedTimeToUtc(date, timeZone);
+
+    // console.log('setUTCDateValueForDB()');
+    // console.log('timeZone:', timeZone);
+    // console.log('originalDate:', date);
+    // console.log('utcDate:', utcDate);
+
+    // return utcDate;
+    return date;
+  }
 
   ///tsx
   return (
@@ -49,8 +79,12 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
           {label}
         </div>
         <DateTimePicker
-          value={formik.getFieldProps(name).value}
-          onChange={(val) => formik.getFieldHelpers(name).setValue(val)}
+          value={valueFromFormik ? getDateValue(valueFromFormik) : null}
+          onChange={(val) =>
+            formik
+              .getFieldHelpers(name)
+              .setValue(setUTCDateValueForDB(val as Date))
+          }
           views={['year', 'month', 'day', 'hours', 'minutes']}
           showDaysOutsideCurrentMonth
           viewRenderers={{

@@ -41,6 +41,8 @@ export async function getNewsDataSorted() {
         shortDescription: event.shortDescription,
         isDateToBeHiddenInNewsSection: event.isDateToBeHiddenInNewsSection,
         customLinkToDetails: event.customLinkToDetails,
+        isToBeOnlyInNewsSection_NotSeenInEvents:
+          event.isToBeOnlyInNewsSection_NotSeenInEvents,
       };
     })
     .sort(function (a, b) {

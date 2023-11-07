@@ -163,6 +163,8 @@ export async function prepareImagesForDB<
   stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName,
   isIdToBeAdded: boolean
 ): Promise<K[]> {
+  console.log('creating images');
+
   const originalImagesData = values.images;
 
   let result: K[] = [];

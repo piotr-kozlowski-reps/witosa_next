@@ -65,6 +65,9 @@ export async function getEventsMappedToMainSliderData_FilteredToBeSeenInNews() {
     /** check if event is to be visible in slider */
     .filter((event) => event.isToBeInSlider)
 
+    /** check if event is to be visible only in news - if so, needs to be filtered out */
+    .filter((event) => !event.isToBeOnlyInNewsSection_NotSeenInEvents)
+
     /** check if event's dates of visibility are between Date.now()  */
     .filter((event) => {
       if (!event.visibleInSliderFrom || !event.visibleInSliderTo) {

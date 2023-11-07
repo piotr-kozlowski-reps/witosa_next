@@ -6,7 +6,6 @@ import RichTextEditorFormik from '@/app/(site)/components/forms/RichTextEditorFo
 import SelectFormik from '@/app/(site)/components/forms/SelectFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useIsMounted } from '@/hooks/useIsMounted';
 import {
   defineCurrentIndex,
   serveOptionsForCustomLinkToDetails,
@@ -30,7 +29,7 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   const isCustomLinkToDetails = formik.getFieldProps(
     'isCustomLinkToDetails'
   ).value;
-  const isMounted = useIsMounted();
+  // const isMounted = useIsMounted();
 
   // function defineCurrentIndex() {
   //   const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;

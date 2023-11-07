@@ -32,3 +32,31 @@ export function setDateWith_23_59minutes(date: Date) {
   );
   return new Date(correctedDateAsString);
 }
+
+export const getTimezoneOffset = (value: Date) =>
+  value.getTimezoneOffset() * 60000;
+
+export const makeLocalAppearUTC = (value: Date) => {
+  const dateTime = new Date(value);
+  const utcFromLocal = new Date(
+    dateTime.getTime() + getTimezoneOffset(dateTime)
+  );
+  return utcFromLocal;
+};
+
+export const localToUTC = (dateTime: Date) => {
+  console.log('localToUTC');
+  console.log(dateTime.toISOString());
+  console.log('getTimezoneOffset(dateTime): ', getTimezoneOffset(dateTime));
+  console.log(
+    `
+    dateTime.getTime() - getTimezoneOffset(dateTime)
+  )`,
+    new Date(dateTime.getTime() - getTimezoneOffset(dateTime))
+  );
+
+  const utcFromLocal = new Date(
+    dateTime.getTime() - getTimezoneOffset(dateTime)
+  );
+  return utcFromLocal;
+};

@@ -66,6 +66,8 @@ export async function addEvent(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
+  console.log('addEvent');
+
   /*
     data validation
     */

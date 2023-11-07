@@ -1,9 +1,9 @@
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import { createBetweenHoursText, getPolishDayName } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
+import ActivityOccurence from './ActivityOccurence';
 
 type Props = {
   activity: CyclicalActivityTemporary;
@@ -69,7 +69,8 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
             <br />
             <p>
               <b>Zajęcia odbywają się w:</b>
-              <ul>
+              <ActivityOccurence activity={activity} />
+              {/* <ul>
                 {activity.occurrence.map((item, index) => {
                   return (
                     <li key={`${index}-${item.id}`}>
@@ -84,7 +85,7 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
                     </li>
                   );
                 })}
-              </ul>
+              </ul> */}
             </p>
           </div>
         </div>
