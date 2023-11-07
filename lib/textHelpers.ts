@@ -238,10 +238,10 @@ export function getPolishPlaceName(place: Place) {
   return polishPlaceName;
 }
 export function createBetweenHoursText(startDate: Date, endDate: Date) {
-  console.log('startDate: ', startDate.toISOString());
-  console.log('getTwoDigitHours(startDate): ', getTwoDigitHours(startDate));
-  console.log('endDate: ', endDate.toISOString());
-  console.log('getTwoDigitHours(endDate): ', getTwoDigitHours(endDate));
+  // console.log('startDate: ', startDate.toISOString());
+  // console.log('getTwoDigitHours(startDate): ', getTwoDigitHours(startDate));
+  // console.log('endDate: ', endDate.toISOString());
+  // console.log('getTwoDigitHours(endDate): ', getTwoDigitHours(endDate));
 
   return `${getTwoDigitHours(startDate)}:${getTwoDigitMinutes(
     startDate
@@ -370,7 +370,7 @@ export function generateFileName(
   let result = '';
 
   const date = new Date(Date.now());
-  console.log({ date });
+  // console.log({ date });
 
   result = `${date.getFullYear()}_${getMonthAlwaysInTwoDigits(
     date

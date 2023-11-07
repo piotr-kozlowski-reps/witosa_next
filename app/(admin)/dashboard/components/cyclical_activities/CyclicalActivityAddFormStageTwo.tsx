@@ -31,16 +31,6 @@ export default function CyclicalActivityAddFormStageTwo<T>(props: Props<T>) {
   ).value;
   // const isMounted = useIsMounted();
 
-  // function defineCurrentIndex() {
-  //   const currentValue = formik.getFieldProps('isCustomLinkToDetails').value;
-  //   const indexOfOptionsThatContainsCurrentValue =
-  //     optionsForCustomLinkToDetails.findIndex(
-  //       (item) => item.value === currentValue
-  //     );
-
-  //   return indexOfOptionsThatContainsCurrentValue;
-  // }
-
   ////tsx
   return (
     <ComponentTransitionFromRightToLeft>

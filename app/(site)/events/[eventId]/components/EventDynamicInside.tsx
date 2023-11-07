@@ -1,12 +1,10 @@
 import FooterMain from '@/app/(site)/components/footer/FooterMain';
 import SliderGroups from '@/app/(site)/components/slider_groups/SliderGroups';
-import {
-  createDateInFormat_DateSeparatorFullDayNameSeparatorTime,
-  getPolishPlaceName,
-} from '@/lib/textHelpers';
+import { getPolishPlaceName } from '@/lib/textHelpers';
 import { TEventTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
+import DateAsClientComponentToPreserveConsistency from './DateAsClientComponentToPreserveConsistency';
 
 type Props = {
   event: TEventTemporary;
@@ -63,7 +61,13 @@ export default function EventDynamicInside(props: Props) {
           <div className="not-prose">
             <br />
             {/* data */}
-            {event.isDateToBeHiddenInNewsSection ? null : (
+            <DateAsClientComponentToPreserveConsistency
+              isDateToBeHiddenInNewsSection={
+                event.isDateToBeHiddenInNewsSection
+              }
+              eventStartDate={event.eventStartDate}
+            />
+            {/* {event.isDateToBeHiddenInNewsSection ? null : (
               <div className="mb-4">
                 <span className="font-base-regular">
                   <b>Kiedy:&nbsp;&nbsp;&nbsp;</b>
@@ -74,7 +78,7 @@ export default function EventDynamicInside(props: Props) {
                   </span>
                 </span>
               </div>
-            )}
+            )} */}
 
             <div className="-mt-[18px]">
               <span className="font-base-regular">

@@ -70,22 +70,6 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
             <p>
               <b>Zajęcia odbywają się w:</b>
               <ActivityOccurence activity={activity} />
-              {/* <ul>
-                {activity.occurrence.map((item, index) => {
-                  return (
-                    <li key={`${index}-${item.id}`}>
-                      <span>{getPolishDayName(item.day)}</span>
-                      <span>: </span>
-                      <span>
-                        {createBetweenHoursText(
-                          item.activityStart,
-                          item.activityEnd
-                        )}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul> */}
             </p>
           </div>
         </div>
