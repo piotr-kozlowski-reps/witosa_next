@@ -7,7 +7,7 @@ type Props = {
   image: string | TFileWithPreview;
   altProvided: string;
   index: number;
-  actionFn: (index: number) => void;
+  actionFn: (_index: number) => void;
 };
 
 export default function ImagesListingForCopying(props: Props) {

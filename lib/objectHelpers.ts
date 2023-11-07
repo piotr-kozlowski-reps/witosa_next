@@ -51,26 +51,3 @@ export function getIfImagesShouldBeProcessedFurther<
 
   return hasProperty;
 }
-// export function getIfImagesShouldBeProcessedFurther(
-//   originalImages: TImageCyclicalActivityAllOptional[],
-//   changedImages: TImageCyclicalActivityAllOptional[],
-//   differencesImages: TImageCyclicalActivityAllOptional[]
-// ): boolean {
-//   if (originalImages.length !== changedImages.length) {
-//     return true;
-//   }
-
-//   if (!differencesImages.length) {
-//     return false;
-//   }
-
-//   let hasProperty = false;
-//   differencesImages.forEach((differenceObject) => {
-//     for (let key in differenceObject) {
-//       console.log(key);
-//       hasProperty = true;
-//     }
-//   });
-
-//   return hasProperty;
-// }

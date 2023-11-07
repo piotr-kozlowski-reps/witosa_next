@@ -3,7 +3,6 @@
 import { useLayoutState } from '@/context/layoutState';
 import { subMenuVariant } from '@/lib/animations/variants';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import CustomLink from '../../components/CustomLink';
 import Error404SVG from '../../components/svgs/Error404SVG';
 import ErrorOutlineSVG from '../../components/svgs/ErrorOutlineSVG';
@@ -12,7 +11,6 @@ export default function EventsNotFound() {
   ////vars
   const { getCurrentForegroundColor } = useLayoutState();
   const currentForegroundColor = getCurrentForegroundColor();
-  const router = useRouter();
 
   ////tsx
   return (

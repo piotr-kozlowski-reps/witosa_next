@@ -74,7 +74,7 @@ export function defineCurrentIndex<T>(
  * initial stages
  * */
 export function getInitialFormStagesForCyclicalActivitiesObject(
-  values: TCyclicalActivityFormInputs
+  _values: TCyclicalActivityFormInputs
 ): TFormStage[] {
   return [
     {

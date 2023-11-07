@@ -11,22 +11,12 @@ type Props = {
   size?: TIconSize;
   commentContent: React.ReactNode;
   isShowCommentToTheLeft?: boolean;
-  isShowCommentInMiddle?: boolean;
-
-  // additionalClasses?: string;
-  // actionFn: () => void;
 };
 
 export default function CommentPopup(props: Props) {
   ////vars
-  const {
-    alt,
-    size,
-    commentContent,
-    isShowCommentToTheLeft = false,
-    isShowCommentInMiddle = false,
-  } = props;
-  const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
+  const { alt, size, commentContent, isShowCommentToTheLeft = false } = props;
+  const { width, height } = useIconsLogicHandler(size);
   const [isCommentVisible, setIsCommentVisible] = useState(false);
 
   function turnOnCommentVisibility() {

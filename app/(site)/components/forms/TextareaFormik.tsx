@@ -42,8 +42,8 @@ export default function TextareaFormik<T>(props: Props<T>) {
     height,
     isCommentPopupVisible,
     commentContent,
-    isShowCommentToTheLeft,
   } = props;
+
   //formik
   const error = getErrorForField<T>(formik, name);
   const isErrorPresentAndFieldWasTouched =

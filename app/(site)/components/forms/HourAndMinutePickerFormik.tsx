@@ -20,14 +20,7 @@ type Props<T> = {
 
 export default function HourAndMinutePickerFormik<T>(props: Props<T>) {
   ///vars
-  const {
-    name,
-    label,
-    formik,
-    additionalClasses,
-    isErrorValidationTurnedOn,
-    errorText,
-  } = props;
+  const { name, label, formik, additionalClasses } = props;
 
   const error = getErrorForField<T>(formik, name);
 
@@ -83,18 +76,4 @@ export default function HourAndMinutePickerFormik<T>(props: Props<T>) {
       </div>
     </div>
   );
-}
-
-//utils
-// function checkIfValueIsDate(val: any) {
-//   try {
-//     isDateSchema.parse(val);
-//   } catch (error) {
-//     return false;
-//   }
-
-//   return true;
-// }//TODO: check it
-function checkIfValueIsDate(val: any) {
-  return true;
 }

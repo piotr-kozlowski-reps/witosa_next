@@ -139,7 +139,7 @@ export default function EventAddForm() {
        * form start
        */}
       <form
-        action={async (formData) => {
+        action={async (_formData) => {
           await submitFormHandler(formik);
         }}
       >

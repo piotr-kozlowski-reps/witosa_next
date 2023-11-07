@@ -42,7 +42,6 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
     formik,
     isCommentPopupVisible,
     commentContent,
-    indexForChosenOptionWhenInitializing = 0,
   } = props;
 
   //formik
@@ -53,8 +52,6 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
     getIsErrorNOTPresentAndFieldWasTouched<R>(formik, name);
 
   const currentValue = formik.getFieldMeta(name).value;
-  const onChangeForInput = formik.getFieldProps(name).onChange;
-  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   const [selectedOption, setSelectedOption] = useState(() => {
     return options.find((option) => option.value === currentValue);

@@ -28,8 +28,6 @@ export default function DatePickerFormik<T>(props: Props<T>) {
     label,
     formik,
     additionalClasses,
-    isErrorValidationTurnedOn,
-    errorText,
     isCommentPopupVisible,
     commentContent,
   } = props;
@@ -96,18 +94,4 @@ export default function DatePickerFormik<T>(props: Props<T>) {
       </div>
     </div>
   );
-}
-
-//utils
-// function checkIfValueIsDate(val: any) {
-//   try {
-//     isDateSchema.parse(val);
-//   } catch (error) {
-//     return false;
-//   }
-
-//   return true;
-// }
-function checkIfValueIsDate(val: any) {
-  return true;
 }

@@ -1,8 +1,4 @@
-import {
-  getErrorForField,
-  getIsErrorNOTPresentAndFieldWasTouched,
-  getIsErrorPresentAndFieldWasTouched,
-} from '@/lib/formikHelpers';
+import { getErrorForField } from '@/lib/formikHelpers';
 import { TImageCyclicalActivityFormValues } from '@/types';
 import {
   DndContext,
@@ -38,14 +34,7 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
 
   ////formik
   const error = getErrorForField<T>(formik, name);
-  const isErrorPresentAndFieldWasTouched =
-    getIsErrorPresentAndFieldWasTouched<T>(formik, name);
-  const isErrorNotPresentAndFieldWasTouched =
-    getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
-
   const currentImagesValue = formik.getFieldMeta(name).value as TFormImageType;
-  const onChangeForInput = formik.getFieldProps(name).onChange;
-  const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -107,12 +96,7 @@ export default function ImagesUploadFormik<T>(props: Props<T>) {
         onDragEnd={dragEndHander}
         sensors={sensors}
       >
-        <div
-          className={clsx(
-            'mr-8 base-container-look'
-            // error ? 'border-2 border-error' : ''
-          )}
-        >
+        <div className={clsx('mr-8 base-container-look')}>
           <SortableContext
             items={currentImagesValue}
             strategy={verticalListSortingStrategy}

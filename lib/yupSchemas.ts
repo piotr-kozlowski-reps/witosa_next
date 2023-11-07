@@ -425,10 +425,10 @@ const imageOrStringFieldGeneralYupSchema = Yup.lazy((val) => {
         }
         return true;
       })
-      .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value, context) => {
+      .test('fileType', fileErrorMessages.ERROR_FILE_TYPE, (value) => {
         return getIsFileTypesValid(value as File, fileTypes);
       })
-      .test('file size', fileErrorMessages.FILE_TO_LARGE, (value, context) => {
+      .test('file size', fileErrorMessages.FILE_TO_LARGE, (value) => {
         return getIsFileSizeValid(value as File, maxFileSize);
       });
   }

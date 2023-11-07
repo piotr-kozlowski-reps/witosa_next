@@ -2,7 +2,6 @@ import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
-import { useNotificationState } from '@/context/notificationState';
 import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
@@ -19,7 +18,6 @@ type Props<T> = {
 export default function EventAddFormStageFive<T>(props: Props<T>) {
   ////vars
   const { isCurrentFormToPUTData, formik } = props;
-  const { setShowNotification } = useNotificationState();
 
   /** when isToBeOnlyInNewsSection_NotSeenInEvents===true nothing should be available  */
   const isDetailsToBeAdded = !formik.getFieldProps(

@@ -1,4 +1,3 @@
-import { isFirstDateBeforeSecond } from '@/lib/dateHelpers';
 import { CyclicalActivity } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import clsx from 'clsx';
@@ -120,7 +119,7 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
       );
     },
     accessorKey: 'isToBePublished',
-    cell: ({ row, table }) => {
+    cell: ({ row }) => {
       const isToBePublished = row.getValue('isToBePublished') as boolean;
       const formattedText = isToBePublished ? 'TAK' : 'NIE';
 
@@ -162,23 +161,3 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
     },
   },
 ];
-
-//utils
-function definePublishedText(
-  isToBePublished: boolean,
-  expirationDate: Date | undefined
-) {
-  let formattedText: string;
-
-  formattedText = isToBePublished ? 'TAK' : 'NIE';
-  if (expirationDate) {
-    const isExpirationBeforeToday = isFirstDateBeforeSecond(
-      expirationDate,
-      new Date(Date.now())
-    );
-
-    formattedText = isExpirationBeforeToday ? 'NIE AKTUALNE' : 'TAK';
-  }
-
-  return formattedText;
-}

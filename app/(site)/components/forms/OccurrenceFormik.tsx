@@ -15,7 +15,7 @@ type Props<T> = {
 
 export default function OccurrenceFormik<T>(props: Props<T>) {
   ////vars
-  const { name, label, formik, isCurrentFormToPUTData } = props;
+  const { name, label, formik } = props;
 
   ////formik
   const currentOccurrencesValue = formik.getFieldMeta(name)

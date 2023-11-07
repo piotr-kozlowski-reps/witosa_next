@@ -107,7 +107,7 @@ export const prepareEventValuesForBackend = (
  * initial stages
  * */
 export function getInitialFormStagesForEventsObject(
-  values: TEventFormInputs
+  _values: TEventFormInputs
 ): TFormStage[] {
   return [
     {

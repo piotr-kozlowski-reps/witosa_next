@@ -10,7 +10,7 @@ type Props = {
 export default function ErrorIcon(props: Props) {
   ////vars
   const { size, alt, additionalClasses } = props;
-  const { width, height, currentForegroundColor } = useIconsLogicHandler(size);
+  const { width, height } = useIconsLogicHandler(size);
 
   ////tsx
   return (

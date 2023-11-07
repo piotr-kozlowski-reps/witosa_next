@@ -5,7 +5,6 @@ import EditIcon from '@/app/(site)/components/icons/EditIcon';
 import ModalDeleteUserContent from '@/app/(site)/components/modal/ModalDeleteUserContent';
 import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
-import { useNotificationState } from '@/context/notificationState';
 import { TUserPicked } from '@/types';
 
 type Props = {
@@ -17,7 +16,6 @@ export default function UserColumnWithActions(props: Props) {
   const { user } = props;
   const { id, name } = user;
   const { setShowModal } = useModalState();
-  const { setShowNotification } = useNotificationState();
   const { setIsAddUserVisible, setUserFormikDataForPUT } = useNavigationState();
 
   ////tsx

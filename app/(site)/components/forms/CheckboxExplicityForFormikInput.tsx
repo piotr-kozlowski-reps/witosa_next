@@ -18,7 +18,7 @@ export default function CheckboxExplicityForFormikInput<T>(props: Props<T>) {
       id={name}
       name={name}
       checked={currentValue}
-      onChange={(val) => {
+      onChange={(_val) => {
         formik.getFieldHelpers(name).setValue(!currentValue);
       }}
       onBlur={onBlurForInput}

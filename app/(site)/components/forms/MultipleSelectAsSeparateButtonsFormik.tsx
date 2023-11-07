@@ -2,7 +2,6 @@ import { useMultipleSelectHelper } from '@/hooks/useMultipleSelectHelper';
 import { getWhatTypeIsProvidedEnum } from '@/lib/arrayHelpers';
 import {
   getErrorForField,
-  getIsErrorNOTPresentAndFieldWasTouched,
   getIsErrorPresentAndFieldWasTouched,
 } from '@/lib/formikHelpers';
 import { getPolishNameForEnumItem } from '@/lib/textHelpers';
@@ -33,11 +32,6 @@ export default function MultipleSelectAsSeparateButtonsFormik<T, R>(
   const error = getErrorForField<R>(formik, name);
   const isErrorPresentAndFieldWasTouched =
     getIsErrorPresentAndFieldWasTouched<R>(formik, name);
-  const isErrorNotPresentAndFieldWasTouched =
-    getIsErrorNOTPresentAndFieldWasTouched<R>(formik, name);
-
-  const currentValue = formik.getFieldMeta(name).value as string;
-  const onChangeForInput = formik.getFieldProps(name).onChange;
   const onBlurForInput = formik.getFieldProps(name).onBlur;
 
   //getting what type is provided Enum

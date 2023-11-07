@@ -17,14 +17,7 @@ type Props<T> = {
 };
 export default function DateAndTimePickerFormik<T>(props: Props<T>) {
   ///vars
-  const {
-    name,
-    label,
-    formik,
-    additionalClasses,
-    isErrorValidationTurnedOn,
-    errorText,
-  } = props;
+  const { name, label, formik, additionalClasses } = props;
 
   const error = getErrorForField<T>(formik, name);
   const valueFromFormik = formik.getFieldProps(name).value;
@@ -33,11 +26,6 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
     getIsErrorPresentAndFieldWasTouched<T>(formik, name);
   const isErrorNotPresentAndFieldWasTouched =
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
-
-  console.log(
-    'formik.getFieldProps(name).value: ',
-    formik.getFieldProps(name).value
-  );
 
   function getDateValue(date: Date): Date {
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;

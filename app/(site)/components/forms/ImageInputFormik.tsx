@@ -1,7 +1,5 @@
 import AdditionalDescriptionComment from '@/app/(admin)/dashboard/components/form_comments/AdditionalDescriptionComment';
 import ImageAltComment from '@/app/(admin)/dashboard/components/form_comments/ImageAltComment';
-import { useModalState } from '@/context/modalState';
-import { useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile } from '@/hooks/useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile';
 import { TImageCyclicalActivityFormValues } from '@/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -24,12 +22,9 @@ type Props<T> = {
 export default function ImageInputFormik<T>(props: Props<T>) {
   ////vars
   const { imageProps, index, formik, isCurrentFormToPUTData } = props;
-  const { file, url } = imageProps;
-  const { setShowModal, setHideModal } = useModalState();
+  const { file } = imageProps;
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: imageProps.id });
-  const { src, alt } =
-    useGetSrcAndAltFromFileDataDependingIfItIsAStringOrFile(file);
 
   const currentValueOfImages = formik.getFieldMeta('images')
     .value as TImageCyclicalActivityFormValues[];
@@ -38,34 +33,6 @@ export default function ImageInputFormik<T>(props: Props<T>) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
-  // function prevImageInDifferentResolutions(width: number) {
-  //   return (
-  //     <div className="flex items-center justify-center w-full">
-  //       {file ? (
-  //         <div className="flex flex-col items-center justify-center">
-  //           <div className="h-[352px]" style={{ width: width }}>
-  //             <Image
-  //               unoptimized={true}
-  //               src={src}
-  //               width={500}
-  //               height={300}
-  //               alt={alt}
-  //               className="object-cover object-center w-full h-full"
-  //             />
-  //           </div>
-  //           <CustomButton
-  //             text={'zamknij'}
-  //             descriptionText="zamknij podgląd"
-  //             additionalClasses="mt-4"
-  //             disabled={false}
-  //             actionFn={() => setHideModal()}
-  //           />
-  //         </div>
-  //       ) : null}
-  //     </div>
-  //   );
-  // }
 
   function deleteImageItem() {
     const resultImagesArray = [...currentValueOfImages];
