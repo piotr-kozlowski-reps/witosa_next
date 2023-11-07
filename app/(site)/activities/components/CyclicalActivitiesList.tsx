@@ -60,7 +60,7 @@ export default function CyclicalActivitiesList(props: Props) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {Object.keys(Day).map((day) => {
+                  {Object.keys(Day).map((day, indexInDay) => {
                     const activitiesForToday =
                       getCyclicalActivitiesByDayOfTheWeekSortedByDate(
                         day as Day
@@ -69,7 +69,7 @@ export default function CyclicalActivitiesList(props: Props) {
                     // console.log({ activitiesForToday });
 
                     return (
-                      <AnimatePresence mode="wait" key={day}>
+                      <AnimatePresence mode="wait" key={`${day}-${indexInDay}`}>
                         {activitiesForToday.length !== 0 ? (
                           <motion.div
                             initial={{ opacity: 0 }}

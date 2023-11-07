@@ -21,8 +21,6 @@ export default function CyclicalActivitiesContent(props: Props) {
     cyclicalActivitiesResponse
   );
 
-  console.log({ cyclicalActivitiesResponse });
-
   const {
     categories,
     toggleCategory,
