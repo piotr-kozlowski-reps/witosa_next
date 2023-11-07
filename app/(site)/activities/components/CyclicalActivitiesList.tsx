@@ -1,14 +1,9 @@
 import { pageVariant } from '@/lib/animations/variants';
-import {
-  createBetweenHoursText,
-  createListingOfAllPlacesSeparatedWithCommas,
-  getPolishDayName,
-} from '@/lib/textHelpers';
-import { CyclicalActivityTemporary } from '@/types';
+import { getPolishDayName } from '@/lib/textHelpers';
+import { CyclicalActivityTemporary, TOccurrence } from '@/types';
 import { Day } from '@prisma/client';
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import CustomLink from '../../components/CustomLink';
+import CyclicalActivityItem from './CyclicalActivityItem';
 
 interface Props {
   chosenCyclicalActivities: CyclicalActivityTemporary[];
@@ -79,10 +74,12 @@ export default function CyclicalActivitiesList(props: Props) {
                             <div className="prose">
                               <h2>{`${getPolishDayName(day as Day)}:`}</h2>
                               {activitiesForToday.map((activity, index) => {
-                                const todaysInfoAsArray =
+                                const todaysInfoAsArray: TOccurrence[] =
                                   activity.occurrence.filter(
                                     (item) => item.day === day
                                   );
+
+                                console.log({ todaysInfoAsArray });
 
                                 const todaysInfo = todaysInfoAsArray[0];
 
@@ -90,8 +87,34 @@ export default function CyclicalActivitiesList(props: Props) {
                                   activitiesForToday.length === index + 1;
 
                                 return (
-                                  <AnimatePresence mode="wait" key={day}>
-                                    <motion.div
+                                  <AnimatePresence
+                                    mode="wait"
+                                    key={`${day}-${indexInDay}-${index}`}
+                                  >
+                                    {todaysInfoAsArray.map(
+                                      (todaysOccurrence, index) => {
+                                        return (
+                                          <CyclicalActivityItem
+                                            key={`${index}`}
+                                            occurrence={todaysOccurrence}
+                                            name={activity.name}
+                                            id={activity.id}
+                                            shortDescription={
+                                              activity.shortDescription
+                                            }
+                                            places={activity.places}
+                                            isLastActivityToDisplay={
+                                              isLastActivityToDisplay
+                                            }
+                                            customLinkToDetails={
+                                              activity.customLinkToDetails
+                                            }
+                                          />
+                                        );
+                                      }
+                                    )}
+
+                                    {/* <motion.div
                                       initial={{ opacity: 0, x: 50 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       exit={{ opacity: 0, x: 50 }}
@@ -134,7 +157,7 @@ export default function CyclicalActivitiesList(props: Props) {
                                           />
                                         </div>
                                       </div>
-                                    </motion.div>
+                                    </motion.div> */}
                                   </AnimatePresence>
                                 );
                               })}

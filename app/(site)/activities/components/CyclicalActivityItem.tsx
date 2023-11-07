@@ -1,26 +1,73 @@
-import { CyclicalActivityTemporary } from '@/types';
+import {
+  createBetweenHoursText,
+  createListingOfAllPlacesSeparatedWithCommas,
+} from '@/lib/textHelpers';
+import { TOccurrence } from '@/types';
+import { Place } from '@prisma/client';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import CustomLink from '../../components/CustomLink';
 
 type Props = {
-  activity: CyclicalActivityTemporary;
+  occurrence: TOccurrence;
+  name: string;
+  id: string;
+  shortDescription: string;
+  places: Place[];
+  isLastActivityToDisplay: boolean;
+  customLinkToDetails: string | null;
 };
 
 export default function CyclicalActivityItem(props: Props) {
   ////vars
-  const { activity } = props;
+  const {
+    occurrence,
+    name,
+    id,
+    shortDescription,
+    places,
+    isLastActivityToDisplay,
+    customLinkToDetails,
+  } = props;
+
+  console.log({ occurrence });
+
   ////tsx
+
   return (
-    <div className="my-8">
-      <div>
-        <b>{activity.name}</b>
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 50 }}
+      key={id}
+    >
+      <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
+        {createBetweenHoursText(
+          occurrence.activityStart as Date,
+          occurrence.activityEnd as Date
+        )}
       </div>
-      <div className="text-red-300">{activity.activityTypes.join(' ')}</div>
-      <div className="text-red-400">{activity.activitiesForWhom.join(' ')}</div>
-      <div className="text-red-700">
-        {activity.occurrence.map((occurrence) => (
-          <span key={occurrence.id}>{`${occurrence.day} , `}</span>
-        ))}
+      <div className="ml-[80px]">
+        <div className="prose mt-[13px]">
+          <h4>{name}</h4>
+        </div>
+        <div className="font-base-regular mt-[7px]">{shortDescription}</div>
+        <div className="font-base-regular mt-[7px]">
+          {createListingOfAllPlacesSeparatedWithCommas(places)}
+        </div>
+        <div
+          className={clsx(
+            'mt-[21px]',
+            isLastActivityToDisplay ? 'mb-[60px]' : 'mb-[44px]'
+          )}
+        >
+          <CustomLink
+            url={customLinkToDetails ? customLinkToDetails : `activities/${id}`}
+            descriptionText={`${name}`}
+            visibleText="więcej..."
+          />
+        </div>
       </div>
-      <div className="font-sm-normal">{activity.shortDescription}</div>
-    </div>
+    </motion.div>
   );
 }
