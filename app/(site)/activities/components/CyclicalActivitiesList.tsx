@@ -79,7 +79,7 @@ export default function CyclicalActivitiesList(props: Props) {
                                     (item) => item.day === day
                                   );
 
-                                console.log({ todaysInfoAsArray });
+                                // console.log({ todaysInfoAsArray });
 
                                 const todaysInfo = todaysInfoAsArray[0];
 
@@ -113,51 +113,6 @@ export default function CyclicalActivitiesList(props: Props) {
                                         );
                                       }
                                     )}
-
-                                    {/* <motion.div
-                                      initial={{ opacity: 0, x: 50 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      exit={{ opacity: 0, x: 50 }}
-                                      key={activity.id}
-                                    >
-                                      <div className="font-large-bold ml-12 pt-[1px] text-skin-base">
-                                        {createBetweenHoursText(
-                                          todaysInfo.activityStart,
-                                          todaysInfo.activityEnd
-                                        )}
-                                      </div>
-                                      <div className="ml-[80px]">
-                                        <div className="prose mt-[13px]">
-                                          <h4>{activity.name}</h4>
-                                        </div>
-                                        <div className="font-base-regular mt-[7px]">
-                                          {activity.shortDescription}
-                                        </div>
-                                        <div className="font-base-regular mt-[7px]">
-                                          {createListingOfAllPlacesSeparatedWithCommas(
-                                            activity.places
-                                          )}
-                                        </div>
-                                        <div
-                                          className={clsx(
-                                            'mt-[21px]',
-                                            isLastActivityToDisplay
-                                              ? 'mb-[60px]'
-                                              : 'mb-[44px]'
-                                          )}
-                                        >
-                                          <CustomLink
-                                            url={
-                                              activity.customLinkToDetails
-                                                ? activity.customLinkToDetails
-                                                : `activities/${activity.id}`
-                                            }
-                                            descriptionText={`${activity.name}`}
-                                            visibleText="więcej..."
-                                          />
-                                        </div>
-                                      </div>
-                                    </motion.div> */}
                                   </AnimatePresence>
                                 );
                               })}

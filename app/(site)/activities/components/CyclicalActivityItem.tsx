@@ -30,7 +30,7 @@ export default function CyclicalActivityItem(props: Props) {
     customLinkToDetails,
   } = props;
 
-  console.log({ occurrence });
+  // console.log({ occurrence });
 
   ////tsx
 
