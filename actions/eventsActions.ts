@@ -197,6 +197,7 @@ export async function addEvent(
    * revalidation
    * */
   revalidatePath('/');
+  revalidatePath('/events');
 
   /**
    *  final success response

@@ -62,6 +62,9 @@ export async function getEventsMappedToMainSliderData_FilteredToBeSeenInNews() {
     allEventsResponse.response as TEventTemporary[]
   )
 
+    /** check if event is to be published - if so, needs to be filtered out */
+    .filter((event) => event.isToBePublished)
+
     /** check if event is to be visible in slider */
     .filter((event) => event.isToBeInSlider)
 
