@@ -29,7 +29,8 @@ export default function MarzenieBisContent() {
           Prowadzenie: <b>Natalia Tomecka</b>
         </p>
         <p>
-          Zajęcia: <b>wtorek i czwartek godz. 16.45 – 18.15</b>
+          Zajęcia:{' '}
+          <b>wtorek - godz. 18.00-19.30 i czwartek - godz. 16.45-18.15</b>
         </p>
       </div>
     </div>

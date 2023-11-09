@@ -27,7 +27,7 @@ export default function MarzenieContent() {
         </p>
         <p>
           Zajęcia:{' '}
-          <b>poniedziałek - godz. 18.30-20.00 i środa - godz. 16.00-17.30</b>
+          <b>poniedziałek - godz. 18.30-20.00 i środa - godz. 16.15-17.45</b>
         </p>
       </div>
     </div>

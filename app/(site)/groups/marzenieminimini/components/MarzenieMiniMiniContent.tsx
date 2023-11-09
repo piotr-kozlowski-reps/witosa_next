@@ -33,7 +33,8 @@ export default function MarzenieMiniMiniContent() {
           Prowadzenie: <b>Natalia Tomecka</b>
         </p>
         <p>
-          Zajęcia: <b>wtorek i czwartek, godz. 15.30 – 16.30</b>
+          Zajęcia:{' '}
+          <b>wtorek - godz. 16.45 - 17.45 i czwartek - godz. 15.30-16.30</b>
         </p>
       </div>
     </div>

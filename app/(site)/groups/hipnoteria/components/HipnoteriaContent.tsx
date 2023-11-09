@@ -27,7 +27,7 @@ export default function HipnoteriaContent() {
           Prowadzenie: <b>Milena Karpińska-Garcorz</b>
         </p>
         <p>
-          Zajęcia: <b>środa - 19.30-21.00 i piątek - 17.00-18.45</b>
+          Zajęcia: <b>środa - 19.30-21.00 i piątek - 17.15-18.45</b>
         </p>
       </div>
     </div>
