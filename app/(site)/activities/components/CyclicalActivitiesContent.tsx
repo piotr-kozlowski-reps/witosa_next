@@ -5,7 +5,6 @@ import { useChosenCyclicalActivitiesHandler } from '@/hooks/useChosenCyclicalAct
 import { useCyclicalActivityResponseHandler } from '@/hooks/useCyclicalActivityResponseHandler';
 import { useForWhomChoosingHandler } from '@/hooks/useForWhomChoosingHandler';
 import { TGetAllCyclicalActivitiesResponse } from '@/types';
-import { Day } from '@prisma/client';
 import { Fragment } from 'react';
 import NavigationCategoriesAndTargetsForCyclicalActivities from '../../components/navigation/NavigationCategoriesAndTargetsForCyclicalActivities';
 import CyclicalActivitiesList from './CyclicalActivitiesList';
@@ -43,24 +42,6 @@ export default function CyclicalActivitiesContent(props: Props) {
     forWhom
   );
 
-  const getCyclicalActivitiesByDayOfTheWeekSortedByDate = (day: Day) => {
-    const resultCyclicalActivitiesByDay = chosenCyclicalActivities
-      .filter((activity) =>
-        activity.occurrence.find((item) => item.day === day)
-      )
-      .sort((a, b) => {
-        const aStartDate = a.occurrence
-          .find((item) => item.day === day)!
-          .activityStart.getTime();
-        const bStartDate = b.occurrence
-          .find((item) => item.day === day)!
-          .activityStart.getTime();
-        return aStartDate - bStartDate;
-      });
-
-    return resultCyclicalActivitiesByDay;
-  };
-
   ////tsx
   return (
     <Fragment>
@@ -77,9 +58,6 @@ export default function CyclicalActivitiesContent(props: Props) {
       />
       <CyclicalActivitiesList
         chosenCyclicalActivities={chosenCyclicalActivities}
-        getCyclicalActivitiesByDayOfTheWeekSortedByDate={
-          getCyclicalActivitiesByDayOfTheWeekSortedByDate
-        }
       />
     </Fragment>
   );

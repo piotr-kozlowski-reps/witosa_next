@@ -1,4 +1,5 @@
 import { pageVariant } from '@/lib/animations/variants';
+import { getCyclicalActivitiesByDayOfTheWeekSortedByDate } from '@/lib/api/cyclicalActivitiesUtils';
 import { getPolishDayName } from '@/lib/textHelpers';
 import { CyclicalActivityTemporary, TOccurrence } from '@/types';
 import { Day } from '@prisma/client';
@@ -7,19 +8,11 @@ import CyclicalActivityItem from './CyclicalActivityItem';
 
 interface Props {
   chosenCyclicalActivities: CyclicalActivityTemporary[];
-  getCyclicalActivitiesByDayOfTheWeekSortedByDate: (
-    _day: Day
-  ) => CyclicalActivityTemporary[];
 }
 
 export default function CyclicalActivitiesList(props: Props) {
   ////vars
-  const {
-    chosenCyclicalActivities,
-    getCyclicalActivitiesByDayOfTheWeekSortedByDate,
-  } = props;
-
-  // console.log({ chosenCyclicalActivities });
+  const { chosenCyclicalActivities } = props;
 
   ////tsx
   return (
@@ -58,6 +51,7 @@ export default function CyclicalActivitiesList(props: Props) {
                   {Object.keys(Day).map((day, indexInDay) => {
                     const activitiesForToday =
                       getCyclicalActivitiesByDayOfTheWeekSortedByDate(
+                        chosenCyclicalActivities,
                         day as Day
                       );
 
@@ -78,10 +72,6 @@ export default function CyclicalActivitiesList(props: Props) {
                                   activity.occurrence.filter(
                                     (item) => item.day === day
                                   );
-
-                                // console.log({ todaysInfoAsArray });
-
-                                const todaysInfo = todaysInfoAsArray[0];
 
                                 const isLastActivityToDisplay =
                                   activitiesForToday.length === index + 1;
