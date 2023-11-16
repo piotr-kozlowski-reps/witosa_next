@@ -1,3 +1,4 @@
+import { WinstonTransport as AxiomTransport } from '@axiomhq/winston';
 import { createLogger, format, transports } from 'winston';
 // import 'winston-daily-rotate-file';
 
@@ -16,6 +17,18 @@ const getLogger = (_fileName = 'witosa') => {
     format: format.printf((i) => `${i.message}`),
   });
 
+  const axiomTransport = createLogger({
+    level: 'info',
+    format: format.combine(format.errors({ stack: true }), format.json()),
+    defaultMeta: { service: 'witosa' },
+    transports: [
+      new AxiomTransport({
+        token: process.env.AXIOM_TOKEN || '',
+        dataset: process.env.AXIOM_DATASET,
+      }),
+    ],
+  });
+
   const logger = createLogger({
     level: 'info',
     format: format.combine(
@@ -30,7 +43,9 @@ const getLogger = (_fileName = 'witosa') => {
       )
     ),
     defaultMeta: { service: 'my-app' },
-    transports: [consoleTransport],
+    transports: [consoleTransport, axiomTransport],
+    exceptionHandlers: [axiomTransport],
+    rejectionHandlers: [axiomTransport],
   });
 
   // if (process.env.NODE_ENV === 'development') {
