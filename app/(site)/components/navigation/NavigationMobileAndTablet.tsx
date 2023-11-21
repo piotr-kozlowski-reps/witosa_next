@@ -68,7 +68,7 @@ export default function NavigationMobileAndTablet(props: Props) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className={clsx(' mx-mobile-margin')}
+          className={clsx('mx-mobile-margin')}
           aria-labelledby="main_navigation_heading"
         >
           <h2 id="main_navigation_heading" className="sr-only">
