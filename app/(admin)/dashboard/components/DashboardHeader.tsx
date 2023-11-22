@@ -14,7 +14,7 @@ export default function DashboardHeader(props: Props) {
   ////tsx
   return (
     <div className="flex items-center justify-between">
-      <h1 className="font-large-bold">{`Witaj, ${userName}`}</h1>
+      <h1 className="font-large-bold text-skin-base">{`Witaj, ${userName}`}</h1>
       <CustomButton
         text="Wyloguj się"
         descriptionText="Wyloguj się"
