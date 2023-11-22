@@ -63,6 +63,8 @@ export default function DatePickerFormik<T>(props: Props<T>) {
             showDaysOutsideCurrentMonth
             sx={{
               '& .MuiInputBase-root': {
+                color: 'var(--color-foreground-base)',
+                svg: { color: 'var(--color-foreground-base)' },
                 backgroundColor: isErrorNotPresentAndFieldWasTouched
                   ? 'var(--cta-secondary-opacity)'
                   : '',
