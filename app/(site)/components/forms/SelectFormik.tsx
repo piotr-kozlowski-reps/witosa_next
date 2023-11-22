@@ -119,6 +119,10 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
             container: (baseStyles) => ({
               ...baseStyles,
             }),
+            singleValue: (baseStyles, state) => ({
+              ...baseStyles,
+              color: 'var(--color-foreground-base)',
+            }),
             control: (baseStyles, state) => ({
               ...baseStyles,
               ...stylesCommon,
@@ -137,7 +141,7 @@ export default function SelectFormik<T, R>(props: Props<T, R>) {
               ...stylesCommon,
               fontWeight: state.isSelected ? 600 : state.isFocused ? 600 : 400,
               color: state.isSelected
-                ? 'var(--color-background-base)'
+                ? 'white'
                 : 'var(--color-foreground-base)',
               backgroundColor: state.isSelected
                 ? 'var(--cta-secondary)'

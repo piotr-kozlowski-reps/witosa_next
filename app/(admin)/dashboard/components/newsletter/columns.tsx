@@ -50,7 +50,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted',
+              'text-white',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >
@@ -81,7 +81,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
           <Fragment>
             <span
               className={clsx(
-                'text-skin-inverted',
+                'text-white',
                 column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
               )}
             >

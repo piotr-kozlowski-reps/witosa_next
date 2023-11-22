@@ -50,7 +50,7 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted float-left',
+              'text-white float-left',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >
@@ -82,7 +82,7 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
           <Fragment>
             <span
               className={clsx(
-                'text-skin-inverted',
+                'text-white',
                 column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
               )}
             >
@@ -112,9 +112,7 @@ export const columnsCyclicalActivities: ColumnDef<CyclicalActivity>[] = [
     header: () => {
       return (
         <div className="float-left ml-6">
-          <span className="text-skin-inverted font-base-regular">
-            publikowany?
-          </span>
+          <span className="text-white font-base-regular">publikowany?</span>
         </div>
       );
     },

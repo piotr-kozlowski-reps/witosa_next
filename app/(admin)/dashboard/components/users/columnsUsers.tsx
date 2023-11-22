@@ -52,7 +52,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted',
+              'text-white',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >
@@ -81,7 +81,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted',
+              'text-white',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >
@@ -111,7 +111,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
           <Fragment>
             <span
               className={clsx(
-                'text-skin-inverted',
+                'text-white',
                 column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
               )}
             >
@@ -148,7 +148,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted',
+              'text-white',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >

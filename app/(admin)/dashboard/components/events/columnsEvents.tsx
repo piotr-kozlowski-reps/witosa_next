@@ -50,7 +50,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
         >
           <span
             className={clsx(
-              'text-skin-inverted float-left',
+              'text-white float-left',
               column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
             )}
           >
@@ -82,7 +82,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
           <Fragment>
             <span
               className={clsx(
-                'text-skin-inverted',
+                'text-white',
                 column.getIsSorted() ? 'font-base-bold' : 'font-base-regular'
               )}
             >
@@ -112,9 +112,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
     header: () => {
       return (
         <div className="float-left ml-6">
-          <span className="text-skin-inverted font-base-regular">
-            publikowany?
-          </span>
+          <span className="text-white font-base-regular ">publikowany?</span>
         </div>
       );
     },
@@ -146,7 +144,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
             onChange={(e) => {
               table.getColumn('title')?.setFilterValue(e.target.value);
             }}
-            className="mt-0 form-input"
+            className="mt-0 form-input text-skin-base"
           ></input>
         </div>
       );
