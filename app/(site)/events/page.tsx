@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: 'Wydarzenia | Art CK',
 };
 
+export const revalidate = 60 * 60 * 12; //12h
+
 export default async function EventsPage() {
   ////vars
   const events: TEventTemporary[] =

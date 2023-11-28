@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: 'Zajęcia stałe | Art CK',
 };
 
+export const revalidate = 60 * 60 * 12; //12h
+
 export default async function ActivitiesPage() {
   ////vars
   const cyclicalActivitiesResponse: TGetAllCyclicalActivitiesResponse =
