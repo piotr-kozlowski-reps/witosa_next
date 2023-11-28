@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic';
 import { Fragment, useEffect, useState } from 'react';
 // import { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import DetailedDescriptionForThreeDisplaysPreview from './DetailedDescriptionForThreeDisplaysPreview';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading</p>,
@@ -94,72 +95,49 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
       >
         {label}
       </label>
-      <div className="mr-8 ">
-        {isMounted() ? (
-          <ReactQuill
-            modules={modules}
-            theme="snow"
-            value={value}
-            placeholder="dodaj szczegółowy opis ..."
-            // onChange={setValue}
-            onChange={(content, delta, source, editor) => {
-              if (editor.getText().trim() == '') {
-                setValue('');
-                return;
-              }
-              setValue(content);
-            }}
-            className={clsx(
-              'ql-toolbar ql-container.ql-snow',
-              isErrorPresentAndFieldWasTouched ? 'ql-toolbar-error' : ''
-            )}
-            onBlur={() => formik.getFieldHelpers(name).setTouched(true)}
-            style={{
-              border: isErrorPresentAndFieldWasTouched ? 'solid' : 'none',
-              borderWidth: isErrorPresentAndFieldWasTouched ? '2px' : '0px',
-              borderColor: isErrorPresentAndFieldWasTouched
-                ? 'var(--color-error)'
-                : 'var(--color-main-bg)',
-              backgroundColor: isErrorNotPresentAndFieldWasTouched
-                ? 'var(--cta-secondary-opacity)'
-                : 'var(--color-main-bg)',
-            }}
-          />
-        ) : null}
-        {/* <ReactQuill
-          modules={modules}
-          theme="snow"
-          value={value}
-          placeholder="dodaj szczegółowy opis ..."
-          // onChange={setValue}
-          onChange={(content, delta, source, editor) => {
-            if (editor.getText().trim() == '') {
-              setValue('');
-              return;
-            }
-            setValue(content);
-          }}
-          className={clsx(
-            'ql-toolbar ql-container.ql-snow',
-            isErrorPresentAndFieldWasTouched ? 'ql-toolbar-error' : ''
-          )}
-          onBlur={() => formik.getFieldHelpers(name).setTouched(true)}
-          style={{
-            border: isErrorPresentAndFieldWasTouched ? 'solid' : 'none',
-            borderWidth: isErrorPresentAndFieldWasTouched ? '2px' : '0px',
-            borderColor: isErrorPresentAndFieldWasTouched
-              ? 'var(--color-error)'
-              : 'var(--color-main-bg)',
-            backgroundColor: isErrorNotPresentAndFieldWasTouched
-              ? 'var(--cta-secondary-opacity)'
-              : 'var(--color-main-bg)',
-          }}
-        /> */}
-        {isErrorPresentAndFieldWasTouched ? (
-          <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
-            {error}
-          </p>
-        ) : null}
+      <div className={clsx('mb-4 base-container-look mr-8')}>
+        <div className="mx-8 ">
+          {isMounted() ? (
+            <ReactQuill
+              modules={modules}
+              theme="snow"
+              value={value}
+              placeholder="dodaj szczegółowy opis ..."
+              onChange={(content, delta, source, editor) => {
+                if (editor.getText().trim() == '') {
+                  setValue('');
+                  return;
+                }
+                setValue(content);
+              }}
+              className={clsx(
+                'ql-toolbar ql-container.ql-snow',
+                isErrorPresentAndFieldWasTouched ? 'ql-toolbar-error' : ''
+              )}
+              onBlur={() => formik.getFieldHelpers(name).setTouched(true)}
+              style={{
+                border: isErrorPresentAndFieldWasTouched ? 'solid' : 'none',
+                borderWidth: isErrorPresentAndFieldWasTouched ? '2px' : '0px',
+                borderColor: isErrorPresentAndFieldWasTouched
+                  ? 'var(--color-error)'
+                  : 'var(--color-main-bg)',
+                backgroundColor: isErrorNotPresentAndFieldWasTouched
+                  ? 'var(--cta-secondary-opacity)'
+                  : 'var(--color-main-bg)',
+              }}
+            />
+          ) : null}
+
+          {isErrorPresentAndFieldWasTouched ? (
+            <p className="mt-[4px] text-skin-error mb-0 font-base-regular">
+              {error}
+            </p>
+          ) : null}
+
+          <div className="mt-[40px] self-start flex justify-start items-center gap-8 mb-[28px]">
+            <DetailedDescriptionForThreeDisplaysPreview valueText={value} />
+          </div>
+        </div>
       </div>
     </Fragment>
   );
