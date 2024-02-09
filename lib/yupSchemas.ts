@@ -6,8 +6,7 @@ import * as Yup from 'yup';
 const imageDescriptionRequired = 'Opis obrazka musi być podany.';
 const fieldIsRequired = 'Pole jest wymagane.';
 const imageIsRequired = 'Plik graficzny jest wymagany.';
-const idIsRequired =
-  'ID wydarzenia jest wymagane. ID to liczba z systemu biletowego.';
+const idIsRequired = 'ID wydarzenia jest wymagane (ID jest liczbą).';
 
 //
 /** name */

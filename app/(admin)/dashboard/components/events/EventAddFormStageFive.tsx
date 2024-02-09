@@ -1,3 +1,4 @@
+import CustomButton from '@/app/(site)/components/CustomButton';
 import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
 import TextareaFormik from '@/app/(site)/components/forms/TextareaFormik';
@@ -24,6 +25,11 @@ export default function EventAddFormStageFive<T>(props: Props<T>) {
     'isToBeOnlyInNewsSection_NotSeenInEvents'
   ).value;
   const isPayed = formik.getFieldProps('isPayed').value;
+
+  const isAnyDataAvailableInTicketBuyingId =
+    formik.getFieldProps('ticketBuyingId').value !== '';
+  const isErrorInTicketBuyingId =
+    formik.getFieldMeta('ticketBuyingId').error !== undefined;
 
   return (
     <Fragment>
@@ -75,6 +81,27 @@ export default function EventAddFormStageFive<T>(props: Props<T>) {
                       isCommentPopupVisible={true}
                       commentContent={<TicketBuyingIdComment />}
                     />
+                  </div>
+                  <div className="mt-[8px]">
+                    <a
+                      aria-label="Sprawdź czy otwiera się odpowiednia strona z podanym ID."
+                      href={`https://dkk.systembiletowy.pl/index.php/repertoire.html?id=${formik.getFieldProps(
+                        'ticketBuyingId'
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Otwiera się w nowej zakładce."
+                    >
+                      <CustomButton
+                        text="sprawdź czy ID jest poprawne"
+                        descriptionText="Ustaw pole na dzisiejszą datę."
+                        disabled={
+                          !isAnyDataAvailableInTicketBuyingId ||
+                          isErrorInTicketBuyingId
+                        }
+                        outlined={true}
+                      />
+                    </a>
                   </div>
                 </Fragment>
               </ComponentTransitionFromRightToLeft>

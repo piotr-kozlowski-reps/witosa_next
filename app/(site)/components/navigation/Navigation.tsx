@@ -60,7 +60,6 @@ export default function Navigation() {
 }
 
 ////utils
-
 const clearAllDesiredCssClasses = (
   objectCssClasses: DOMTokenList,
   classesToBeCleared: string[]
