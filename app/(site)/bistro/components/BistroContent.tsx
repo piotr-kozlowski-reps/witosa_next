@@ -70,17 +70,7 @@ export default function BistroContent() {
             >
               palarniakafar.pl/o-nas/
             </a>
-            ) oraz pyszne, w artystycznej formie podane wypieki z Pracowni Smaku
-            ORSO (
-            <a
-              href="https://restauracjaorso.pl/o-nas/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Otwiera się w nowej zakładce."
-            >
-              restauracjaorso.pl/o-nas/
-            </a>
-            ).
+            ) oraz pyszne, w artystycznej formie podane wypieki.
           </p>
           <p>
             Znajdziesz u nas zawsze ciekawe czasopisma i książki (bo przecież
@@ -99,8 +89,9 @@ export default function BistroContent() {
             dotyczących naszej działalności.
           </p>
           <p>
-            Zapraszamy Was codziennie od g. 12:00 do 20:00. (z wyjątkiem dni,
-            gdy odbywać się będą wydarzenia kulturalne).
+            Zapraszamy Was codziennie od poniedziałku do piątku w g. 12:00 -
+            20:00, w soboty i niedziele w g. 14:00 - 20:00 (z wyjątkiem dni, gdy
+            odbywać się będą wydarzenia kulturalne).
           </p>
 
           <br />
