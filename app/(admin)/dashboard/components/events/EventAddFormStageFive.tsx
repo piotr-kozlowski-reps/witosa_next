@@ -6,7 +6,7 @@ import { FormikProps } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import { Fragment } from 'react';
 import KindOfEnterInfoComment from '../form_comments/KindOfEnterInfoComment';
-import TicketBuyingUrlComment from '../form_comments/TicketBuyingUrlComment';
+import TicketBuyingIdComment from '../form_comments/TicketBuyingIdComment';
 type Props<T> = {
   isCurrentFormToPUTData: string;
   formik: FormikProps<T>;
@@ -55,7 +55,7 @@ export default function EventAddFormStageFive<T>(props: Props<T>) {
           <div className="mt-[6px] mr-8">
             <CheckboxFormik<T>
               name="isPayed"
-              label="Czy wydarzenie jest płatne?"
+              label="Czy jest możliwość zakupu biletów online?"
               isToBeUsedAsPartFormik={true}
               formik={formik}
             />
@@ -67,13 +67,13 @@ export default function EventAddFormStageFive<T>(props: Props<T>) {
                 <Fragment>
                   <div className="mt-[26px] form-input-width">
                     <InputFormik<T>
-                      name="ticketBuyingUrl"
+                      name="ticketBuyingId"
                       type="text"
-                      label="adres do strony z zakupem biletu online:"
-                      placeholder="adres www do strony z detalami"
+                      label="id wydarzenia wprowadzone w systemie biletowym:"
+                      placeholder="id wydarzenia z systemu biletowego"
                       formik={formik}
                       isCommentPopupVisible={true}
-                      commentContent={<TicketBuyingUrlComment />}
+                      commentContent={<TicketBuyingIdComment />}
                     />
                   </div>
                 </Fragment>

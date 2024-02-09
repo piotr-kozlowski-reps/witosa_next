@@ -119,7 +119,7 @@ model Event{
   //paying
   isPayed Boolean
   kindOfEnterInfo String
-  ticketBuyingUrl String?
+  ticketBuyingId String?
 
   //news
   isToBeInNewsSection Boolean

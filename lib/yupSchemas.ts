@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 const imageDescriptionRequired = 'Opis obrazka musi być podany.';
 const fieldIsRequired = 'Pole jest wymagane.';
 const imageIsRequired = 'Plik graficzny jest wymagany.';
+const idIsRequired =
+  'ID wydarzenia jest wymagane. ID to liczba z systemu biletowego.';
 
 //
 /** name */
@@ -16,6 +18,7 @@ export const nameSchemaYup_Required_Min2 = Yup.string()
 //
 /** string required */
 export const stringRequiredYupSchema = Yup.string().required(fieldIsRequired);
+export const numberRequiredYupSchema = Yup.number().required(fieldIsRequired);
 
 //
 /** activity type */
@@ -694,6 +697,28 @@ export const isPayedYupSchema = Yup.mixed()
         }
         return false;
       }
+      return true;
+    }
+  )
+  .nullable();
+
+export const ticketBuyingIdYupSchema = Yup.mixed()
+  .test(
+    'has to be a number only when isPayed === true',
+    idIsRequired,
+    (value, context) => {
+      const isPayed = context.parent.isPayed;
+
+      if (isPayed) {
+        const validation = numberRequiredYupSchema.isValidSync(value);
+        console.log({ validation });
+
+        if (validation) {
+          return true;
+        }
+        return false;
+      }
+
       return true;
     }
   )

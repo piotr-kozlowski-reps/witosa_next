@@ -54,7 +54,7 @@ const eventFreshObject: TEventFormInputs = {
   //stage5
   kindOfEnterInfo: '',
   isPayed: false,
-  ticketBuyingUrl: null,
+  ticketBuyingId: null,
 };
 
 const eventsStateData: TCyclicalActivityState = {

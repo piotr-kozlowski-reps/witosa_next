@@ -25,6 +25,7 @@ import {
   placesYupSchema,
   sliderImageAltYupSchema,
   sliderImageUrlYupSchema,
+  ticketBuyingIdYupSchema,
   visibleInSliderFromAndToYupSchema,
 } from '../yupSchemas';
 import { serveOptionsForCustomLinkToDetails } from './cyclical-activities-form';
@@ -212,6 +213,7 @@ export function validateValuesForEventsStageFour(values: Object) {
 export const eventsValidationSchemaStageFiveWithYup = {
   kindOfEnterInfo: kindOfEnterInfoYupSchema,
   isPayed: isPayedYupSchema,
+  ticketBuyingId: ticketBuyingIdYupSchema,
 };
 
 const yupSchema = Yup.object({

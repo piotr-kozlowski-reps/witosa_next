@@ -84,7 +84,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: false,
     kindOfEnterInfo:
       'Aby zdobyć bezpłatną wejściówkę, należy zadzwonić do sekretariatu Centrum Kultury (tel.  32 330 36 80) w godzinach 7.30-15.30.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -143,7 +143,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: false,
     kindOfEnterInfo:
       'Wstęp bezpłatny, aby wziąć udział w zajęciach tanecznych i plastycznych należy w dniu imprezy zapisać się i pobrać imienną wejściówkę.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -199,7 +199,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -252,7 +252,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -307,7 +307,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: true,
     kindOfEnterInfo:
       'Bilet w cenie 50 pln. Bilety można rezerwować dzwoniąc pod numer 32 332 63 81, codziennie od 15.00 do 20.00.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -361,7 +361,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: true,
     kindOfEnterInfo:
       'Bilet w cenie 30 pln. Bilety można rezerwować dzwoniąc pod numer 32 332 63 81, codziennie od 15.00 do 20.00.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -410,7 +410,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: true,
     kindOfEnterInfo:
       'Bilet w cenie 30 zł. Rezerwacja miejsc pod numerem telefonu 32 332 63 79 w godzinach 12.00 - 20.00.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
     //news
     isToBeInNewsSection: true,
     isDateToBeHiddenInNewsSection: false,
@@ -469,7 +469,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: true,
     kindOfEnterInfo:
       'Bilet w cenie 35 zł. Rezerwacja miejsc pod numerem telefonu 32 332 63 79 w godzinach 12.00 - 20.00.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -523,7 +523,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -574,7 +574,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: false,
     kindOfEnterInfo:
       'Wstęp wolny. Dofinansowano ze środków Biura „Niepodległa” w ramach Programu Dotacyjnego „Symbole Narodowe RP"',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -630,7 +630,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -690,7 +690,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: false,
     kindOfEnterInfo:
       'Wstep bezpłatny. Zapisy odbywają się w MBP,  Filii nr 2, (al. Lipowa 12) lub pod nr tel. 32 332 63 94.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -746,7 +746,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -798,7 +798,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: true,
     kindOfEnterInfo: 'Cena biletu: 35 zł',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -849,7 +849,7 @@ export const allEventsMockData: TEventTemporary[] = [
     isPayed: true,
     kindOfEnterInfo:
       'Wstęp: 45 zł, rezerwacja miejsc pod numerem telefonu 32 332 63 79.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -907,7 +907,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: true,
     kindOfEnterInfo: 'Wstęp: 40 zł.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -960,7 +960,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: false,
     kindOfEnterInfo: 'Wstęp wolny, finansowany z projektu Dom Kultury+.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,
@@ -1014,7 +1014,7 @@ export const allEventsMockData: TEventTemporary[] = [
     //paying
     isPayed: true,
     kindOfEnterInfo: 'Bilet wstępu 40 zł.',
-    ticketBuyingUrl: null,
+    ticketBuyingId: null,
 
     //news
     isToBeInNewsSection: true,

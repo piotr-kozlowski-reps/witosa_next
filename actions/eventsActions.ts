@@ -121,11 +121,6 @@ export async function addEvent(
     return { status: 'ERROR', response: imageCreationErrorMessage };
   }
 
-  // console.log({ newsSectionImageUrlPreparedForDB });
-  // console.log({ sliderImageUrlPreparedForDB });
-  // console.log({ imagesPreparedForDB });
-  // console.log({ currentlyCreatedImagesToBeDeletedWhenError });
-
   let eventPreparedForDb: Prisma.EventCreateInput = {
     //stage1
     title: values.title,
@@ -166,7 +161,7 @@ export async function addEvent(
     //stage5
     kindOfEnterInfo: values.kindOfEnterInfo,
     isPayed: values.isPayed,
-    ticketBuyingUrl: values.ticketBuyingUrl,
+    ticketBuyingId: values.ticketBuyingId,
   };
 
   //add images when needed
