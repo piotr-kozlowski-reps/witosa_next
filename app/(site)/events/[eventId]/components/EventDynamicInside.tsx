@@ -18,8 +18,6 @@ export default function EventDynamicInside(props: Props) {
 
   const isSliderEmpty = sliderImages && sliderImages.length === 0;
 
-  console.log({ event });
-
   return (
     <Fragment>
       {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages!} /> : null}
