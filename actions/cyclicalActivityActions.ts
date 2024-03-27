@@ -141,9 +141,9 @@ export async function addCyclicalActivity(
     const response = await prisma.cyclicalActivity.create({
       data: cyclicalActivityPreparedForDb,
     });
-    console.log({ response });
+    // console.log({ response });
   } catch (error) {
-    console.log((error as Error).stack);
+    // console.log((error as Error).stack);
     logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
@@ -208,7 +208,7 @@ export async function deleteCyclicalActivities(
   deleting users from db
   */
   for (let i = 0; i < ids.length; i++) {
-    console.log(ids[i]);
+    // console.log(ids[i]);
 
     const deleteCyclicalActivityImages =
       prisma.imageCyclicalActivity.deleteMany({
@@ -364,11 +364,6 @@ export async function updateCyclicalActivity(
     originalCyclicalActivity.occurrence.length ===
     changedCyclicalActivity.occurrence.length;
 
-  console.log('original', originalCyclicalActivity.occurrence);
-  console.log('changed', changedCyclicalActivity.occurrence);
-  console.log({ differencesOccurrence });
-  console.log({ isOccurrencesArraysEqualInLength });
-
   const isOccurrencesToBeUpdated =
     differencesOccurrence.length || !isOccurrencesArraysEqualInLength;
   let occurrencePreparedDataForDb: TOccurrenceWithRequiredDatesAndCyclicalActivityID[] =
@@ -507,7 +502,7 @@ export async function updateCyclicalActivity(
           imagesURLsBeDeleted.push(originalImageObject!.url);
         }
 
-        console.log(differenceBetweenObjects);
+        // console.log(differenceBetweenObjects);
       }
     }
   }
@@ -559,7 +554,7 @@ export async function updateCyclicalActivity(
     transaction = await prisma.$transaction(transactionsArray);
   } catch (error) {
     logger.warn((error as Error).stack);
-    console.log((error as Error).stack);
+    // console.log((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
@@ -568,14 +563,12 @@ export async function updateCyclicalActivity(
   deleting unused images from server
   */
   try {
-    console.log({ imagesURLsBeDeleted });
+    // console.log({ imagesURLsBeDeleted });
     await deleteImagesFiles(imagesURLsBeDeleted);
   } catch (error) {
     logger.error((error as Error).stack);
-    console.log((error as Error).stack);
+    // console.log((error as Error).stack);
   }
-
-  console.log({ transaction });
 
   /** revalidate all */
   revalidatePath('/');

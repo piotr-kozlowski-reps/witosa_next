@@ -118,7 +118,7 @@ export async function processAndSaveImageOnServer(
       if (error) {
         throw new Error('Unable to save image on server.');
       }
-      console.log('Create in s3 response: ', data);
+      // console.log('Create in s3 response: ', data);
     });
     // console.log('Create in s3 response: ', response);
   } catch (error) {
@@ -163,7 +163,7 @@ export async function prepareImagesForDB<
   stringToDistinguishCreatedImageName: TStringToDistinguishCreatedImageName,
   isIdToBeAdded: boolean
 ): Promise<K[]> {
-  console.log('creating images');
+  // console.log('creating images');
 
   const originalImagesData = values.images;
 
@@ -220,7 +220,7 @@ export async function deleteImagesFiles(
         if (error) {
           throw new Error('Unable to save image on server.');
         }
-        console.log('Delete from s3 response: ', data);
+        // console.log('Delete from s3 response: ', data);
       });
 
       // console.log('Delete from s3 response: ', { response });

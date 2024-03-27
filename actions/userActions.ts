@@ -40,11 +40,11 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
   const submittedConfirmPassword = formData.get('confirmPassword') as string;
   const submittedUserRole = formData.get('userRole') as UserRole;
 
-  console.log({ submittedName });
-  console.log({ submittedEmail });
-  console.log({ submittedPassword });
-  console.log({ submittedConfirmPassword });
-  console.log({ submittedUserRole });
+  // console.log({ submittedName });
+  // console.log({ submittedEmail });
+  // console.log({ submittedPassword });
+  // console.log({ submittedConfirmPassword });
+  // console.log({ submittedUserRole });
 
   if (
     !submittedName ||
@@ -158,7 +158,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  console.log({ ids });
+  // console.log({ ids });
 
   /** checking values eXistenZ */
   if (!ids || ids.length === 0) {
@@ -182,7 +182,7 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     }
   }
 
-  console.log('jestem za exist');
+  // console.log('jestem za exist');
 
   /* deleting users from db */
   try {
@@ -315,7 +315,7 @@ export async function updateUser(
       return { status: 'ERROR', response: badUserData };
     }
 
-    console.log('tutaj');
+    // console.log('tutaj');
 
     /* updating user in db */
     const hashedPassword = await bcryptjs.hash(submittedPassword, 10);
@@ -351,7 +351,7 @@ export async function updateUser(
 ////utils
 async function checkIfUserExists(id: string) {
   const exists = await prisma.user.findUnique({ where: { id } });
-  console.log({ exists });
+  // console.log({ exists });
 
   return exists;
 }

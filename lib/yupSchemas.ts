@@ -710,7 +710,7 @@ export const ticketBuyingIdYupSchema = Yup.mixed()
 
       if (isPayed) {
         const validation = numberRequiredYupSchema.isValidSync(value);
-        console.log({ validation });
+        // console.log({ validation });
 
         if (validation) {
           return true;

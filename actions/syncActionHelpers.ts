@@ -102,9 +102,9 @@ export async function createNewImageIfNeededAndAddToProperArraysToBeFurtherProce
       stringToDistinguishCreatedImageName
     );
 
-  console.log({ changedImage });
-  console.log({ originalImage });
-  console.log({ imageUrl });
+  // console.log({ changedImage });
+  // console.log({ originalImage });
+  // console.log({ imageUrl });
 
   createdImagesToBeDeleted.push(imageUrl);
 
@@ -164,9 +164,9 @@ export function processImagesToDivideThemInArraysWithDifferentPurposeChanged<
       (element) => element.id === existingItemId
     );
 
-    console.log({ existingItemId });
-    console.log({ changedImages });
-    console.log({ changedImageIndex });
+    // console.log({ existingItemId });
+    // console.log({ changedImages });
+    // console.log({ changedImageIndex });
 
     //changed image with existingItemId not found ? delete original image with this ID
     if (changedImageIndex === -1) {
@@ -181,7 +181,7 @@ export function processImagesToDivideThemInArraysWithDifferentPurposeChanged<
     changedImagesToBeProcessed.splice(changedImageIndex, 1);
   }
   // imagesToBeUpdated_or_Deleted_or_Created.imagesToBeCreatedPreparedForDB = [...changedImagesToBeProcessed];
-  console.log([...changedImagesToBeProcessed]);
+  // console.log([...changedImagesToBeProcessed]);
 }
 
 export function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(

@@ -45,15 +45,15 @@ export const makeLocalAppearUTC = (value: Date) => {
 };
 
 export const localToUTC = (dateTime: Date) => {
-  console.log('localToUTC');
-  console.log(dateTime.toISOString());
-  console.log('getTimezoneOffset(dateTime): ', getTimezoneOffset(dateTime));
-  console.log(
-    `
-    dateTime.getTime() - getTimezoneOffset(dateTime)
-  )`,
-    new Date(dateTime.getTime() - getTimezoneOffset(dateTime))
-  );
+  // console.log('localToUTC');
+  // console.log(dateTime.toISOString());
+  // console.log('getTimezoneOffset(dateTime): ', getTimezoneOffset(dateTime));
+  // console.log(
+  //   `
+  //   dateTime.getTime() - getTimezoneOffset(dateTime)
+  // )`,
+  //   new Date(dateTime.getTime() - getTimezoneOffset(dateTime))
+  // );
 
   const utcFromLocal = new Date(
     dateTime.getTime() - getTimezoneOffset(dateTime)
