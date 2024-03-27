@@ -5,6 +5,7 @@ import { TEventTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import DateAsClientComponentToPreserveConsistency from './DateAsClientComponentToPreserveConsistency';
+import CustomLink from '@/app/(site)/components/CustomLink';
 
 type Props = {
   event: TEventTemporary;
@@ -16,6 +17,8 @@ export default function EventDynamicInside(props: Props) {
   const sliderImages: TSliderGroupImage[] = event.images || [];
 
   const isSliderEmpty = sliderImages && sliderImages.length === 0;
+
+  console.log({ event });
 
   return (
     <Fragment>
@@ -98,11 +101,32 @@ export default function EventDynamicInside(props: Props) {
                 <span></span>
               </span>
             </div>
-            <div className="-mt-[2px]">
+            <div className="-mt-[3px]">
               <span className="font-base-regular">
-                <b>Wstęp:&nbsp;&nbsp;&nbsp;</b>{' '}
-                <span>{event.kindOfEnterInfo}</span>
+                <b>Wstęp:&nbsp;&nbsp;&nbsp;</b>
               </span>
+              <span className="font-base-regular">{event.kindOfEnterInfo}</span>
+            </div>
+            <div className="mt-[19px]">
+              {event.isPayed && event.ticketBuyingId ? (
+                // <CustomLink
+                //   visibleText="kup bilet online"
+                //   url={`sdcsd`}
+                //   descriptionText="kup bilet online"
+                //   additionalCssClasses="py-[19px] px-[3rem]"
+                // />
+                <a
+                  aria-label="kup bilet online"
+                  href={`${process.env.NEXT_PUBLIC_VISUAL_TICKET_URL}${event.ticketBuyingId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Otwiera się w nowej zakładce."
+                  className={clsx('standard-button py-[19px] px-[3rem]')}
+                >
+                  <span className="sr-only">kup bilet online</span>
+                  kup bilet online
+                </a>
+              ) : null}
             </div>
           </div>
         </div>

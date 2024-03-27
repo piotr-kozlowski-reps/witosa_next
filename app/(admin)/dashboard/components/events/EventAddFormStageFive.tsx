@@ -85,9 +85,9 @@ export default function EventAddFormStageFive<T>(props: Props<T>) {
                   <div className="mt-[8px]">
                     <a
                       aria-label="Sprawdź czy otwiera się odpowiednia strona z podanym ID."
-                      href={`https://dkk.systembiletowy.pl/index.php/repertoire.html?id=${formik.getFieldProps(
-                        'ticketBuyingId'
-                      )}`}
+                      href={`${
+                        process.env.NEXT_PUBLIC_VISUAL_TICKET_URL
+                      }${formik.getFieldProps('ticketBuyingId')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Otwiera się w nowej zakładce."
