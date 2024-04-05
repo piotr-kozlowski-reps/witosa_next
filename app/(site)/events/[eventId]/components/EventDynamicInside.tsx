@@ -116,8 +116,8 @@ export default function EventDynamicInside(props: Props) {
                 <a
                   aria-label="kup bilet online"
                   href={`${process.env.NEXT_PUBLIC_VISUAL_TICKET_URL}${event.ticketBuyingId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  // target="_blank"
+                  // rel="noopener noreferrer"
                   title="Otwiera się w nowej zakładce."
                   className={clsx('standard-button py-[19px] px-[3rem]')}
                 >
