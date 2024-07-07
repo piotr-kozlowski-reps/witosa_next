@@ -66,7 +66,7 @@ export async function addEvent(
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  console.log('addEvent');
+  // console.log('addEvent');
 
   /*
     data validation
@@ -176,12 +176,12 @@ export async function addEvent(
    writing cyclical activity to db
    */
   try {
-    console.log('writing to db');
+    // console.log('writing to db');
 
     const response = await prisma.event.create({
       data: eventPreparedForDb,
     });
-    console.log({ response });
+    // console.log({ response });
   } catch (error) {
     logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
@@ -535,7 +535,7 @@ export async function updateEvent(
     transaction = await prisma.$transaction(transactionsArray);
   } catch (error) {
     logger.warn((error as Error).stack);
-    console.log((error as Error).stack);
+    // console.log((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
@@ -547,10 +547,10 @@ export async function updateEvent(
     await deleteImagesFiles(imagesURLsToBeDeleted);
   } catch (error) {
     logger.error((error as Error).stack);
-    console.log((error as Error).stack);
+    // console.log((error as Error).stack);
   }
 
-  console.log({ transaction });
+  // console.log({ transaction });
 
   /** revalidate all */
   revalidatePath('/');
