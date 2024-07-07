@@ -107,12 +107,6 @@ export default function EventDynamicInside(props: Props) {
             </div>
             <div className="mt-[19px]">
               {event.isPayed && event.ticketBuyingId ? (
-                // <CustomLink
-                //   visibleText="kup bilet online"
-                //   url={`sdcsd`}
-                //   descriptionText="kup bilet online"
-                //   additionalCssClasses="py-[19px] px-[3rem]"
-                // />
                 <a
                   aria-label="kup bilet online"
                   href={`${process.env.NEXT_PUBLIC_VISUAL_TICKET_URL}${event.ticketBuyingId}`}
