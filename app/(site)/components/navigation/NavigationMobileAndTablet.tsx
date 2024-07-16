@@ -68,13 +68,13 @@ export default function NavigationMobileAndTablet(props: Props) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className={clsx('mx-mobile-margin')}
+          className={clsx('mx-mobile-margin ')}
           aria-labelledby="main_navigation_heading"
         >
           <h2 id="main_navigation_heading" className="sr-only">
             nawigacja główna
           </h2>
-          <div className="flex items-start justify-between h-32">
+          <div className="flex items-start justify-between h-32 ">
             <Link href="/" className="mt-10" aria-label="Strona główna">
               <span aria-hidden="true">
                 <Image
@@ -88,12 +88,14 @@ export default function NavigationMobileAndTablet(props: Props) {
             </Link>
             <div
               className={clsx(
-                'absolute top-[33px]',
+                'absolute top-[33px] ',
                 getCurrentDevice() === 'MOBILE'
-                  ? 'right-mobile-for-absolute-margin'
+                  ? // ? 'right-mobile-for-absolute-margin'
+                    'right-[-16px]'
                   : '',
                 getCurrentDevice() === 'TABLET'
-                  ? 'right-tablet-for-absolute-margin'
+                  ? // ? 'right-tablet-for-absolute-margin'
+                    'right-[-15px]'
                   : ''
               )}
             >
@@ -113,7 +115,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
+                className="sticky top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen px-mobile-margin bg-skin-main-bg"
               >
                 <div className="bg-skin-fill">
                   <ul
@@ -268,10 +270,10 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
+                className="sticky top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg px-mobile-margin"
                 id={idGroupsSubmenuMenu}
               >
-                <div className="absolute top-0 w-screen h-screen bg-skin-fill ">
+                <div className="absolute top-0 w-screen h-screen bg-skin-fill right-8">
                   <ul
                     id="options_groups"
                     className={clsx(
@@ -373,7 +375,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg "
+                className="sticky top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg px-mobile-margin"
                 id={idAboutSubmenuMenu}
                 // style={{
                 //   left: getIsMobileAboutSubMenuVisible() ? '0%' : '100%',
@@ -382,7 +384,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                 //     : 'hidden',
                 // }}
               >
-                <div className="absolute top-0 w-screen h-screen bg-skin-fill">
+                <div className="absolute top-0 w-screen h-screen bg-skin-fill right-8">
                   <ul
                     id="options_groups"
                     className={clsx(
@@ -500,10 +502,10 @@ export default function NavigationMobileAndTablet(props: Props) {
                 animate="visible"
                 exit="exit"
                 // className="absolute top-0 bottom-0 left-0 right-0 w-screen h-screen bg-skin-main-bg"
-                className="absolute top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg"
+                className="sticky top-0 bottom-0 left-0 right-0 z-10 w-screen h-screen bg-skin-main-bg px-mobile-margin"
                 id={idAccessibilitySubmenuMenu}
               >
-                <div className="absolute top-0 w-screen h-screen">
+                <div className="absolute top-0 w-screen h-screen right-8">
                   <ul
                     id="options_accessibility"
                     className={clsx(

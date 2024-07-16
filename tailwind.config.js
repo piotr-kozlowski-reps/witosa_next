@@ -8,6 +8,7 @@ module.exports = {
     screens: {
       tablet: '520px',
       desktop: '1280px',
+      'slider-break-point': '870px',
     },
     extend: {
       textColor: {
