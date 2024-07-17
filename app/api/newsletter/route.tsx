@@ -16,8 +16,8 @@ import { emailSchema } from '@/lib/zodSchemas';
 import { TNewsletterFormValuesSent } from '@/types';
 import { Newsletter } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]/authOptions';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
 
 // export async function OPTIONS(req: NextRequest) {
 //   const origin = req.headers.get('origin');

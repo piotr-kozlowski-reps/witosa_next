@@ -1,6 +1,6 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import {
   badEventData,
   badReceivedData,
@@ -155,7 +155,7 @@ export async function prepareImagesForDB<
   T extends {
     images: TImageCyclicalActivityFormValues[] | TImageEventFormValue[];
   },
-  K extends TImageEventForDB | TImageCyclicalActivityForDB
+  K extends TImageEventForDB | TImageCyclicalActivityForDB,
 >(
   values: T,
   createdImagesArray: string[],
