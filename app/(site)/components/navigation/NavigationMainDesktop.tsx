@@ -141,7 +141,7 @@ export default function NavigationMainDesktop(props: Props) {
                       exit="exit"
                       id="options_groups"
                       className={clsx(
-                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
+                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex z-30'
                       )}
                     >
                       <li>

@@ -16,6 +16,8 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
 
   const isSliderEmpty = sliderImages && sliderImages.length === 0;
 
+  // console.log({ activity });
+
   return (
     <Fragment>
       {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages} /> : null}

@@ -27,7 +27,7 @@ export default function ContactInfo(props: Props) {
       </div>
       <div className="mt-[23px]">
         <p className="mt-1">
-          tel. biuro:{' '}
+          tel. biuro i recepcja:{' '}
           <span className="inline-block not-prose">
             <a
               href={`tel:0048323326397`}
@@ -38,7 +38,7 @@ export default function ContactInfo(props: Props) {
           </span>
         </p>
         <p className="-mt-2">
-          tel. recepcja:{' '}
+          tel. Art Cafe:{' '}
           <span className="inline-block not-prose">
             <a
               href={`tel:0048323326379`}
