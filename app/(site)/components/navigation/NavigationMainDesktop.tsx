@@ -311,6 +311,18 @@ export default function NavigationMainDesktop(props: Props) {
                           }
                         />
                       </li>
+
+                      <li>
+                        <div>
+                          <a
+                            className="link-default-sitemap pt-[3px] whitespace-nowrap"
+                            href={`${process.env.NEXT_PUBLIC_BASE_URL}Standardy-Ochrony-Maloletnich.pdf`}
+                            target="_blank"
+                          >
+                            standardy ochrony małoletnich
+                          </a>
+                        </div>
+                      </li>
                     </motion.ul>
                   ) : null}
                 </AnimatePresence>

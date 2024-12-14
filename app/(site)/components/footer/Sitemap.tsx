@@ -171,6 +171,17 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
+          <li className="mt-[6px]">
+            <div>
+              <a
+                className="link-default-sitemap pt-[6px] whitespace-nowrap"
+                href={`${process.env.NEXT_PUBLIC_BASE_URL}Standardy-Ochrony-Maloletnich.pdf`}
+                target="_blank"
+              >
+                standardy ochrony małoletnich
+              </a>
+            </div>
+          </li>
         </ul>
         <li className="-ml-[23px] mt-[6px]">
           <NavigationLink
