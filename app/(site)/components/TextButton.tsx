@@ -19,8 +19,6 @@ export default function TextButton(props: Props) {
     isAccessToStage = true,
   } = props;
 
-  // console.log(buttonName, isAccessToStage, isActive);
-
   return (
     <Fragment>
       {isAccessToStage ? (

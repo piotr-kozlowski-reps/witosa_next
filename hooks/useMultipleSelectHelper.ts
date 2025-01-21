@@ -10,8 +10,6 @@ export function useMultipleSelectHelper<T, R>(
     formik.getFieldProps(name).value
   );
 
-  // console.log(formik.getFieldProps(name).value);
-
   ////utils
   const toggleItemsInArray = (itemInArray: T) => {
     if (chosenItemsInArray.includes(itemInArray)) {

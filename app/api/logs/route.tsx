@@ -7,10 +7,6 @@ export async function GET(_req: NextRequest) {
   const _isLoggedIn = session?.user;
   const _isAdmin = session?.user?.userRole === 'ADMIN';
 
-  // console.log({ session });
-  // console.log({ isLoggedIn });
-  // console.log({ isAdmin });
-
   // if (!isLoggedIn) {
   //   return logAndRespondWithApiError(
   //     createErrorMessageWithSpecifiedPath(
@@ -71,6 +67,5 @@ export async function GET(_req: NextRequest) {
 
 // async function readFilesList(folderName: string) {
 //   const filesInDesiredFolder = await fs.readdir(`%root/logs/`);
-//   console.log(filesInDesiredFolder);
 //   return filesInDesiredFolder;
 // }

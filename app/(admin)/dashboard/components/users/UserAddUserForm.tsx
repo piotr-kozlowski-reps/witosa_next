@@ -37,8 +37,6 @@ export default function UserAddUserForm() {
   ) {
     let response: TActionResponse | null = null;
     if (isCurrentFormToPOSTData) {
-      // console.log([...formData]);
-
       try {
         response = await addUser(formData);
       } catch (error) {
@@ -117,8 +115,6 @@ export default function UserAddUserForm() {
         )}
       >
         {(formik) => {
-          // console.log({ formik });
-
           ////tsx
           return (
             <form

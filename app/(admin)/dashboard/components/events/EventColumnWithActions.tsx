@@ -27,7 +27,6 @@ export default function EventColumnWithActions(props: Props) {
   const { setEventFormikDataForPUT, setIsAddEventVisible } = useEventsState();
 
   async function editEventHandler(id: string) {
-    // console.log({ id });
     const existingEvent = await getEvent(id);
 
     if (

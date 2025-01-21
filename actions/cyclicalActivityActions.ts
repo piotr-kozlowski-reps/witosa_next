@@ -141,9 +141,7 @@ export async function addCyclicalActivity(
     const response = await prisma.cyclicalActivity.create({
       data: cyclicalActivityPreparedForDb,
     });
-    // console.log({ response });
   } catch (error) {
-    // console.log((error as Error).stack);
     logger.warn((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
@@ -208,8 +206,6 @@ export async function deleteCyclicalActivities(
   deleting users from db
   */
   for (let i = 0; i < ids.length; i++) {
-    // console.log(ids[i]);
-
     const deleteCyclicalActivityImages =
       prisma.imageCyclicalActivity.deleteMany({
         where: {
@@ -430,15 +426,6 @@ export async function updateCyclicalActivity(
     imagesPreparedData
   );
 
-  // console.log('originalImages: ', originalImages);
-  // console.log('changedImages: ', changedImages);
-  // console.log('differencesImages: ', differencesImages);
-  // console.log('imagesPreparedData: ', imagesPreparedData);
-  // console.log(
-  //   'currentlyCreatedImagesToBeDeletedWhenError: ',
-  //   currentlyCreatedImagesToBeDeletedWhenError
-  // );
-
   let imagesToBeUpdatedPreparedForDB: Prisma.ImageCyclicalActivityUpdateManyMutationInput[] =
     [];
   let imagesToBeCreatedPreparedForDB: Prisma.ImageCyclicalActivityCreateManyInput[] =
@@ -501,8 +488,6 @@ export async function updateCyclicalActivity(
         if (differenceBetweenObjects.url) {
           imagesURLsBeDeleted.push(originalImageObject!.url);
         }
-
-        // console.log(differenceBetweenObjects);
       }
     }
   }
@@ -554,7 +539,6 @@ export async function updateCyclicalActivity(
     transaction = await prisma.$transaction(transactionsArray);
   } catch (error) {
     logger.warn((error as Error).stack);
-    // console.log((error as Error).stack);
     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
@@ -563,11 +547,9 @@ export async function updateCyclicalActivity(
   deleting unused images from server
   */
   try {
-    // console.log({ imagesURLsBeDeleted });
     await deleteImagesFiles(imagesURLsBeDeleted);
   } catch (error) {
     logger.error((error as Error).stack);
-    // console.log((error as Error).stack);
   }
 
   /** revalidate all */

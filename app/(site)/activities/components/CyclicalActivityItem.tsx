@@ -30,10 +30,7 @@ export default function CyclicalActivityItem(props: Props) {
     customLinkToDetails,
   } = props;
 
-  // console.log({ occurrence });
-
   ////tsx
-
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}

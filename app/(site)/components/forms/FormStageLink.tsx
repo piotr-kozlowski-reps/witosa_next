@@ -13,8 +13,6 @@ export default function FormStageLink(props: Props) {
   ////vars
   const { stage, index, actionFn } = props;
 
-  // console.log('stage inside: ', stage);
-
   ////tsx
   return (
     <Fragment>

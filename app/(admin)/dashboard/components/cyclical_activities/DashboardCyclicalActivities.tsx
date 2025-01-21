@@ -20,6 +20,13 @@ export default function DashboardCyclicalActivities(props: Props) {
     setIsAddCyclicalActivityVisible,
     resetCyclicalActivityFormikDataForPUT,
   } = useCyclicalActivitiesState();
+
+  //sort cyclicalActivities by creation date
+  const sortedCyclicalActivities = (
+    cyclicalActivitiesData.response as CyclicalActivity[]
+  ).sort(function (a, b) {
+    return b.createdAt.getTime() - a.createdAt.getTime();
+  });
   ////tsx
   return (
     <Fragment>
@@ -50,7 +57,7 @@ export default function DashboardCyclicalActivities(props: Props) {
             </div>
             <CyclicalActivitiesDataTable
               columns={columnsCyclicalActivities}
-              data={cyclicalActivitiesData.response as CyclicalActivity[]}
+              data={sortedCyclicalActivities}
             />
           </Fragment>
         </ComponentTransitionFromRightToLeft>

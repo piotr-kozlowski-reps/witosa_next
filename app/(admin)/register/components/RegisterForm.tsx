@@ -34,8 +34,6 @@ export default function RegisterForm() {
     values: TRegisterFormValues,
     _formikHelpers: FormikHelpers<TRegisterFormValues>
   ) {
-    // console.log('form values: ', values);
-
     const valuesToBeSent: TRegisterFormValuesSent = {
       name: values.name,
       email: values.email,
@@ -63,8 +61,6 @@ export default function RegisterForm() {
         validationSchema={toFormikValidationSchema(validationSchema)}
       >
         {(formik) => {
-          // console.log(formik);
-
           return (
             <Form>
               <div>

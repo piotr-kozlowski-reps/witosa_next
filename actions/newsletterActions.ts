@@ -61,7 +61,6 @@ export async function addNewsletterAddress(
   try {
     await prisma.newsletter.create({ data: { email } });
   } catch (error) {
-    // console.log({ error });
     logger.warn((error as Error).stack);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }

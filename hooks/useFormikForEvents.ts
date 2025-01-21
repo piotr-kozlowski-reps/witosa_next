@@ -19,7 +19,5 @@ export function useFormikForEvents() {
     },
   });
 
-  // console.log({ formik });
-
   return formik;
 }

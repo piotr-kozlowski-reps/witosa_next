@@ -60,7 +60,6 @@ export default function NewsletterAddItemForm() {
     }
 
     if (isCurrentFormToPUTData) {
-      // console.log('put');
       //check if address is in DB - if not error
       //update address
 

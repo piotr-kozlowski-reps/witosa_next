@@ -13,8 +13,6 @@ export default async function LogsList() {
     console.error(error);
   }
 
-  // console.log('tutaj:', { logFiles });
-
   ////jsx
   return (
     <Fragment>

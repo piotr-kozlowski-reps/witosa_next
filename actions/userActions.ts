@@ -40,12 +40,6 @@ export async function addUser(formData: FormData): Promise<TActionResponse> {
   const submittedConfirmPassword = formData.get('confirmPassword') as string;
   const submittedUserRole = formData.get('userRole') as UserRole;
 
-  // console.log({ submittedName });
-  // console.log({ submittedEmail });
-  // console.log({ submittedPassword });
-  // console.log({ submittedConfirmPassword });
-  // console.log({ submittedUserRole });
-
   if (
     !submittedName ||
     !submittedEmail ||
@@ -158,8 +152,6 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
     return { status: 'ERROR', response: notLoggedIn };
   }
 
-  // console.log({ ids });
-
   /** checking values eXistenZ */
   if (!ids || ids.length === 0) {
     logger.warn(badEmailFormatMessage);
@@ -181,8 +173,6 @@ export async function deleteUsers(ids: string[]): Promise<TActionResponse> {
       return { status: 'ERROR', response: userNotExistsMessage };
     }
   }
-
-  // console.log('jestem za exist');
 
   /* deleting users from db */
   try {
@@ -315,8 +305,6 @@ export async function updateUser(
       return { status: 'ERROR', response: badUserData };
     }
 
-    // console.log('tutaj');
-
     /* updating user in db */
     const hashedPassword = await bcryptjs.hash(submittedPassword, 10);
     try {
@@ -351,7 +339,6 @@ export async function updateUser(
 ////utils
 async function checkIfUserExists(id: string) {
   const exists = await prisma.user.findUnique({ where: { id } });
-  // console.log({ exists });
 
   return exists;
 }

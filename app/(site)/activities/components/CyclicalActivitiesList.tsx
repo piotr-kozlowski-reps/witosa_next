@@ -55,8 +55,6 @@ export default function CyclicalActivitiesList(props: Props) {
                         day as Day
                       );
 
-                    // console.log({ activitiesForToday });
-
                     return (
                       <AnimatePresence mode="wait" key={`${day}-${indexInDay}`}>
                         {activitiesForToday.length !== 0 ? (

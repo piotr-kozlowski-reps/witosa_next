@@ -249,7 +249,6 @@ export const longDescriptionYupSchema = Yup.mixed()
 
       if (!isCustomLinkToDetails) {
         const validation = stringRequiredYupSchema.isValidSync(value);
-        // console.log({ validation });
 
         if (!validation) {
           return false;
@@ -710,7 +709,6 @@ export const ticketBuyingIdYupSchema = Yup.mixed()
 
       if (isPayed) {
         const validation = numberRequiredYupSchema.isValidSync(value);
-        // console.log({ validation });
 
         if (validation) {
           return true;

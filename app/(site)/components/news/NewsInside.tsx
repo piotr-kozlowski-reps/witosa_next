@@ -46,8 +46,6 @@ export default function NewsInside(props: Props) {
             )}
           >
             {newsData.map((newsEvent, index) => {
-              // console.log({ newsEvent });
-
               return (
                 <div key={newsEvent.id} className="w-full">
                   <SingleNews

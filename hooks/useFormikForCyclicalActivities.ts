@@ -20,7 +20,5 @@ export function useFormikForCyclicalActivities() {
     },
   });
 
-  // console.log({ formik });
-
   return formik;
 }

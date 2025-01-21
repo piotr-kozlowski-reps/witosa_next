@@ -28,10 +28,6 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
     getIsErrorNOTPresentAndFieldWasTouched<T>(formik, name);
 
   function getDateValue(date: Date): Date {
-    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    // console.log('getDateValue()');
-    // console.log('timeZone:', timeZone);
-
     // const dateZoned = utcToZonedTime(date, timeZone);
 
     // return dateZoned;
@@ -41,11 +37,6 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
   function setUTCDateValueForDB(date: Date): Date {
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     // const utcDate = zonedTimeToUtc(date, timeZone);
-
-    // console.log('setUTCDateValueForDB()');
-    // console.log('timeZone:', timeZone);
-    // console.log('originalDate:', date);
-    // console.log('utcDate:', utcDate);
 
     // return utcDate;
     return date;
@@ -90,8 +81,8 @@ export default function DateAndTimePickerFormik<T>(props: Props<T>) {
                 isErrorPresentAndFieldWasTouched
                   ? 'var(--color-error)'
                   : isErrorNotPresentAndFieldWasTouched
-                  ? 'var(--cta-secondary-opacity)'
-                  : ''
+                    ? 'var(--cta-secondary-opacity)'
+                    : ''
               ),
             },
           }}

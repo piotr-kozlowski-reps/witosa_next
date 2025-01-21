@@ -58,13 +58,6 @@ export const prepareEventValuesForBackend = (
   }
   values.newsSectionImageUrl = newsImagePreparedForBackend;
 
-  // images
-  // console.log('values.isCustomLinkToDetails: ', values.isCustomLinkToDetails);
-  // console.log(
-  //   'values.isToBeOnlyInNewsSection_NotSeenInEvents: ',
-  //   values.isToBeOnlyInNewsSection_NotSeenInEvents
-  // );
-
   let isIncludeImages = true;
   values.isCustomLinkToDetails ? (isIncludeImages = false) : null;
   values.isToBeOnlyInNewsSection_NotSeenInEvents

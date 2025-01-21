@@ -44,7 +44,7 @@ export function sortImagesObjectsByIndexInEvent(
 
 export function rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
   T extends TCyclicalActivityWithImageAndOccurrence | TEventWithImages,
-  K extends ImageCyclicalActivity | ImageEvent
+  K extends ImageCyclicalActivity | ImageEvent,
 >(objectToBeCorrected: T) {
   const images = objectToBeCorrected.images as K[];
 
@@ -102,10 +102,6 @@ export async function createNewImageIfNeededAndAddToProperArraysToBeFurtherProce
       stringToDistinguishCreatedImageName
     );
 
-  // console.log({ changedImage });
-  // console.log({ originalImage });
-  // console.log({ imageUrl });
-
   createdImagesToBeDeleted.push(imageUrl);
 
   return imageUrl;
@@ -145,7 +141,7 @@ export function processImagesToDivideThemInArraysWithDifferentPurpose(
 }
 
 export function processImagesToDivideThemInArraysWithDifferentPurposeChanged<
-  T extends TImageCyclicalActivityForDB | TImageEventForDB
+  T extends TImageCyclicalActivityForDB | TImageEventForDB,
 >(
   originalImages: T[],
   changedImages: T[],
@@ -164,10 +160,6 @@ export function processImagesToDivideThemInArraysWithDifferentPurposeChanged<
       (element) => element.id === existingItemId
     );
 
-    // console.log({ existingItemId });
-    // console.log({ changedImages });
-    // console.log({ changedImageIndex });
-
     //changed image with existingItemId not found ? delete original image with this ID
     if (changedImageIndex === -1) {
       imagesToBeUpdated_or_Deleted_or_Created.imagesObjectsIDisToBeDeletedPreparedForDB.push(
@@ -181,7 +173,6 @@ export function processImagesToDivideThemInArraysWithDifferentPurposeChanged<
     changedImagesToBeProcessed.splice(changedImageIndex, 1);
   }
   // imagesToBeUpdated_or_Deleted_or_Created.imagesToBeCreatedPreparedForDB = [...changedImagesToBeProcessed];
-  // console.log([...changedImagesToBeProcessed]);
 }
 
 export function getRidOfFileDataAndPrepareObjectToComparisonToChangedData(

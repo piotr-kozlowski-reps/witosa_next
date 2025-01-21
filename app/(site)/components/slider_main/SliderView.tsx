@@ -12,19 +12,6 @@ export default function SliderView(props: Props) {
   ////vars
   const { sliderData } = props;
 
-  // const [currentSliderData, setCurrentSliderData] = useState(sliderData);
-  // useEffect(() => {
-  //   const currentArray = currentSliderData.filter((sliderData) => {
-  //     console.log(sliderData);
-  //     return isFirstDateBeforeSecond(
-  //       sliderData.visibleInSliderFrom!,
-  //       new Date(Date.now())
-  //     );
-  //   });
-
-  //   setCurrentSliderData(currentArray);
-  // }, [sliderData]);
-
   ////utils
   //left-right
   const [slideIndex, setSlideIndex] = useState(0);

@@ -8,6 +8,5 @@ export async function submitNewsletterFormHandler(
   formikHelpers: FormikHelpers<TNewsletterFormValues>
 ) {
   'use server';
-  // console.log('values: ', values);
   formikHelpers.resetForm();
 }

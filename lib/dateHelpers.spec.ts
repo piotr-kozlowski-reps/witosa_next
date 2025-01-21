@@ -58,7 +58,6 @@ describe('setTodaysDateFromMidnight()', () => {
 
   it('should return date 2025-05-05 00:00:00', () => {
     const date = new Date('2025-05-05T15:55:12.000Z');
-    console.log({ date });
 
     vi.setSystemTime(date);
     expect(setTodaysDateFromMidnight().toISOString()).toEqual(
@@ -84,7 +83,6 @@ describe('setDateWith_23_59minutes()', () => {
 
   // it('should return date 2025-05-05 00:00:00', () => {
   //   const date = new Date('2025-05-05T15:55:12.000Z');
-  //   console.log({ date });
 
   //   vi.setSystemTime(date);
   //   expect(setTodaysDateFromMidnight().toISOString()).toEqual(

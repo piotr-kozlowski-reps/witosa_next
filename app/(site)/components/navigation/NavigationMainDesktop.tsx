@@ -52,8 +52,6 @@ export default function NavigationMainDesktop(props: Props) {
     getSocialLinkData,
   } = props;
 
-  // console.log(getConfig());
-
   ////tsx
   return (
     <Fragment>

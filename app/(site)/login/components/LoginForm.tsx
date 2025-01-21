@@ -42,8 +42,6 @@ const LoginForm = () => {
     signIn('credentials', { ...valuesToBeSent, redirect: false }).then(
       (callback) => {
         if (callback?.error) {
-          // console.log(callback.error);
-
           const errorText = callback.error.includes('No user found')
             ? 'Nie znaleziono użytkownika.'
             : 'Nie udało się zalogować';

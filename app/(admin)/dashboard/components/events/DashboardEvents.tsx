@@ -21,6 +21,11 @@ export default function DashboardEvents(props: Props) {
     resetEventFormikDataForPUT,
   } = useEventsState();
 
+  //sort events by creation date
+  const sortedEvents = (eventsData.response as Event[]).sort(function (a, b) {
+    return b.createdAt.getTime() - a.createdAt.getTime();
+  });
+
   ////tsx
   return (
     <Fragment>
@@ -49,10 +54,7 @@ export default function DashboardEvents(props: Props) {
                 />
               </div>
             </div>
-            <EventsDataTable
-              columns={columnsEvents}
-              data={eventsData.response as Event[]}
-            />
+            <EventsDataTable columns={columnsEvents} data={sortedEvents} />
           </Fragment>
         </ComponentTransitionFromRightToLeft>
       ) : null}

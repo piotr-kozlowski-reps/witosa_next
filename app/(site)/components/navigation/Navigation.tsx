@@ -29,11 +29,6 @@ export default function Navigation() {
     fontSizeChangeHandler(currentFontSize, bodyElementClassesList);
   }, [currentMode, currentFontSize]);
 
-  // const signOutHandler = () => {
-  //   console.log('signOut');
-  //   signOut();
-  // };
-
   ////tsx
   return (
     <Fragment>
