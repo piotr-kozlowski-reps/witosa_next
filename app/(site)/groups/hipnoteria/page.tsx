@@ -11,9 +11,8 @@ export const metadata: Metadata = {
 
 export default async function HipnoteriaPage() {
   ////vars
-  const sliderImages: TSliderGroupImage[] = await getGroupsSliderData(
-    'HIPNOTERIA'
-  );
+  const sliderImages: TSliderGroupImage[] =
+    await getGroupsSliderData('HIPNOTERIA');
 
   ///tsx
   return (

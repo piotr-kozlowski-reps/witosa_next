@@ -57,7 +57,7 @@ export default function NavigationCategoriesAndTargetsForCyclicalActivities(
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full bg-skin-main-bg drop-shadow-big"
+        className="w-full bg-skin-main-bg drop-shadow-big relative z-[-1]"
       >
         <motion.div
           initial={{ scale: 1 }}

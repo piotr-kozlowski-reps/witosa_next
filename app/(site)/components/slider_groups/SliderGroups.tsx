@@ -42,11 +42,12 @@ export default function SliderGroups(props: Props) {
       }}
       modules={[Navigation, Pagination, Mousewheel, Keyboard, HashNavigation]}
       className="proper-container-classes"
+      style={{ zIndex: -1 }}
     >
       {sliderImages.map((sliderImage, index) => {
         return (
           <Fragment key={`${index}-${sliderImage.url}`}>
-            <div className="relative">
+            <div className="relative z-[-1]">
               <SwiperSlide
                 virtualIndex={index}
                 key={`${index}-${sliderImage.url}`}

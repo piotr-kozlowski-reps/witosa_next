@@ -139,7 +139,7 @@ export default function NavigationMainDesktop(props: Props) {
                       exit="exit"
                       id="options_groups"
                       className={clsx(
-                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex z-30'
+                        'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
                       )}
                     >
                       <li>
@@ -237,7 +237,6 @@ export default function NavigationMainDesktop(props: Props) {
                       id="options_about"
                       className={clsx(
                         'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
-                        // getIsAboutSubmenuVisible() ? 'flex' : 'hidden'
                       )}
                     >
                       <li>
@@ -373,13 +372,17 @@ export default function NavigationMainDesktop(props: Props) {
       {/* overlay to groups button */}
       <AnimatePresence mode="wait">
         {getIsGroupsSubmenuVisible() ? (
-          <div
+          <motion.div
+            variants={overlaySubMenuVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             className={clsx(
               'absolute top-0 bottom-0 left-0 right-0 z-20 w-screen h-screen overlay-minimal',
               getIsGroupsSubmenuVisible() ? 'visible' : 'hidden'
             )}
             onClick={toggleIsGroupsSubmenuVisible}
-          ></div>
+          ></motion.div>
         ) : null}
       </AnimatePresence>
 
