@@ -1,9 +1,9 @@
-import { getSession } from 'next-auth/react';
-
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/authOptions';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(_req: NextRequest) {
-  const session = await getSession(); //TODO: znaleźć sposób aby uzyskać dostęp do sesji (przesłać pewnei cookies w zapytaniu)
+  const session = await getServerSession(authOptions); //TODO: znaleźć sposób aby uzyskać dostęp do sesji (przesłać pewnei cookies w zapytaniu)
   const _isLoggedIn = session?.user;
   const _isAdmin = session?.user?.userRole === 'ADMIN';
 

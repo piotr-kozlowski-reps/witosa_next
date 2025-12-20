@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    // turbo: false,
     serverActions: {
       bodySizeLimit: '20mb',
     },
   },
+  // transpilePackages: ['next-auth', '@next-auth/prisma-adapter'],
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost', port: '3000' },
