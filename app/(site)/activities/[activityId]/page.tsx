@@ -8,13 +8,14 @@ import { notFound } from 'next/navigation';
 import CyclicActivitiesDynamicInside from './components/CyclicActivitiesDynamicInside';
 
 type Props = {
-  params: {
+  params: Promise<{
     activityId: string;
-  };
+  }>;
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const id = props.params.activityId;
+  const { activityId: id } = await props.params;
+  // const id = props.params.activityId;
   const cyclicalActivityResponse: TGetOneCyclicalActivityResponse =
     await getCyclicalActivity(id);
   const cyclicalActivity = await getCyclicalActivityFromResponse(
@@ -38,7 +39,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function CyclicActivitiesDynamicPage(props: Props) {
   ////vars
-  const id = props.params.activityId;
+  const { activityId: id } = await props.params;
 
   const cyclicalActivityResponse: TGetOneCyclicalActivityResponse =
     await getCyclicalActivity(id);

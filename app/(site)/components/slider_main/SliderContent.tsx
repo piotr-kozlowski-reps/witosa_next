@@ -4,7 +4,7 @@ import { useObserveElementHeight } from '@/hooks/useObserveElementHeight';
 import { getPolishEventTypeName } from '@/lib/textHelpers';
 import { TSlide } from '@/types';
 import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import CustomLink from '../CustomLink';
@@ -38,7 +38,7 @@ export default function SliderContent(props: Props) {
   const { height: descriptionHeight, ref: descriptionRef } =
     useObserveElementHeight<HTMLDivElement>();
 
-  const slideSlidingVariant = {
+  const slideSlidingVariant: Variants = {
     initial: (direction: number) => {
       return {
         x: direction > 0 ? 500 : -500,
@@ -80,7 +80,7 @@ export default function SliderContent(props: Props) {
       <div className="relative w-full" style={{ height: overallHeight }}>
         <div ref={overallRef} className="absolute top-0 w-full">
           {/* version when screen bigger than "slider-break-point" */}
-          <div className="relative items-start justify-start hidden bg-skin-main-bg drop-shadow-big rounded-base slider-break-point:flex z-[-1]">
+          <div className="relative items-start justify-start hidden bg-skin-main-bg drop-shadow-big rounded-base slider-break-point:flex z-1">
             <div className="h-[638px] overflow-hidden  ">
               <div>
                 <AnimatePresence initial={false} custom={direction}>

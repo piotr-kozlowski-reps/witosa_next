@@ -114,46 +114,6 @@ export default function EventAddFormStageThree<T>(props: Props<T>) {
           </AnimatePresence>
         </Fragment>
       ) : null}
-
-      {/* <AnimatePresence mode="wait">
-        {isToBeInNewsSection ? (
-          <ComponentTransitionFromRightToLeft>
-            <Fragment>
-              <div className="mt-[5px]">
-                <CheckboxFormik<T>
-                  name="isToBeOnlyInNewsSection_NotSeenInEvents"
-                  label="Czy wydarzenie ma się pojawić TYLKO w aktualnościach (w żadnym innym dziale)?"
-                  isToBeUsedAsPartFormik={true}
-                  formik={formik}
-                  isCommentPopupVisible={true}
-                  commentContent={<IsToBeOnlyInNewsSectionComment />}
-                />
-              </div>
-              <div>
-                <CheckboxFormik<T>
-                  name="isDateToBeHiddenInNewsSection"
-                  label="Czy data wydarzenia ma być niewidoczna w aktualnościach?"
-                  isToBeUsedAsPartFormik={true}
-                  formik={formik}
-                  isCommentPopupVisible={true}
-                  commentContent={<IsDateToBeHiddenInNewsSectionComment />}
-                />
-              </div>
-              <div className="mt-[22px]">
-                <ImageUploadFormik<T>
-                  imageFieldName="newsSectionImageUrl"
-                  altFieldName="newsSectionImageAlt"
-                  label="obraz dla aktualności:"
-                  isCurrentFormToPUTData={isCurrentFormToPUTData}
-                  formik={formik}
-                  isCommentPopupVisible={true}
-                  commentContent={<NewsSectionImageUrlComment />}
-                />
-              </div>
-            </Fragment>
-          </ComponentTransitionFromRightToLeft>
-        ) : null}
-      </AnimatePresence> */}
     </Fragment>
   );
 }

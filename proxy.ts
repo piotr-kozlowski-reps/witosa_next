@@ -9,7 +9,7 @@ const allowedOrigins =
       ]
     : ['http://localhost:3000'];
 
-export function middleware(request: Request) {
+export function proxy(request: Request) {
   const origin = request.headers.get('origin');
 
   if (origin && !allowedOrigins.includes(origin)) {

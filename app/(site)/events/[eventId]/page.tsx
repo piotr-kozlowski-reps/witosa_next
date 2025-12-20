@@ -11,17 +11,18 @@ import { Fragment } from 'react';
 import EventDynamicInside from './components/EventDynamicInside';
 
 type Props = {
-  params: {
+  params: Promise<{
     eventId: string;
-  };
+  }>;
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const id = props.params.eventId;
-  const eventResponse: TGetOneEventResponse = await getEvent(id);
-  const event: TEventTemporary | undefined = await getEventFromResponse(
-    eventResponse
-  );
+  const { eventId } = await props.params;
+
+  // const id = props.params.eventId;
+  const eventResponse: TGetOneEventResponse = await getEvent(eventId);
+  const event: TEventTemporary | undefined =
+    await getEventFromResponse(eventResponse);
 
   if (!event) {
     notFound();
@@ -38,12 +39,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function EventsDynamicPage(props: Props) {
   ////vars
-  const id = props.params.eventId;
+  const { eventId } = await props.params;
+  // const id = props.params.eventId;
 
-  const eventResponse: TGetOneEventResponse = await getEvent(id);
-  const event: TEventTemporary | undefined = await getEventFromResponse(
-    eventResponse
-  );
+  const eventResponse: TGetOneEventResponse = await getEvent(eventId);
+  const event: TEventTemporary | undefined =
+    await getEventFromResponse(eventResponse);
 
   if (!event) {
     notFound();

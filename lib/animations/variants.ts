@@ -1,6 +1,8 @@
+import { Variants } from 'framer-motion';
+
 const pixelMoveContainerAmount = 100;
 
-export const containerVariant = {
+export const containerVariant: Variants = {
   hidden: {
     y: `${pixelMoveContainerAmount}px`,
     opacity: 0,
@@ -16,7 +18,7 @@ export const containerVariant = {
   },
 };
 
-export const subMenuVariant = {
+export const subMenuVariant: Variants = {
   hidden: {
     scale: 0.5,
     opacity: 0,
@@ -36,7 +38,7 @@ export const subMenuVariant = {
   },
 };
 
-export const overlaySubMenuVariant = {
+export const overlaySubMenuVariant: Variants = {
   hidden: {
     scale: 0,
     opacity: 0,
@@ -55,7 +57,7 @@ export const overlaySubMenuVariant = {
   },
 };
 
-export const accessibilityVariant = {
+export const accessibilityVariant: Variants = {
   hidden: {
     scale: 0.5,
     opacity: 0,
@@ -75,7 +77,7 @@ export const accessibilityVariant = {
     opacity: 0,
   },
 };
-export const mobileVariant = {
+export const mobileVariant: Variants = {
   hidden: {
     opacity: 0,
     x: '50%',
@@ -95,7 +97,7 @@ export const mobileVariant = {
   },
 };
 
-export const notificationVariant = {
+export const notificationVariant: Variants = {
   hidden: {
     opacity: 0,
     x: '50%',
@@ -115,7 +117,7 @@ export const notificationVariant = {
   },
 };
 
-export const pageVariant = {
+export const pageVariant: Variants = {
   hidden: {
     opacity: 0,
     y: 15,

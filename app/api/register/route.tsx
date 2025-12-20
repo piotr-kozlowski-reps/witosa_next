@@ -3,7 +3,7 @@ import { TRegisterFormValuesSent } from '@/types';
 import bcryptjs from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest, _res: NextResponse) {
+export async function POST(req: NextRequest) {
   const body: TRegisterFormValuesSent = await req.json();
   const { name, email, password, userRole } = body;
 

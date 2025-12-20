@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
-const svgVariants = {
+const svgVariants: Variants = {
   // hidden: { scale: 0.8 },
   visible: {
     opacity: [0.3, 1, 1, 0.3],
@@ -16,7 +16,7 @@ const svgVariants = {
   },
 };
 
-const pathVariants = {
+const pathVariants: Variants = {
   visible: {
     pathLength: [0, 1, 1, 0],
     transition: {

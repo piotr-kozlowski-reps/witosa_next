@@ -23,6 +23,10 @@ export function useChangeCurrentLinkActive(
         };
       });
 
-    setMethodPointer(linksWithActiveLinkSetToTrueAccordingToCurrentPath);
+    const id = requestAnimationFrame(() => {
+      setMethodPointer(linksWithActiveLinkSetToTrueAccordingToCurrentPath);
+    });
+
+    return () => cancelAnimationFrame(id);
   }, [currentPath]);
 }

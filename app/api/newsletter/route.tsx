@@ -16,7 +16,7 @@ import { emailSchema } from '@/lib/zodSchemas';
 import { TNewsletterFormValuesSent } from '@/types';
 import { Newsletter } from '@prisma/client';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/authOptions';
+import { authOptions } from '../../../lib/auth/authOptions';
 import { NextRequest, NextResponse } from 'next/server';
 
 // export async function OPTIONS(req: NextRequest) {
@@ -36,7 +36,7 @@ import { NextRequest, NextResponse } from 'next/server';
 //   return response;
 // }
 
-export async function POST(req: NextRequest, _res: NextResponse) {
+export async function POST(req: NextRequest) {
   ////vars
   const origin = req.headers.get('origin');
   const body: TNewsletterFormValuesSent = await req.json();
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest, _res: NextResponse) {
   );
 }
 
-export async function GET(req: NextRequest, _res: NextResponse) {
+export async function GET(req: NextRequest) {
   /** checking session */
   const session = await getServerSession(authOptions);
 

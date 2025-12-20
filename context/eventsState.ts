@@ -8,58 +8,60 @@ type TCyclicalActivityState = {
   isEventsMenuVisible: boolean;
 };
 
-const eventFreshObject: TEventFormInputs = {
-  //stage1
-  id: new Date().getTime().toString(),
-  title: '',
-  eventTypes: [],
-  eventForWhom: [],
-  places: [],
-  eventStartDate: null,
-  eventEndDate: null, // omited
-  isToBePublished: true,
-  visibleFrom: null,
-  visibleTo: null,
+function createFreshEventObject(): TEventFormInputs {
+  return {
+    //stage1
+    id: new Date().getTime().toString(),
+    title: '',
+    eventTypes: [],
+    eventForWhom: [],
+    places: [],
+    eventStartDate: null,
+    eventEndDate: null, // omited
+    isToBePublished: true,
+    visibleFrom: null,
+    visibleTo: null,
 
-  //stage2
-  isToBeInNewsSection: true,
-  isToBeOnlyInNewsSection_NotSeenInEvents: false,
-  isDateToBeHiddenInNewsSection: false,
-  newsSectionImageUrl: null,
-  newsSectionImageAlt: '',
+    //stage2
+    isToBeInNewsSection: true,
+    isToBeOnlyInNewsSection_NotSeenInEvents: false,
+    isDateToBeHiddenInNewsSection: false,
+    newsSectionImageUrl: null,
+    newsSectionImageAlt: '',
 
-  //stage3
-  isCustomLinkToDetails: false,
-  customLinkToDetails: null,
-  shortDescription: '',
-  images: [
-    {
-      id: new Date().getTime().toString(),
-      index: 0,
-      file: undefined,
-      url: '',
-      alt: '',
-      additionInfoThatMustBeDisplayed: '',
-    },
-  ],
-  detailedDescription: '',
+    //stage3
+    isCustomLinkToDetails: false,
+    customLinkToDetails: null,
+    shortDescription: '',
+    images: [
+      {
+        id: new Date().getTime().toString(),
+        index: 0,
+        file: undefined,
+        url: '',
+        alt: '',
+        additionInfoThatMustBeDisplayed: '',
+      },
+    ],
+    detailedDescription: '',
 
-  //stage4
-  isToBeInSlider: true,
-  sliderImageUrl: null,
-  sliderImageAlt: null,
-  visibleInSliderFrom: null,
-  visibleInSliderTo: null,
+    //stage4
+    isToBeInSlider: true,
+    sliderImageUrl: null,
+    sliderImageAlt: null,
+    visibleInSliderFrom: null,
+    visibleInSliderTo: null,
 
-  //stage5
-  kindOfEnterInfo: '',
-  isPayed: false,
-  ticketBuyingId: null,
-};
+    //stage5
+    kindOfEnterInfo: '',
+    isPayed: false,
+    ticketBuyingId: null,
+  };
+}
 
 const eventsStateData: TCyclicalActivityState = {
   isAddEventVisible: false,
-  eventFormikDataForPUT: eventFreshObject,
+  eventFormikDataForPUT: createFreshEventObject(),
   isEventsMenuVisible: false,
 };
 
@@ -88,7 +90,7 @@ export function useEventsState() {
       state.eventFormikDataForPUT.set(data);
     },
     resetEventFormikDataForPUT() {
-      state.eventFormikDataForPUT.set(eventFreshObject);
+      state.eventFormikDataForPUT.set(createFreshEventObject());
     },
 
     // events menu

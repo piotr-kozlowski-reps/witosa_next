@@ -53,7 +53,7 @@ export default function NavigationCategoriesAndTargetsForEvents(props: Props) {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full bg-skin-main-bg drop-shadow-big z-[-1] relative"
+        className="relative w-full bg-skin-main-bg drop-shadow-big z-1"
       >
         <motion.div
           initial={{ scale: 1 }}
