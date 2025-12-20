@@ -11,7 +11,7 @@ import { Fragment } from 'react';
 
 export default function Modal() {
   ////vars
-  const { getModalContent, setHideModal, getCanModalBeClosed } =
+  const { getModalContent, setHideModal, getCanModalBeClosed, getIsShowModal } =
     useModalState();
 
   ////tsx
@@ -24,6 +24,7 @@ export default function Modal() {
           animate="visible"
           exit="exit"
           className="fixed z-40 w-full top-[128px] right-0 left-0 bg-skin-main-bg drop-shadow-big pt-[25px] pb-[32px] "
+          style={{ visibility: getIsShowModal() ? 'visible' : 'hidden' }}
         >
           <div className="proper-container-classes">{getModalContent()}</div>
         </motion.div>
