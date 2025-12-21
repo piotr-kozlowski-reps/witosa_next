@@ -17,7 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { pl } from 'date-fns/locale';
 import { useSession } from 'next-auth/react';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import DashboardHeader from './DashboardHeader';
 import DashboardInsidePages from './DashboardInsidePages';
 import DashboardNavigation from './DashboardNavigation';
@@ -91,13 +91,22 @@ export default function DashboardContent(props: Props) {
     },
   });
 
-  const isToShowModal =
-    (getCurrentDevice() === 'TABLET' || getCurrentDevice() === 'MOBILE') &&
-    isModalNotEnoughWidthToBeSeen;
-  if (isToShowModal) {
-    setIsModalNotEnoughWidthToBeSeen(false);
-    setShowModal(true, <ModalNotEnoughWidthForAdmin />);
-  }
+  // const isToShowModal =
+  //   (getCurrentDevice() === 'TABLET' || getCurrentDevice() === 'MOBILE') &&
+  //   isModalNotEnoughWidthToBeSeen;
+
+  // console.log({ isToShowModal });
+
+  // useEffect(() => {
+  //   if (isToShowModal) {
+  //     setIsModalNotEnoughWidthToBeSeen(false);
+  //     setShowModal(true, <ModalNotEnoughWidthForAdmin />);
+  //   }
+  //   if (!isToShowModal) {
+  //     setIsModalNotEnoughWidthToBeSeen(false);
+  //     setShowModal(false, <></>);
+  //   }
+  // }, [isToShowModal]);
 
   ////tsx
   return (
@@ -107,7 +116,7 @@ export default function DashboardContent(props: Props) {
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
           {session && session?.data?.user ? (
             <Fragment>
-              {getIsShowModal() ? <Modal /> : null}
+              {/* {getIsShowModal() ? <Modal /> : null} */}
               <div className="proper-container-classes">
                 <DashboardHeader userName={session?.data?.user?.name} />
 
