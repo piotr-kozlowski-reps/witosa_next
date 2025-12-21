@@ -25,7 +25,7 @@ export default function NewsInside(props: Props) {
           </div>
         </section>
       ) : (
-        <section className="mt-[192px] proper-container-classes">
+        <section className="mt-[99px] proper-container-classes ">
           <HorizontalSeparatorLine
             additionalClasses={getCurrentDevice() !== 'DESKTOP' ? 'w-full' : ''}
           />
