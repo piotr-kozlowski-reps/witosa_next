@@ -12,6 +12,7 @@ export default function KindOfEnterInfoComment() {
         height={188}
         alt="Rodzaj płatności - przykład."
         src={`${process.env.NEXT_PUBLIC_BASE_URL}kindofenter_example.jpg`}
+        unoptimized={true}
       />
     </div>
   );

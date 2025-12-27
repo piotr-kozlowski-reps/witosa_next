@@ -46,6 +46,7 @@ export default function IconButton({
         width={width}
         height={height}
         alt={alt}
+        unoptimized={true}
       />
     </div>
   );
@@ -57,8 +58,8 @@ export default function IconButton({
           size === 'NORMAL'
             ? 'w-8 h-8'
             : size === 'SMALL'
-            ? 'w-6 h-6'
-            : 'w-10 h-10'
+              ? 'w-6 h-6'
+              : 'w-10 h-10'
         )}
         onClick={actionFn}
       >
@@ -73,6 +74,7 @@ export default function IconButton({
             height={height}
             alt={alt}
             aria-hidden="true"
+            unoptimized={true}
           />
         </div>
         <div
@@ -85,6 +87,7 @@ export default function IconButton({
             height={height}
             alt={alt}
             aria-hidden="true"
+            unoptimized={true}
           />
         </div>
       </button>
@@ -100,8 +103,8 @@ export default function IconButton({
           size === 'NORMAL'
             ? 'w-8 h-8'
             : size === 'SMALL'
-            ? 'w-6 h-6'
-            : 'w-10 h-10'
+              ? 'w-6 h-6'
+              : 'w-10 h-10'
         )}
         target="_blank"
         rel="noopener noreferrer"
@@ -117,6 +120,7 @@ export default function IconButton({
             height={height}
             alt={alt}
             aria-hidden="true"
+            unoptimized={true}
           />
         </div>
         <div
@@ -129,6 +133,7 @@ export default function IconButton({
             height={height}
             alt={alt}
             aria-hidden="true"
+            unoptimized={true}
           />
         </div>
       </Link>

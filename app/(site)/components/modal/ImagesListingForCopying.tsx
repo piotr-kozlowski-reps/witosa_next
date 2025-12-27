@@ -31,6 +31,7 @@ export default function ImagesListingForCopying(props: Props) {
           height={64}
           alt={altProvided ? altProvided : alt}
           className="object-fill w-16 h-16"
+          unoptimized={true}
         />
       </div>
       {altProvided ? altProvided : alt}

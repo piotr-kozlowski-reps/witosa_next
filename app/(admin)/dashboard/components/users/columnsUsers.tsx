@@ -64,6 +64,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
             width={14}
             height={14}
             className="inline-block ml-[7px] mb-[2px]"
+            unoptimized={true}
           />
         </button>
       );
@@ -93,6 +94,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
             width={14}
             height={14}
             className="inline-block ml-[7px] mb-[2px]"
+            unoptimized={true}
           />
         </button>
       );
@@ -123,6 +125,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
               width={14}
               height={14}
               className="inline-block ml-[7px] mb-[2px]"
+              unoptimized={true}
             />
           </Fragment>
         </button>
@@ -160,6 +163,7 @@ export const columnsUsers: ColumnDef<TUserPicked>[] = [
             width={14}
             height={14}
             className="inline-block ml-[7px] mb-[2px]"
+            unoptimized={true}
           />
         </button>
       );

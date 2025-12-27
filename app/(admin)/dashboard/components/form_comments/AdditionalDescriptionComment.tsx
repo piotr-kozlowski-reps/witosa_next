@@ -13,6 +13,7 @@ export default function AdditionalDescriptionComment() {
         alt="Foto przykład opisu"
         width={250}
         height={188}
+        unoptimized={true}
       />
     </div>
   );

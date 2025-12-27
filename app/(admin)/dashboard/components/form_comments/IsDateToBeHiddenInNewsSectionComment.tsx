@@ -11,6 +11,7 @@ export default function IsDateToBeHiddenInNewsSectionComment() {
           height={191}
           alt="Data w sekcji aktualności."
           src={`${process.env.NEXT_PUBLIC_BASE_URL}date_in_news_example.jpg`}
+          unoptimized={true}
         />
         <p>
           Gdy pole jest <b>zaznaczone</b>:

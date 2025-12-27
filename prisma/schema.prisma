@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,17 +7,120 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id             String             @id @default(uuid())
+  name           String
+  email          String             @unique
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  hashedPassword String
+  userRole       UserRole           @default(EDITOR)
+  activities     CyclicalActivity[]
+  events         Event[]
+}
+
+model ImageEvent {
+  id                              String  @id @default(uuid())
+  url                             String
+  alt                             String
+  additionInfoThatMustBeDisplayed String?
+  eventId                         String
+  index                           Int
+  event                           Event   @relation(fields: [eventId], references: [id])
+}
+
+model ImageCyclicalActivity {
+  id                              String           @id @default(uuid())
+  url                             String
+  alt                             String
+  additionInfoThatMustBeDisplayed String?
+  cyclicalActivityId              String
+  index                           Int
+  cyclicalActivity                CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
+}
+
+model Event {
+  id                                      String       @id @default(uuid())
+  authorId                                String
+  createdAt                               DateTime     @default(now())
+  eventEndDate                            DateTime?
+  eventStartDate                          DateTime
+  title                                   String
+  updatedAt                               DateTime     @updatedAt
+  isToBeInNewsSection                     Boolean
+  isToBePublished                         Boolean
+  newsSectionImageUrl                     String?
+  shortDescription                        String
+  detailedDescription                     String
+  isPayed                                 Boolean
+  newsSectionImageAlt                     String?
+  visibleFrom                             DateTime?
+  visibleTo                               DateTime?
+  kindOfEnterInfo                         String
+  eventForWhom                            ForWhom[]
+  places                                  Place[]
+  isToBeOnlyInNewsSection_NotSeenInEvents Boolean
+  isDateToBeHiddenInNewsSection           Boolean?
+  isToBeInSlider                          Boolean
+  sliderImageAlt                          String?
+  sliderImageUrl                          String?
+  visibleInSliderFrom                     DateTime?
+  eventTypes                              EventType[]
+  customLinkToDetails                     String?
+  isCustomLinkToDetails                   Boolean
+  visibleInSliderTo                       DateTime?
+  ticketBuyingId                          String?
+  author                                  User         @relation(fields: [authorId], references: [id])
+  images                                  ImageEvent[]
+}
+
+model CyclicalActivityOccurrence {
+  id                 String           @id @default(uuid())
+  day                Day
+  activityStart      DateTime
+  activityEnd        DateTime
+  cyclicalActivityId String
+  cyclicalActivity   CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
+}
+
+model CyclicalActivity {
+  id                    String                       @id @default(uuid())
+  activityTypes         ActivityType[]
+  name                  String
+  shortDescription      String
+  expiresAt             DateTime?
+  isToBePublished       Boolean
+  createdAt             DateTime                     @default(now())
+  updatedAt             DateTime                     @updatedAt
+  authorId              String
+  customLinkToDetails   String?
+  activitiesForWhom     ForWhom[]
+  places                Place[]
+  longDescription       String?
+  isExpiresAtRequired   Boolean
+  isCustomLinkToDetails Boolean
+  author                User                         @relation(fields: [authorId], references: [id])
+  occurrence            CyclicalActivityOccurrence[]
+  images                ImageCyclicalActivity[]
+}
+
+model Newsletter {
+  email     String   @id @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum EventType {
   FESTIVAL
   CONCERT
-  DANCE
-  LITERATURE
   CABARET
   SPECTACLE
   CYCLIC_MEETING
   WORKSHOP
   LECTURE
   OTHERS
+  DANCE
+  LITERATURE
 }
 
 enum UserRole {
@@ -61,118 +161,4 @@ enum Place {
   DANCING_ROOM
   ART_ROOM
   CONCERT_HALL
-}
-
-model User{
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  hashedPassword String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userRole UserRole @default(EDITOR)
-  events Event[]
-  activities CyclicalActivity[]
-  // sliders Slide[]
-}
-
-model ImageEvent {
-  id String @id @default(uuid())
-  url String
-  alt String
-  index Int
-  additionInfoThatMustBeDisplayed String?
-  event Event @relation(fields: [eventId], references: [id])
-  eventId String
-}
-
-model ImageCyclicalActivity {
-  id String @id @default(uuid())
-  url String
-  alt String
-  index Int
-  additionInfoThatMustBeDisplayed String?
-  cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
-  cyclicalActivityId String
-}
-
-model Event{
-  id String @id @default(uuid())
-  eventTypes EventType[]
-  eventForWhom ForWhom[]
-  title String
-  places Place[]
-  shortDescription String
-  eventStartDate DateTime
-  eventEndDate DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
-
-  //details
-  isCustomLinkToDetails Boolean
-  images ImageEvent[]
-  detailedDescription String
-  customLinkToDetails String?
-
-  //paying
-  isPayed Boolean
-  kindOfEnterInfo String
-  ticketBuyingId String?
-
-  //news
-  isToBeInNewsSection Boolean
-  isToBeOnlyInNewsSection_NotSeenInEvents Boolean
-  isDateToBeHiddenInNewsSection Boolean?
-  newsSectionImageUrl String?
-  newsSectionImageAlt String?
-
-  //slider
-  isToBeInSlider Boolean
-  sliderImageUrl String?
-  sliderImageAlt String?
-  visibleInSliderFrom DateTime?
-  visibleInSliderTo DateTime?
-
-  //publishing
-  isToBePublished Boolean
-  visibleFrom DateTime?
-  visibleTo DateTime?
-}
-
-
-model CyclicalActivityOccurrence {
-  id String @id @default(uuid())
-  day Day
-  activityStart DateTime
-  activityEnd DateTime
-  cyclicalActivity CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
-  cyclicalActivityId String
-}
-model CyclicalActivity{
-  id String @id @default(uuid())
-  name String
-  activityTypes ActivityType[]
-  activitiesForWhom ForWhom[]
-  shortDescription String
-  longDescription String?
-  images ImageCyclicalActivity[]
-  occurrence CyclicalActivityOccurrence[]
-  places Place[]
-  isCustomLinkToDetails Boolean
-  customLinkToDetails String?
-  isExpiresAtRequired Boolean
-  expiresAt DateTime?
-  isToBePublished Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
-}
-
-model Newsletter {
-  email String @id @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

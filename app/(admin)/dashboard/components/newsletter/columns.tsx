@@ -63,6 +63,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
             width={14}
             height={14}
             className="inline-block ml-[7px] mb-[2px]"
+            unoptimized={true}
           />
         </button>
       );
@@ -93,6 +94,7 @@ export const columns: ColumnDef<TNewsletterTemporary>[] = [
               width={14}
               height={14}
               className="inline-block ml-[7px] mb-[2px]"
+              unoptimized={true}
             />
           </Fragment>
         </button>

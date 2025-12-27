@@ -81,6 +81,7 @@ export default function NavigationMainDesktop(props: Props) {
                   width={77}
                   height={24}
                   alt="ART CK logo"
+                  unoptimized={true}
                 />
               </Link>
             </span>

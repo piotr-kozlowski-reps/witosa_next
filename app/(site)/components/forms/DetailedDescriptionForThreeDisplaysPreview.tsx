@@ -64,12 +64,6 @@ export default function DetailedDescriptionForThreeDisplaysPreview(
               height={352}
               valueText={valueText}
             />
-            // <ImagePreviewModalInDifferentResolutions
-            //   image={image}
-            //   width={1140}
-            //   height={352}
-            //   isToBeRoundedFull={false}
-            // />
           );
         }}
       />

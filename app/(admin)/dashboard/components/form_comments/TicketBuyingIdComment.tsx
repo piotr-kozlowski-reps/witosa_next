@@ -13,6 +13,7 @@ export default function TicketBuyingIdComment() {
         alt="Gdzie znaleźć ID wydarzenia."
         width={400}
         height={289}
+        unoptimized={true}
       />
     </div>
   );

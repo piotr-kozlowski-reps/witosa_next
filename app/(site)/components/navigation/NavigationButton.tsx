@@ -74,6 +74,7 @@ export default function NavigationButton(props: Props) {
               height={5}
               alt="Arrow down"
               className={clsx('transition-all', cssIconClasses)}
+              unoptimized={true}
             />
           </div>
           <div
@@ -88,6 +89,7 @@ export default function NavigationButton(props: Props) {
               height={5}
               alt="Arrow down"
               className={clsx('transition-all', cssIconClasses)}
+              unoptimized={true}
             />
           </div>
           <div
@@ -102,6 +104,7 @@ export default function NavigationButton(props: Props) {
               height={5}
               alt="Arrow down"
               className={clsx('transition-all', cssIconClasses)}
+              unoptimized={true}
             />
           </div>
         </span>

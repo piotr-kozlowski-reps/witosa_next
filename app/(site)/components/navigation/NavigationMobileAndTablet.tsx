@@ -82,6 +82,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                   width={77}
                   height={24}
                   alt="ART CK logo"
+                  unoptimized={true}
                 />
               </span>
               <span className="sr-only">Strona główna</span>

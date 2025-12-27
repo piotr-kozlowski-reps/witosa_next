@@ -63,6 +63,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
             width={14}
             height={14}
             className="inline-block ml-[7px] mb-[2px] float-left"
+            unoptimized={true}
           />
         </button>
       );
@@ -94,6 +95,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
               width={14}
               height={14}
               className="inline-block ml-[7px] mb-[2px]"
+              unoptimized={true}
             />
           </Fragment>
         </button>
