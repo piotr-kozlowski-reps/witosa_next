@@ -73,8 +73,6 @@ export async function GET() {
           date: event.eventStartDate,
         });
       });
-
-    console.log(feed.rss2());
   }
 
   return new NextResponse(feed.rss2(), {
