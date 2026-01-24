@@ -46,7 +46,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
-          className="float-left w-56 ml-6"
+          className="float-left w-32 ml-6"
         >
           <span
             className={clsx(
@@ -113,7 +113,7 @@ export const columnsEvents: ColumnDef<Event>[] = [
   {
     header: () => {
       return (
-        <div className="float-left ml-6">
+        <div className="float-left ml-4">
           <span className="text-white font-base-regular ">publikowany?</span>
         </div>
       );
@@ -122,6 +122,31 @@ export const columnsEvents: ColumnDef<Event>[] = [
     cell: ({ row }) => {
       const isToBePublished = row.getValue('isToBePublished') as boolean;
       const formattedText = isToBePublished ? 'TAK' : 'NIE';
+
+      return (
+        <div
+          className={clsx(
+            formattedText === 'TAK' ? 'text-cta-secondary' : '',
+            formattedText === 'NIE' ? 'text-skin-error' : ''
+          )}
+        >
+          {formattedText}
+        </div>
+      );
+    },
+  },
+  {
+    header: () => {
+      return (
+        <div className="float-left ml-6">
+          <span className="text-white font-base-regular ">rss?</span>
+        </div>
+      );
+    },
+    accessorKey: 'isToBeInRssChannel',
+    cell: ({ row }) => {
+      const isToBeInRssChannel = row.getValue('isToBeInRssChannel') as boolean;
+      const formattedText = isToBeInRssChannel ? 'TAK' : 'NIE';
 
       return (
         <div

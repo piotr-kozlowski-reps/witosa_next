@@ -34,7 +34,7 @@ export async function GET() {
 
       //isToBeInRssChannel;
       .filter((event) => {
-        return true;
+        return event.isToBeInRssChannel;
       })
 
       //is not older than 3 months

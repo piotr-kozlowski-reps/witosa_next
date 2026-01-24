@@ -49,6 +49,7 @@ model Event {
   updatedAt                               DateTime     @updatedAt
   isToBeInNewsSection                     Boolean
   isToBePublished                         Boolean
+  isToBeInRssChannel                      Boolean      @default(true)
   newsSectionImageUrl                     String?
   shortDescription                        String
   detailedDescription                     String

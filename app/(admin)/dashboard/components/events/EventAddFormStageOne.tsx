@@ -16,6 +16,7 @@ import { Fragment } from 'react';
 import IsEventToBePublished from '../form_comments/IsEventToBePublished';
 import VisibleFromComment from '../form_comments/VisibleFromComment';
 import VisibleToComment from '../form_comments/VisibleToComment';
+import IsEventToBeInRss from '../form_comments/IsEventToBeInRss';
 
 type Props<T> = {
   isCurrentFormToPUTData: string;
@@ -104,6 +105,17 @@ export default function EventAddFormStageOne<T>(props: Props<T>) {
           label="Czy wydarzenie ma być opublikowane?"
           isCommentPopupVisible={true}
           commentContent={<IsEventToBePublished />}
+          isToBeUsedAsPartFormik={true}
+          formik={formik}
+        />
+      </div>
+
+      <div>
+        <CheckboxFormik<T>
+          name="isToBeInRssChannel"
+          label="Czy wydarzenie ma być widoczne w kanale RSS?"
+          isCommentPopupVisible={true}
+          commentContent={<IsEventToBeInRss />}
           isToBeUsedAsPartFormik={true}
           formik={formik}
         />
