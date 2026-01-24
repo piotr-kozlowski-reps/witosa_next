@@ -101,6 +101,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-03T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'de827c17-0b04-ff81-gg56-ce6bfr4gz45a',
@@ -162,6 +164,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-02T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'dre27c17-0aa4-ff81-g356-ce6bfr4gz54v',
@@ -216,6 +220,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'dwwe27417-0aa4-ff81-g351-ce6bfr4gz5f5',
@@ -270,6 +276,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'd44e7r47-0b04-ff81-8456-ce6bf7fd87yq',
@@ -324,6 +332,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-09T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'aa4e7r47-7804-ff81-8456-ce6bf7fd83wq',
@@ -378,6 +388,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-10T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'dr4e8847-7gg4-ff81-8456-ce6bf7fd86gq',
@@ -427,6 +439,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-23T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'dale8847-d3g4-ff81-8116-ce6rr7fd8656',
@@ -488,6 +502,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-24T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '12we27417-9875-ff81-g351-ce6bfr4ghta5',
@@ -541,6 +557,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'dadd8847-d3g1-ff81-8116-676rr7fd8aa3',
@@ -595,6 +613,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-15T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '1ase27417-9875-ffhy-g351-ce6bfr4gh3aa',
@@ -648,6 +668,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-08T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: 'f54d8847-d3g1-gt51-8116-6r6rr7fd8899',
@@ -710,6 +732,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-09-29T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '32dd8847-fr41-gt51-8dev-6r6rr7fd56ws',
@@ -767,6 +791,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-13T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '44dd8847-f5g1-gt51-811v-6r6rr7fd8wws',
@@ -817,6 +843,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-20T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '123d8847-e3g1-gt51-871v-fr6rr7fd8wzz',
@@ -870,6 +898,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-14T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '8wwd8847-e3c1-gt51-991v-fr6rr44d8wz4',
@@ -928,6 +958,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-28T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
   {
     id: '2wad8842-evc1-gt51-991v-fr6rrecd8wz0',
@@ -981,6 +1013,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-27T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
 
   {
@@ -1034,6 +1068,8 @@ export const allEventsMockData: TEventTemporary[] = [
     isToBePublished: true,
     visibleFrom: new Date('2023-08-26T15:20:24.968Z'),
     visibleTo: new Date('2023-10-28T23:59:00.968Z'),
+    //rss
+    isToBeInRssChannel: true,
   },
 ];
 

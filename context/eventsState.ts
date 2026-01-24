@@ -19,6 +19,7 @@ function createFreshEventObject(): TEventFormInputs {
     eventStartDate: null,
     eventEndDate: null, // omited
     isToBePublished: true,
+    isToBeInRssChannel: true,
     visibleFrom: null,
     visibleTo: null,
 
