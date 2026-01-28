@@ -1,0 +1,81 @@
+'use client';
+
+import { TSliderGroupImage } from '@/types';
+import clsx from 'clsx';
+import { Fragment } from 'react';
+import {
+  HashNavigation,
+  Keyboard,
+  Mousewheel,
+  Navigation,
+  Pagination,
+} from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import { useNavigationState } from '@/context/navigationState';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+type Props = {
+  sliderImages: TSliderGroupImage[];
+};
+
+export default function SliderGroupsInfo(props: Props) {
+  ////vars
+  const { sliderImages } = props;
+  const { getCurrentDevice } = useNavigationState();
+
+  ////tsx
+  return (
+    <Swiper
+      navigation={true}
+      pagination={{
+        clickable: true,
+      }}
+      mousewheel={true}
+      keyboard={true}
+      loop={true}
+      hashNavigation={{
+        watchState: true,
+      }}
+      modules={[Navigation, Pagination, Mousewheel, Keyboard, HashNavigation]}
+      // className="proper-container-classes"
+      // style={{ zIndex: -1 }}
+    >
+      {sliderImages.map((sliderImage, index) => {
+        return (
+          <Fragment key={`${index}-${sliderImage.url}`}>
+            <div className="relative z-1">
+              <SwiperSlide
+                virtualIndex={index}
+                key={`${index}-${sliderImage.url}`}
+              >
+                <div
+                  className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full aspect-[3/4] rounded-tl-base rounded-bl-base rounded-tr-base slider-break-point:rounded-tr-none rounded-br-base slider-break-point:rounded-br-none bg-skin-primary relative bg-no-repeat bg-cover bg-center -z-10"
+                  // className="h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10 proper-container-classes"
+                  style={{
+                    backgroundImage: `url(${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${sliderImage.url})`,
+                  }}
+                  aria-label={`${sliderImage.alt}`}
+                ></div>
+                {sliderImage.additionInfoThatMustBeDisplayed ? (
+                  <div
+                    className={clsx(
+                      'absolute bottom-2 right-4 font-sm-normal text-background',
+                      getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : '',
+                      getCurrentDevice() === 'MOBILE' ? 'mx-mobile-margin' : ''
+                    )}
+                  >
+                    {sliderImage.additionInfoThatMustBeDisplayed}
+                  </div>
+                ) : null}
+              </SwiperSlide>
+            </div>
+          </Fragment>
+        );
+      })}
+    </Swiper>
+  );
+}

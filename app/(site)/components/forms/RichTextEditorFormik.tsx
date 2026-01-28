@@ -46,7 +46,13 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
   //TODO: custom hook?
   const [value, setValue] = useState(currentValue);
   useEffect(() => {
-    formik.getFieldHelpers(name).setValue(value);
+    formik.getFieldHelpers(name).setValue(
+      value
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\u00A0/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    );
   }, [value]);
 
   const modules = {
@@ -63,6 +69,8 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
       userOnly: true,
     },
   };
+
+  console.log({ value });
 
   ////tsx
   return (

@@ -92,11 +92,11 @@ export default function NavigationMobileAndTablet(props: Props) {
                 'absolute top-[33px] ',
                 getCurrentDevice() === 'MOBILE'
                   ? // ? 'right-mobile-for-absolute-margin'
-                    'right-[-16px]'
+                    'right-[16px]'
                   : '',
                 getCurrentDevice() === 'TABLET'
                   ? // ? 'right-tablet-for-absolute-margin'
-                    'right-[-15px]'
+                    'right-[16px]'
                   : ''
               )}
             >

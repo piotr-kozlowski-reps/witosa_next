@@ -4,6 +4,7 @@ import { CyclicalActivityTemporary, TSliderGroupImage } from '@/types';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import ActivityOccurence from './ActivityOccurence';
+import SliderGroupsInfo from '@/app/(site)/components/slider_groups/SliderGroupsInfo';
 
 type Props = {
   activity: CyclicalActivityTemporary;
@@ -18,9 +19,98 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
 
   return (
     <Fragment>
-      {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages} /> : null}
+      <div className="proper-container-classes bg-skin-main-bg drop-shadow-big rounded-base">
+        <div className="flex flex-col items-start justify-start gap-6 slider-break-point:flex-row">
+          <div className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full">
+            {!isSliderEmpty ? (
+              <SliderGroupsInfo sliderImages={sliderImages!} />
+            ) : null}
+          </div>
 
-      <div className="proper-container-classes">
+          <div className="flex-1 prose ">
+            <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
+              {activity.name}
+            </h1>
+            {activity.longDescription ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: activity.longDescription as string,
+                }}
+              ></div>
+            ) : null}
+
+            <div>
+              <br />
+              <p>
+                <b>Zajęcia odbywają się w:</b>
+                <ActivityOccurence activity={activity} />
+              </p>
+            </div>
+            {/* {event.detailedDescription ? (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: event.detailedDescription as string,
+                      }}
+                    ></div>
+                  ) : null} */}
+
+            <div className="not-prose">
+              <br />
+              {/* data */}
+              {/* <DateAsClientComponentToPreserveConsistency
+                      isDateToBeHiddenInNewsSection={
+                        event.isDateToBeHiddenInNewsSection
+                      }
+                      eventStartDate={event.eventStartDate}
+                    /> */}
+
+              {/* <div className="-mt-[18px]">
+                      <span className="font-base-regular">
+                        <b>Gdzie:&nbsp;&nbsp;&nbsp;</b>
+      
+                        <span>
+                          {event.places.map((place, index) => (
+                            <span key={index}>
+                              {index !== event.places.length - 1 ? (
+                                <span>{`${getPolishPlaceName(place)}, `}</span>
+                              ) : (
+                                <span>{getPolishPlaceName(place)}</span>
+                              )}
+                            </span>
+                          ))}
+                        </span>
+                        <span></span>
+                      </span>
+                    </div> */}
+              {/* <div className="-mt-[3px]">
+                      <span className="font-base-regular">
+                        <b>Wstęp:&nbsp;&nbsp;&nbsp;</b>
+                      </span>
+                      <span className="font-base-regular">
+                        {event.kindOfEnterInfo}
+                      </span>
+                    </div> */}
+              {/* <div className="mt-[19px]">
+                      {event.isPayed && event.ticketBuyingId ? (
+                        <a
+                          aria-label="kup bilet online"
+                          href={`${process.env.NEXT_PUBLIC_VISUAL_TICKET_URL}${event.ticketBuyingId}`}
+                          // target="_blank"
+                          // rel="noopener noreferrer"
+                          title="Otwiera się w nowej zakładce."
+                          className={clsx('standard-button py-[19px] px-[3rem]')}
+                        >
+                          <span className="sr-only">kup bilet online</span>
+                          kup bilet online
+                        </a>
+                      ) : null}
+                    </div> */}
+            </div>
+          </div>
+        </div>
+        {/* {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages} /> : null} */}
+
+        {/* <div>
         <div className="max-w-full prose">
           <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
             {activity.name}
@@ -33,38 +123,6 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
             ></div>
           ) : null}
 
-          {/* <div>
-            <p>
-              Zapraszamy na absolutną nowość w ofercie naszej instytucji, jaką
-              są treningi akrobatyczne.
-            </p>
-            <p>
-              Zajęcia poprowadzi doświadczona instruktorka akrobatyki:
-              <b> Kimi Łagowska</b>.
-            </p>
-            <p>
-              Treningi akrobatyczne pomagają pokonywać własne lęki i słabości,
-              kształtują charakter i są wspaniałą nauką dyscypliny oraz
-              skupienia. Kolejne udane elementy (przewroty, gwiazdy, stanie na
-              głowie czy rękach, mostki, przejścia, fliki) budują samoocenę i
-              dodają pewności siebie. Dziecko staje się bardziej zwinne,
-              silniejsze, nabiera większej świadomości ciała i szybciej opanuje
-              różne zadania koordynacyjne w sporcie, w tańcu i życiu codziennym.
-            </p>
-            <p>
-              Zajęcia rozpoczynają się <b>30.09</b> i odbywać się będą w każdą
-              sobotę w czterech odrębnych grupach.
-            </p>
-            <p>
-              Dla bezpieczeństwa i komfortu dzieci, grupy nie będą przekraczały
-              14 osób.
-            </p>
-            <p>
-              Koszt: 70 pln za miesiąc. Pierwsze zajęcia <b>30.09</b> są
-              zajęciami <b>bezpłatnymi</b>.
-            </p>
-          </div> */}
-
           <div>
             <br />
             <p>
@@ -73,6 +131,7 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
             </p>
           </div>
         </div>
+      </div> */}
       </div>
       <FooterMain />
     </Fragment>
