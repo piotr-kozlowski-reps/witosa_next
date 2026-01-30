@@ -23,7 +23,7 @@ export default function EventDynamicInside(props: Props) {
     <Fragment>
       {/* {!isSliderEmpty ? <SliderGroups sliderImages={sliderImages!} /> : null} */}
 
-      <div className="proper-container-classes bg-skin-main-bg drop-shadow-big rounded-base">
+      <div className="proper-container-classes bg-skin-main-bg drop-shadow-none slider-break-point:drop-shadow-big rounded-base">
         <div className="flex flex-col items-start justify-start gap-6 slider-break-point:flex-row">
           <div className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full">
             {!isSliderEmpty ? (
@@ -31,7 +31,7 @@ export default function EventDynamicInside(props: Props) {
             ) : null}
           </div>
 
-          <div className="flex-1 prose ">
+          <div className="flex-1 prose">
             <h1 className={clsx(isSliderEmpty ? '-mt-[7px]' : 'mt-[57px]')}>
               {event.title}
             </h1>

@@ -24,7 +24,7 @@ export default function Sitemap(props: Props) {
     >
       <h4>Mapa strony</h4>
       <ul className="flex flex-col items-start justify-center list-none not-prose mt-[17px]">
-        <li className="-ml-[23px] ">
+        <li className="">
           <NavigationLink
             url={getLinkData('NEWS')?.path!}
             hideAllSubmenus={() => {}}
@@ -33,7 +33,7 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
-        <li className="-ml-[23px] mt-[6px]">
+        <li className=" mt-[6px]">
           <NavigationLink
             url={getLinkData('EVENTS')?.path!}
             hideAllSubmenus={() => {}}
@@ -42,7 +42,7 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
-        <li className="-ml-[23px] mt-[6px]">
+        <li className=" mt-[6px]">
           <NavigationLink
             url={getLinkData('CYCLICAL_ACTIVITIES')?.path!}
             hideAllSubmenus={() => {}}
@@ -55,11 +55,9 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
-        <div className="-ml-[23px] submenu-name-sitemap mt-[6px]">
-          grupy artystyczne
-        </div>
+        <div className=" submenu-name-sitemap mt-[6px]">grupy artystyczne</div>
         <ul className="flex flex-col items-start justify-center list-none not-prose">
-          <li className="mt-[5px]">
+          <li className="mt-[5px] ml-[23px]">
             <NavigationLink
               url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
               hideAllSubmenus={() => {}}
@@ -72,7 +70,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
               hideAllSubmenus={() => {}}
@@ -85,7 +83,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('GROUPS_MARZENIE')?.path!}
               hideAllSubmenus={() => {}}
@@ -96,7 +94,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
               hideAllSubmenus={() => {}}
@@ -109,7 +107,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('GROUPS_HIPNOTERIA')?.path!}
               hideAllSubmenus={() => {}}
@@ -123,9 +121,9 @@ export default function Sitemap(props: Props) {
             />
           </li>
         </ul>
-        <div className="-ml-[23px] submenu-name-sitemap mt-[6px]">o nas</div>
+        <div className=" submenu-name-sitemap mt-[6px]">o nas</div>
         <ul className="flex flex-col items-start justify-center list-none not-prose">
-          <li className="mt-[5px] ">
+          <li className="mt-[5px] ml-[23px]">
             <NavigationLink
               url={getLinkData('ABOUT_ABOUT')?.path!}
               hideAllSubmenus={() => {}}
@@ -135,7 +133,7 @@ export default function Sitemap(props: Props) {
             />
           </li>
 
-          <li className=" mt-[6px]">
+          <li className=" mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('ABOUT_REGULATIONS')?.path!}
               hideAllSubmenus={() => {}}
@@ -148,7 +146,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className=" mt-[6px]">
+          <li className=" mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('ABOUT_AVAILABILITY_DECLARATIONS')?.path!}
               hideAllSubmenus={() => {}}
@@ -162,7 +160,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <NavigationLink
               url={getLinkData('ABOUT_RODO')?.path!}
               hideAllSubmenus={() => {}}
@@ -171,7 +169,7 @@ export default function Sitemap(props: Props) {
               isSiteMapLink={true}
             />
           </li>
-          <li className="mt-[6px]">
+          <li className="mt-[6px] ml-[23px]">
             <div>
               <a
                 className="link-default-sitemap pt-[6px] whitespace-nowrap"
@@ -183,7 +181,7 @@ export default function Sitemap(props: Props) {
             </div>
           </li>
         </ul>
-        <li className="-ml-[23px] mt-[6px]">
+        <li className=" mt-[6px]">
           <NavigationLink
             url={getLinkData('BISTRO')?.path!}
             hideAllSubmenus={() => {}}
@@ -192,7 +190,7 @@ export default function Sitemap(props: Props) {
             isSiteMapLink={true}
           />
         </li>
-        <li className="-ml-[23px] mt-[6px]">
+        <li className=" mt-[6px]">
           <NavigationLink
             url={getLinkData('CONTACT')?.path!}
             hideAllSubmenus={() => {}}
@@ -202,8 +200,8 @@ export default function Sitemap(props: Props) {
           />
         </li>
 
-        <div className="-ml-[26px] separator-horizontal mt-[24px] mb-[22px]"></div>
-        <li className="-ml-[26px] ">
+        <div className="separator-horizontal mt-[24px] mb-[22px]"></div>
+        <li className="">
           <NavigationLink
             url={getLinkData('LOGIN')?.path!}
             hideAllSubmenus={() => {}}

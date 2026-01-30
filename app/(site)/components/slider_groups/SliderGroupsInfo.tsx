@@ -53,7 +53,7 @@ export default function SliderGroupsInfo(props: Props) {
                 key={`${index}-${sliderImage.url}`}
               >
                 <div
-                  className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full aspect-[3/4] rounded-tl-base rounded-bl-base rounded-tr-base slider-break-point:rounded-tr-none rounded-br-base slider-break-point:rounded-br-none bg-skin-primary relative bg-no-repeat bg-cover bg-center -z-10"
+                  className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full aspect-[3/4] rounded-tl-base rounded-bl-base rounded-tr-base slider-break-point:rounded-tr-none rounded-br-base slider-break-point:rounded-br-none  relative bg-no-repeat bg-cover bg-center -z-10"
                   // className="h-[352px] bg-skin-primary rounded-base relative bg-no-repeat bg-cover bg-center -z-10 proper-container-classes"
                   style={{
                     backgroundImage: `url(${process.env.NEXT_PUBLIC_AWS_S3_MAIN_URL}${sliderImage.url})`,

@@ -1,6 +1,7 @@
 import { TSliderGroupImage } from '@/types';
 import { Fragment } from 'react';
 import SliderGroups from '../../components/slider_groups/SliderGroups';
+import SliderGroupsInfo from '../../components/slider_groups/SliderGroupsInfo';
 
 export default function BistroContent() {
   ////vars
@@ -35,7 +36,73 @@ export default function BistroContent() {
   ////tsx
   return (
     <Fragment>
-      <div>
+      <main>
+        <div className="proper-container-classes bg-skin-main-bg drop-shadow-none slider-break-point:drop-shadow-big rounded-base">
+          <div className="flex flex-col items-start justify-start gap-6 slider-break-point:flex-row">
+            <div className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full">
+              <SliderGroupsInfo sliderImages={sliderImages!} />
+            </div>
+
+            <div className="flex-1 pb-8 prose">
+              <h1 className="mt-[57px]">Art Cafe</h1>
+              <p>
+                <b>Art Cafe </b>
+                to kawiarnia mieszcząca się przy ul. Wincentego Witosa 6 w
+                Knurowie, w nowo otwartym miejscu, należącym do knurowskiego
+                Centrum Kultury.
+              </p>
+              <p>
+                Naszą ideą jest „uczynienie dnia przyjemniejszym” dzięki
+                pozytywnej energii, miłej obsłudze i dbałości o miłe detale w
+                wystroju naszego wnętrza (neon z najlepszym przesłaniem
+                &quot;TODAY IS A GOOD DAY&quot;, zawieszonym nad
+                &quot;huśtawkowym kącikiem&quot;).
+              </p>
+              <p>
+                Oczywiście miłej atmosferze towarzyszy bardzo dobra, świeżo
+                palona kawa z gliwickiej palarni KAFAR (
+                <a
+                  href="https://palarniakafar.pl/o-nas/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Otwiera się w nowej zakładce."
+                >
+                  palarniakafar.pl/o-nas/
+                </a>
+                ) oraz pyszne, w artystycznej formie podane wypieki.
+              </p>
+              <p>
+                Znajdziesz u nas zawsze ciekawe czasopisma i książki (bo
+                przecież możesz wpaść do nas solo!!!) oraz gry (mniej lub
+                bardziej tradycyjne planszówki) na wypadek, gdyby Twoje grono
+                towarzyszy poczuło silną potrzebę współzawodnictwa!
+              </p>
+              <p>
+                Na początek będziesz mógł u nas spędzić czas przy napojach i
+                deserach podanych poniżej w menu, ale ponieważ naszą potrzebą
+                jest ROZWÓJ (będący literką &quot;R&quot; w naszej nazwie), to
+                zamierzamy Was co jakiś czas zaskoczyć piękną, smaczną i miłą
+                nowością. W tym momencie zachęcamy Was do śledzenia naszych
+                mediów społecznościowych, gdzie będziemy te nowinki prezentować
+                i jednocześnie informować Was o wszelkich zmianach i innowacjach
+                dotyczących naszej działalności.
+              </p>
+              <p>
+                Zapraszamy Was codziennie od poniedziałku do piątku w g. 12:00 -
+                20:00, w soboty i niedziele w g. 14:00 - 20:00 (z wyjątkiem dni,
+                gdy odbywać się będą wydarzenia kulturalne).
+              </p>
+
+              <br />
+              <p>
+                <b>DO ZOBACZENIA!!!</b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* <div>
         <SliderGroups sliderImages={sliderImages} />
         <div className="relative proper-container-classes">
           <div className="absolute right-0">
@@ -99,7 +166,7 @@ export default function BistroContent() {
             <b>DO ZOBACZENIA!!!</b>
           </p>
         </div>
-      </div>
+      </div> */}
     </Fragment>
   );
 }

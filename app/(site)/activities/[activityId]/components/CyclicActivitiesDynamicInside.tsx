@@ -19,7 +19,7 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
 
   return (
     <Fragment>
-      <div className="proper-container-classes bg-skin-main-bg drop-shadow-big rounded-base">
+      <div className="proper-container-classes bg-skin-main-bg drop-shadow-none slider-break-point:drop-shadow-big rounded-base">
         <div className="flex flex-col items-start justify-start gap-6 slider-break-point:flex-row">
           <div className="slider-break-point:h-[638px] slider-break-point:w-[453px] w-full">
             {!isSliderEmpty ? (
@@ -46,13 +46,6 @@ export default function CyclicActivitiesDynamicInside(props: Props) {
                 <ActivityOccurence activity={activity} />
               </p>
             </div>
-            {/* {event.detailedDescription ? (
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: event.detailedDescription as string,
-                      }}
-                    ></div>
-                  ) : null} */}
 
             <div className="not-prose">
               <br />
