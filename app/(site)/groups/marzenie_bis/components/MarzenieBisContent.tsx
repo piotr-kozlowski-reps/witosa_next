@@ -2,7 +2,7 @@ export default function MarzenieBisContent() {
   ////tsx
   return (
     <div className="proper-container-classes">
-      <div className="max-w-full prose">
+      <div className="w-full pr-2 prose">
         <h1 className="mt-[57px]">Marzenie bis</h1>
         <p className="w-full ">
           Stylizowany taniec, zaadaptowany do potrzeb scenicznych jest naszym

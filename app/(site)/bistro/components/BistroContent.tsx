@@ -43,7 +43,7 @@ export default function BistroContent() {
               <SliderGroupsInfo sliderImages={sliderImages!} />
             </div>
 
-            <div className="flex-1 pb-8 prose">
+            <div className="flex-1 pb-8 pr-2 prose">
               <h1 className="mt-[57px]">Art Cafe</h1>
               <p>
                 <b>Art Cafe </b>

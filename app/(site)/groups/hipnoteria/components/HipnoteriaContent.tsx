@@ -2,7 +2,7 @@ export default function HipnoteriaContent() {
   ////tsx
   return (
     <div className="proper-container-classes">
-      <div className="max-w-full prose">
+      <div className="w-full pr-2 prose">
         <h1 className="mt-[57px]">Hipnoteria</h1>
         <p className="w-full ">
           Jest to najstarsza i najbardziej zaawansowana w technice Street Dance

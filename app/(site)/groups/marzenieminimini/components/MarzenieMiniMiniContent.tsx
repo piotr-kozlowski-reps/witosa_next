@@ -2,7 +2,7 @@ export default function MarzenieMiniMiniContent() {
   ////tsx
   return (
     <div className="proper-container-classes">
-      <div className="max-w-full prose">
+      <div className="w-full pr-2 prose">
         <h1 className="mt-[57px]">Marzenie mini mini</h1>
         <p className="w-full">
           Celem zajęć jest kształtowanie prawidłowej postawy i nauka koordynacji
