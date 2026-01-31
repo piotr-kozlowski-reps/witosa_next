@@ -418,3 +418,23 @@ export type TImagesToBeUpdatedDeletedCreated = {
   imagesToBeCreatedPreparedForDB: Prisma.ImageEventCreateManyInput[];
   imagesObjectsIDisToBeDeletedPreparedForDB: string[];
 };
+
+//artistic groups
+export type Image = {
+  id: string;
+  url: string;
+  alt: string;
+  additionInfoThatMustBeDisplayed?: string | null;
+  artisticGroupId: string;
+  index: number;
+};
+export type TArtisticGroup = {
+  id: string;
+  authorId: string;
+  createdAt: Date;
+  title: string;
+  updatedAt: Date;
+  isToBePublished: boolean;
+  detailedDescription: string;
+  images: Image[];
+};

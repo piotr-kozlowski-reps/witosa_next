@@ -21,6 +21,7 @@ import InstagramIcon from '../icons/InstagramIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
+import { useArtisticGroupsStore } from '@/context/artisticGroupsStore';
 // const { publicRuntimeConfig } = getConfig();
 // const { processEnv } = publicRuntimeConfig;
 
@@ -51,6 +52,7 @@ export default function NavigationMainDesktop(props: Props) {
     toggleIsAboutSubmenuVisible,
     getSocialLinkData,
   } = props;
+  const artisticGroups = useArtisticGroupsStore((s) => s.artisticGroups);
 
   ////tsx
   return (
@@ -66,16 +68,6 @@ export default function NavigationMainDesktop(props: Props) {
           <li>
             <span aria-hidden="true">
               <Link href={'/'}>
-                {/* <Image
-                  src={
-                    process.env.NEXT_PUBLIC_BASE_URL
-                      ? `${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`
-                      : `${processEnv.NEXT_PUBLIC_BASE_URL}artck_logo.svg`
-                  }
-                  width={77}
-                  height={24}
-                  alt="ART CK logo"
-                /> */}
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_URL}artck_logo.svg`}
                   width={77}
@@ -143,7 +135,17 @@ export default function NavigationMainDesktop(props: Props) {
                         'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
                       )}
                     >
-                      <li>
+                      {artisticGroups.map((group) => (
+                        <li key={group.id}>
+                          <NavigationLink
+                            url={``}
+                            hideAllSubmenus={hideAllSubmenus}
+                            isCurrentlyUsed={false}
+                            nameToBeDisplayed={group.title}
+                          />
+                        </li>
+                      ))}
+                      {/* <li>
                         <NavigationLink
                           url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
@@ -156,9 +158,9 @@ export default function NavigationMainDesktop(props: Props) {
                               ?.nameToBeDisplayed!
                           }
                         />
-                      </li>
+                      </li> */}
 
-                      <li>
+                      {/* <li>
                         <NavigationLink
                           url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
@@ -170,9 +172,9 @@ export default function NavigationMainDesktop(props: Props) {
                               ?.nameToBeDisplayed!
                           }
                         />
-                      </li>
+                      </li> */}
 
-                      <li>
+                      {/* <li>
                         <NavigationLink
                           url={getLinkData('GROUPS_MARZENIE')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
@@ -183,9 +185,9 @@ export default function NavigationMainDesktop(props: Props) {
                             getLinkData('GROUPS_MARZENIE')?.nameToBeDisplayed!
                           }
                         />
-                      </li>
+                      </li> */}
 
-                      <li>
+                      {/* <li>
                         <NavigationLink
                           url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
                           hideAllSubmenus={hideAllSubmenus}
@@ -211,7 +213,7 @@ export default function NavigationMainDesktop(props: Props) {
                             getLinkData('GROUPS_HIPNOTERIA')?.nameToBeDisplayed!
                           }
                         />
-                      </li>
+                      </li> */}
                     </motion.ul>
                   ) : null}
                 </AnimatePresence>
