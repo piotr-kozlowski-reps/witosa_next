@@ -420,14 +420,14 @@ export type TImagesToBeUpdatedDeletedCreated = {
 };
 
 //artistic groups
-export type Image = {
-  id: string;
-  url: string;
-  alt: string;
-  additionInfoThatMustBeDisplayed?: string | null;
-  artisticGroupId: string;
-  index: number;
-};
+// export type Image = {
+//   id: string;
+//   url: string;
+//   alt: string;
+//   additionInfoThatMustBeDisplayed?: string | null;
+//   artisticGroupId: string;
+//   index: number;
+// };
 export type TArtisticGroup = {
   id: string;
   authorId: string;
@@ -436,5 +436,5 @@ export type TArtisticGroup = {
   updatedAt: Date;
   isToBePublished: boolean;
   detailedDescription: string;
-  images: Image[];
+  images: TSliderGroupImage[];
 };

@@ -1,4 +1,5 @@
 import { TArtisticGroup } from '@/types';
+import { group } from 'console';
 import { create } from 'zustand';
 
 const artisticGroups: TArtisticGroup[] = [
@@ -23,12 +24,9 @@ Prowadzenie: Natalia Tomecka
 Zajęcia: wtorek - godz. 16.45 - 17.45 i czwartek - godz. 15.30-16.30`,
     images: [
       {
-        id: 'f7c1ad00-85c9-479f-8215-b6e02722ce70',
         url: '2025_12_20__event___t2swgmno2o9zi3xi3ogckk.jpg',
         alt: 'etyhty',
         additionInfoThatMustBeDisplayed: null,
-        artisticGroupId: '7cbaebe3-51af-438c-b997-937330eed8d8',
-        index: 0,
       },
     ],
   },
@@ -51,20 +49,17 @@ Prowadzenie: Natalia Tomecka
 Zajęcia: wtorek - godz. 18.00-19.30 i czwartek - godz. 16.45-18.15`,
     images: [
       {
-        id: 'f7c1ad00-85c9-479f-8215-b6e02722ce70',
         url: 'https://witosa.s3.eu-north-1.amazonaws.com/groups_marzenie_bis_001.jpg',
         alt: 'etyhty',
         additionInfoThatMustBeDisplayed: null,
-        artisticGroupId: '7cbaebe3-51af-438c-b997-937330eed8d8',
-        index: 0,
       },
       {
-        id: 'f7c1ad00-85c9-479f-8215-b6e02722ce71',
+        // id: 'f7c1ad00-85c9-479f-8215-b6e02722ce71',
         url: 'https://witosa.s3.eu-north-1.amazonaws.com/groups_marzenie_bis_002.jpgg',
         alt: 'etyhty',
         additionInfoThatMustBeDisplayed: null,
-        artisticGroupId: '7cbaebe3-51af-438c-b997-937330eed8d8',
-        index: 0,
+        // artisticGroupId: '7cbaebe3-51af-438c-b997-937330eed8d8',
+        // index: 0,
       },
     ],
   },
@@ -72,12 +67,13 @@ Zajęcia: wtorek - godz. 18.00-19.30 i czwartek - godz. 16.45-18.15`,
 
 interface ArtisticGroupsStore {
   artisticGroups: TArtisticGroup[];
-  // getArtisticGroups: () => TArtisticGroup[];
+  getArtisticGroup: (title: string) => TArtisticGroup | undefined;
 }
 
 export const useArtisticGroupsStore = create<ArtisticGroupsStore>()(
   (set, get) => ({
     artisticGroups: artisticGroups,
-    // getArtisticGroups: () => get().artisticGroups,
+    getArtisticGroup: (title: string) =>
+      get().artisticGroups.find((group) => group.title === title),
   })
 );

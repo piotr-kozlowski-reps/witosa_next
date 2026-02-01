@@ -138,7 +138,7 @@ export default function NavigationMainDesktop(props: Props) {
                       {artisticGroups.map((group) => (
                         <li key={group.id}>
                           <NavigationLink
-                            url={``}
+                            url={`/groups?title=${group.title}`}
                             hideAllSubmenus={hideAllSubmenus}
                             isCurrentlyUsed={false}
                             nameToBeDisplayed={group.title}
