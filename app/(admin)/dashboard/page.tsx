@@ -6,6 +6,7 @@ import { TNewsletterDataCombo } from '@/types';
 import { getAllEvents } from '@/actions/eventsActions';
 import { Fragment } from 'react';
 import DashboardContent from './components/DashboardContent';
+import { getAllArtisticGroups } from '@/actions/artisticGroupsActions';
 
 export default async function Dashboard() {
   ////vars
@@ -13,6 +14,7 @@ export default async function Dashboard() {
   const usersData = await getAllUsers();
   const cyclicalActivitiesData = await getAllCyclicalActivities();
   const eventsData = await getAllEvents();
+  const artisticGroupsData = await getAllArtisticGroups();
 
   const newsletterDataCombo: TNewsletterDataCombo = {
     allNewsletterAddresses: newsletterData,
@@ -27,6 +29,7 @@ export default async function Dashboard() {
           usersData={usersData}
           cyclicalActivitiesData={cyclicalActivitiesData}
           eventsData={eventsData}
+          artisticGroupsData={artisticGroupsData}
         />
       </div>
     </Fragment>

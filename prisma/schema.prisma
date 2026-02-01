@@ -17,6 +17,7 @@ model User {
   userRole       UserRole           @default(EDITOR)
   activities     CyclicalActivity[]
   events         Event[]
+  artisticGroups ArtisticGroup[]
 }
 
 model ImageEvent {
@@ -37,6 +38,16 @@ model ImageCyclicalActivity {
   cyclicalActivityId              String
   index                           Int
   cyclicalActivity                CyclicalActivity @relation(fields: [cyclicalActivityId], references: [id])
+}
+
+model ImageArtisticGroup {
+  id                              String  @id @default(uuid())
+  url                             String
+  alt                             String
+  additionInfoThatMustBeDisplayed String?
+  artisticGroupId                 String
+  index                           Int
+  artisticGroup                   ArtisticGroup @relation(fields: [artisticGroupId], references: [id])
 }
 
 model Event {
@@ -73,6 +84,18 @@ model Event {
   ticketBuyingId                          String?
   author                                  User         @relation(fields: [authorId], references: [id])
   images                                  ImageEvent[]
+}
+
+model ArtisticGroup {
+  id                                      String       @id @default(uuid())
+  authorId                                String
+  title                                   String
+  isToBePublished                         Boolean
+  detailedDescription                     String
+  createdAt                               DateTime     @default(now())
+  updatedAt                               DateTime     @updatedAt
+  author                                  User         @relation(fields: [authorId], references: [id])
+  images                                  ImageArtisticGroup[]
 }
 
 model CyclicalActivityOccurrence {

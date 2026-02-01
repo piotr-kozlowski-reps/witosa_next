@@ -36,10 +36,15 @@ const navigationStateAdminData: TNavigationStateAdmin = {
       isCurrentlyUsed: false,
     },
     {
-      name: 'LOGS',
-      nameToBeDisplayed: 'logi',
+      name: 'ARTISTIC_GROUP',
+      nameToBeDisplayed: 'gr. artystyczne',
       isCurrentlyUsed: false,
     },
+    // {
+    //   name: 'LOGS',
+    //   nameToBeDisplayed: 'logi',
+    //   isCurrentlyUsed: false,
+    // },
   ],
 };
 

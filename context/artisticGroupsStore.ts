@@ -1,5 +1,4 @@
 import { TArtisticGroup } from '@/types';
-import { group } from 'console';
 import { create } from 'zustand';
 
 const artisticGroups: TArtisticGroup[] = [

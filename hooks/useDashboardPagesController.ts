@@ -6,12 +6,15 @@ export function useDashboardPagesController() {
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
   const { getAdminLink } = useNavigationStateAdmin();
+
   const isToShowUsers = isAdmin && getAdminLink('USERS')?.isCurrentlyUsed;
   const isToShowLogs = isAdmin && getAdminLink('LOGS')?.isCurrentlyUsed;
   const isToShowNewsletter = getAdminLink('NEWSLETTER')?.isCurrentlyUsed;
   const isToShowCyclicalActivities =
     getAdminLink('CYCLICAL_ACTIVITY')?.isCurrentlyUsed;
   const isToShowEvents = getAdminLink('EVENTS')?.isCurrentlyUsed;
+  const isToShowArtisticGroups =
+    getAdminLink('ARTISTIC_GROUP')?.isCurrentlyUsed;
 
   return {
     isToShowUsers,
@@ -19,5 +22,6 @@ export function useDashboardPagesController() {
     isToShowNewsletter,
     isToShowCyclicalActivities,
     isToShowEvents,
+    isToShowArtisticGroups,
   };
 }

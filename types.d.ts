@@ -8,6 +8,8 @@ import {
   Prisma,
   User,
   UserRole,
+  ArtisticGroup,
+  ImageArtisticGroup,
 } from '@prisma/client';
 
 export type TMode = 'LIGHT' | 'DARK' | 'CONTRAST';
@@ -125,6 +127,7 @@ export type TLinkAdminName =
   | 'CYCLICAL_ACTIVITY'
   | 'NEWSLETTER'
   | 'USERS'
+  | 'ARTISTIC_GROUP'
   | 'LOGS';
 export type TAdminLink = {
   name: TLinkAdminName;
@@ -257,6 +260,16 @@ export type TGetOneCyclicalActivityResponse = {
 };
 
 export type TGetAllEventsResponse = {
+  status: TStatus;
+  response: string | Event[];
+};
+
+export type TGetAllArtisticGroupsResponse = {
+  status: TStatus;
+  response: string | ArtisticGroup[];
+};
+
+export type TGetAllArtisticGroupsResponse = {
   status: TStatus;
   response: string | Event[];
 };
@@ -419,6 +432,24 @@ export type TImagesToBeUpdatedDeletedCreated = {
   imagesObjectsIDisToBeDeletedPreparedForDB: string[];
 };
 
+export type TImageArtisticGroupFormValues = Omit<
+  ImageArtisticGroup,
+  'artisticGroupId'
+> & {
+  file?: TFileWithPreview | string;
+};
+export type TArtisticGroupFormInputs = Pick<
+  ArtisticGroup,
+  'id' | 'title' | 'isToBePublished' | 'detailedDescription'
+> & {
+  images: TImageArtisticGroupFormValues[];
+};
+
+//   & {
+//   images: TImageCyclicalActivityFormValues[];
+//   //   occurrence: TOccurrence[];
+// };
+
 //artistic groups
 // export type Image = {
 //   id: string;
@@ -428,13 +459,13 @@ export type TImagesToBeUpdatedDeletedCreated = {
 //   artisticGroupId: string;
 //   index: number;
 // };
-export type TArtisticGroup = {
-  id: string;
-  authorId: string;
-  createdAt: Date;
-  title: string;
-  updatedAt: Date;
-  isToBePublished: boolean;
-  detailedDescription: string;
-  images: TSliderGroupImage[];
-};
+// export type TArtisticGroup = {
+//   id: string;
+//   authorId: string;
+//   createdAt: Date;
+//   title: string;
+//   updatedAt: Date;
+//   isToBePublished: boolean;
+//   detailedDescription: string;
+//   images: TSliderGroupImage[];
+// };

@@ -1,6 +1,7 @@
 import ComponentTransitionFromRightToLeft from '@/app/(site)/components/motionWrappers/ComponentTransitionFromRightToLeft';
 import { useDashboardPagesController } from '@/hooks/useDashboardPagesController';
 import {
+  TGetAllArtisticGroupsResponse,
   TGetAllCyclicalActivitiesResponse,
   TGetAllEventsResponse,
   TGetAllUsersResponse,
@@ -12,24 +13,32 @@ import DashboardCyclicalActivities from './cyclical_activities/DashboardCyclical
 import DashboardEvents from './events/DashboardEvents';
 import DashboardNewsletter from './newsletter/DashboardNewsletter';
 import DashboardUsers from './users/DashboardUsers';
+import DashboardArtisticGroups from './artistic_groups/DashboardArtisticGroups';
 
 type Props = {
   newsletterDataCombo: TNewsletterDataCombo;
   usersData: TGetAllUsersResponse;
   cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
   eventsData: TGetAllEventsResponse;
+  artisticGroupsData: TGetAllArtisticGroupsResponse;
 };
 
 export default function DashboardInsidePages(props: Props) {
   ////vars
-  const { cyclicalActivitiesData, newsletterDataCombo, usersData, eventsData } =
-    props;
+  const {
+    cyclicalActivitiesData,
+    newsletterDataCombo,
+    usersData,
+    eventsData,
+    artisticGroupsData,
+  } = props;
   const {
     isToShowUsers,
     isToShowCyclicalActivities,
     isToShowEvents,
     isToShowLogs,
     isToShowNewsletter,
+    isToShowArtisticGroups,
   } = useDashboardPagesController();
 
   ////tsx
@@ -60,6 +69,12 @@ export default function DashboardInsidePages(props: Props) {
 
         <ComponentTransitionFromRightToLeft>
           {isToShowLogs ? <DashboardLogs /> : null}
+        </ComponentTransitionFromRightToLeft>
+
+        <ComponentTransitionFromRightToLeft>
+          {isToShowArtisticGroups ? (
+            <DashboardArtisticGroups artisticGroupsData={artisticGroupsData} />
+          ) : null}
         </ComponentTransitionFromRightToLeft>
       </div>
     </Fragment>

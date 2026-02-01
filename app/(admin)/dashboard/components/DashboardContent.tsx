@@ -7,6 +7,7 @@ import { useModalState } from '@/context/modalState';
 import { useNavigationState } from '@/context/navigationState';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import {
+  TGetAllArtisticGroupsResponse,
   TGetAllCyclicalActivitiesResponse,
   TGetAllEventsResponse,
   TGetAllUsersResponse,
@@ -27,14 +28,20 @@ type Props = {
   usersData: TGetAllUsersResponse;
   cyclicalActivitiesData: TGetAllCyclicalActivitiesResponse;
   eventsData: TGetAllEventsResponse;
+  artisticGroupsData: TGetAllArtisticGroupsResponse;
 };
 
 export default function DashboardContent(props: Props) {
   ////vars
   const session = useSession();
   const isAdmin = session?.data?.user?.userRole === 'ADMIN';
-  const { newsletterDataCombo, usersData, cyclicalActivitiesData, eventsData } =
-    props;
+  const {
+    newsletterDataCombo,
+    usersData,
+    cyclicalActivitiesData,
+    eventsData,
+    artisticGroupsData,
+  } = props;
   const { getIsShowModal, setShowModal } = useModalState();
   const { getCurrentDevice } = useNavigationState();
 
@@ -127,6 +134,7 @@ export default function DashboardContent(props: Props) {
                     usersData={usersData}
                     cyclicalActivitiesData={cyclicalActivitiesData}
                     eventsData={eventsData}
+                    artisticGroupsData={artisticGroupsData}
                   />
                 </div>
                 {/* <FooterStamp /> */}
