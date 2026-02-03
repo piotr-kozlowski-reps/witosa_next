@@ -1,3 +1,4 @@
+import CustomButton from '@/app/(site)/components/CustomButton';
 import CheckboxFormik from '@/app/(site)/components/forms/CheckboxFormik';
 import ImagesUploadFormik from '@/app/(site)/components/forms/ImagesUploadFormik';
 import InputFormik from '@/app/(site)/components/forms/InputFormik';
@@ -6,9 +7,15 @@ import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import { useNotificationState } from '@/context/notificationState';
 import { useDashboardArtisticGroupsStore } from '@/context/useDashboardArtisticGroupsStore';
 import { useFormikForArtisticGroups } from '@/hooks/useFormikForArtisticGroups';
-import { TArtisticGroupFormInputs } from '@/types';
+import { prepareArtisticGroupValuesForBackend } from '@/lib/forms/artistic-groups-form';
+import { TActionResponse, TArtisticGroupFormInputs } from '@/types';
 import { FormikProps } from 'formik';
 import React, { Fragment } from 'react';
+import {
+  dbReadingErrorMessage,
+  preparationDataError,
+} from '@/lib/api/apiTextResponses';
+import { addArtisticGroup } from '@/actions/artisticGroupsActions';
 
 type MainType = TArtisticGroupFormInputs;
 
@@ -19,19 +26,83 @@ export default function ArtisticGroupAddForm() {
     // getIsAddArtisticGroupVisible,
     setIsAddArtisticGroupVisible,
     resetArtisticGroupFormikDataForPUT,
-    // setIsAddCyclicalActivityVisible,
-    // resetCyclicalActivityFormikDataForPUT,
     getArtisticGroupFormikDataForPUT,
   } = useDashboardArtisticGroupsStore();
 
   const formik = useFormikForArtisticGroups();
-  console.log({ formik });
+  function resetFormToInitialState() {
+    resetArtisticGroupFormikDataForPUT();
+    formik.resetForm();
+  }
 
   const isCurrentFormToPOSTData = !getArtisticGroupFormikDataForPUT().title;
   const isCurrentFormToPUTData = getArtisticGroupFormikDataForPUT().title;
 
   async function submitFormHandler(formik: FormikProps<MainType>) {
-    alert('submitFormHandler -> not implemented');
+    let response: TActionResponse | null = null;
+
+    let formikValuesPreparedForBackend: MainType;
+    try {
+      formikValuesPreparedForBackend =
+        await prepareArtisticGroupValuesForBackend(formik.values);
+    } catch (error) {
+      setShowNotification('ERROR', (error as Error).message);
+      return;
+    }
+
+    if (!formikValuesPreparedForBackend) {
+      setShowNotification('ERROR', preparationDataError);
+      return;
+    }
+
+    /**
+     * post
+     * */
+    if (isCurrentFormToPOSTData) {
+      try {
+        response = await addArtisticGroup(formikValuesPreparedForBackend);
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
+    }
+
+    /**
+     * put
+     * */
+    if (isCurrentFormToPUTData) {
+      throw new Error(
+        'ArtisticGroupAddForm -> submitFormHandler -> Not implemented yet'
+      );
+      //   const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
+      //   const changedCyclicalActivity = { ...formikValuesPreparedForBackend };
+      //   try {
+      //     response = await updateCyclicalActivity(
+      //       originalCyclicalActivity as TCyclicalActivityFormInputs,
+      //       changedCyclicalActivity
+      //     );
+      //   } catch (error) {
+      //     setShowNotification('ERROR', dbReadingErrorMessage);
+      //   }
+    }
+
+    if (!response || !response.status || !response.response) {
+      setShowNotification('ERROR', dbReadingErrorMessage);
+      return;
+    }
+    if (response.status === 'ERROR') {
+      setShowNotification('ERROR', response.response);
+      return;
+    }
+    setShowNotification('SUCCESS', response.response);
+
+    if (isCurrentFormToPOSTData) {
+      resetFormToInitialState();
+      //   goToFirstStage();
+    }
+    if (isCurrentFormToPUTData) {
+      resetFormToInitialState();
+      setIsAddArtisticGroupVisible(false);
+    }
   }
 
   ////tsx
@@ -142,8 +213,8 @@ export default function ArtisticGroupAddForm() {
            </ComponentTransitionFromRightToLeft>
          ) : null} */}
 
-        {/* <div className="mt-[40px] flex gap-8">
-           <CustomButton
+        <div className="mt-[40px] flex gap-8">
+          {/* <CustomButton
              text="poprzedni etap"
              descriptionText="Poprzedni etap."
              additionalClasses="mt-[4px]"
@@ -159,16 +230,16 @@ export default function ArtisticGroupAddForm() {
              disabled={!checkIfNextIsEnabled()}
              actionFn={() => goToNextGivenStageOrJustNextStageOfForm()}
              outlined={true}
-           />
- 
-           <CustomButton
-             text={isCurrentFormToPUTData ? 'zmień zajęcia' : 'dodaj zajęcia'}
-             descriptionText="Dodaj zajęcia."
-             additionalClasses="mt-[4px]"
-             onSubmit={true}
-             disabled={!formik.dirty || !formik.isValid}
-           />
-         </div> */}
+           /> */}
+
+          <CustomButton
+            text={isCurrentFormToPUTData ? 'zmień' : 'dodaj grupę artystyczną'}
+            descriptionText="Dodaj grupę artystyczną."
+            additionalClasses="mt-[4px]"
+            onSubmit={true}
+            disabled={!formik.dirty || !formik.isValid}
+          />
+        </div>
       </form>
       {/**
        * form end
