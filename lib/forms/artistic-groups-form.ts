@@ -32,7 +32,7 @@ export const artisticGroupValidationSchemaStageOneWithYup = {
   // expiresAt: cyclicalActivityExpiresAtYupSchema,
 };
 
-export function validateValuesForCyclicalActivitiesStageOne(values: Object) {
+export function validateValuesForArtisticGroups(values: Object) {
   return Yup.object({
     ...artisticGroupValidationSchemaStageOneWithYup,
   }).isValidSync(values, { context: values });

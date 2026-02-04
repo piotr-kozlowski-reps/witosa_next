@@ -5,6 +5,8 @@ import React, { Fragment } from 'react';
 import CustomButton from '@/app/(site)/components/CustomButton';
 import ArtisticGroupsDataTable from './ArtisticGroupsDataTable';
 import ArtisticGroupAddForm from './ArtisticGroupAddForm';
+import { columnsArtisticGroups } from './columnsArtisticGroups';
+import { ArtisticGroup } from '@prisma/client';
 
 type Props = {
   artisticGroupsData: TGetAllArtisticGroupsResponse;
@@ -18,6 +20,13 @@ export default function DashboardArtisticGroups(props: Props) {
     setIsAddArtisticGroupVisible,
     resetArtisticGroupFormikDataForPUT,
   } = useDashboardArtisticGroupsStore();
+
+  //sort cyclicalActivities by creation date
+  const sortedArtisticGroups = (
+    artisticGroupsData.response as ArtisticGroup[]
+  ).sort(function (a, b) {
+    return b.createdAt.getTime() - a.createdAt.getTime();
+  });
 
   ////tsx
   return (
@@ -48,8 +57,8 @@ export default function DashboardArtisticGroups(props: Props) {
               </div>
             </div>
             <ArtisticGroupsDataTable
-            // columns={columnsCyclicalActivities}
-            // data={sortedCyclicalActivities}
+              columns={columnsArtisticGroups}
+              data={sortedArtisticGroups}
             />
           </Fragment>
         </ComponentTransitionFromRightToLeft>

@@ -293,3 +293,11 @@ export async function updateImageDataAndAddToProperArraysOfImagesToBeProcessed(
 
   return newlyCreatedImage;
 }
+
+export async function validateArtisticGroupData(values: Object) {
+  const validationResult = validateValuesForCyclicalActivities(values);
+  if (!validationResult) {
+    logger.warn(badReceivedData);
+    throw new Error(badReceivedData);
+  }
+}
