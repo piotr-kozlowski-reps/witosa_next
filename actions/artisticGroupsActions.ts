@@ -4,8 +4,9 @@ import {
   TActionResponse,
   TArtisticGroupFormInputs,
   TGetAllArtisticGroupsResponse,
+  TImageArtisticGroupForDB,
 } from '@/types';
-import { ArtisticGroup, Prisma } from '@prisma/client';
+import { ArtisticGroup, ImageArtisticGroup, Prisma } from '@prisma/client';
 import prisma from '@/prisma/client';
 import logger from '@/lib/logger';
 import { Session } from 'next-auth';
@@ -13,11 +14,10 @@ import {
   checkIfLoggedIn,
   deleteImagesFiles,
   prepareImagesForDB,
-  validateCyclicalActivityData,
 } from './actionHelpers';
 import {
+  artisticGroupNotExistsMessage,
   badReceivedData,
-  cyclicalActivityNotExistsMessage,
   dbDeletingErrorMessage,
   dbReadingErrorMessage,
   dbWritingErrorMessage,
@@ -72,30 +72,26 @@ export async function addArtisticGroup(
   if (!authorId) {
     return { status: 'ERROR', response: badReceivedData };
   }
-  //   const isIncludeImages = !values.isCustomLinkToDetails;
+  const isIncludeImages = values.images.length;
 
-  //   //occurrence
-  //   const occurrencePreparedData: TOccurrenceWithRequiredDates[] =
-  //     prepareOccurrenceDataForSavingInDB(values);
-
-  //   //images
-  //   let imagesPreparedData: TImageCyclicalActivityForDB[];
-  //   try {
-  //     imagesPreparedData = await prepareImagesForDB<
-  //       TCyclicalActivityFormInputs,
-  //       TImageCyclicalActivityForDB
-  //     >(
-  //       values,
-  //       currentlyCreatedImagesToBeDeletedWhenError,
-  //       'IMAGE_REGULAR',
-  //       'cyclical_activity',
-  //       false
-  //     );
-  //   } catch (error) {
-  //     logger.warn((error as Error).stack);
-  //     await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
-  //     return { status: 'ERROR', response: imageCreationErrorMessage };
-  //   }
+  //images
+  let imagesPreparedData: TImageArtisticGroupForDB[];
+  try {
+    imagesPreparedData = await prepareImagesForDB<
+      TArtisticGroupFormInputs,
+      TImageArtisticGroupForDB
+    >(
+      values,
+      currentlyCreatedImagesToBeDeletedWhenError,
+      'IMAGE_REGULAR',
+      'cyclical_activity',
+      false
+    );
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    return { status: 'ERROR', response: imageCreationErrorMessage };
+  }
 
   // CyclicalActivityCreateInput;
   let artisticGroupPreparedForDb: Prisma.ArtisticGroupCreateInput = {
@@ -105,40 +101,13 @@ export async function addArtisticGroup(
     author: {
       connect: { id: authorId },
     },
-    // images?: Prisma.ImageArtisticGroupCreateNestedManyWithoutArtisticGroupInput;
-
-    //     name: values.name,
-    //     activityTypes: values.activityTypes,
-    //     activitiesForWhom: values.activitiesForWhom,
-    //     places: values.places,
-    //     isToBePublished: values.isToBePublished as boolean,
-    //     isExpiresAtRequired: values.isExpiresAtRequired as boolean,
-    //     expiresAt: values.expiresAt as string | Date | null | undefined,
-    //     //stage2
-    //     shortDescription: values.shortDescription,
-    //     isCustomLinkToDetails: values.isCustomLinkToDetails as boolean,
-    //     longDescription: values.longDescription
-    //       ? (values.longDescription as string)
-    //       : null,
-    //     customLinkToDetails: values.customLinkToDetails
-    //       ? values.customLinkToDetails
-    //       : null,
-    //     author: {
-    //       connect: { id: authorId },
-    //     },
-    //     //stage3
-    //     occurrence: {
-    //       createMany: {
-    //         data: occurrencePreparedData,
-    //       },
-    //     },
   };
 
-  //   if (isIncludeImages) {
-  //     cyclicalActivityPreparedForDb.images = {
-  //       createMany: { data: imagesPreparedData },
-  //     };
-  //   }
+  if (isIncludeImages) {
+    artisticGroupPreparedForDb.images = {
+      createMany: { data: imagesPreparedData },
+    };
+  }
 
   try {
     const response = await prisma.artisticGroup.create({
@@ -146,7 +115,7 @@ export async function addArtisticGroup(
     });
   } catch (error) {
     logger.warn((error as Error).stack);
-    // await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+    await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
     return { status: 'ERROR', response: dbWritingErrorMessage };
   }
 
@@ -161,4 +130,106 @@ export async function addArtisticGroup(
     status: 'SUCCESS',
     response: successMessage,
   };
+}
+
+export async function deleteArtisticGroups(
+  ids: string[]
+): Promise<TActionResponse> {
+  /**
+   * checking session
+   * */
+  try {
+    await checkIfLoggedIn();
+  } catch (error) {
+    return { status: 'ERROR', response: notLoggedIn };
+  }
+
+  /**
+   * checking values eXistenZ
+   * */
+  if (!ids || ids.length === 0) {
+    logger.warn(badReceivedData);
+    return { status: 'ERROR', response: badReceivedData };
+  }
+
+  const imagesToBeDeleted: string[] = [];
+  /*
+  validation if ids already exist in db
+   */
+  for (let i = 0; i < ids.length; i++) {
+    let exists: unknown;
+    try {
+      exists = await checkIfArtisticGroupExists(ids[i]);
+      if (exists && typeof exists === 'object' && 'images' in exists) {
+        const images = exists.images as ImageArtisticGroup[];
+        images.forEach((image) => imagesToBeDeleted.push(image.url));
+      }
+    } catch (error) {
+      logger.warn((error as Error).stack);
+      return { status: 'ERROR', response: dbReadingErrorMessage };
+    }
+    if (!exists) {
+      logger.warn(artisticGroupNotExistsMessage);
+      return { status: 'ERROR', response: artisticGroupNotExistsMessage };
+    }
+  }
+
+  /*
+  deleting users from db
+  */
+  for (let i = 0; i < ids.length; i++) {
+    const deleteArtisticGroupImages = prisma.imageArtisticGroup.deleteMany({
+      where: {
+        artisticGroupId: ids[i],
+      },
+    });
+
+    const deleteArtisticGroup = prisma.artisticGroup.deleteMany({
+      where: {
+        id: ids[i],
+      },
+    });
+
+    let transaction: unknown;
+    try {
+      await prisma.$transaction([
+        deleteArtisticGroupImages,
+        deleteArtisticGroup,
+      ]);
+    } catch (error) {
+      logger.warn((error as Error).stack);
+      return { status: 'ERROR', response: dbDeletingErrorMessage };
+    }
+  }
+
+  /*
+  deleting images from server (from deleted cyclical activity)
+  */
+  try {
+    await deleteImagesFiles(imagesToBeDeleted);
+  } catch (error) {
+    logger.error((error as Error).stack);
+  }
+
+  /** revalidate all */
+  revalidatePath('/');
+  revalidatePath('/groups');
+  revalidatePath('/dashboard');
+
+  /** final response */
+  const successMessage = `Grupy artystyczne zostały usunięte.`;
+  logger.info(successMessage);
+  return {
+    status: 'SUCCESS',
+    response: successMessage,
+  };
+}
+
+////utils
+async function checkIfArtisticGroupExists(id: string) {
+  const exists = await prisma.artisticGroup.findUnique({
+    where: { id },
+    include: { images: true },
+  });
+  return exists;
 }

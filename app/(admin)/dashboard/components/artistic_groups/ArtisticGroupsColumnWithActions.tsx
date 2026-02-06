@@ -7,6 +7,7 @@ import {
 } from '@/actions/syncActionHelpers';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
 import EditIcon from '@/app/(site)/components/icons/EditIcon';
+import ModalDeleteArtisticGroupContent from '@/app/(site)/components/modal/ModalDeleteArtisticGroupContent';
 import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/ModalDeleteCyclicalActivitiesContent';
 import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useModalState } from '@/context/modalState';
@@ -26,7 +27,7 @@ export default function ArtisticGroupsColumnWithActions(props: Props) {
   ////vars
   const { artisticGroup } = props;
   const { id, title } = artisticGroup;
-  // const { setShowModal } = useModalState();
+  const { setShowModal } = useModalState();
   // const { setShowNotification } = useNotificationState();
   // const {
   //   setIsAddCyclicalActivityVisible,
@@ -69,19 +70,19 @@ export default function ArtisticGroupsColumnWithActions(props: Props) {
         />
       </div>
 
-      {/* <div>
+      <div>
         <CloseIcon
           actionFn={() => {
             setShowModal(
               true,
-              <ModalDeleteCyclicalActivitiesContent
-                cyclicalActivities={[{ id, name }]}
+              <ModalDeleteArtisticGroupContent
+                artisticGroup={[{ id, title }]}
               />
             );
           }}
           alt="Wykasuj użytkownika."
         />
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -64,3 +64,9 @@ export function generateUserDbWritingSuccessMessageWithData(
 ) {
   return `Użytkownik: ${userName} o e-mailu: ${email} - został zapisany w bazie danych.`;
 }
+
+//artistic groups
+// export const lackOfCyclicalActivitiesData = 'Brakuje danych, by dodać zajęcia.';
+// export const badReceivedData = 'Otrzymane dane są nieprawidłowe.';
+export const artisticGroupNotExistsMessage =
+  'Nie można znaleźć takich grup artystycznych w bazie danych.';

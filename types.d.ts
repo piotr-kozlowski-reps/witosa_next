@@ -445,6 +445,11 @@ export type TArtisticGroupFormInputs = Pick<
   images: TImageArtisticGroupFormValues[];
 };
 
+export type TImageArtisticGroupForDB = Pick<
+  ImageArtisticGroup,
+  'alt' | 'additionInfoThatMustBeDisplayed' | 'url' | 'index'
+> & { id?: string };
+
 //   & {
 //   images: TImageCyclicalActivityFormValues[];
 //   //   occurrence: TOccurrence[];
