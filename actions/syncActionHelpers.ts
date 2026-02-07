@@ -1,4 +1,5 @@
 import {
+  TArtisticGroupWithImages,
   TCyclicalActivityFormInputs,
   TCyclicalActivityWithImageAndOccurrence,
   TEventFormInputs,
@@ -11,7 +12,12 @@ import {
   TStringToDistinguishCreatedImageName,
   TTypeOfImageToBeGenerated,
 } from '@/types';
-import { ImageCyclicalActivity, ImageEvent, Prisma } from '@prisma/client';
+import {
+  ImageArtisticGroup,
+  ImageCyclicalActivity,
+  ImageEvent,
+  Prisma,
+} from '@prisma/client';
 import { generateImageUrlAfterCreatingImageIfNeeded_Or_PassPathString } from './actionHelpers';
 
 export function sortImagesObjectsByIndexInCyclicalActivity(
@@ -42,9 +48,24 @@ export function sortImagesObjectsByIndexInEvent(
   return resultEventObject;
 }
 
+export async function sortImagesObjectsByIndexInArtisticGroups(
+  artisticGroup: TArtisticGroupWithImages
+): Promise<TArtisticGroupWithImages> {
+  const imageObjects = [...artisticGroup.images];
+  imageObjects.sort((imageObject1, imageObject2) => {
+    return imageObject1.index < imageObject2.index ? -1 : 1;
+  });
+  const resultEventObject = { ...artisticGroup };
+  resultEventObject.images = imageObjects;
+  return resultEventObject;
+}
+
 export function rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
-  T extends TCyclicalActivityWithImageAndOccurrence | TEventWithImages,
-  K extends ImageCyclicalActivity | ImageEvent,
+  T extends
+    | TCyclicalActivityWithImageAndOccurrence
+    | TEventWithImages
+    | TArtisticGroupWithImages,
+  K extends ImageCyclicalActivity | ImageEvent | ImageArtisticGroup,
 >(objectToBeCorrected: T) {
   const images = objectToBeCorrected.images as K[];
 

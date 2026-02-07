@@ -1,6 +1,5 @@
 'use client';
 
-// import { deleteCyclicalActivities } from '@/actions/cyclicalActivityActions';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
 import { useState } from 'react';
@@ -8,9 +7,6 @@ import ModalTitle from './ModalTitle';
 import CustomButton from '../CustomButton';
 import { deleteArtisticGroups } from '@/actions/artisticGroupsActions';
 import ModalElementsToBeDeleted from './ModalElementsToBeDeleted';
-// import CustomButton from '../CustomButton';
-// import ModalElementsToBeDeleted from './ModalElementsToBeDeleted';
-// import ModalTitle from './ModalTitle';
 
 type Props = {
   artisticGroup: { id: string; title: string }[];

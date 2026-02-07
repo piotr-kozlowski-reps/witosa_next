@@ -68,5 +68,7 @@ export function generateUserDbWritingSuccessMessageWithData(
 //artistic groups
 // export const lackOfCyclicalActivitiesData = 'Brakuje danych, by dodać zajęcia.';
 // export const badReceivedData = 'Otrzymane dane są nieprawidłowe.';
-export const artisticGroupNotExistsMessage =
+export const artisticGroupsNotExistMessage =
   'Nie można znaleźć takich grup artystycznych w bazie danych.';
+export const artisticGroupNotExistsMessage =
+  'Nie można znaleźć takiej grupy artystycznej w bazie danych.';

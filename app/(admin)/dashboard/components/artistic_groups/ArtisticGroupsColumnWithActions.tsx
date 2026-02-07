@@ -1,8 +1,10 @@
 'use client';
 
+import { getArtisticGroup } from '@/actions/artisticGroupsActions';
 import { getCyclicalActivity } from '@/actions/cyclicalActivityActions';
 import {
   rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated,
+  sortImagesObjectsByIndexInArtisticGroups,
   sortImagesObjectsByIndexInCyclicalActivity,
 } from '@/actions/syncActionHelpers';
 import CloseIcon from '@/app/(site)/components/icons/CloseIcon';
@@ -12,10 +14,15 @@ import ModalDeleteCyclicalActivitiesContent from '@/app/(site)/components/modal/
 import { useCyclicalActivitiesState } from '@/context/cyclicalActivityState';
 import { useModalState } from '@/context/modalState';
 import { useNotificationState } from '@/context/notificationState';
-import { TCyclicalActivityWithImageAndOccurrence } from '@/types';
+import { useDashboardArtisticGroupsStore } from '@/context/useDashboardArtisticGroupsStore';
+import {
+  TArtisticGroupWithImages,
+  TCyclicalActivityWithImageAndOccurrence,
+} from '@/types';
 import {
   ArtisticGroup,
   CyclicalActivity,
+  ImageArtisticGroup,
   ImageCyclicalActivity,
 } from '@prisma/client';
 
@@ -28,34 +35,34 @@ export default function ArtisticGroupsColumnWithActions(props: Props) {
   const { artisticGroup } = props;
   const { id, title } = artisticGroup;
   const { setShowModal } = useModalState();
-  // const { setShowNotification } = useNotificationState();
-  // const {
-  //   setIsAddCyclicalActivityVisible,
-  //   setCyclicalActivityFormikDataForPUT,
-  // } = useCyclicalActivitiesState();
+  const { setShowNotification } = useNotificationState();
+  const { setIsAddArtisticGroupVisible, setArtisticGroupFormikDataForPUT } =
+    useDashboardArtisticGroupsStore();
 
   async function editArtisticGroupHandler(id: string) {
-    //   const existingCyclicalActivity = await getCyclicalActivity(id);
-    //   if (
-    //     existingCyclicalActivity.status === 'SUCCESS' &&
-    //     typeof existingCyclicalActivity.response === 'object'
-    //   ) {
-    //     const cyclicalActivityWithRewrittenUrlIntoFileProperty =
-    //       rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
-    //         TCyclicalActivityWithImageAndOccurrence,
-    //         ImageCyclicalActivity
-    //       >(existingCyclicalActivity.response);
-    //     const cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TCyclicalActivityWithImageAndOccurrence =
-    //       await sortImagesObjectsByIndexInCyclicalActivity(
-    //         cyclicalActivityWithRewrittenUrlIntoFileProperty
-    //       );
-    //     setCyclicalActivityFormikDataForPUT(
-    //       cyclicalActivityWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex
-    //     );
-    //     setIsAddCyclicalActivityVisible(true);
-    //     return;
-    //   }
-    //   setShowNotification('ERROR', 'Nie znaleziono zajęć.');
+    const existingArtisticGroup = await getArtisticGroup(id);
+    if (
+      existingArtisticGroup.status === 'SUCCESS' &&
+      typeof existingArtisticGroup.response === 'object'
+    ) {
+      const artisticGroupWithRewrittenUrlIntoFileProperty =
+        rewriteUrlsIntoFileAsStringObjectToBeProperlyValidated<
+          TArtisticGroupWithImages,
+          ImageArtisticGroup
+        >(existingArtisticGroup.response);
+
+      const artisticGroupWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex: TArtisticGroupWithImages =
+        await sortImagesObjectsByIndexInArtisticGroups(
+          artisticGroupWithRewrittenUrlIntoFileProperty
+        );
+
+      setArtisticGroupFormikDataForPUT(
+        artisticGroupWithRewrittenUrlIntoFilePropertyAndSortedImagesByIndex
+      );
+      setIsAddArtisticGroupVisible(true);
+      return;
+    }
+    setShowNotification('ERROR', 'Nie znaleziono grupy artystycznej.');
   }
 
   ////tsx

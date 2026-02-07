@@ -70,8 +70,6 @@ export default function RichTextEditorFormik<T>(props: Props<T>) {
     },
   };
 
-  console.log({ value });
-
   ////tsx
   return (
     <Fragment>

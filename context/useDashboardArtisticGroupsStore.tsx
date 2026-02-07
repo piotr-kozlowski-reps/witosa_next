@@ -17,27 +17,6 @@ const artisticGroupFreshObject: TArtisticGroupFormInputs = {
       additionInfoThatMustBeDisplayed: '',
     },
   ],
-
-  // activityTypes: [],
-  // activitiesForWhom: [],
-  // places: [],
-  // isExpiresAtRequired: false,
-  // expiresAt: null,
-
-  // //stage2
-  // shortDescription: '',
-  // isCustomLinkToDetails: false,
-  // customLinkToDetails: '',
-
-  // //stage3
-  // occurrence: [
-  //   {
-  //     id: new Date().getTime().toString(),
-  //     day: 'MONDAY',
-  //     activityStart: null,
-  //     activityEnd: null,
-  //   },
-  // ],
 };
 
 interface TArtisticGroupStore {
@@ -50,6 +29,7 @@ interface TArtisticGroupStore {
   resetArtisticGroupFormikDataForPUT: () => void;
 
   getArtisticGroupFormikDataForPUT: () => TArtisticGroupFormInputs;
+  setArtisticGroupFormikDataForPUT: (data: TArtisticGroupFormInputs) => void;
 }
 
 export const useDashboardArtisticGroupsStore = create<TArtisticGroupStore>()(
@@ -70,6 +50,9 @@ export const useDashboardArtisticGroupsStore = create<TArtisticGroupStore>()(
 
     getArtisticGroupFormikDataForPUT: () => {
       return get().artisticGroupFormikDataForPUT;
+    },
+    setArtisticGroupFormikDataForPUT: (data: TArtisticGroupFormInputs) => {
+      set({ artisticGroupFormikDataForPUT: data });
     },
   })
 );

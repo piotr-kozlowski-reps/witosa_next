@@ -432,6 +432,7 @@ export type TImagesToBeUpdatedDeletedCreated = {
   imagesObjectsIDisToBeDeletedPreparedForDB: string[];
 };
 
+//artistic groups
 export type TImageArtisticGroupFormValues = Omit<
   ImageArtisticGroup,
   'artisticGroupId'
@@ -450,10 +451,13 @@ export type TImageArtisticGroupForDB = Pick<
   'alt' | 'additionInfoThatMustBeDisplayed' | 'url' | 'index'
 > & { id?: string };
 
-//   & {
-//   images: TImageCyclicalActivityFormValues[];
-//   //   occurrence: TOccurrence[];
-// };
+export type TArtisticGroupWithImages = ArtisticGroup & {
+  images: ImageArtisticGroup[];
+};
+export type TGetOneArtisticGroupResponse = {
+  status: TStatus;
+  response: string | TArtisticGroupWithImages;
+};
 
 //artistic groups
 // export type Image = {

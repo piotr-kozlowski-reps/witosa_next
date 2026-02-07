@@ -3,7 +3,9 @@
 import {
   TActionResponse,
   TArtisticGroupFormInputs,
+  TArtisticGroupWithImages,
   TGetAllArtisticGroupsResponse,
+  TGetOneArtisticGroupResponse,
   TImageArtisticGroupForDB,
 } from '@/types';
 import { ArtisticGroup, ImageArtisticGroup, Prisma } from '@prisma/client';
@@ -17,6 +19,7 @@ import {
 } from './actionHelpers';
 import {
   artisticGroupNotExistsMessage,
+  artisticGroupsNotExistMessage,
   badReceivedData,
   dbDeletingErrorMessage,
   dbReadingErrorMessage,
@@ -169,8 +172,8 @@ export async function deleteArtisticGroups(
       return { status: 'ERROR', response: dbReadingErrorMessage };
     }
     if (!exists) {
-      logger.warn(artisticGroupNotExistsMessage);
-      return { status: 'ERROR', response: artisticGroupNotExistsMessage };
+      logger.warn(artisticGroupsNotExistMessage);
+      return { status: 'ERROR', response: artisticGroupsNotExistMessage };
     }
   }
 
@@ -223,6 +226,258 @@ export async function deleteArtisticGroups(
     status: 'SUCCESS',
     response: successMessage,
   };
+}
+
+export async function getArtisticGroup(
+  id: string
+): Promise<TGetOneArtisticGroupResponse> {
+  let artisticGroup: TArtisticGroupWithImages | null;
+  try {
+    artisticGroup = await prisma.artisticGroup.findFirst({
+      where: { id },
+      include: {
+        images: true,
+      },
+    });
+  } catch (error) {
+    logger.warn((error as Error).stack);
+    return { status: 'ERROR', response: dbReadingErrorMessage };
+  }
+  if (!artisticGroup) {
+    return { status: 'ERROR', response: artisticGroupNotExistsMessage };
+  }
+  return { status: 'SUCCESS', response: artisticGroup };
+}
+
+export async function updateArtisticGroup(
+  originalArtisticGroup: TArtisticGroupFormInputs,
+  changedArtisticGroup: TArtisticGroupFormInputs
+): Promise<TActionResponse> {
+  // /**
+  //  * checking session
+  //  * */
+  // try {
+  //   await checkIfLoggedIn();
+  // } catch (error) {
+  //   return { status: 'ERROR', response: notLoggedIn };
+  // }
+  // /*
+  // data validation
+  // */
+  // const validationResult = validateValuesForCyclicalActivities(
+  //   changedArtisticGroup as Object
+  // );
+  // if (!validationResult) {
+  //   logger.warn(badReceivedData);
+  //   return { status: 'ERROR', response: badReceivedData };
+  // }
+  // /**
+  //  * CyclicalActivity diff object
+  //  * */
+  // const differencesCyclicalActivity = getDifferencesBetweenTwoObjects(
+  //   originalArtisticGroup,
+  //   changedArtisticGroup
+  // );
+  // delete differencesCyclicalActivity.images;
+  // delete differencesCyclicalActivity.occurrence;
+  // const cyclicalActivityPreparedForUpdateInDB: Prisma.CyclicalActivityUncheckedUpdateInput =
+  //   getProperDataForCyclicalActivityUpdate(
+  //     changedArtisticGroup,
+  //     differencesCyclicalActivity
+  //   );
+  // const updateCyclicalActivity_ForPrismaTransaction =
+  //   prisma.cyclicalActivity.update({
+  //     where: { id: changedArtisticGroup.id },
+  //     data: cyclicalActivityPreparedForUpdateInDB,
+  //   });
+  // /**
+  //  * Occurrence
+  //  * */
+  // const differencesOccurrence = getDifferencesBetweenTwoObjects(
+  //   originalArtisticGroup.occurrence,
+  //   changedArtisticGroup.occurrence
+  // );
+  // const isOccurrencesArraysEqualInLength =
+  //   originalArtisticGroup.occurrence.length ===
+  //   changedArtisticGroup.occurrence.length;
+  // const isOccurrencesToBeUpdated =
+  //   differencesOccurrence.length || !isOccurrencesArraysEqualInLength;
+  // let occurrencePreparedDataForDb: TOccurrenceWithRequiredDatesAndCyclicalActivityID[] =
+  //   [];
+  // let occurrencesToBeDeletedIDs: string[] = [];
+  // if (isOccurrencesToBeUpdated) {
+  //   occurrencePreparedDataForDb = prepareOccurrenceDataForSavingInDB(
+  //     changedArtisticGroup,
+  //     changedArtisticGroup.id
+  //   ) as TOccurrenceWithRequiredDatesAndCyclicalActivityID[];
+  //   occurrencesToBeDeletedIDs = originalArtisticGroup.occurrence.map(
+  //     (occurrence) => occurrence.id!
+  //   );
+  // }
+  // const occurrencePreparedDataForDb_ForPrismaTransaction =
+  //   prisma.cyclicalActivityOccurrence.createMany({
+  //     data: occurrencePreparedDataForDb,
+  //   });
+  // const deleteOccurrencesForPrismaTransaction =
+  //   prisma.cyclicalActivityOccurrence.deleteMany({
+  //     where: {
+  //       id: {
+  //         in: occurrencesToBeDeletedIDs,
+  //       },
+  //     },
+  //   });
+  // /**
+  //  * Images
+  //  * */
+  // const originalImages: TImageCyclicalActivityForDB[] =
+  //   getRidOfFileDataAndPrepareObjectToComparisonToChangedData(
+  //     originalArtisticGroup.images
+  //   );
+  // const changedImages: TImageCyclicalActivityForDB[] =
+  //   changedArtisticGroup.images;
+  // //images
+  // const currentlyCreatedImagesToBeDeletedWhenError: string[] = [];
+  // let imagesPreparedData: TImageCyclicalActivityForDB[] = [];
+  // try {
+  //   imagesPreparedData = await prepareImagesForDB<
+  //     TCyclicalActivityFormInputs,
+  //     TImageCyclicalActivityForDB
+  //   >(
+  //     changedArtisticGroup,
+  //     currentlyCreatedImagesToBeDeletedWhenError,
+  //     'IMAGE_REGULAR',
+  //     'cyclical_activity',
+  //     true
+  //   );
+  // } catch (error) {
+  //   logger.warn((error as Error).stack);
+  //   await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+  //   return { status: 'ERROR', response: imageCreationErrorMessage };
+  // }
+  // const differencesImages = getDifferencesBetweenTwoObjects(
+  //   originalImages,
+  //   imagesPreparedData
+  // );
+  // let imagesToBeUpdatedPreparedForDB: Prisma.ImageCyclicalActivityUpdateManyMutationInput[] =
+  //   [];
+  // let imagesToBeCreatedPreparedForDB: Prisma.ImageCyclicalActivityCreateManyInput[] =
+  //   [];
+  // let imagesObjectsIDisToBeDeletedPreparedForDB: string[] = [];
+  // let imagesURLsBeDeleted: string[] = [];
+  // const isImagesToBeUpdated = getIfImagesShouldBeProcessedFurther(
+  //   originalImages,
+  //   changedImages,
+  //   differencesImages
+  // );
+  // if (isImagesToBeUpdated) {
+  //   const { imagesToBeCreated, imagesToBeUpdated, imagesToBeDeleted } =
+  //     processImagesToDivideThemInArraysWithDifferentPurpose(
+  //       originalImages,
+  //       imagesPreparedData
+  //     );
+  //   if (imagesToBeDeleted.length) {
+  //     imagesToBeDeleted.forEach((imageObject) => {
+  //       imagesObjectsIDisToBeDeletedPreparedForDB.push(imageObject.id!);
+  //       imagesURLsBeDeleted.push(imageObject.url);
+  //     });
+  //   }
+  //   if (imagesToBeCreated.length) {
+  //     imagesToBeCreated.forEach((imageObject) => {
+  //       const newImageObjectWithoutId = {
+  //         ...imageObject,
+  //         cyclicalActivityId: originalArtisticGroup.id,
+  //       };
+  //       delete newImageObjectWithoutId.id;
+  //       imagesToBeCreatedPreparedForDB.push(newImageObjectWithoutId);
+  //     });
+  //   }
+  //   if (imagesToBeUpdated.length) {
+  //     for (let i = 0; i < imagesToBeUpdated.length; i++) {
+  //       const imageObjectID = imagesToBeUpdated[i].id;
+  //       const originalImageObject = originalImages.find(
+  //         (imageObject) => imageObject.id === imageObjectID
+  //       );
+  //       const changedImageObject = imagesToBeUpdated[i];
+  //       const differenceBetweenObjects = getDifferencesBetweenTwoObjects(
+  //         originalImageObject,
+  //         changedImageObject
+  //       );
+  //       const imageObjectId = originalImageObject!.id;
+  //       const imageObjectToBeUpdatedData = {
+  //         id: imageObjectId,
+  //         ...differenceBetweenObjects,
+  //       };
+  //       imagesToBeUpdatedPreparedForDB.push(imageObjectToBeUpdatedData);
+  //       if (differenceBetweenObjects.url) {
+  //         imagesURLsBeDeleted.push(originalImageObject!.url);
+  //       }
+  //     }
+  //   }
+  // }
+  // ///
+  // const deleteCyclicalActivitiesImagesPrismaTransaction =
+  //   prisma.imageCyclicalActivity.deleteMany({
+  //     where: {
+  //       id: {
+  //         in: imagesObjectsIDisToBeDeletedPreparedForDB,
+  //       },
+  //     },
+  //   });
+  // const createCyclicalActivitiesImagesPrismaTransaction =
+  //   prisma.imageCyclicalActivity.createMany({
+  //     data: imagesToBeCreatedPreparedForDB,
+  //   });
+  // const updateCyclicalActivitiesImagesPrismaTransaction =
+  //   imagesToBeUpdatedPreparedForDB.map((imageObject) =>
+  //     prisma.imageCyclicalActivity.update({
+  //       where: {
+  //         id: imageObject.id as string,
+  //       },
+  //       data: imageObject,
+  //     })
+  //   );
+  // /**
+  //  *
+  //  * updating cyclical activity elements in db
+  //  *
+  //  */
+  // let transaction: unknown;
+  // const transactionsArray: any[] = [
+  //   updateCyclicalActivity_ForPrismaTransaction,
+  // ];
+  // if (isOccurrencesToBeUpdated) {
+  //   transactionsArray.push(occurrencePreparedDataForDb_ForPrismaTransaction);
+  //   transactionsArray.push(deleteOccurrencesForPrismaTransaction);
+  // }
+  // if (isImagesToBeUpdated) {
+  //   transactionsArray.push(deleteCyclicalActivitiesImagesPrismaTransaction);
+  //   transactionsArray.push(createCyclicalActivitiesImagesPrismaTransaction);
+  //   transactionsArray.push(...updateCyclicalActivitiesImagesPrismaTransaction);
+  // }
+  // try {
+  //   transaction = await prisma.$transaction(transactionsArray);
+  // } catch (error) {
+  //   logger.warn((error as Error).stack);
+  //   await deleteImagesFiles(currentlyCreatedImagesToBeDeletedWhenError);
+  //   return { status: 'ERROR', response: dbWritingErrorMessage };
+  // }
+  // /*
+  // deleting unused images from server
+  // */
+  // try {
+  //   await deleteImagesFiles(imagesURLsBeDeleted);
+  // } catch (error) {
+  //   logger.error((error as Error).stack);
+  // }
+  // /** revalidate all */
+  // revalidatePath('/');
+  // /* final success response */
+  // const successMessage = `Zajęcia: (${originalArtisticGroup.name}) zostały zmienione.`;
+  // logger.info(successMessage);
+  // return {
+  //   status: 'SUCCESS',
+  //   response: successMessage,
+  // };
 }
 
 ////utils

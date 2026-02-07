@@ -15,7 +15,10 @@ import {
   dbReadingErrorMessage,
   preparationDataError,
 } from '@/lib/api/apiTextResponses';
-import { addArtisticGroup } from '@/actions/artisticGroupsActions';
+import {
+  addArtisticGroup,
+  updateArtisticGroup,
+} from '@/actions/artisticGroupsActions';
 
 type MainType = TArtisticGroupFormInputs;
 
@@ -70,19 +73,16 @@ export default function ArtisticGroupAddForm() {
      * put
      * */
     if (isCurrentFormToPUTData) {
-      throw new Error(
-        'ArtisticGroupAddForm -> submitFormHandler -> Not implemented yet'
-      );
-      //   const originalCyclicalActivity = getCyclicalActivityFormikDataForPUT();
-      //   const changedCyclicalActivity = { ...formikValuesPreparedForBackend };
-      //   try {
-      //     response = await updateCyclicalActivity(
-      //       originalCyclicalActivity as TCyclicalActivityFormInputs,
-      //       changedCyclicalActivity
-      //     );
-      //   } catch (error) {
-      //     setShowNotification('ERROR', dbReadingErrorMessage);
-      //   }
+      const originalArtisticGroup = getArtisticGroupFormikDataForPUT();
+      const changedArtisticGroup = { ...formikValuesPreparedForBackend };
+      try {
+        response = await updateArtisticGroup(
+          originalArtisticGroup as TArtisticGroupFormInputs,
+          changedArtisticGroup
+        );
+      } catch (error) {
+        setShowNotification('ERROR', dbReadingErrorMessage);
+      }
     }
 
     if (!response || !response.status || !response.response) {
