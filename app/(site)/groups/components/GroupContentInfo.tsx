@@ -40,7 +40,17 @@ export default function GroupContentInfo(props: Props) {
             <div className="flex-1 prose">
               <div className="w-full pr-2 prose">
                 <h1 className="mt-[57px]">{artisticGroup.title}</h1>
-                <div className="mt-8">{artisticGroup.detailedDescription}</div>
+
+                {artisticGroup.detailedDescription ? (
+                  <div
+                    className="mt-8"
+                    dangerouslySetInnerHTML={{
+                      __html: artisticGroup.detailedDescription as string,
+                    }}
+                  >
+                    {/* {artisticGroup.detailedDescription} */}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

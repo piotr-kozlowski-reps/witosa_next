@@ -441,7 +441,7 @@ export async function updateCyclicalActivity(
 
   if (isImagesToBeUpdated) {
     const { imagesToBeCreated, imagesToBeUpdated, imagesToBeDeleted } =
-      processImagesToDivideThemInArraysWithDifferentPurpose(
+      processImagesToDivideThemInArraysWithDifferentPurpose<TImageCyclicalActivityForDB>(
         originalImages,
         imagesPreparedData
       );

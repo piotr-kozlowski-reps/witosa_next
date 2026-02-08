@@ -15,13 +15,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 // import  from 'next/config';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import FacebookIcon from '../icons/FacebookIcon';
 import InstagramIcon from '../icons/InstagramIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
 import { useArtisticGroupsStore } from '@/context/artisticGroupsStore';
+import { useSearchParams } from 'next/navigation';
 // const { publicRuntimeConfig } = getConfig();
 // const { processEnv } = publicRuntimeConfig;
 
@@ -53,6 +54,16 @@ export default function NavigationMainDesktop(props: Props) {
     getSocialLinkData,
   } = props;
   const artisticGroups = useArtisticGroupsStore((s) => s.artisticGroups);
+  const fetchArtisticGroups = useArtisticGroupsStore(
+    (s) => s.fetchArtisticGroups
+  );
+
+  const searchParams = useSearchParams();
+  const paramTitle = searchParams.get('title');
+
+  useEffect(() => {
+    fetchArtisticGroups();
+  }, []);
 
   ////tsx
   return (
@@ -135,16 +146,27 @@ export default function NavigationMainDesktop(props: Props) {
                         'absolute left-0 px-4 submenu-container top-[24px] flex-col gap-2 flex'
                       )}
                     >
-                      {artisticGroups.map((group) => (
-                        <li key={group.id}>
-                          <NavigationLink
-                            url={`/groups?title=${group.title}`}
-                            hideAllSubmenus={hideAllSubmenus}
-                            isCurrentlyUsed={false}
-                            nameToBeDisplayed={group.title}
-                          />
-                        </li>
-                      ))}
+                      {artisticGroups.map((group) => {
+                        // console.log('artisticGroups.map');
+                        // console.log({ group });
+                        // console.log({ paramTitle });
+                        // console.log(
+                        //   "group.title.toLocaleLowerCase() === 'paramTitle'.toLocaleLowerCase()",
+                        //   group.title.toLocaleLowerCase() ===
+                        //     'paramTitle'.toLocaleLowerCase()
+                        // );
+
+                        return (
+                          <li key={group.id}>
+                            <NavigationLink
+                              url={`/groups?title=${group.title}`}
+                              hideAllSubmenus={hideAllSubmenus}
+                              isCurrentlyUsed={false}
+                              nameToBeDisplayed={group.title}
+                            />
+                          </li>
+                        );
+                      })}
                       {/* <li>
                         <NavigationLink
                           url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}

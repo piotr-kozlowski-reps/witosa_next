@@ -440,7 +440,7 @@ export async function updateEvent(
 
   if (isImagesToBeUpdated) {
     const { imagesToBeCreated, imagesToBeUpdated, imagesToBeDeleted } =
-      processImagesToDivideThemInArraysWithDifferentPurpose(
+      processImagesToDivideThemInArraysWithDifferentPurpose<TImageEventForDB>(
         originalImages,
         imagesPreparedData
       );

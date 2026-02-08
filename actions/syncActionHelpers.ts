@@ -1,4 +1,5 @@
 import {
+  TArtisticGroupFormInputs,
   TArtisticGroupWithImages,
   TCyclicalActivityFormInputs,
   TCyclicalActivityWithImageAndOccurrence,
@@ -109,6 +110,18 @@ export function getProperDataForEventUpdate(
   return resultObject as Prisma.EventUncheckedUpdateInput;
 }
 
+export function getProperDataForArtisticGroupUpdate(
+  changedArtisticGroup: TArtisticGroupFormInputs,
+  differencesInArtisticGroup: Partial<TArtisticGroupFormInputs>
+): Prisma.ArtisticGroupUncheckedUpdateInput {
+  const resultObject: Partial<TArtisticGroupFormInputs> = {};
+
+  for (let [key, value] of Object.entries(differencesInArtisticGroup)) {
+    (resultObject as any)[key] = (changedArtisticGroup as any)[key];
+  }
+  return resultObject as Prisma.ArtisticGroupUncheckedUpdateInput;
+}
+
 export async function createNewImageIfNeededAndAddToProperArraysToBeFurtherProcessed(
   changedImage: string | TFileWithPreview | null,
   originalImage: string | TFileWithPreview | null,
@@ -128,13 +141,45 @@ export async function createNewImageIfNeededAndAddToProperArraysToBeFurtherProce
   return imageUrl;
 }
 
-export function processImagesToDivideThemInArraysWithDifferentPurpose(
-  originalImages: TImageCyclicalActivityForDB[],
-  changedImages: TImageCyclicalActivityForDB[]
-) {
-  let imagesToBeUpdated: TImageCyclicalActivityForDB[] = [];
-  let imagesToBeCreated: TImageCyclicalActivityForDB[] = [];
-  let imagesToBeDeleted: TImageCyclicalActivityForDB[] = [];
+// export function processImagesToDivideThemInArraysWithDifferentPurpose(
+//   originalImages: TImageCyclicalActivityForDB[],
+//   changedImages: TImageCyclicalActivityForDB[]
+// ) {
+//   let imagesToBeUpdated: TImageCyclicalActivityForDB[] = [];
+//   let imagesToBeCreated: TImageCyclicalActivityForDB[] = [];
+//   let imagesToBeDeleted: TImageCyclicalActivityForDB[] = [];
+
+//   const originalImagesToBeProcessed = [...originalImages];
+//   const changedImagesToBeProcessed = [...changedImages];
+
+//   //initial selection to deleted array / updated array
+//   for (let i = 0; i < originalImagesToBeProcessed.length; i++) {
+//     const existingItemId = originalImagesToBeProcessed[i].id;
+//     const changedImageIndex = changedImagesToBeProcessed.findIndex(
+//       (element) => element.id === existingItemId
+//     );
+
+//     //changed image not found -> delete
+//     if (changedImageIndex === -1) {
+//       imagesToBeDeleted.push(originalImagesToBeProcessed[i]);
+//       continue;
+//     }
+
+//     imagesToBeUpdated.push(changedImagesToBeProcessed[changedImageIndex]);
+//     changedImagesToBeProcessed.splice(changedImageIndex, 1);
+//   }
+
+//   imagesToBeCreated = [...changedImagesToBeProcessed];
+
+//   return { imagesToBeUpdated, imagesToBeCreated, imagesToBeDeleted };
+// }
+
+export function processImagesToDivideThemInArraysWithDifferentPurpose<
+  T extends { id?: string | undefined },
+>(originalImages: T[], changedImages: T[]) {
+  let imagesToBeUpdated: T[] = [];
+  let imagesToBeCreated: T[] = [];
+  let imagesToBeDeleted: T[] = [];
 
   const originalImagesToBeProcessed = [...originalImages];
   const changedImagesToBeProcessed = [...changedImages];

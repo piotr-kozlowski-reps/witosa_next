@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import IconButton from '../IconButton';
 import CloseIcon from '../icons/CloseIcon';
 import FacebookIcon from '../icons/FacebookIcon';
@@ -19,6 +19,7 @@ import PrevIcon from '../icons/PrevIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 import NavigationButton from './NavigationButton';
 import NavigationLink from './NavigationLink';
+import { useArtisticGroupsStore } from '@/context/artisticGroupsStore';
 
 type Props = {
   getCurrentDevice: () => TCurrentDevice;
@@ -58,6 +59,14 @@ export default function NavigationMobileAndTablet(props: Props) {
   const idGroupsSubmenuMenu = 'mobile_groups_submenu';
   const idAboutSubmenuMenu = 'mobile_about_submenu';
   const idAccessibilitySubmenuMenu = 'accessibility_navigation';
+
+  const artisticGroups = useArtisticGroupsStore((s) => s.artisticGroups);
+  const fetchArtisticGroups = useArtisticGroupsStore(
+    (s) => s.fetchArtisticGroups
+  );
+  useEffect(() => {
+    fetchArtisticGroups();
+  }, []);
 
   ////tsx
   return (
@@ -283,7 +292,20 @@ export default function NavigationMobileAndTablet(props: Props) {
                       getCurrentDevice() === 'TABLET' ? 'mx-tablet-margin' : ''
                     )}
                   >
-                    <li>
+                    {artisticGroups.map((group) => {
+                      return (
+                        <li key={group.id}>
+                          <NavigationLink
+                            url={`/groups?title=${group.title}`}
+                            hideAllSubmenus={hideAllSubmenus}
+                            isCurrentlyUsed={false}
+                            nameToBeDisplayed={group.title}
+                            isMobileLink={true}
+                          />
+                        </li>
+                      );
+                    })}
+                    {/* <li>
                       <NavigationLink
                         url={getLinkData('GROUPS_MARZENIE_MINI_MINI')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
@@ -297,9 +319,9 @@ export default function NavigationMobileAndTablet(props: Props) {
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
                         url={getLinkData('GROUPS_MARZENIE_BIS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
@@ -311,9 +333,9 @@ export default function NavigationMobileAndTablet(props: Props) {
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
                         url={getLinkData('GROUPS_MARZENIE')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
@@ -325,9 +347,9 @@ export default function NavigationMobileAndTablet(props: Props) {
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
                         url={getLinkData('GROUPS_HIPNOTERIA_BIS')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
@@ -340,9 +362,9 @@ export default function NavigationMobileAndTablet(props: Props) {
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
 
-                    <li>
+                    {/* <li>
                       <NavigationLink
                         url={getLinkData('GROUPS_HIPNOTERIA')?.path!}
                         hideAllSubmenus={hideAllSubmenus}
@@ -354,7 +376,7 @@ export default function NavigationMobileAndTablet(props: Props) {
                         }
                         isMobileLink={true}
                       />
-                    </li>
+                    </li> */}
                     <li className="absolute top-[30px]">
                       <PrevIcon
                         alt="Zamknij mobilne menu."

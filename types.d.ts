@@ -266,7 +266,7 @@ export type TGetAllEventsResponse = {
 
 export type TGetAllArtisticGroupsResponse = {
   status: TStatus;
-  response: string | ArtisticGroup[];
+  response: string | TArtisticGroupWithImages[];
 };
 
 export type TGetAllArtisticGroupsResponse = {
@@ -339,7 +339,8 @@ export type TTypeOfImageToBeGenerated = 'IMAGE_REGULAR' | 'IMAGE_NEWS';
 export type TStringToDistinguishCreatedImageName =
   | 'cyclical_activity'
   | 'event'
-  | 'news';
+  | 'news'
+  | 'artistic_group';
 
 export type TCyclicalActivityWithImageAndOccurrence = CyclicalActivity & {
   images: ImageCyclicalActivity[];
